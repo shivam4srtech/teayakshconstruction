@@ -1,198 +1,144 @@
-// components/ProjectsSection.jsx
 'use client';
-import { useState } from 'react';
-import Image from 'next/image';
+import { useRef } from 'react';
 import Link from 'next/link';
-import { ExternalLink, ChevronLeft, ChevronRight, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { HiOutlineArrowLongLeft, HiOutlineArrowLongRight } from 'react-icons/hi2';
+import { FaArrowRight } from 'react-icons/fa6';
 
 const projects = [
   {
     id: 1,
-    title: 'Azure Heights',
-    category: 'Luxury Villa',
-    location: 'Beverly Hills, CA',
-    image: 'https://images.pexels.com/photos/2587054/pexels-photo-2587054.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    description: 'A masterpiece of modern architecture featuring infinity pool, smart home integration, and panoramic ocean views.',
+    title: "The Azure Residence",
+    category: "Luxury Villa",
+    location: "Malibu, CA",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop",
   },
   {
     id: 2,
-    title: 'The Prism Tower',
-    category: 'Commercial',
-    location: 'Downtown, NYC',
-    image: 'https://images.pexels.com/photos/1732414/pexels-photo-1732414.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    description: '45-story sustainable commercial tower with sky gardens and LEED Platinum certification.',
+    title: "Vortex Corporate Hub",
+    category: "Commercial",
+    location: "Dubai, UAE",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop",
   },
   {
     id: 3,
-    title: 'Harbor Residences',
-    category: 'Residential',
-    location: 'Miami, FL',
-    image: 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    description: 'Luxury waterfront community with private marina, rooftop infinity pool, and concierge services.',
+    title: "Ethereal Interiors",
+    category: "Interior",
+    location: "Milan, Italy",
+    image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop",
   },
   {
     id: 4,
-    title: 'Crystal Vista',
-    category: 'Luxury Home',
-    location: 'Aspen, CO',
-    image: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    description: 'Mountain retreat with floor-to-ceiling glass walls, geothermal heating, and breathtaking alpine views.',
-  },
-  {
-    id: 5,
-    title: 'Innovation Hub',
-    category: 'Commercial',
-    location: 'Austin, TX',
-    image: 'https://images.pexels.com/photos/1732414/pexels-photo-1732414.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    description: 'Tech campus with collaborative spaces, green roofs, and cutting-edge sustainable design.',
-  },
-  {
-    id: 6,
-    title: 'Serenity Estates',
-    category: 'Residential',
-    location: 'Seattle, WA',
-    image: 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    description: 'Eco-friendly residential community with community gardens, walking trails, and modern amenities.',
+    title: "Obsidian Manor",
+    category: "Residential",
+    location: "London, UK",
+    image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2070&auto=format&fit=crop",
   },
 ];
 
-const categories = ['All', 'Luxury Villa', 'Commercial', 'Residential', 'Luxury Home'];
+export default function ProjectSection() {
+  const scrollRef = useRef(null);
 
-export default function ProjectsSection() {
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [selectedProject, setSelectedProject] = useState(null);
-
-  const filteredProjects = activeCategory === 'All' 
-    ? projects 
-    : projects.filter(p => p.category === activeCategory);
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const scrollTo = direction === 'left' ? scrollLeft - clientWidth / 2 : scrollLeft + clientWidth / 2;
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+    }
+  };
 
   return (
-    <section id="projects" className="py-24 bg-gradient-to-b from-gray-50 to-white">
-      <div className="container-custom mx-auto">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="text-secondary-500 text-sm uppercase tracking-[0.3em] font-semibold">Our Portfolio</span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-3 mb-5 text-gray-900">
-            Featured <span className="text-primary-600">Projects</span>
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto rounded-full" />
-          <p className="text-gray-600 mt-6 text-lg">
-            Discover our finest creations that showcase innovation, quality, and architectural excellence.
-          </p>
-        </div>
+    <section className="bg-white py-8 lg:py-14 overflow-hidden">
+      <div className="max-w-[1800px] mx-auto px-5 lg:px-16">
+        
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between md:mb-16 mb-6 md:gap-8 gap-4">
+          <div className="space-y-4">
+            <p className="text-brand font-bold text-[10px] tracking-[0.4em] uppercase border-l-2 border-brand pl-4">
+              Featured Portfolio
+            </p>
+            <h2 className="text-3xl lg:text-6xl font-medium text-brand-dark tracking-tight">
+              Masterpieces in <br />
+              <span className="italic font-light text-brand/80">Architectural Excellence.</span>
+            </h2>
+          </div>
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`px-6 py-2.5 rounded-full font-medium transition-all duration-300 ${
-                activeCategory === category
-                  ? 'bg-primary-600 text-white shadow-lg shadow-primary-600/30'
-                  : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-              }`}
+          {/* Custom Navigation Arrows */}
+          <div className="flex gap-4">
+            <button 
+              onClick={() => scroll('left')}
+              className="p-4 border border-brand/20 text-brand-dark hover:bg-brand hover:text-white transition-all duration-300 rounded-full cursor-pointer"
             >
-              {category}
+              <HiOutlineArrowLongLeft size={24} />
             </button>
-          ))}
+            <button 
+              onClick={() => scroll('right')}
+              className="p-4 border border-brand/20 text-brand-dark hover:bg-brand hover:text-white transition-all duration-300 rounded-full cursor-pointer"
+            >
+              <HiOutlineArrowLongRight size={24} />
+            </button>
+          </div>
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project, index) => (
-            <motion.div
+        {/* Horizontal Scroll Area */}
+        <div 
+          ref={scrollRef}
+          className="flex gap-8 overflow-x-auto no-scrollbar snap-x snap-mandatory"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {projects.map((project) => (
+            <div 
               key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
-              viewport={{ once: true }}
-              className="group cursor-pointer"
-              onClick={() => setSelectedProject(project)}
+              className="min-w-[50vw] md:min-w-[30vw] lg:min-w-[35vw] snap-start group relative"
             >
-              <div className="relative overflow-hidden rounded-2xl shadow-lg bg-white">
-                <div className="relative h-72 overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="absolute top-4 right-4 bg-secondary-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                    {project.category}
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                    <h3 className="text-white text-xl font-bold">{project.title}</h3>
-                    <p className="text-gray-200 text-sm mt-1">{project.location}</p>
-                    <div className="flex items-center text-white/90 mt-3 gap-2">
-                      <span className="text-sm">View Details</span>
-                      <ExternalLink className="w-4 h-4" />
-                    </div>
-                  </div>
+              <div className="relative h-[300px] lg:h-[300px] overflow-hidden">
+                {/* Image with subtle parallax effect on hover */}
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110"
+                />
+                
+                {/* Overlay on Hover */}
+                <div className="absolute inset-0 bg-brand-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                  <Link href={`/projects/${project.id}`} className="w-10 h-10 bg-brand text-white rounded-full flex items-center justify-center scale-0 group-hover:scale-100 transition-transform duration-500 delay-100">
+                    <FaArrowRight size={20} />
+                  </Link>
                 </div>
-                <div className="p-5">
-                  <h3 className="font-bold text-gray-900 text-lg mb-1">{project.title}</h3>
-                  <p className="text-gray-500 text-sm">{project.location}</p>
+
+                {/* Project Tags */}
+                <div className="absolute top-6 left-6 flex gap-2">
+                  <span className="bg-white/90 backdrop-blur-md text-brand-dark text-[10px] font-bold uppercase tracking-widest px-4 py-2">
+                    {project.category}
+                  </span>
                 </div>
               </div>
-            </motion.div>
+
+              {/* Text Info */}
+              <div className="mt-8 flex justify-between items-start">
+                <div>
+                  <h3 className="md:text-2xl text-[.9rem] leading-[1.2] font-medium text-brand-dark group-hover:text-brand transition-colors duration-300">
+                    {project.title}
+                  </h3>
+                  <p className="text-brand-dark/40 text-sm mt-1 uppercase tracking-widest">
+                    {project.location}
+                  </p>
+                </div>
+                <div className="text-brand font-bold text-xs tracking-tighter shrink-0">
+                  0{project.id} / 0{projects.length}
+                </div>
+              </div>
+            </div>
           ))}
+          
+          {/* "View All" Card */}
+          <div className="min-w-[85vw] md:min-w-[45vw] lg:min-w-[20vw] snap-start bg-brand-dark flex flex-col items-center justify-center text-center p-12 group hover:bg-brand transition-colors duration-500">
+            <h3 className="text-white text-3xl font-medium mb-6">Explore All <br /> Projects</h3>
+            <Link href="/projects" className="w-14 h-14 border border-white/20 rounded-full flex items-center justify-center text-white group-hover:bg-white group-hover:text-brand transition-all">
+              <HiOutlineArrowLongRight size={28} />
+            </Link>
+          </div>
         </div>
       </div>
-
-      {/* Project Modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md"
-            onClick={() => setSelectedProject(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="relative max-w-5xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 z-10 p-2 bg-black/50 rounded-full text-white hover:bg-black/70 transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
-              <div className="relative h-96">
-                <Image
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute top-4 left-4 bg-secondary-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
-                  {selectedProject.category}
-                </div>
-              </div>
-              <div className="p-8">
-                <h3 className="text-3xl font-bold text-gray-900 mb-2">{selectedProject.title}</h3>
-                <p className="text-primary-600 font-medium mb-4">{selectedProject.location}</p>
-                <p className="text-gray-600 text-lg leading-relaxed mb-6">{selectedProject.description}</p>
-                <div className="flex gap-4">
-                  <button className="bg-primary-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-primary-700 transition-colors">
-                    Request Case Study
-                  </button>
-                  <button className="border-2 border-gray-300 text-gray-700 px-6 py-3 rounded-full font-semibold hover:border-primary-600 hover:text-primary-600 transition-colors">
-                    Share Project
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }

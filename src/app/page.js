@@ -1,20 +1,20 @@
-// app/page.js
+
 import HeroSection from '@/components/HeroSection';
-import ProjectsSection from '@/components/ProjectsSection';
+import PhilosophySection from '@/components/PhilosophySection';
+import ProjectSection from '@/components/ProjectsSection';
 import ServicesSection from '@/components/ServicesSection';
-import AboutSection from '@/components/AboutSection';
-import ContactSection from '@/components/ContactSection';
-import Footer from '@/components/Footer';
-import Navbar from '@/components/Navbar';
+import TestimonialSection from '@/components/TestimonialSection';
+import FAQSection from '@/components/FAQSection';
 
 export default function Home() {
   return (
-    <main>
-      <Navbar />
-      <HeroSection />
-      <ServicesSection />
-      <ProjectsSection />
-      <AboutSection />
-    </main>
+     <>
+        <HeroSection />
+        <ProjectSection/>
+        <PhilosophySection/>
+        <TestimonialSection/>
+        <ServicesSection/>
+        <FAQSection/>
+     </>
   );
 }
