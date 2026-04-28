@@ -4,7 +4,7 @@ import { ArrowUpRight, ChevronRight, Send } from 'lucide-react';
 export default function HeroSection() {
   return (
     <section 
-      className="relative flex items-center bg-cover bg-center bg-no-repeat py-20 lg:py-32 min-h-screen"
+      className="relative flex items-center bg-cover bg-center bg-no-repeat pt-25 pb-4 min-h-[100vh]"
       style={{ backgroundImage: "url('/images/banner-img.png')" }}
     >
       {/* Overlay to ensure text readability */}
@@ -24,7 +24,7 @@ export default function HeroSection() {
             </h1>
           </div>
 
-          <p className="text-brand-dark/60 text-lg max-w-md leading-relaxed font-sans mb-8">
+          <p className="text-brand-dark/60 text-lg max-w-md leading-relaxed font-sans mb-4">
             A full-service construction and interior design firm delivering exceptional quality and masterfully crafted realities.
           </p>
 
@@ -39,7 +39,7 @@ export default function HeroSection() {
           </div>
 
           {/* Subtle Stat Counter */}
-          <div className="flex items-center gap-12 pt-12">
+          <div className="flex items-center gap-12 pt-6">
             <div>
               <p className="text-3xl font-bold text-brand-dark">250+</p>
               <p className="text-[9px] font-sans font-bold uppercase tracking-widest text-brand">Projects Done</p>
