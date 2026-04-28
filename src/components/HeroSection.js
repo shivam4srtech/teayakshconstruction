@@ -18,7 +18,7 @@ export default function HeroSection() {
             <p className="text-brand font-sans font-bold text-[10px] tracking-[0.4em] uppercase border-l-2 border-brand pl-4">
               Designing Spaces. Building Trust.
             </p>
-            <h1 className="text-4xl lg:text-[74px] leading-[1.1] text-brand-dark font-medium tracking-tight mb-6">
+            <h1 className="text-4xl lg:text-[65px] leading-[1.1] text-brand-dark font-medium tracking-tight mb-6">
               Crafting Spaces. <br />
               <span className="italic font-light text-brand/80">Building Dreams.</span>
             </h1>
