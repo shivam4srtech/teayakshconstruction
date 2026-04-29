@@ -43,7 +43,7 @@ export default function Footer() {
           <div className="space-y-6">
             <h2 className="text-4xl lg:text-5xl font-medium leading-tight">
               Ready to build your <br />
-              <span className="italic text-brand">dream space?</span>
+              <span className=". text-brand">dream space?</span>
             </h2>
             <button className="flex items-center gap-3 group text-brand font-bold uppercase tracking-widest text-xs cursor-pointer">
               Start a Conversation 

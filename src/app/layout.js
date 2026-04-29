@@ -3,6 +3,7 @@ import './globals.css';
 import { Montserrat } from 'next/font/google';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import MobileNavStrip from '@/components/MobileNavStrip';
 
 
 const montserrat = Montserrat({ 
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
         <Navbar/>
         {children}
         <Footer/>
+        <MobileNavStrip/>
       </body>
     </html>
   );

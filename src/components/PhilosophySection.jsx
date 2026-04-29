@@ -5,32 +5,32 @@ import { HiOutlineLightBulb } from 'react-icons/hi2';
 const steps = [
   {
     number: "01",
-    title: "Vision & Concept",
-    desc: "We begin with a blank canvas and your aspirations. Our team deep-dives into your lifestyle or business needs to draft the initial architectural DNA.",
+    title: "Fill Form & Meet Expert",
+    desc: "Fill a quick form, and our team will call you within 20 minutes. Then meet our expert and architect to discuss your needs and get an initial price estimate.",
     icon: <HiOutlineLightBulb className="text-3xl" />,
   },
   {
     number: "02",
-    title: "Meticulous Design",
-    desc: "Luxury is in the details. We produce 3D visualizations and material palettes that blend aesthetics with structural integrity.",
+    title: "Pay Token & Plan",
+    desc: "Pay a small token to confirm your booking. We then survey your site, run tests, and create drawings and 3D models for your review.",
     icon: <IoColorPaletteOutline className="text-3xl" />,
   },
   {
     number: "03",
-    title: "Premium Sourcing",
-    desc: "From Italian marble to sustainable timber, we source only the finest materials from our global network of trusted artisans.",
+    title: "Sign & Start",
+    desc: "Sign a transparent contract with clear timelines and milestone-based payments. Construction begins with daily quality checks.",
     icon: <IoDiamondOutline className="text-3xl" />,
   },
   {
     number: "04",
-    title: "Precision Execution",
-    desc: "Our master builders and engineers take over, ensuring every millimeter aligns with the blueprint under strict quality control.",
+    title: "Track Progress",
+    desc: "Monitor everything in real-time on our app with daily quality check updates and full progress tracking.",
     icon: <IoConstructOutline className="text-3xl" />,
   },
   {
     number: "05",
-    title: "The Grand Reveal",
-    desc: "Handing over the keys to your dream. We ensure a seamless transition into a space that is masterfully crafted for generations.",
+    title: "Delivered with Warranty",
+    desc: "After final inspections, your home is handed over with a 10-year warranty for complete peace of mind.",
     icon: <IoKeyOutline className="text-3xl" />,
   },
 ];
@@ -52,7 +52,7 @@ export default function PhilosophySection() {
             The Teayaksh Way
           </p>
           <h2 className="text-4xl lg:text-5xl font-medium text-brand-dark tracking-tight">
-            From Vision to <span className="italic text-brand/80">Reality</span>
+            From Vision to <span className=". text-brand/80">Reality</span>
           </h2>
           <p className="text-brand-dark/60 text-sm leading-relaxed">
             A systematic approach to luxury. We don't just build structures; we curate experiences through a refined five-step methodology.

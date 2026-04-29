@@ -58,7 +58,7 @@ export default function ProjectSection() {
             </p>
             <h2 className="text-3xl lg:text-6xl font-medium text-brand-dark tracking-tight">
               Masterpieces in <br />
-              <span className="italic font-light text-brand/80">Architectural Excellence.</span>
+              <span className=". font-light text-brand/80">Architectural Excellence.</span>
             </h2>
           </div>
 

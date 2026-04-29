@@ -52,7 +52,7 @@ export default function SpecialtyGrid() {
               Our Expertise
             </p>
             <h2 className="text-4xl lg:text-5xl font-medium text-brand-dark tracking-tight">
-              Specialized <span className="italic font-light text-brand/80">Construction Verticals.</span>
+              Specialized <span className=". font-light text-brand/80">Construction Verticals.</span>
             </h2>
           </div>
           <p className="text-brand-dark/50 text-sm max-w-xs leading-relaxed">

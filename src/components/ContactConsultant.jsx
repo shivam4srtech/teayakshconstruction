@@ -57,7 +57,7 @@ export default function ContactConsultant() {
               </p>
               <h2 className="text-4xl lg:text-6xl font-medium text-brand-dark tracking-tight">
                 Request a <br />
-                <span className="italic font-light text-brand/80">Consultant.</span>
+                <span className=". font-light text-brand/80">Consultant.</span>
               </h2>
               <p className="text-brand-dark/50 text-lg leading-relaxed max-w-sm">
                 Take the first step toward your masterpiece. Our experts will review your scope and schedule a private consultation.
@@ -87,7 +87,7 @@ export default function ContactConsultant() {
           </div>
 
           {/* Right Side: Multi-Step Form */}
-          <div className="lg:col-span-7 bg-white shadow-2xl p-8 lg:p-12 relative overflow-hidden min-h-[500px] flex flex-col justify-center">
+          <div className="lg:col-span-7 bg-white shadow-2xl p-4 lg:p-12 relative overflow-hidden min-h-[500px] flex flex-col justify-center">
             
             {success ? (
               /* SUCCESS STATE VIEW */
@@ -96,7 +96,7 @@ export default function ContactConsultant() {
                   <FaCheck size={32} />
                 </div>
                 <h3 className="text-3xl font-medium text-brand-dark mb-4">Request Sent</h3>
-                <p className="text-brand-dark/50 max-w-sm mx-auto italic">
+                <p className="text-brand-dark/50 max-w-sm mx-auto .">
                   Thank you, {formData.name}. Our consultant will contact you shortly to discuss the {formData.service} project.
                 </p>
                 <button 
@@ -116,7 +116,7 @@ export default function ContactConsultant() {
                   />
                 </div>
 
-                <div className="mb-10 flex justify-between items-center">
+                <div className="lg:mb-6 mb-3 flex justify-between items-center">
                   <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand">Step 0{step} / 03</span>
                   <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-dark/20">
                     {step === 1 && "Vertical Selection"}
@@ -128,7 +128,7 @@ export default function ContactConsultant() {
                 {/* Step 1: Service Selection */}
                 {step === 1 && (
                   <div className="space-y-6 animate-in fade-in slide-in-from-right duration-500">
-                    <h3 className="text-2xl font-medium text-brand-dark">What are you looking to build?</h3>
+                    <h3 className="md:text-2xl text-xl font-medium text-brand-dark mb-3 lg:mb-6">What are you looking to build?</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {SERVICES.map((s) => (
                         <button

@@ -42,7 +42,7 @@ export default function FAQSection() {
             </p>
             <h2 className="text-4xl lg:text-5xl font-medium text-brand-dark tracking-tight leading-tight">
               Expert Insights & <br />
-              <span className="italic text-brand/80 font-light">Client Clarity.</span>
+              <span className=". text-brand/80 font-light">Client Clarity.</span>
             </h2>
             <p className="text-brand-dark/50 text-sm leading-relaxed max-w-sm">
               We believe in total transparency. If your question isn't listed here, our consultants are ready to discuss your specific project needs.

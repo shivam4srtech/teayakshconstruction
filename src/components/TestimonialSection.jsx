@@ -71,7 +71,7 @@ export default function VideoTestimonialSlider() {
               Client Stories
             </p>
             <h2 className="text-4xl lg:text-5xl font-medium text-brand-dark tracking-tight">
-              Hear from our <span className="italic font-light text-brand/80">Clients.</span>
+              Hear from our <span className=". font-light text-brand/80">Clients.</span>
             </h2>
           </div>
           
@@ -163,7 +163,7 @@ export default function VideoTestimonialSlider() {
                   ))}
                 </div>
 
-                <p className="text-brand-dark/60 text-[13px] leading-relaxed italic line-clamp-3">
+                <p className="text-brand-dark/60 text-[13px] leading-relaxed . line-clamp-3">
                   "{item.quote}"
                 </p>
 

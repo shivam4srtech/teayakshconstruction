@@ -2,7 +2,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { IoCloseOutline, IoCallOutline, IoMailOutline } from 'react-icons/io5';
+import { IoMdMenu } from "react-icons/io";
+import { IoIosCall } from "react-icons/io";
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -19,107 +22,142 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  // Change background on scroll
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isOpen) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = 'unset';
+  }, [isOpen]);
+
   return (
     <>
+      {/* Pulse Animation CSS */}
+      <style jsx global>{`
+        @keyframes custom-pulse {
+          0% { transform: scale(1); opacity: 1; }
+          100% { transform: scale(1.8); opacity: 0; }
+        }
+        .pulse-ring {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: #c4a47c; /* Your Brand Color */
+          border-radius: 50%;
+          animation: custom-pulse 2s infinite;
+        }
+      `}</style>
+
       <nav 
-        className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-500 px-5 lg:px-16 py-4 ${
-          scrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-3' : 'bg-transparent py-5'
+        className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-500 px-4 lg:px-16 py-4 ${
+          scrolled || isOpen ? 'bg-white shadow-md py-3' : 'bg-transparent py-5'
         }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Logo Section */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 border border-brand flex items-center justify-center transition-colors group-hover:bg-brand">
-              <span className="text-brand group-hover:text-white font-bold text-xl">T</span>
-            </div>
-            <div className="flex flex-col leading-tight">
-              <span className="text-xl font-bold tracking-[0.2em] text-brand-dark uppercase">teayaksh</span>
-              <span className="text-[8px] tracking-[0.3em] text-brand font-sans font-bold uppercase">Constructions & Interiors</span>
-            </div>
-          </Link>
-
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link 
-                  key={link.name} 
-                  href={link.href} 
-                  className={`text-[11px] font-sans font-bold uppercase tracking-widest transition-colors relative group ${
-                    isActive ? 'text-brand' : 'text-brand-dark/70 hover:text-brand'
-                  }`}
+          
+          <div className='flex gap-2'>
+            <div className="lg:hidden flex-1">
+                <button 
+                  className="flex items-center justify-center transition-transform active:scale-90 z-[1001] relative" 
+                  onClick={() => setIsOpen(!isOpen)}
                 >
-                  {link.name}
-                  {/* Underline for active and hover states */}
-                  <span className={`absolute -bottom-1 left-0 h-[1.5px] bg-brand transition-all duration-300 ${
-                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
-                  }`} />
-                </Link>
-              );
-            })}
+                  {isOpen ? <IoCloseOutline size={32} /> : <IoMdMenu size={32} fill='#000'/>}
+                </button>
+            </div>
+
+         
+            <Link href="/" className="flex items-center gap-3 z-[1001]">
+              {/* <div className="w-10 h-10 border border-brand flex items-center justify-center bg-white">
+                <span className="text-brand font-bold text-xl">T</span>
+              </div> */}
+              <div className="flex flex-col leading-tight">
+                <span className="text-xl font-bold tracking-[0.2em] text-brand-dark uppercase">teayaksh</span>
+                <span className="text-[8px] tracking-[0.3em] text-brand font-sans font-bold uppercase ">Constructions</span>
+              </div>
+            </Link>
+          </div>
+        
+          <div className="hidden lg:flex items-center gap-8 px-8">
+            {navLinks.map((link) => (
+              <Link key={link.name} href={link.href} 
+                className={`text-[11px] font-bold uppercase tracking-widest relative group ${pathname === link.href ? 'text-brand' : 'text-brand-dark/70 hover:text-brand'}`}>
+                {link.name}
+                <span className={`absolute -bottom-1 left-0 h-[1.5px] bg-brand transition-all duration-300 ${pathname === link.href ? 'w-full' : 'w-0 group-hover:w-full'}`} />
+              </Link>
+            ))}
           </div>
 
-          <div className="flex items-center gap-4">
-            <button className="hidden lg:block bg-brand hover:bg-brand-dark text-white px-8 py-3 text-[11px] font-sans font-bold uppercase tracking-widest transition-all cursor-pointer">
+          {/* RIGHT: Action Buttons */}
+          <div className="flex-1 flex justify-end items-center gap-4 z-[1001]">
+            {/* Desktop Quote Button */}
+            <button className="hidden lg:block bg-brand hover:bg-brand-dark text-white px-8 py-3 text-[11px] font-bold uppercase tracking-widest transition-all">
               Get A Quote
             </button>
 
-            {/* Mobile Toggle */}
-            <button 
-              className="lg:hidden text-brand-dark p-1" 
-              onClick={() => setIsOpen(!isOpen)}
+            {/* Mobile Calling Button with Pulse Animation */}
+            <a 
+              href="tel:+919876543210"
+              className="lg:hidden relative w-11 h-11 flex items-center justify-center rounded-full bg-brand text-white shadow-lg"
             >
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
+              <div className="pulse-ring" style={{ animationDelay: '0s' }}></div>
+              <div className="pulse-ring" style={{ animationDelay: '0.5s' }}></div>
+              <IoIosCall size={20} className="relative z-10" /> 
+            </a>
           </div>
         </div>
 
-        {/* Mobile Menu Overlay */}
-        <div className={`fixed inset-0 bg-white z-[999] lg:hidden transition-transform duration-500 ease-in-out ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}>
-          <div className="flex flex-col h-full p-8 pt-24">
-            <div className="space-y-6">
-              {navLinks.map((link) => {
-                const isActive = pathname === link.href;
-                return (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className={`block text-2xl font-medium tracking-tight ${
-                      isActive ? 'text-brand' : 'text-brand-dark'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between border-b border-gray-100 pb-4">
-                      {link.name}
-                      {isActive && <div className="w-2 h-2 rounded-full bg-brand" />}
+        {/* --- LEFT-SIDE MOBILE MENU OVERLAY --- */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div 
+              initial={{ x: '-100%' }} // Opens from Left
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 180 }}
+              className="fixed inset-0 bg-white z-[999] lg:hidden flex flex-col w-[85%] sm:w-[350px] shadow-2xl"
+            >
+              <div className="flex flex-col h-full px-8 pt-16 pb-12 overflow-y-auto">
+                <div className="space-y-1">
+
+                  {navLinks.map((link, i) => (
+                    <motion.div
+                      key={link.name}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.05 + 0.1 }}
+                    >
+                      <Link
+                        href={link.href}
+                        onClick={() => setIsOpen(false)}
+                        className="group flex items-center justify-between py-1 border-b border-gray-50"
+                      >
+                        <span className={`text-xl font-medium tracking-tight ${pathname === link.href ? 'text-brand ' : 'text-brand-dark'}`}>
+                          {link.name}
+                        </span>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <div className="mt-auto pt-4 border-t border-gray-100">
+                  <p className="text-[9px] uppercase tracking-widest text-brand-dark/40 font-bold mb-4">Contact Specialist</p>
+                  <div className="space-y-4 mb-8">
+                    <div className="flex items-center gap-3 text-brand-dark/70">
+                      <IoCallOutline className="text-brand" size={18} />
+                      <span className="text-sm font-bold">+91 98765 43210</span>
                     </div>
-                  </Link>
-                );
-              })}
-            </div>
-            
-            <div className="mt-auto pb-10">
-              <button className="w-full bg-brand text-white py-5 font-sans font-bold uppercase tracking-widest">
-                Request a Quote
-              </button>
-              <p className="text-center mt-6 text-brand-dark/40 text-[10px] uppercase tracking-widest">
-                © 2024 Teayaksh Constructions
-              </p>
-            </div>
-          </div>
-        </div>
+                  </div>
+                  <button className="w-full bg-brand-dark text-white py-4 text-[10px] font-bold uppercase tracking-[0.2em] shadow-lg">
+                    Book Consultation
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </>
   );
