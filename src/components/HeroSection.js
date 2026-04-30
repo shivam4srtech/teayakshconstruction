@@ -5,12 +5,12 @@ export default function HeroSection() {
   return (
     <section 
       className="relative flex items-center bg-cover bg-center bg-no-repeat min-h-[100vh] lg:py-0 py-20"
-      style={{ backgroundImage: "url('/images/banner-img-2.png')" }}
+      style={{ backgroundImage: "url('/images/banner-try.png')" }}
     >
       {/* Overlay to ensure text readability */}
       <div className="absolute inset-0 bg-white/85 -z-10" />
 
-      <div className="w-full md:px-16 px-5 mx-auto flex md:flex-row flex-col lg:gap-12 gap-0 items-center place-content-between  relative z-10">
+      <div className="w-full md:px-16 px-5 mx-auto flex md:flex-row flex-col lg:gap-12 gap-0  place-content-between  relative z-10">
         
         {/* Left Column: Typography */}
         <div className="animate-in fade-in slide-in-from-left duration-1000">
@@ -18,9 +18,9 @@ export default function HeroSection() {
             {/* <p className="text-brand font-sans font-bold text-[10px] tracking-[0.4em] uppercase border-l-2 border-brand pl-4">
               Designing Spaces. Building Trust.
             </p> */}
-            <h1 className="text-4xl md:text-[70px] leading-[1.1] md:text-white text-brand font-bold tracking-tight mb-6 text-shadow-emerald-100">
-              Crafting Spaces. <br />
-              <span className=" ">Building Dreams.</span>
+            <h1 className="text-4xl md:text-[55px] leading-[1.1]  text-brand font-bold tracking-tight mt-20 text-left  text-shadow-emerald-100 leading-[1.2]">
+              Designing Dreams Building Reality  <br />
+              {/* <span className=" ">- TC&I</span> */}
             </h1>
           </div>
 
@@ -53,27 +53,27 @@ export default function HeroSection() {
         </div>
 
         {/* Right Column: Enquiry Form */}
-        <div className="bg-white p-4 lg:p-6 shadow-2xl border border-brand/10 relative overflow-hidden group max-w-[450px] lg:mt-20">
+        <div className=" p-4 lg:p-6 shadow-2xl border border-brand/10 relative overflow-hidden group max-w-[350px] lg:mt-20 bg-[#efebe2]">
           {/* Decorative Top Bar */}
           <div className="absolute top-0 left-0 w-full h-1.5 bg-brand" />
           
           <div className="mb-4">
-            <h3 className="lg:text-2xl text-[1.1rem] font-semibold text-brand-dark mb-0">Request a Free Consultation</h3>
+            <h3 className="lg:text-[1.2rem] text-[1.1rem] font-bold text-brand-dark mb-0">Request a Free Consultation</h3>
             {/* <p className="text-sm text-brand-dark/50">Fill out the form below and our design experts will contact you within 24 hours.</p> */}
           </div>
 
-          <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-5 " onSubmit={(e) => e.preventDefault()}>
             <div className="grid grid-cols-1 gap-4">
               <div className="space-y-1.5">
-                <input type="text" className="w-full bg-gray-50 border border-gray-200 p-3 outline-none focus:border-brand transition-colors text-sm" placeholder="Name" />
+                <input type="text" className="w-full bg-gray-50 border border-gray-200 p-2 outline-none focus:border-brand transition-colors text-sm" placeholder="Name" />
               </div>
               <div className="space-y-1.5">
-                <input type="tel" className="w-full bg-gray-50 border border-gray-200 p-3 outline-none focus:border-brand transition-colors text-sm" placeholder="Phone No." />
+                <input type="tel" className="w-full bg-gray-50 border border-gray-200 p-2 outline-none focus:border-brand transition-colors text-sm" placeholder="Phone No." />
               </div>
             </div>
             <div className='grid grid-cols-1 gap-4'>
                 <div className="space-y-1.5">
-                  <select className="w-full bg-gray-50 border border-gray-200 p-3 outline-none focus:border-brand transition-colors text-sm appearance-none cursor-pointer">
+                  <select className="w-full bg-gray-50 border border-gray-200 p-2 outline-none focus:border-brand transition-colors text-sm appearance-none cursor-pointer">
                     <option>---Select City---</option>
                     <option value={"Hyderabad"}>Hyderabad</option>
                     <option value={"Delhi"}>Delhi</option>
@@ -84,7 +84,7 @@ export default function HeroSection() {
                   </select>
                 </div>
                 <div className="space-y-1.5">
-                    <select className="w-full bg-gray-50 border border-gray-100 p-3 outline-none focus:border-brand transition-colors text-sm appearance-none cursor-pointer">
+                    <select className="w-full bg-gray-50 border border-gray-100 p-2 outline-none focus:border-brand transition-colors text-sm appearance-none cursor-pointer">
                       <option>---Project Type---</option>
                       <option>Commercial Construction</option>
                       <option>Residential Renovation</option>
