@@ -61,7 +61,7 @@ export default function VideoTestimonialSlider() {
   };
 
   return (
-    <section className="bg-gray-50 py-8 lg:py-18 overflow-hidden">
+    <section className="bg-gray-50 py-8 lg:py-10 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-5 lg:px-16">
         
         {/* Header */}
@@ -88,7 +88,7 @@ export default function VideoTestimonialSlider() {
         {/* Slider */}
         <div 
           ref={scrollRef}
-          className="flex gap-8 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-10"
+          className="flex gap-8 overflow-x-auto no-scrollbar snap-x snap-mandatory "
           style={{ scrollbarWidth: 'none' }}
         >
           {testimonials.map((item) => (

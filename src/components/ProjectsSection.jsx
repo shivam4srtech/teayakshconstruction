@@ -51,12 +51,12 @@ export default function ProjectSection() {
       <div className="max-w-[1800px] mx-auto px-5 lg:px-16">
         
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between md:mb-16 mb-6 md:gap-8 gap-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between md:mb-10 mb-6 md:gap-8 gap-4">
           <div className="space-y-4">
             <p className="text-brand font-bold text-[10px] tracking-[0.4em] uppercase border-l-2 border-brand pl-4">
               Featured Portfolio
             </p>
-            <h2 className="text-3xl lg:text-6xl font-medium text-brand-dark tracking-tight">
+            <h2 className="text-3xl lg:text-5xl font-medium text-brand-dark tracking-tight">
               Masterpieces in <br />
               <span className=". font-light text-brand/80">Architectural Excellence.</span>
             </h2>

@@ -1,55 +1,24 @@
 'use client';
 import { ArrowUpRight, ChevronRight, Send } from 'lucide-react';
+import CustomSelect from '@/components/CustomSelect'
 
 export default function HeroSection() {
   return (
     <section 
       className="relative flex items-center bg-cover bg-center bg-no-repeat min-h-[100vh] lg:py-0 py-20"
-      style={{ backgroundImage: "url('/images/banner-try.png')" }}
+      style={{ backgroundImage: "url('/images/banner-bg.webp')" }}
     >
       {/* Overlay to ensure text readability */}
       <div className="absolute inset-0 bg-white/85 -z-10" />
 
-      <div className="w-full md:px-16 px-5 mx-auto flex md:flex-row flex-col lg:gap-12 gap-0  place-content-between  relative z-10">
+      <div className="w-full md:px-16 px-5 mx-auto flex md:flex-row flex-col md:place-content-between items-center md:items-start gap-6 md:gap-20 relative z-10">
         
         {/* Left Column: Typography */}
-        <div className="animate-in fade-in slide-in-from-left duration-1000">
-          <div className="space-y-4">
-            {/* <p className="text-brand font-sans font-bold text-[10px] tracking-[0.4em] uppercase border-l-2 border-brand pl-4">
-              Designing Spaces. Building Trust.
-            </p> */}
-            <h1 className="text-4xl md:text-[55px] leading-[1.1]  text-brand font-bold tracking-tight mt-20 text-left  text-shadow-emerald-100 leading-[1.2]">
-              Designing Dreams Building Reality  <br />
-              {/* <span className=" ">- TC&I</span> */}
+        <div className="left">
+            <h1 className="text-3xl md:text-4xl lg:text-[55px] leading-[1.1]  text-brand font-bold tracking-tight lg:mt-20 md:text-left text-center  text-shadow-emerald-100 leading-[1.2]">
+              Designing Dreams  <br /> Building Reality 
+    
             </h1>
-          </div>
-
-          {/* <p className="text-brand-dark/60 text-lg max-w-md leading-relaxed font-sans mb-4">
-            A full-service construction and interior design firm delivering exceptional quality and masterfully crafted realities.
-          </p> */}
-
-          {/* <div className="flex gap-4 pt-4">
-            <button className="bg-brand text-white md:px-10 px-3 md:py-5 py-3 flex  items-center gap-3 group transition-all hover:bg-brand-dark cursor-pointer">
-              <span className="font-sans font-bold text-[11px] uppercase tracking-[0.2em]">Our Projects</span>
-              <ArrowUpRight size={18} className="group-hover:rotate-45 transition-transform" />
-            </button>
-            <button className="border border-brand text-brand md:px-10 px-3 md:py-5 py-3 font-sans font-bold text-[11px] uppercase tracking-[0.2em] hover:bg-brand hover:text-white transition-all cursor-pointer">
-              Our Services
-            </button>
-          </div> */}
-
-          {/* Subtle Stat Counter */}
-          {/* <div className="flex items-center gap-12 pt-6">
-            <div>
-              <p className="text-3xl font-bold text-brand-dark">250+</p>
-              <p className="text-[9px] font-sans font-bold uppercase tracking-widest text-brand">Projects Done</p>
-            </div>
-            <div className="w-[1px] h-10 bg-brand/20" />
-            <div>
-              <p className="text-3xl font-bold text-brand-dark">15+</p>
-              <p className="text-[9px] font-sans font-bold uppercase tracking-widest text-brand">Awards Won</p>
-            </div>
-          </div> */}
         </div>
 
         {/* Right Column: Enquiry Form */}
@@ -73,23 +42,22 @@ export default function HeroSection() {
             </div>
             <div className='grid grid-cols-1 gap-4'>
                 <div className="space-y-1.5">
-                  <select className="w-full bg-gray-50 border border-gray-200 p-2 outline-none focus:border-brand transition-colors text-sm appearance-none cursor-pointer">
-                    <option>---Select City---</option>
-                    <option value={"Hyderabad"}>Hyderabad</option>
-                    <option value={"Delhi"}>Delhi</option>
-                    <option value={"Mumbai"}>Mumbai</option>
-                    <option value={"Kolkata"}>Kolkata</option>
-                    <option value={"Chennai"}>Chennai</option>
-                    <option value={"Noeda"}>Noeda</option>
-                  </select>
+                    <CustomSelect
+                      name="city"
+                      placeholder="---Select City---"
+                      options={["Hyderabad", "Delhi", "Mumbai", "Kolkata", "Chennai", "Noida"]}
+                    />
                 </div>
                 <div className="space-y-1.5">
-                    <select className="w-full bg-gray-50 border border-gray-100 p-2 outline-none focus:border-brand transition-colors text-sm appearance-none cursor-pointer">
-                      <option>---Project Type---</option>
-                      <option>Commercial Construction</option>
-                      <option>Residential Renovation</option>
-                      <option>Architecture Planning</option>
-                    </select>
+                    <CustomSelect
+                      name="project_type"
+                      placeholder="---Project Type---"
+                      options={[
+                        "Commercial Construction",
+                        "Residential Renovation",
+                        "Architecture Planning",
+                      ]}
+                    />
                 </div>
             </div>
           
