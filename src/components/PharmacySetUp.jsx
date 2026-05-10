@@ -12,8 +12,8 @@ import {
 } from 'lucide-react';
 
 const TRUST_BADGES = [
-  { icon: <ShieldCheck size={20} />, text: "FDA & Drug License Compliant Designs" },
   { icon: <Layout size={20} />, text: "Space Optimized Layouts" },
+  { icon: <ShieldCheck size={20} />, text: "FDA & Drug License Compliant Designs" },
   { icon: <HardHat size={20} />, text: "End-to-End Execution" },
   { icon: <Clock size={20} />, text: "Fast Project Delivery" },
 ];
@@ -80,7 +80,7 @@ export default function PharmacySetupPage() {
                 Professional <span className="text-[#A67153]">Pharmacy Setup</span> & Interior Solutions
               </h1>
               
-              <div className="flex flex-wrap md:justify-start justify-between md:gap-4 gap-2 mb-6">
+              <div className="flex flex-wrap md:justify-start justify-center md:gap-4 gap-2 mb-6">
                 <button className="bg-[#A67153] text-white md:px-8 px-2 py-4 rounded font-bold uppercase md:text-xs text-[.65rem] tracking-widest hover:bg-[#2D2926] transition-all shadow-lg shadow-[#A67153]/20">
                   Get Free Consultation
                 </button>
@@ -297,8 +297,8 @@ export default function PharmacySetupPage() {
                   <label className="text-[10px] font-bold uppercase text-gray-400 ml-1">How can we help?</label>
                   <textarea rows="4" className="w-full bg-gray-50 border border-gray-200 rounded p-3 focus:ring-2 focus:ring-[#A67153] outline-none" />
                 </div>
-                <button className="md:col-span-2 bg-[#A67153] text-white py-5 rounded font-bold uppercase text-xs tracking-widest shadow-xl hover:bg-[#2D2926] transition-all">
-                  Request Free Pharmacy Setup Plan
+                <button className="md:col-span-2 bg-[#A67153] text-white py-5 px-2 rounded font-bold uppercase text-xs tracking-widest shadow-xl hover:bg-[#2D2926] transition-all">
+                  Get Free Pharmacy Setup Plan
                 </button>
               </form>
             </div>
