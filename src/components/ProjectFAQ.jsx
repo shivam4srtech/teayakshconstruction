@@ -6,7 +6,7 @@ import { IoAddOutline, IoRemoveOutline } from 'react-icons/io5';
 const PROJECT_FAQS = [
   {
     q: "Can I visit an ongoing project site?",
-    a: "Absolutely. We encourage site visits to our active projects in Noida and Gurgaon. This allows you to witness our material quality and 'Teayaksh Standard' construction practices first-hand."
+    a: "Absolutely. We encourage site visits to our active projects in Noida and Gurgaon. This allows you to witness our material quality and 'TRAYAKSH Standard' construction practices first-hand."
   },
   {
     q: "What does 'Near Completion' status actually mean?",

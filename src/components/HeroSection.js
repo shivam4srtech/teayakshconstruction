@@ -66,7 +66,7 @@ export default function HeroSection() {
               <Send size={16} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
             </button>
              <p className="text-[10px] text-gray-400 leading-relaxed  border-t border-gray-100 pt-3">
-                By submitting this form, you consent to sharing your details with Teayaksh Construction. 
+                By submitting this form, you consent to sharing your details with TRAYAKSH Construction. 
                 We respect your privacy and never share your information with third parties.
               </p>
           </form>

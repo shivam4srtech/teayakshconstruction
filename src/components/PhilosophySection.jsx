@@ -53,7 +53,7 @@ export default function PhilosophySection() {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-10 space-y-4">
           <p className="text-brand font-bold text-[10px] tracking-[0.4em] uppercase">
-            The Teayaksh Way
+            The TRAYAKSH Way
           </p>
           <h2 className="text-4xl lg:text-5xl font-medium text-brand-dark tracking-tight">
             From Vision to <span className=". text-brand/80">Reality</span>

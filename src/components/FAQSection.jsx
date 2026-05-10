@@ -6,14 +6,14 @@ import { HiOutlineChatBubbleLeftRight } from 'react-icons/hi2';
 const faqs = [
   {
     question: "What is the typical timeline for a luxury villa construction?",
-    answer: "A bespoke luxury villa typically takes 12 to 18 months from groundbreaking to handover. This timeline ensures meticulous attention to structural integrity, artisanal finishes, and high-end fit-outs that define a Teayaksh home."
+    answer: "A bespoke luxury villa typically takes 12 to 18 months from groundbreaking to handover. This timeline ensures meticulous attention to structural integrity, artisanal finishes, and high-end fit-outs that define a TRAYAKSH home."
   },
   {
     question: "Do you handle medical and pharmacy setup compliance?",
     answer: "Yes. Our medical construction vertical specialized in ISO-standard clean rooms, specialized HVAC systems for pharmacies, and healthcare-grade plumbing, ensuring all local health authority regulations are met."
   },
   {
-    question: "Can Teayaksh manage both architecture and interior design?",
+    question: "Can TRAYAKSH manage both architecture and interior design?",
     answer: "Absolutely. We offer a 'Design-Build' model where our architects and interior designers work under one roof. This prevents communication gaps and ensures the interior aesthetic is baked into the structural DNA of the building."
   },
   {
@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     question: "What kind of post-construction warranty do you provide?",
-    answer: "We stand by our craftsmanship. Every Teayaksh project comes with a structural warranty and a dedicated maintenance support period to ensure the building performs as intended for years to come."
+    answer: "We stand by our craftsmanship. Every TRAYAKSH project comes with a structural warranty and a dedicated maintenance support period to ensure the building performs as intended for years to come."
   }
 ];
 

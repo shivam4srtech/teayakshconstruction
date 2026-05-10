@@ -33,7 +33,7 @@ export default function LocationMap() {
                 <span className=". text-brand/80">Build Excellence.</span>
               </h2>
               <p className="text-white/50 text-lg leading-relaxed max-w-md">
-                With operational hubs across major metropolitans, Teayaksh executes complex construction projects with local precision and global standards.
+                With operational hubs across major metropolitans, TRAYAKSH executes complex construction projects with local precision and global standards.
               </p>
             </div>
 

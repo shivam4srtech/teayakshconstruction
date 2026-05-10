@@ -80,7 +80,7 @@ export default function ContactConsultant() {
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-brand-dark/40 font-bold">Email Inquiries</p>
-                  <p className="text-brand-dark font-medium">consult@teayaksh.com</p>
+                  <p className="text-brand-dark font-medium">consult@TRAYAKSH.com</p>
                 </div>
               </div>
             </div>

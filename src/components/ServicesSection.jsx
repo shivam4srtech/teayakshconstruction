@@ -108,7 +108,7 @@ export default function SpecialtyGrid() {
         {/* Footer Note */}
         <div className="mt-16 text-center">
           <p className="text-[10px] uppercase tracking-[0.3em] text-brand-dark/30 font-bold">
-            Masterfully Crafted · Globally Standardized · Teayaksh Construction
+            Masterfully Crafted · Globally Standardized · TRAYAKSH Construction
           </p>
         </div>
       </div>

@@ -44,16 +44,16 @@ export async function sendConsultationRequest(formData) {
     await transporter.sendMail({
       from: `"${process.env.MAIL_FROM_NAME}" <${process.env.MAIL_FROM_ADDRESS}>`,
       to: email,
-      subject: `Thank you for contacting Teayaksh`,
+      subject: `Thank you for contacting TRAYAKSH`,
       html: `
         <div style="font-family: 'Georgia', serif; text-align: center; padding: 40px; background-color: #fafafa;">
-          <h1 style="color: #c4a47c;">TEAYAKSH</h1>
+          <h1 style="color: #c4a47c;">TRAYAKSH</h1>
           <p style="font-size: 18px; color: #333;">Hello ${name},</p>
           <p style="color: #666; line-height: 1.6;">We have received your request for <strong>${service}</strong>.<br/> 
           Our architectural consultant will reach out to you shortly to discuss your vision.</p>
           <br/>
           <div style="border-top: 1px solid #ddd; padding-top: 20px; font-size: 12px; color: #999;">
-            TEAYAKSH CONSTRUCTIONS & INTERIORS
+            TRAYAKSH CONSTRUCTIONS & INTERIORS
           </div>
         </div>
       `,

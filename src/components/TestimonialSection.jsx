@@ -11,7 +11,7 @@ const testimonials = [
     title: "The Perfect Atmosphere",
     thumbnail: "https://plus.unsplash.com/premium_photo-1733306523667-80d5e5668631?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    quote: "We looked at so many apartments, but nothing felt like home until we saw the craftsmanship of Teayaksh.",
+    quote: "We looked at so many apartments, but nothing felt like home until we saw the craftsmanship of TRAYAKSH.",
     rating: 5,
   },
    {
@@ -21,7 +21,7 @@ const testimonials = [
     title: "A Lifetime of Trust",
     thumbnail: "https://images.unsplash.com/photo-1706808886508-e21834b4672c?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    quote: "After a lifetime of service, we needed someone we could rely on. Teayaksh delivered excellence at every step.",
+    quote: "After a lifetime of service, we needed someone we could rely on. TRAYAKSH delivered excellence at every step.",
     rating: 5,
   },  
   {
@@ -31,7 +31,7 @@ const testimonials = [
     title: "A Lifetime of Trust",
     thumbnail: "https://images.unsplash.com/photo-1682184805271-11671b7ecf4c?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    quote: "After a lifetime of service, we needed someone we could rely on. Teayaksh delivered excellence at every step.",
+    quote: "After a lifetime of service, we needed someone we could rely on. TRAYAKSH delivered excellence at every step.",
     rating: 5,
   },
   {

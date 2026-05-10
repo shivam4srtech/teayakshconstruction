@@ -74,7 +74,7 @@ export default function Footer() {
               <div className="w-8 h-8 border border-brand flex items-center justify-center">
                 <span className="text-brand font-bold text-lg">T</span>
               </div>
-              <span className="text-xl font-bold tracking-[0.2em] uppercase">teayaksh</span>
+              <span className="text-xl font-bold tracking-[0.2em] uppercase">TRAYAKSH</span>
             </div>
             <p className="text-white/50 text-sm leading-relaxed max-w-xs">
               Crafting masterfully designed luxury homes and commercial landmarks with precision and passion.
@@ -131,7 +131,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-4 text-sm text-white/60">
                 <IoMailOutline size={20} className="text-brand shrink-0" />
-                <span>office@teayaksh.com</span>
+                <span>office@TRAYAKSH.com</span>
               </li>
             </ul>
           </div>
@@ -140,7 +140,7 @@ export default function Footer() {
         {/* Bottom Section: Legal */}
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-[10px] uppercase tracking-widest text-white/30 text-center md:text-left font-medium">
-            © {currentYear} Teayaksh Constructions & Interiors.
+            © {currentYear} TRAYAKSH Constructions & Interiors.
           </p>
           <div className="flex gap-8 text-[10px] uppercase tracking-widest text-white/30">
             <Link href="#" className="hover:text-brand transition-colors">Privacy Policy</Link>
@@ -151,7 +151,7 @@ export default function Footer() {
       
       {/* Ghost Watermark */}
       <div className="absolute -left-50 bottom-0 translate-y-1/3 translate-x-1/4 opacity-[0.03] pointer-events-none select-none">
-        <h2 className="text-[15rem] lg:text-[14rem] font-bold leading-none tracking-tighter">TEAYAKSH</h2>
+        <h2 className="text-[15rem] lg:text-[14rem] font-bold leading-none tracking-tighter">TRAYAKSH</h2>
       </div>
     </footer>
   );

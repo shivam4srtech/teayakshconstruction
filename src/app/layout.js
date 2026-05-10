@@ -14,7 +14,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata = {
-  title: 'Teayaksh Construction | Luxury Builders & Developers',
+  title: 'TRAYAKSH Construction | Luxury Builders & Developers',
   description: 'Creating architectural masterpieces with precision, innovation, and timeless elegance. Specializing in luxury homes, villas, and commercial spaces.',
 };
 

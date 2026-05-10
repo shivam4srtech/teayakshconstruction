@@ -8,10 +8,10 @@ import { IoMdMenu } from "react-icons/io";
 import { IoIosCall } from "react-icons/io";
 
 const navLinks = [
-  { name: 'Home', href: '/' },
   { name: 'About Us', href: '/about' },
   { name: 'Projects', href: '/projects' },
   { name: 'Interiors', href: '/interiors' },
+  { name: 'Pharmacy Setup', href: '/pharmacy-setup' },
   { name: 'Pricing', href: '/pricing' },
   { name: 'Contact', href: '/contact' },
 ];
@@ -73,7 +73,7 @@ export default function Navbar() {
                 <span className="text-brand font-bold text-xl">T</span>
               </div> */}
               <div className="flex flex-col leading-tight">
-                <span className="text-xl font-bold tracking-[0.2em] text-brand-dark uppercase">teayaksh</span>
+                <span className="text-xl font-bold tracking-[0.2em] text-brand-dark uppercase">TRAYAKSH</span>
                 <span className="text-[8px] tracking-[0.3em] text-brand font-sans font-bold uppercase ">Constructions</span>
               </div>
             </Link>

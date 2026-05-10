@@ -44,7 +44,7 @@ export default function ProjectHero() {
               className="text-brand-dark/60 max-w-md text-sm lg:text-base leading-relaxed"
             >
               From sprawling Royale villas to optimized Classic residencies, 
-              explore how Teayaksh is redefining the skyline of Noida and Delhi NCR.
+              explore how TRAYAKSH is redefining the skyline of Noida and Delhi NCR.
             </motion.p>
           </div>
 
