@@ -71,51 +71,101 @@ export default function PharmacySetupPage() {
     <div className="min-h-screen bg-white font-sans text-[#2D2926]">
       
       {/* 1. HERO SECTION */}
-      <section className="relative pt-20 pb-10 lg:pt-28 lg:pb-20 bg-[#F8F5F2] overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-[#A67153]/5 -skew-x-12 translate-x-20" />
-        <div className="max-w-7xl mx-auto px-5 lg:px-16 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
-              <h1 className="text-[2rem] md:text-[3.5rem] font-medium leading-[1.2] mb-6">
-                Professional <span className="text-[#A67153]">Pharmacy Setup</span> & Interior Solutions
-              </h1>
-              
-              <div className="flex flex-wrap md:justify-start justify-center md:gap-4 gap-2 mb-6">
-                <button className="bg-[#A67153] text-white md:px-8 px-2 py-4 rounded font-bold uppercase md:text-xs text-[.65rem] tracking-widest hover:bg-[#2D2926] transition-all shadow-lg shadow-[#A67153]/20">
-                  Get Free Consultation
-                </button>
-                <button className="bg-white text-[#2D2926] border border-gray-200 md:px-8 px-2 py-4 rounded font-bold uppercase md:text-xs text-[.65rem] tracking-widest hover:border-[#A67153] transition-all">
-                  View Our Work
-                </button>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {TRUST_BADGES.map((badge, i) => (
-                  <div key={i} className="flex items-center gap-3 text-sm font-medium text-gray-700 bg-white/50 p-3 rounded-lg border border-white">
-                    <span className="text-[#A67153] shrink-0">{badge.icon}</span>
-                    {badge.text}
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }} className="relative">
-              <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white">
-                <Image 
-                  width={100}
-                  height={100}
-                  src="/images/pharmacy.avif" 
-                  alt="Modern Pharmacy Interior" 
-                  className="w-full h-[400px] object-cover"
+      {/* 1. HERO SECTION */}
+<section className="relative min-h-[600px] lg:min-h-[700px] flex items-center overflow-hidden">
+  {/* Background Image with Overlay 
+    Using a linear gradient from solid light beige to transparent to ensure left-side text visibility
+  */}
+  <div className="absolute inset-0 z-0">
+    <div 
+      className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: "url('/images/medical-store.jpg')" }}
+    />
+    {/* The Gradient Shield: 
+      Darker on mobile for readability, then transitions to a clean fade on desktop 
+    */}
+    <div className="absolute inset-0 bg-gradient-to-r from-[#F8F5F2] via-[#F8F5F2]/95 md:via-[#F8F5F2]/80 to-transparent" />
+  </div>
 
-                />
-              </div>
-              <div className="absolute -bottom-6 -left-6 bg-white p-3 rounded-2xl shadow-xl border border-gray-100 hidden md:block">
-                <p className="text-3xl font-bold text-[#A67153]">30 Days</p>
-                <p className="text-[10px] uppercase font-black tracking-widest text-gray-400">Average Handover</p>
-              </div>
-            </motion.div>
-          </div>
+  <div className="max-w-7xl mx-auto px-5 lg:px-16 relative z-10 w-full pt-20 pb-10 lg:pt-28 lg:pb-20">
+    <div className="grid lg:grid-cols-2 gap-12">
+      
+      {/* Left Content Side */}
+      <motion.div 
+        initial={{ opacity: 0, x: -50 }} 
+        animate={{ opacity: 1, x: 0 }} 
+        transition={{ duration: 0.8 }}
+        className="max-w-xl"
+      >
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#A67153]/10 border border-[#A67153]/20 text-[#A67153] mb-6">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#A67153] opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#A67153]"></span>
+          </span>
+          <span className="text-[10px] font-bold uppercase tracking-widest">FDA Compliant Designs</span>
         </div>
-      </section>
+
+        <h1 className="text-[2.5rem] md:text-[4rem] font-medium leading-[1.1] mb-6 text-[#2D2926]">
+          Professional <span className="text-[#A67153]">Pharmacy Setup</span> & Interior Solutions
+        </h1>
+        
+        <p className="text-gray-600 text-lg mb-8 leading-relaxed hidden md:block">
+          Complete turnkey solutions for medical stores—from layout planning and drug-license compliant designs to modular shelving and premium branding.
+        </p>
+
+        <div className="flex flex-wrap md:justify-start justify-center md:gap-4 gap-3 mb-10">
+          <button className="bg-[#A67153] text-white md:px-8 px-6 py-4 rounded-xl font-bold uppercase md:text-xs text-[.75rem] tracking-widest hover:bg-[#2D2926] transition-all shadow-xl shadow-[#A67153]/30">
+            Get Free Consultation
+          </button>
+          <button className="bg-white/80 backdrop-blur-md text-[#2D2926] border border-gray-200 md:px-8 px-6 py-4 rounded-xl font-bold uppercase md:text-xs text-[.75rem] tracking-widest hover:border-[#A67153] transition-all">
+            View Our Work
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {TRUST_BADGES.map((badge, i) => (
+            <div key={i} className="flex items-center gap-3 text-sm font-medium text-gray-700 bg-white/60 backdrop-blur-sm p-3 rounded-xl border border-white">
+              <span className="text-[#A67153] shrink-0">{badge.icon}</span>
+              {badge.text}
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Right Side - Floating Card Feature */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9 }} 
+        animate={{ opacity: 1, scale: 1 }} 
+        transition={{ duration: 0.8, delay: 0.2 }} 
+        className="relative hidden lg:block"
+      >
+        <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white transform rotate-2 hover:rotate-0 transition-transform duration-700">
+          <Image 
+            src="/images/medical-store-2.avif"
+            alt="Modern Pharmacy Interior Detail" 
+            width={100}
+            height={100}
+            className="w-full h-[450px] object-cover"
+          />
+          {/* Overlay on the image itself */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#2D2926]/40 to-transparent" />
+        </div>
+
+        {/* Experience Badge */}
+        <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-[2rem] shadow-2xl border border-gray-100">
+          <p className="text-4xl font-bold text-[#A67153]">30</p>
+          <p className="text-[10px] uppercase font-black tracking-[0.2em] text-gray-400">Day Handover</p>
+        </div>
+
+        {/* Floating Detail Badge */}
+        <div className="absolute -top-6 -right-6 bg-[#2D2926] text-white p-6 rounded-[2rem] shadow-2xl border border-white/10">
+          <p className="text-xs font-bold uppercase tracking-widest">Premium Finish</p>
+        </div>
+      </motion.div>
+
+    </div>
+  </div>
+</section>
 
       {/* 2. PROBLEM/SOLUTION SECTION */}
       <section className="py-10 bg-white">

@@ -6,19 +6,19 @@ import { FaCheck, FaCrown, FaBolt, FaLeaf, FaGem, FaChevronDown } from 'react-ic
 const CITY_DATA = {
   "Noida": [
     { name: "Basic", price: "1910", icon: <FaBolt />, desc: "Essential quality for Noida urban setups.", features: ["Standard Brands", "Quality Flooring", "Structural Warranty"] },
-    { name: "Classic", price: "2210", popular: true, icon: <FaCrown />, desc: "Our best-seller featuring Jindal Steel.", features: ["Upgraded Brands", "Modular Kitchen", "10-Year Warranty"] },
+    
     { name: "Premium", price: "2490", icon: <FaLeaf />, desc: "Modern living with solar setups.", features: ["Smart Home Ready", "Solar Provision", "Italian Marble"] },
     { name: "Royale", price: "2790", icon: <FaGem />, desc: "High-end finishes and EV charging.", features: ["EV Charging", "Copper Gas Line", "Designer Paints"] }
   ],
   "Delhi": [
     { name: "Basic", price: "2100", icon: <FaBolt />, desc: "Optimized for Delhi space constraints.", features: ["Standard Brands", "Quality Flooring", "Structural Warranty"] },
-    { name: "Classic", price: "2450", popular: true, icon: <FaCrown />, desc: "Premium materials for capital homes.", features: ["Upgraded Brands", "Modular Kitchen", "10-Year Warranty"] },
+   
     { name: "Premium", price: "2700", icon: <FaLeaf />, desc: "Luxury living with green energy.", features: ["Smart Home Ready", "Solar Provision", "Italian Marble"] },
     { name: "Royale", price: "3100", icon: <FaGem />, desc: "Elite finishes for posh localities.", features: ["EV Charging", "Copper Gas Line", "Designer Paints"] }
   ],
   "Gurgaon": [
     { name: "Basic", price: "2050", icon: <FaBolt />, desc: "Quality construction for Millennium City.", features: ["Standard Brands", "Quality Flooring", "Structural Warranty"] },
-    { name: "Classic", price: "2380", popular: true, icon: <FaCrown />, desc: "Modern brands for high-rise living.", features: ["Upgraded Brands", "Modular Kitchen", "10-Year Warranty"] },
+   
     { name: "Premium", price: "2650", icon: <FaLeaf />, desc: "Advanced provisions for luxury floors.", features: ["Smart Home Ready", "Solar Provision", "Italian Marble"] },
     { name: "Royale", price: "2950", icon: <FaGem />, desc: "Ultra-luxury specs with smart tech.", features: ["EV Charging", "Copper Gas Line", "Designer Paints"] }
   ]
@@ -67,7 +67,7 @@ export default function PricingSection() {
         </div>
 
         {/* The Grid */}
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid grid-cols-3 gap-6">
           <AnimatePresence mode="wait">
             {currentPackages.map((pkg, idx) => (
               <motion.div

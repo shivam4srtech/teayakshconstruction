@@ -6,19 +6,16 @@ import { FaCheck, FaCrown, FaBolt, FaLeaf, FaGem, FaChevronDown } from 'react-ic
 const CITY_DATA = {
   "Noida": [
     { name: "Basic", price: "1910", icon: <FaBolt />, desc: "Essential quality for Noida urban setups.", features: ["Standard Brands", "Quality Flooring", "Structural Warranty"] },
-    { name: "Classic", price: "2210", popular: true, icon: <FaCrown />, desc: "Our best-seller featuring Jindal Steel.", features: ["Upgraded Brands", "Modular Kitchen", "10-Year Warranty"] },
     { name: "Premium", price: "2490", icon: <FaLeaf />, desc: "Modern living with solar setups.", features: ["Smart Home Ready", "Solar Provision", "Italian Marble"] },
     { name: "Royale", price: "2790", icon: <FaGem />, desc: "High-end finishes and EV charging.", features: ["EV Charging", "Copper Gas Line", "Designer Paints"] }
   ],
   "Delhi": [
     { name: "Basic", price: "2100", icon: <FaBolt />, desc: "Optimized for Delhi space constraints.", features: ["Standard Brands", "Quality Flooring", "Structural Warranty"] },
-    { name: "Classic", price: "2450", popular: true, icon: <FaCrown />, desc: "Premium materials for capital homes.", features: ["Upgraded Brands", "Modular Kitchen", "10-Year Warranty"] },
     { name: "Premium", price: "2700", icon: <FaLeaf />, desc: "Luxury living with green energy.", features: ["Smart Home Ready", "Solar Provision", "Italian Marble"] },
     { name: "Royale", price: "3100", icon: <FaGem />, desc: "Elite finishes for posh localities.", features: ["EV Charging", "Copper Gas Line", "Designer Paints"] }
   ],
   "Gurgaon": [
     { name: "Basic", price: "2050", icon: <FaBolt />, desc: "Quality construction for Millennium City.", features: ["Standard Brands", "Quality Flooring", "Structural Warranty"] },
-    { name: "Classic", price: "2380", popular: true, icon: <FaCrown />, desc: "Modern brands for high-rise living.", features: ["Upgraded Brands", "Modular Kitchen", "10-Year Warranty"] },
     { name: "Premium", price: "2650", icon: <FaLeaf />, desc: "Advanced provisions for luxury floors.", features: ["Smart Home Ready", "Solar Provision", "Italian Marble"] },
     { name: "Royale", price: "2950", icon: <FaGem />, desc: "Ultra-luxury specs with smart tech.", features: ["EV Charging", "Copper Gas Line", "Designer Paints"] }
   ]
@@ -31,11 +28,11 @@ export default function MobilePricing() {
   const currentPkg = CITY_DATA[activeCity][activeIndex];
 
   return (
-    <section className="py-16 bg-gray-50 lg:hidden"> {/* Only visible on Mobile */}
+    <section className="py-6 bg-gray-50 lg:hidden"> {/* Only visible on Mobile */}
       <div className="px-5">
         
         {/* Header & City Dropdown */}
-        <div className="flex flex-col gap-6 mb-10">
+        <div className="flex flex-col gap-6 mb-5">
           <div className="space-y-1">
             <p className="text-[10px] uppercase tracking-[0.4em] font-bold text-brand">Estimator</p>
             <h2 className="text-3xl font-medium text-brand-dark">Package Details.</h2>
@@ -57,7 +54,7 @@ export default function MobilePricing() {
         </div>
 
         {/* Segmented Toggle Buttons */}
-        <div className="flex bg-gray-200/50 p-1 rounded-xl mb-8 overflow-x-auto no-scrollbar">
+        <div className="flex bg-gray-200/50 p-1 rounded-xl mb-4 overflow-x-auto no-scrollbar">
           {CITY_DATA[activeCity].map((pkg, idx) => (
             <button
               key={pkg.name}
