@@ -1,60 +1,49 @@
 'use client';
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Building2, Ruler, Zap, Droplets, Info, Plus, Minus } from 'lucide-react';
+import { ChevronDown, Info, Minus, Plus } from 'lucide-react';
 import CustomSelect from './CustomSelect';
 
-const CITY_SPECIFIC_DATA = {
-  "Chennai": {
-    basicPrice: "2,150",
-    premiumPrice: "2,750",
-    specs: [
-      { title: "Structure", basic: "M20 Concrete, Red Bricks (Local)", premium: "M25 Concrete, Wire-cut Bricks" },
-      { title: "Flooring", basic: "Vitrified 2x2 (Standard)", premium: "Italian Marble Finish" },
-      { title: "Plumbing", basic: "PVC Piping, Hindware", premium: "CPVC Piping, Jaguar" }
-    ]
-  },
-  "Bangalore": {
-    basicPrice: "2,350",
-    premiumPrice: "3,100",
-    specs: [
-      { title: "Structure", basic: "M20 Concrete, Solid Blocks", premium: "M25 Concrete, Porotherm Bricks" },
-      { title: "Flooring", basic: "Vitrified 2x2 (Premium)", premium: "Full Body GVT 4x2" },
-      { title: "Plumbing", basic: "Ashirvad PVC, Parryware", premium: "Supreme CPVC, Kohler" }
-    ]
-  },
-  "Hyderabad": {
-    basicPrice: "2,200",
-    premiumPrice: "2,950",
-    specs: [
-      { title: "Structure", basic: "M20 Concrete, Table Molded Bricks", premium: "M25 Concrete, Fly Ash Bricks" },
-      { title: "Flooring", basic: "Standard Vitrified", premium: "Double Charged Vitrified" },
-      { title: "Plumbing", basic: "Prince Piping, Standard", premium: "Astral Piping, Grohe" }
-    ]
-  },
-  "Lucknow": {
-    basicPrice: "1,950",
-    premiumPrice: "2,600",
-    specs: [
-      { title: "Structure", basic: "M20 Concrete, First Class Bricks", premium: "M25 Concrete, Machine Made Bricks" },
-      { title: "Flooring", basic: "Ceramic / Vitrified Mix", premium: "Premium Vitrified 4x2" },
-      { title: "Plumbing", basic: "Standard PVC", premium: "Branded CPVC & Fittings" }
-    ]
-  }
-};
+function normalizeCityKey(city, packageRates) {
+  const cityKeys = Object.keys(packageRates || {});
+  return cityKeys.find((key) => key.toLowerCase() === city.toLowerCase()) || city;
+}
 
-export default function CityDynamicComparison() {
-  const [selectedCity, setSelectedCity] = useState("Chennai");
-  const [leftPkg, setLeftPkg] = useState('basic');
-  const [rightPkg, setRightPkg] = useState('premium');
+function summarizeFeatureGroup(group) {
+  if (!group) return 'Specification will be confirmed by our project team.';
 
-  const currentCityData = CITY_SPECIFIC_DATA[selectedCity];
+  return Object.entries(group)
+    .slice(0, 4)
+    .map(([key, value]) => `${key.trim()}: ${value}`)
+    .join(' | ');
+}
+
+export default function CityDynamicComparison({
+  cities = [],
+  pricingTiers = [],
+  packageRates = {},
+  selection,
+  onSelectionChange,
+}) {
+  const selectedCity = selection.city;
+  const normalizedCity = normalizeCityKey(selectedCity, packageRates);
+  const cityData = packageRates?.[normalizedCity] || {};
+  const cityOptions = cities.map((city) => city.name).filter(Boolean);
+  const selectedPackageIndex = Math.max(
+    pricingTiers.findIndex((tier) => tier.slug === selection.packageSlug),
+    0
+  );
+  const comparisonPackage =
+    pricingTiers[selectedPackageIndex + 1]?.slug ||
+    pricingTiers[selectedPackageIndex - 1]?.slug ||
+    pricingTiers[0]?.slug ||
+    selection.packageSlug;
+  const [rightPkg, setRightPkg] = useState(comparisonPackage);
+  const activeRightPkg = rightPkg === selection.packageSlug ? comparisonPackage : rightPkg;
 
   return (
     <section className="py-24 bg-[#F8F5F2]">
       <div className="max-w-7xl mx-auto px-5 lg:px-16">
-        
-        {/* Header with City State Control */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
           <div>
             <h2 className="text-4xl lg:text-5xl font-medium text-[#2D2926] tracking-tighter">
@@ -63,53 +52,70 @@ export default function CityDynamicComparison() {
           </div>
           <div className="w-full md:w-72 bg-white p-3 rounded-[2rem] shadow-xl border border-white">
             <label className="text-[9px] font-black uppercase tracking-widest text-gray-400 ml-4 mb-1 block">Pricing Region</label>
-            {/* Added onChange to your CustomSelect logic */}
-            <CustomSelect 
-              options={Object.keys(CITY_SPECIFIC_DATA)} 
-              placeholder="Chennai" 
+            <CustomSelect
+              options={cityOptions}
+              placeholder="Select City"
               name="city"
-              onChange={(val) => setSelectedCity(val)} 
+              value={selectedCity}
+              onChange={(val) =>
+                onSelectionChange((current) => ({
+                  ...current,
+                  city: val,
+                  submittedEstimate: null,
+                }))
+              }
             />
           </div>
         </div>
 
-        {/* Dual Comparison Container */}
         <div className="grid md:grid-cols-2 gap-px bg-gray-200 rounded-[3.5rem] overflow-hidden border-2 border-gray-200 shadow-2xl">
-          <ComparisonColumn 
-            cityData={currentCityData} 
-            currentPkg={leftPkg} 
-            setPkg={setLeftPkg} 
-            side="A" 
+          <ComparisonColumn
+            cityData={cityData}
+            pricingTiers={pricingTiers}
+            currentPkg={selection.packageSlug}
+            setPkg={(pkg) =>
+              onSelectionChange((current) => ({
+                ...current,
+                packageSlug: pkg,
+                submittedEstimate: null,
+              }))
+            }
+            side="A"
           />
-          <ComparisonColumn 
-            cityData={currentCityData} 
-            currentPkg={rightPkg} 
-            setPkg={setRightPkg} 
-            side="B" 
+          <ComparisonColumn
+            cityData={cityData}
+            pricingTiers={pricingTiers}
+            currentPkg={activeRightPkg}
+            setPkg={setRightPkg}
+            side="B"
           />
         </div>
 
-        {/* Dynamic Disclaimer Note */}
         <div className="mt-12 p-10 bg-white/50 rounded-[2.5rem] border border-white flex items-start gap-6">
-            <Info className="text-[#A67153] shrink-0" />
-            <p className="text-xs text-gray-500 leading-relaxed">
-                Prices shown for <strong>{selectedCity}</strong> are based on current regional material market indices (May 2026). 
-                Technical specs for {selectedCity} are optimized for local soil and weather conditions. 
-                Assumed: Balcony/Utility (40 sqft), Parking (130 sqft).
-            </p>
+          <Info className="text-[#A67153] shrink-0" />
+          <p className="text-xs text-gray-500 leading-relaxed">
+            Prices shown for <strong>{selectedCity}</strong> are fetched from the live Laravel rate card.
+            The form and structural comparison are mapped to the same city/package selection.
+            Final estimated value appears only after successful form submission.
+          </p>
         </div>
       </div>
     </section>
   );
 }
 
-function ComparisonColumn({ cityData, currentPkg, setPkg, side }) {
+function ComparisonColumn({ cityData, pricingTiers, currentPkg, setPkg, side }) {
   const [openIdx, setOpenIdx] = useState(0);
   const [isPkgOpen, setIsPkgOpen] = useState(false);
   const dropdownRef = useRef(null);
-
-  // Price determined by current city and selected package
-  const displayPrice = currentPkg === 'basic' ? cityData.basicPrice : cityData.premiumPrice;
+  const packageData = cityData?.[currentPkg] || null;
+  const displayPrice = packageData?.price ? packageData.price.toLocaleString('en-IN') : '--';
+  const currentPackageName =
+    pricingTiers.find((tier) => tier.slug === currentPkg)?.name || currentPkg;
+  const featureSpecs = Object.entries(packageData?.features || {}).map(([title, group]) => ({
+    title,
+    detail: summarizeFeatureGroup(group),
+  }));
 
   return (
     <div className="bg-white flex flex-col min-h-[700px]">
@@ -118,12 +124,12 @@ function ComparisonColumn({ cityData, currentPkg, setPkg, side }) {
           <span className="text-[10px] font-black uppercase tracking-widest opacity-40">Side {side}</span>
           <div className="relative" ref={dropdownRef}>
             <button onClick={() => setIsPkgOpen(!isPkgOpen)} className={`px-5 py-2.5 rounded-full border text-[10px] font-black uppercase tracking-widest ${currentPkg === 'premium' ? 'border-white/20 bg-white/5' : 'border-gray-200 bg-gray-50'}`}>
-              {currentPkg} Package <ChevronDown size={14} className="ml-2 inline" />
+              {currentPackageName} Package <ChevronDown size={14} className="ml-2 inline" />
             </button>
             {isPkgOpen && (
               <div className="absolute right-0 mt-2 w-40 bg-white shadow-2xl rounded-xl overflow-hidden z-50">
-                {['basic', 'premium'].map(p => (
-                  <button key={p} onClick={() => { setPkg(p); setIsPkgOpen(false); }} className="w-full text-left px-5 py-3 text-[10px] font-bold uppercase text-black hover:bg-gray-100">{p} Package</button>
+                {pricingTiers.map((tier) => (
+                  <button key={tier.slug} onClick={() => { setPkg(tier.slug); setIsPkgOpen(false); }} className="w-full text-left px-5 py-3 text-[10px] font-bold uppercase text-black hover:bg-gray-100">{tier.name} Package</button>
                 ))}
               </div>
             )}
@@ -133,8 +139,8 @@ function ComparisonColumn({ cityData, currentPkg, setPkg, side }) {
       </div>
 
       <div className="p-6 space-y-4 flex-1">
-        {cityData.specs.map((spec, i) => (
-          <div key={i} className={`rounded-[2rem] border transition-all ${openIdx === i ? 'bg-[#F8F5F2] border-[#A67153]/20' : 'border-transparent'}`}>
+        {featureSpecs.length > 0 ? featureSpecs.map((spec, i) => (
+          <div key={spec.title} className={`rounded-[2rem] border transition-all ${openIdx === i ? 'bg-[#F8F5F2] border-[#A67153]/20' : 'border-transparent'}`}>
             <button onClick={() => setOpenIdx(openIdx === i ? null : i)} className="w-full flex items-center justify-between p-6">
               <span className={`text-[10px] font-black uppercase tracking-widest ${openIdx === i ? 'text-[#2D2926]' : 'text-gray-400'}`}>{spec.title}</span>
               {openIdx === i ? <Minus size={14} /> : <Plus size={14} />}
@@ -143,13 +149,19 @@ function ComparisonColumn({ cityData, currentPkg, setPkg, side }) {
               {openIdx === i && (
                 <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden">
                   <p className="px-6 pb-6 text-sm font-medium text-gray-600 pl-10 leading-relaxed">
-                    {currentPkg === 'basic' ? spec.basic : spec.premium}
+                    {spec.detail}
                   </p>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
-        ))}
+        )) : (
+          <div className="rounded-[2rem] border border-dashed border-gray-200 bg-[#F8F5F2] p-8 text-center">
+            <p className="text-sm font-semibold text-gray-500">
+              Rate card is not published for this city/package yet.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
