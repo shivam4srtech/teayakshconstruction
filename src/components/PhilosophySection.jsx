@@ -51,11 +51,11 @@ export default function PhilosophySection() {
 
       <div className="max-w-7xl mx-auto px-5 lg:px-16 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10 space-y-4">
-          <p className="text-brand font-bold text-[10px] tracking-[0.4em] uppercase">
+        <div className="text-center max-w-2xl mx-auto md:mb-10 mb-4 space-y-4">
+          <p className="text-brand font-bold text-[10px] tracking-[0.4em] uppercase md:mb-4 mb-1">
             The TRAYAKSH Way
           </p>
-          <h2 className="text-4xl lg:text-5xl font-medium text-brand-dark tracking-tight">
+          <h2 className="text-2xl lg:text-5xl font-medium text-brand-dark tracking-tight mb-1 md:mb-3">
             From Vision to <span className=". text-brand/80">Reality</span>
           </h2>
           <p className="text-brand-dark/60 text-sm leading-relaxed">
@@ -72,7 +72,7 @@ export default function PhilosophySection() {
             {steps.map((step, index) => (
               <div 
                 key={step.number} 
-                className={`flex flex-col lg:flex-row items-center justify-between lg:mb-24 group ${
+                className={`flex flex-col lg:flex-row items-center justify-between lg:mb-12 mb-0 group ${
                   index % 2 !== 0 ? 'lg:flex-row-reverse' : ''
                 }`}
               >
@@ -82,7 +82,7 @@ export default function PhilosophySection() {
                     <span className="text-5xl lg:text-7xl font-bold text-brand/10 group-hover:text-brand/20 transition-colors duration-500">
                       {step.number}
                     </span>
-                    <h3 className="text-2xl lg:text-3xl font-medium text-brand-dark">
+                    <h3 className="md:text-2xl text-xl lg:text-3xl font-medium text-brand-dark">
                       {step.title}
                     </h3>
                   </div>
@@ -108,7 +108,7 @@ export default function PhilosophySection() {
         </div>
 
         {/* Final CTA within Timeline */}
-        <div className="mt-12 text-center">
+        <div className="md:mt-12 mt-4 text-center">
           <button className="bg-brand-dark text-white px-12 py-5 text-[11px] font-sans font-bold uppercase tracking-[0.2em] hover:bg-brand transition-all cursor-pointer shadow-2xl">
             Start Your Journey
           </button>

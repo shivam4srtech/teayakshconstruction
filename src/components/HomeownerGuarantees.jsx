@@ -2,6 +2,7 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, Banknote, Timer, Users, HardHat, Heart, X, ChevronLeft, ChevronRight, CheckCircle } from 'lucide-react';
+import { HiArrowLongRight } from "react-icons/hi2";
 
 const GUARANTEES = [
   {
@@ -66,28 +67,29 @@ export default function GuaranteesSlider() {
         
         {/* Header with Navigation */}
         <div className="flex flex-col md:flex-row justify-between items-end md:mb-12 mb-4 md:gap-8 gap-4">
-          <div className="max-w-2xl">
-            <span className="text-[#A67153] font-black uppercase tracking-[0.4em] text-[10px] block mb-2">Our Promice</span>
-            <h2 className="text-3xl lg:text-5xl font-medium text-[#2D2926] leading-tight tracking-tighter">
-              Guarantees that let you <br />
-              <span className=" font-light text-[#A67153]">sleep better at night.</span>
+          <div className="">
+            <p className="text-brand font-bold text-[10px] tracking-[0.4em] uppercase border-l-2 border-brand pl-4 mb-1">
+              Our Promice
+            </p>
+            <h2 className="text-xl lg:text-4xl font-medium text-[#2D2926] leading-tight tracking-tighter">
+              Guarantees that let you <span className=" font-light text-[#A67153]">sleep better at night.</span>
             </h2>
           </div>
 
-          <div className="flex gap-3">
+          {/* <div className="flex gap-3">
             <button onClick={() => scroll('left')} className="p-4 rounded-full border border-gray-200 bg-white hover:bg-[#2D2926] hover:text-white transition-all shadow-sm">
               <ChevronLeft size={20} />
             </button>
             <button onClick={() => scroll('right')} className="p-4 rounded-full border border-gray-200 bg-white hover:bg-[#2D2926] hover:text-white transition-all shadow-sm">
               <ChevronRight size={20} />
             </button>
-          </div>
+          </div> */}
         </div>
 
         {/* The Slider Track */}
         <div 
           ref={scrollRef}
-          className="flex overflow-x-auto gap-6 pb-12 snap-x snap-mandatory scrollbar-hide no-scrollbar"
+          className="flex overflow-x-auto gap-6 md:pb-12 pb-4 snap-x snap-mandatory scrollbar-hide no-scrollbar"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {GUARANTEES.map((item, i) => (
@@ -95,18 +97,24 @@ export default function GuaranteesSlider() {
               key={i}
               className="min-w-full md:min-w-[calc(50%-12px)] lg:min-w-[calc(33.33%-16px)] snap-start"
             >
-              <div className={`relative h-[400px] rounded-[2.5rem] p-10 flex flex-col justify-between bg-gradient-to-br ${item.color} text-white shadow-xl hover:shadow-2xl transition-all group overflow-hidden`}>
-                <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl -mr-10 -mt-10" />
+              <div className={`relative md:h-[350px] h-[300] rounded-[2.5rem] md:p-10 p-4 flex flex-col justify-between bg-gradient-to-br ${item.color} text-white shadow-xl hover:shadow-2xl transition-all group overflow-hidden`}>
+                <div className="absolute top-[10%] left-[40%]   opacity-[.05] pointer-events-none text-[200px] text-white">{i+1}</div>
                 
                 <div>
-                  <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center mb-8 border border-white/20">
-                    {item.icon}
+                  <div className='flex items-center md:mb-8 mb-4 justify-between'>
+                      <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center  border border-white/20">
+                        {item.icon}
+                      </div>
+                      <div className='opacity-[.08] shrink-0'>
+                          <HiArrowLongRight  size={80} />
+                      </div>
                   </div>
-                  <h3 className="text-2xl font-bold mb-4">{item.title}</h3>
+                  
+                  <h3 className="md:text-2xl text-xl font-bold md:mb-4 mb-3">{item.title}</h3>
                   <p className="text-white/70 leading-relaxed text-sm">{item.desc}</p>
                 </div>
 
-                <div className="flex items-center justify-between mt-8">
+                <div className="flex items-center justify-between">
                   <span className="text-[10px] font-black uppercase tracking-widest text-white/30">Verified Promise</span>
                   <button 
                     onClick={() => setSelectedIdx(i)}

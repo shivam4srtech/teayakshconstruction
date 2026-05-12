@@ -32,10 +32,11 @@ export default function MobilePricing() {
       <div className="px-5">
         
         {/* Header & City Dropdown */}
-        <div className="flex flex-col gap-6 mb-5">
+        <div className="flex flex-col md:gap-6 gap-3 mb-5">
           <div className="space-y-1">
-            <p className="text-[10px] uppercase tracking-[0.4em] font-bold text-brand">Estimator</p>
-            <h2 className="text-3xl font-medium text-brand-dark">Package Details.</h2>
+            
+            <p className="text-brand font-bold text-[10px] tracking-[0.4em] uppercase border-l-2 border-brand pl-4 mb-3">Estimator</p>
+            <h2 className="md:text-3xl text-xl font-medium text-brand-dark">Package Details.</h2>
           </div>
 
           <div className="relative bg-white border border-gray-200 rounded-xl px-4 py-1 shadow-sm">

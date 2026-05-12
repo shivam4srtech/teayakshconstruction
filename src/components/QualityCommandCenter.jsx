@@ -76,8 +76,9 @@ export default function QualityCommandCenter() {
         
         {/* Header */}
         <div className="md:mb-16 mb-3">
-          <span className="text-[#A67153] font-black uppercase tracking-[0.4em] text-[10px] block mb-4">Zero Compromise</span>
-          <h2 className="text-3xl lg:text-5xl font-medium text-[#2D2926] leading-tight tracking-tighter">
+          
+          
+          <h2 className="text-xl lg:text-4xl font-medium text-[#2D2926] leading-tight tracking-tighter text-center">
             334+ QASCON <span className=" font-light text-[#A67153]">Quality Test.</span>
           </h2>
         </div>
@@ -100,16 +101,16 @@ export default function QualityCommandCenter() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, delay: i * 0.1 }}
-                className={`flex flex-col md:flex-row items-center gap-4 lg:gap-0 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
+                className={`flex flex-col md:flex-row items-center gap-4 lg:gap-0 mb-4 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
               >
                 
                 {/* Content Side */}
                 <div className={`flex-1 w-full ${i % 2 === 0 ? 'md:text-right md:pr-20' : 'md:text-left md:pl-20'}`}>
-                  <div className={`inline-flex items-center gap-2 mb-4 ${i % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+                  <div className={`inline-flex items-center gap-2 md:mb-4 mb-2 ${i % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
                     <span className="text-[10px] font-black text-[#A67153] uppercase tracking-widest">{step.detail}</span>
                     <div className="w-8 h-[1px] bg-[#A67153]/30" />
                   </div>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-[#2D2926] md:mb-4 mb-2">{step.title}</h3>
+                  <h3 className="text-xl lg:text-3xl font-semibold text-[#2D2926] md:mb-4 mb-2">{step.title}</h3>
                   <p className="text-gray-500 text-sm lg:text-base leading-relaxed max-w-md ml-0 mr-0 i-even:ml-auto">
                     {step.desc}
                   </p>
@@ -139,9 +140,9 @@ export default function QualityCommandCenter() {
         <motion.div 
           initial={{ scale: 0.8, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
-          className="mt-14 mt-4 flex flex-col items-center text-center"
+          className="md:mt-14 mt-6 flex flex-col items-center text-center"
         >
-          <div className="p-8 rounded-[3rem] border border-dashed border-[#A67153]/30 bg-[#F8F5F2]">
+          <div className="md:p-8 p-4  rounded border border-dashed border-[#A67153]/30 bg-[#F8F5F2]">
             <h4 className="text-xl font-bold text-[#2D2926] mb-2">Quality is our Signature.</h4>
             <p className="text-sm text-gray-500">"We build every home as if our own family were moving in."</p>
           </div>

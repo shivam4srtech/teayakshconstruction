@@ -35,13 +35,13 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-brand-dark text-white pt-20 pb-10 px-5 lg:px-16 overflow-hidden relative">
+    <footer className="bg-brand-dark text-white md:pt-20 pt-10 pb-10 px-5 lg:px-16 overflow-hidden relative">
       <div className="max-w-7xl mx-auto">
         
         {/* Top Section: CTA & Newsletter */}
-        <div className="grid lg:grid-cols-2 gap-12 pb-16 border-b border-white/10">
+        <div className="grid lg:grid-cols-2 md:gap-12 gap-4 border-b border-white/10">
           <div className="space-y-6">
-            <h2 className="text-4xl lg:text-5xl font-medium leading-tight">
+            <h2 className="text-2xl lg:text-5xl font-medium leading-tight md:mb-3 mb-0">
               Ready to build your <br />
               <span className=". text-brand">dream space?</span>
             </h2>
@@ -67,7 +67,7 @@ export default function Footer() {
         </div>
 
         {/* Middle Section: Links & Info */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:py-16 py-8">
           {/* Brand Identity */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
@@ -150,8 +150,8 @@ export default function Footer() {
       </div>
       
       {/* Ghost Watermark */}
-      <div className="absolute -left-50 bottom-0 translate-y-1/3 translate-x-1/4 opacity-[0.03] pointer-events-none select-none">
-        <h2 className="text-[15rem] lg:text-[14rem] font-bold leading-none tracking-tighter">TRAYAKSH</h2>
+      <div className="absolute md:-left-50 -left-30 bottom-0 translate-y-1/3 translate-x-1/4 opacity-[0.03] pointer-events-none select-none">
+        <h2 className="text-[4.5rem] lg:text-[14rem] font-bold leading-none tracking-tighter">TRAYAKSH</h2>
       </div>
     </footer>
   );

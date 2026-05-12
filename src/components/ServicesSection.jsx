@@ -46,13 +46,13 @@ export default function SpecialtyGrid() {
       <div className="max-w-7xl mx-auto px-5 lg:px-16">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between md:mb-10 mb-4 md:gap-6 gap-2">
           <div className="space-y-4">
-            <p className="text-brand font-bold text-[10px] tracking-[0.4em] uppercase border-l-2 border-brand pl-4">
+            <p className="text-brand font-bold text-[10px] tracking-[0.4em] uppercase border-l-2 border-brand pl-4 mb-2 md:mb-3">
               Our Expertise
             </p>
-            <h2 className="text-4xl lg:text-5xl font-medium text-brand-dark tracking-tight">
-              Specialized <span className=". font-light text-brand/80">Construction Verticals.</span>
+            <h2 className="text-xl lg:text-4xl font-semibold text-brand-dark tracking-tight">
+              Our <span className="text-brand/80">Construction Expertise.</span>
             </h2>
           </div>
           <p className="text-brand-dark/50 text-sm max-w-xs leading-relaxed">
@@ -61,11 +61,11 @@ export default function SpecialtyGrid() {
         </div>
 
         {/* The Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-8 gap-4">
           {services.map((service, index) => (
             <div 
               key={index} 
-              className="group relative h-[450px] overflow-hidden cursor-pointer bg-brand-dark"
+              className="group relative md:h-[400px] h-[300px] overflow-hidden cursor-pointer bg-brand-dark"
             >
               {/* Background Image */}
               <img 
@@ -83,13 +83,13 @@ export default function SpecialtyGrid() {
               </div>
 
               {/* Content */}
-              <div className="absolute inset-0 p-10 flex flex-col justify-end transform transition-transform duration-500 group-hover:-translate-y-2">
+              <div className="absolute inset-0 md:p-10 p-4 flex flex-col justify-end transform transition-transform duration-500 group-hover:-translate-y-2">
                 <div className="space-y-3">
                   <div className="w-12 h-[1px] bg-brand" />
                   <h3 className="text-2xl font-medium text-white tracking-tight">
                     {service.title}
                   </h3>
-                  <p className="text-white/60 text-sm font-light max-w-[250px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                  <p className="text-white/60 text-sm font-light max-w-[250px]  group-hover:opacity-100 transition-opacity duration-500 delay-100">
                     {service.desc}
                   </p>
                   
@@ -106,7 +106,7 @@ export default function SpecialtyGrid() {
         </div>
         
         {/* Footer Note */}
-        <div className="mt-16 text-center">
+        <div className="md:mt-12 mt-6 text-center">
           <p className="text-[10px] uppercase tracking-[0.3em] text-brand-dark/30 font-bold">
             Masterfully Crafted · Globally Standardized · TRAYAKSH Construction
           </p>

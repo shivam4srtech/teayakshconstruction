@@ -53,26 +53,25 @@ export default function ProjectSection() {
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between md:mb-10 mb-6 md:gap-8 gap-4">
           <div className="space-y-4">
-            <p className="text-brand font-bold text-[10px] tracking-[0.4em] uppercase border-l-2 border-brand pl-4">
+            <p className="text-brand font-bold text-[10px] tracking-[0.4em] uppercase border-l-2 border-brand pl-4 mb-1">
               Featured Portfolio
             </p>
-            <h2 className="text-3xl lg:text-5xl font-medium text-brand-dark tracking-tight">
-              Masterpieces in <br />
-              <span className=". font-light text-brand/80">Architectural Excellence.</span>
+            <h2 className="text-xl lg:text-4xl font-medium text-brand-dark tracking-tight">
+              Masterpieces in <span className=". font-light text-brand/80">Architectural Excellence.</span>
             </h2>
           </div>
 
           {/* Custom Navigation Arrows */}
-          <div className="flex gap-4">
+          <div className="md:flex hidden gap-4">
             <button 
               onClick={() => scroll('left')}
-              className="p-4 border border-brand/20 text-brand-dark hover:bg-brand hover:text-white transition-all duration-300 rounded-full cursor-pointer"
+              className="p-3 border border-brand/20 text-brand-dark hover:bg-brand hover:text-white transition-all duration-300 rounded-full cursor-pointer"
             >
               <HiOutlineArrowLongLeft size={24} />
             </button>
             <button 
               onClick={() => scroll('right')}
-              className="p-4 border border-brand/20 text-brand-dark hover:bg-brand hover:text-white transition-all duration-300 rounded-full cursor-pointer"
+              className="p-3 border border-brand/20 text-brand-dark hover:bg-brand hover:text-white transition-all duration-300 rounded-full cursor-pointer"
             >
               <HiOutlineArrowLongRight size={24} />
             </button>
@@ -82,13 +81,13 @@ export default function ProjectSection() {
         {/* Horizontal Scroll Area */}
         <div 
           ref={scrollRef}
-          className="flex gap-8 overflow-x-auto no-scrollbar snap-x snap-mandatory"
+          className="flex md:gap-8 gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {projects.map((project) => (
             <div 
               key={project.id}
-              className="min-w-[50vw] md:min-w-[30vw] lg:min-w-[35vw] snap-start group relative"
+              className="min-w-[65vw] md:min-w-[30vw] lg:min-w-[35vw] snap-start group relative"
             >
               <div className="relative h-[300px] lg:h-[300px] overflow-hidden">
                 {/* Image with subtle parallax effect on hover */}
@@ -114,7 +113,7 @@ export default function ProjectSection() {
               </div>
 
               {/* Text Info */}
-              <div className="mt-8 flex justify-between items-start">
+              <div className="mt-4 md:mt-6 flex justify-between items-start">
                 <div>
                   <h3 className="md:text-2xl text-[.9rem] leading-[1.2] font-medium text-brand-dark group-hover:text-brand transition-colors duration-300">
                     {project.title}

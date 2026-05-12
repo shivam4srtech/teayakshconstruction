@@ -65,21 +65,21 @@ export default function VideoTestimonialSlider() {
       <div className="max-w-[1400px] mx-auto px-5 lg:px-16">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+        <div className="flex md:flex-row justify-between md:items-end items-start md:mb-8 mb-3 gap-6">
           <div className="space-y-4">
-            <p className="text-brand font-bold text-[10px] tracking-[0.4em] uppercase border-l-2 border-brand pl-4">
+            <p className="text-brand font-bold text-[10px] tracking-[0.4em] uppercase border-l-2 border-brand pl-4 md:mb-4 mb-1">
               Client Stories
             </p>
-            <h2 className="text-4xl lg:text-5xl font-medium text-brand-dark tracking-tight">
+            <h2 className="text-xl lg:text-4xl font-medium text-brand-dark tracking-tight">
               Hear from our <span className=". font-light text-brand/80">Clients.</span>
             </h2>
           </div>
           
           <div className="flex gap-3">
-            <button onClick={() => scroll('left')} className="p-4 border border-brand/10 hover:bg-brand hover:text-white transition-all cursor-pointer bg-white group">
+            <button onClick={() => scroll('left')} className="md:p-3 p-2 border border-brand/10 hover:bg-brand hover:text-white transition-all cursor-pointer bg-white group">
               <FaChevronLeft size={16} />
             </button>
-            <button onClick={() => scroll('right')} className="p-4 border border-brand/10 hover:bg-brand hover:text-white transition-all cursor-pointer bg-white group">
+            <button onClick={() => scroll('right')} className="md:p-3 p-2 border border-brand/10 hover:bg-brand hover:text-white transition-all cursor-pointer bg-white group">
               <FaChevronRight size={16} />
             </button>
           </div>
@@ -163,7 +163,7 @@ export default function VideoTestimonialSlider() {
                   ))}
                 </div>
 
-                <p className="text-brand-dark/60 text-[13px] leading-relaxed . line-clamp-3">
+                <p className="text-brand-dark/60 text-[13px] leading-relaxed . line-clamp-3 mb-0">
                   "{item.quote}"
                 </p>
 

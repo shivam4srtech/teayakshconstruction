@@ -43,8 +43,8 @@ export default function PricingSection() {
               <span className="w-8 h-[2px] bg-brand" />
               <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-brand">Construction Costs</p>
             </motion.div>
-            <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-brand-dark leading-[1.1]">
-              Refined <span className="font-light text-brand">Pricing.</span>
+            <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-brand-dark leading-[1.1]">
+              Our Construction <span className="font-light text-brand">Packages.</span>
             </h2>
           </div>
 

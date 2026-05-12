@@ -30,25 +30,24 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="bg-white py-6 lg:py-12">
+    <section className="bg-white py-6 lg:py-12 pt-0">
       <div className="max-w-7xl mx-auto px-5 lg:px-16">
         
-        <div className="grid lg:grid-cols-12 gap-16">
+        <div className="grid lg:grid-cols-12 md:gap-16 gap-2">
           
           {/* Left Side: Sticky Header */}
           <div className="lg:col-span-5 lg:sticky lg:top-32 h-fit space-y-6">
-            <p className="text-brand font-bold text-[10px] tracking-[0.4em] uppercase border-l-2 border-brand pl-4">
+            <p className="text-brand font-bold text-[10px] tracking-[0.4em] uppercase border-l-2 border-brand pl-4 mb-3 mb-2">
               Common Inquiries
             </p>
-            <h2 className="text-4xl lg:text-5xl font-medium text-brand-dark tracking-tight leading-tight">
-              Expert Insights & <br />
-              <span className=". text-brand/80 font-light">Client Clarity.</span>
+            <h2 className="text-xl lg:text-5xl font-semibold text-brand-dark tracking-tight leading-tight md:mb-4 mb-2">
+              Expert Insights & <span className=". text-brand/80">Client Clarity.</span>
             </h2>
             <p className="text-brand-dark/50 text-sm leading-relaxed max-w-sm">
               We believe in total transparency. If your question isn't listed here, our consultants are ready to discuss your specific project needs.
             </p>
             
-            <div className="pt-8">
+            <div className="md:pt-8 pt-0">
               <button className="flex items-center gap-3 bg-brand-dark text-white px-8 py-4 text-[10px] font-bold uppercase tracking-widest hover:bg-brand transition-all duration-300 shadow-xl">
                 <HiOutlineChatBubbleLeftRight size={18} />
                 Ask a Specific Question
@@ -63,15 +62,15 @@ export default function FAQSection() {
               return (
                 <div 
                   key={index} 
-                  className={`border-b border-gray-100 transition-all duration-500 ${
+                  className={`border-b border-gray-100 transition-all duration-500 md:mb-4 mb-1 ${
                     isOpen ? 'bg-gray-50/50' : 'bg-transparent'
                   }`}
                 >
                   <button 
                     onClick={() => setOpenIndex(isOpen ? null : index)}
-                    className="w-full py-7 px-4 flex items-center justify-between text-left group cursor-pointer"
+                    className="w-full py-3 md:py-5 py-2 md:px-4 px-0 flex items-center justify-between text-left group cursor-pointer"
                   >
-                    <span className={`text-lg lg:text-xl font-medium tracking-tight transition-colors duration-300 ${
+                    <span className={`text-[.9rem] lg:text-xl font-medium tracking-tight transition-colors duration-300 ${
                       isOpen ? 'text-brand' : 'text-brand-dark'
                     }`}>
                       {faq.question}
@@ -88,7 +87,7 @@ export default function FAQSection() {
                       isOpen ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'
                     }`}
                   >
-                    <div className="px-4 pb-8 text-brand-dark/60 text-sm lg:text-base leading-relaxed max-w-2xl">
+                    <div className="md:px-4 md:pb-4 pb-0 pb-1 text-brand-dark/60 text-sm lg:text-base leading-relaxed max-w-2xl">
                       {faq.answer}
                     </div>
                   </div>
