@@ -7,10 +7,13 @@ import StructuralOverview from "@/components/StructuralOverview";
 export default function CostEstimatorClient({ cities, packageRates, pricingTiers }) {
   const firstRatedCity = Object.keys(packageRates || {})[0] || "";
   const firstCity = firstRatedCity || cities?.[0]?.name || "";
-  const firstPackage = pricingTiers?.[0]?.slug || "";
+  const defaultPackage =
+    pricingTiers?.find((tier) => tier.slug === "basic")?.slug ||
+    pricingTiers?.[0]?.slug ||
+    "basic";
   const [selection, setSelection] = useState({
     city: firstCity,
-    packageSlug: firstPackage,
+    packageSlug: defaultPackage,
     builtUpArea: "",
     floors: "",
     parking: "Yes",
@@ -25,20 +28,29 @@ export default function CostEstimatorClient({ cities, packageRates, pricingTiers
     );
   }, [packageRates, selection.city]);
 
-  const selectedPackage = packageRates?.[normalizedCity]?.[selection.packageSlug] || null;
-  const estimatedValue =
-    selectedPackage && Number(selection.builtUpArea) > 0
-      ? Number(selection.builtUpArea) * Number(selectedPackage.price)
+  const selectedPackage = packageRates?.[normalizedCity]?.[defaultPackage] || null;
+  const builtUpArea = Number(selection.builtUpArea);
+  const floors = Number(selection.floors);
+  const pricePerSqft = Number(selectedPackage?.price);
+  const singleFloorEstimate =
+    selectedPackage && builtUpArea > 0 && pricePerSqft > 0
+      ? builtUpArea * pricePerSqft
       : 0;
+  const billableFloors =
+    Number.isInteger(floors) && floors >= 1
+      ? floors + (selection.parking === "Yes" ? 1 : 0)
+      : 0;
+  const estimatedValue = singleFloorEstimate * billableFloors;
 
   return (
     <>
       <EstimatorHero
         cities={cities}
         pricingTiers={pricingTiers}
-        packageRates={packageRates}
         selection={selection}
         selectedPackage={selectedPackage}
+        singleFloorEstimate={singleFloorEstimate}
+        billableFloors={billableFloors}
         estimatedValue={estimatedValue}
         onSelectionChange={setSelection}
       />
@@ -47,7 +59,6 @@ export default function CostEstimatorClient({ cities, packageRates, pricingTiers
         pricingTiers={pricingTiers}
         packageRates={packageRates}
         selection={selection}
-        selectedPackage={selectedPackage}
         onSelectionChange={setSelection}
       />
     </>

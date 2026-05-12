@@ -8,11 +8,12 @@ import { IoMdMenu } from "react-icons/io";
 import { IoIosCall } from "react-icons/io";
 
 const navLinks = [
-  { name: 'About Us', href: '/about' },
   { name: 'Projects', href: '/projects' },
   { name: 'Interiors', href: '/interiors' },
   { name: 'Pharmacy Setup', href: '/pharmacy-setup' },
   { name: 'Pricing', href: '/pricing' },
+  { name: 'Cost Estimator', href: '/cost-estimator' },
+  { name: 'About Us', href: '/about' },
   { name: 'Contact', href: '/contact' },
 ];
 

@@ -20,7 +20,6 @@ function escapeHtml(value) {
 function validateEstimateForm(formData) {
   const values = {
     name: sanitizeText(formData.name),
-    email: sanitizeText(formData.email),
     phone: sanitizeText(formData.phone),
     city: sanitizeText(formData.city),
     packageSlug: sanitizeText(formData.packageSlug),
@@ -29,6 +28,8 @@ function validateEstimateForm(formData) {
     floors: sanitizeText(formData.floors),
     parking: sanitizeText(formData.parking),
     pricePerSqft: sanitizeText(formData.pricePerSqft),
+    singleFloorEstimate: sanitizeText(formData.singleFloorEstimate),
+    billableFloors: sanitizeText(formData.billableFloors),
     estimatedCost: sanitizeText(formData.estimatedCost),
   };
 
@@ -36,7 +37,6 @@ function validateEstimateForm(formData) {
 
   Object.entries({
     name: values.name,
-    email: values.email,
     phone: values.phone,
     city: values.city,
     packageSlug: values.packageSlug,
@@ -46,10 +46,6 @@ function validateEstimateForm(formData) {
   }).forEach(([key, value]) => {
     if (!value) fieldErrors[key] = REQUIRED_MESSAGE;
   });
-
-  if (values.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
-    fieldErrors.email = "Enter a valid email address.";
-  }
 
   if (values.phone && !/^[0-9+\-\s()]{7,20}$/.test(values.phone)) {
     fieldErrors.phone = "Enter a valid mobile number.";
@@ -62,8 +58,8 @@ function validateEstimateForm(formData) {
     fieldErrors.builtUpArea = "Enter a built-up area greater than 0.";
   }
 
-  if (values.floors && (!Number.isInteger(floors) || floors <= 0)) {
-    fieldErrors.floors = "Enter a valid number of floors.";
+  if (values.floors && (!Number.isInteger(floors) || floors < 1)) {
+    fieldErrors.floors = "Number of floors must be at least 1.";
   }
 
   return { values, fieldErrors };
@@ -103,7 +99,6 @@ export async function sendEstimateRequest(formData) {
           <table style="width: 100%; border-collapse: collapse;">
             <tbody>
               <tr><td style="padding: 8px 0;"><strong>Name:</strong></td><td>${escapeHtml(values.name)}</td></tr>
-              <tr><td style="padding: 8px 0;"><strong>Email:</strong></td><td>${escapeHtml(values.email)}</td></tr>
               <tr><td style="padding: 8px 0;"><strong>Phone:</strong></td><td>${escapeHtml(values.phone)}</td></tr>
               <tr><td style="padding: 8px 0;"><strong>City:</strong></td><td>${escapeHtml(values.city)}</td></tr>
               <tr><td style="padding: 8px 0;"><strong>Package:</strong></td><td>${escapeHtml(packageLabel)}</td></tr>
@@ -111,6 +106,8 @@ export async function sendEstimateRequest(formData) {
               <tr><td style="padding: 8px 0;"><strong>Floors:</strong></td><td>${escapeHtml(values.floors)}</td></tr>
               <tr><td style="padding: 8px 0;"><strong>Stilt Parking:</strong></td><td>${escapeHtml(values.parking)}</td></tr>
               <tr><td style="padding: 8px 0;"><strong>Rate:</strong></td><td>${escapeHtml(values.pricePerSqft)} / sq.ft</td></tr>
+              <tr><td style="padding: 8px 0;"><strong>Single Floor Estimate:</strong></td><td>${escapeHtml(values.singleFloorEstimate)}</td></tr>
+              <tr><td style="padding: 8px 0;"><strong>Billable Floors:</strong></td><td>${escapeHtml(values.billableFloors)}</td></tr>
               <tr><td style="padding: 8px 0;"><strong>Estimated Value:</strong></td><td>${escapeHtml(values.estimatedCost)}</td></tr>
             </tbody>
           </table>
@@ -121,7 +118,7 @@ export async function sendEstimateRequest(formData) {
     return {
       ok: true,
       fieldErrors: {},
-      message: "Estimate sent successfully. Our team will contact you shortly.",
+      message: "Thank you for using our calculator.",
     };
   } catch (error) {
     console.error("Estimate Mail Error:", error);

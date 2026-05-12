@@ -1,7 +1,7 @@
 'use client';
 import { useState, useTransition } from 'react';
 import { motion } from 'framer-motion';
-import { AlertCircle, Calculator, Zap, ShieldCheck, Building2, Layers, CheckCircle2 } from 'lucide-react';
+import { AlertCircle, Calculator, Zap, ShieldCheck, Building2, Layers, CheckCircle2, Loader2 } from 'lucide-react';
 import CustomSelect  from '@/components/CustomSelect'
 import { sendEstimateRequest } from '@/app/actions/sendEstimate';
 
@@ -31,12 +31,13 @@ export default function EstimatorHero({
   pricingTiers = [],
   selection,
   selectedPackage,
+  singleFloorEstimate,
+  billableFloors,
   estimatedValue,
   onSelectionChange,
 }) {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     phone: '',
   });
   const [fieldErrors, setFieldErrors] = useState({});
@@ -45,13 +46,9 @@ export default function EstimatorHero({
   const [isPending, startTransition] = useTransition();
 
   // Common input styling to ensure 100% consistency
-  const inputStyles = "w-full bg-[#F8F5F2] border-2 border-transparent rounded-2xl px-5 py-4 focus:bg-white focus:border-[#A67153]/20 transition-all outline-none text-[#2D2926] font-medium placeholder:text-gray-300";
+  const inputStyles = "w-full bg-[#F8F5F2] border-2 border-transparent rounded p-3 text-[.8rem] focus:bg-white focus:border-[#A67153]/20 transition-all outline-none text-[#2D2926] font-medium placeholder:text-gray-300";
   const errorInputStyles = "border-red-300 bg-red-50 focus:border-red-300";
   const cityOptions = cities.map((city) => city.name).filter(Boolean);
-  const packageOptions = pricingTiers.map((tier) => ({
-    value: tier.slug,
-    label: tier.name,
-  }));
 
   const updateSelection = (patch) => {
     onSelectionChange((current) => ({
@@ -79,14 +76,13 @@ export default function EstimatorHero({
     setMessage('');
 
     const packageName =
-      pricingTiers.find((tier) => tier.slug === selection.packageSlug)?.name ||
-      selection.packageSlug;
+      pricingTiers.find((tier) => tier.slug === 'basic')?.name || 'Basic';
 
     startTransition(async () => {
       const result = await sendEstimateRequest({
         ...formData,
         city: selection.city,
-        packageSlug: selection.packageSlug,
+        packageSlug: 'basic',
         packageName,
         builtUpArea: selection.builtUpArea,
         floors: selection.floors,
@@ -94,6 +90,10 @@ export default function EstimatorHero({
         pricePerSqft: selectedPackage
           ? `${selectedPackage.currency || '₹'}${selectedPackage.price}/${selectedPackage.unit || 'sqft'}`
           : 'Rate card unavailable',
+        singleFloorEstimate: selectedPackage
+          ? formatCurrency(singleFloorEstimate)
+          : 'Rate card unavailable',
+        billableFloors: String(billableFloors || ''),
         estimatedCost: selectedPackage
           ? formatCurrency(estimatedValue)
           : 'Rate card unavailable',
@@ -110,6 +110,10 @@ export default function EstimatorHero({
           price: selectedPackage?.price,
           unit: selectedPackage?.unit || 'sqft',
           tax: selectedPackage?.tax,
+          singleFloorEstimate,
+          billableFloors,
+          floors: selection.floors,
+          parking: selection.parking,
         };
 
         setSubmittedEstimate(nextEstimate);
@@ -122,12 +126,12 @@ export default function EstimatorHero({
   };
 
   return (
-    <section className="relative min-h-screen pt-28 pb-20 bg-[#F8F5F2] overflow-hidden flex items-center">
+    <section className="relative min-h-screen pt-24 md:pb-16 pb-6 bg-[#F8F5F2] overflow-hidden flex items-center">
       {/* Background Decorative Elements */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-[#A67153]/5 -skew-x-12 translate-x-32 hidden lg:block" />
 
       <div className="max-w-7xl mx-auto px-5 lg:px-16 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 md:gap-16 gap-6 items-center">
           
           {/* LEFT SIDE: Content */}
           <motion.div 
@@ -135,21 +139,21 @@ export default function EstimatorHero({
             animate={{ opacity: 1, x: 0 }} 
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm mb-3">
               <Zap size={14} className="text-[#A67153] fill-[#A67153]" />
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#2D2926]">Instant Quotes v3.0</span>
             </div>
 
-            <h1 className="text-[2.8rem] md:text-[4.5rem] font-medium leading-[1.1] mb-6 text-[#2D2926] tracking-tighter">
+            <h1 className="text-[2.4rem] md:text-[3.8rem] font-medium leading-[1.1] mb-3 text-[#2D2926] tracking-tighter">
               Planning your <br />
-              <span className="text-[#A67153] italic font-light">Dream Home?</span>
+              <span className="text-[#A67153] font-light">Dream Home?</span>
             </h1>
             
-            <p className="text-gray-600 text-lg mb-10 max-w-md leading-relaxed">
+            <p className="text-gray-600 text-lg mb-5 max-w-md leading-relaxed">
               Get a scientifically accurate construction estimate in seconds. No hidden costs, just honest numbers.
             </p>
 
-            <div className="space-y-6">
+            <div className="space-y-3">
               {[
                 { icon: <Calculator size={18} />, text: "Real-time Material Market Rates" },
                 { icon: <ShieldCheck size={18} />, text: "Detailed Structural Breakdown" }
@@ -170,41 +174,26 @@ export default function EstimatorHero({
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="bg-white rounded-[3.5rem] p-8 md:p-12 shadow-[0_50px_100px_-20px_rgba(45,41,38,0.12)] border border-white">
-              <h3 className="text-2xl font-bold text-[#2D2926] mb-8 flex items-center gap-3">
-                Calculate Cost <span className="w-8 h-[2px] bg-[#A67153]/20" />
+            <div className="bg-white rounded-xl p-5 sm:p-8 md:p-6 md:py-8 shadow-[0_50px_100px_-20px_rgba(45,41,38,0.12)] border border-white">
+              <h3 className="text-2xl font-bold text-[#2D2926] mb-4 flex items-center gap-3">
+                Calculate  Cost <span className="w-8 h-[2px] bg-[#A67153]/20" />
               </h3>
 
               <form className="space-y-6" onSubmit={handleSubmit} noValidate>
                 
                 {/* Inputs Row 1 */}
-                <div className="grid md:grid-cols-2 gap-5">
+                <div className="grid md:grid-cols-2 gap-5 mb-3">
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Full Name</label>
                     <input
                       type="text"
-                      placeholder="e.g. John Doe"
+                      placeholder="e.g. Prince Mishra"
                       className={`${inputStyles} ${fieldErrors.name ? errorInputStyles : ''}`}
                       value={formData.name}
                       onChange={(e) => updateForm('name', e.target.value)}
                     />
                     <FieldError message={fieldErrors.name} />
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Email Address</label>
-                    <input
-                      type="email"
-                      placeholder="you@example.com"
-                      className={`${inputStyles} ${fieldErrors.email ? errorInputStyles : ''}`}
-                      value={formData.email}
-                      onChange={(e) => updateForm('email', e.target.value)}
-                    />
-                    <FieldError message={fieldErrors.email} />
-                  </div>
-                </div>
-
-                {/* Inputs Row 2 */}
-                <div className="grid md:grid-cols-2 gap-5">
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Mobile Number</label>
                     <input
@@ -216,6 +205,10 @@ export default function EstimatorHero({
                     />
                     <FieldError message={fieldErrors.phone} />
                   </div>
+                </div>
+
+                {/* Inputs Row 2 */}
+                <div className="grid md:grid-cols-2 gap-5 mb-3">
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">City</label>
                     <div className="relative">
@@ -229,22 +222,6 @@ export default function EstimatorHero({
                       />
                     </div>
                     <FieldError message={fieldErrors.city} />
-                  </div>
-                </div>
-
-                {/* Inputs Row 3 */}
-                <div className="grid md:grid-cols-2 gap-5">
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Package</label>
-                    <CustomSelect
-                      name="packageSlug"
-                      placeholder="Select Package"
-                      options={packageOptions}
-                      value={selection.packageSlug}
-                      onChange={(value) => updateSelection({ packageSlug: value })}
-                      className={`${inputStyles} ${fieldErrors.packageSlug ? errorInputStyles : ''} flex items-center justify-between cursor-pointer`}
-                    />
-                    <FieldError message={fieldErrors.packageSlug} />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Built-up Area (Sqft)*</label>
@@ -262,7 +239,7 @@ export default function EstimatorHero({
                   </div>
                 </div>
 
-                {/* Inputs Row 4 */}
+                {/* Inputs Row 3 */}
                 <div className="grid md:grid-cols-2 gap-5">
                    <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">No. of Floors</label>
@@ -280,18 +257,18 @@ export default function EstimatorHero({
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Stilt Parking?</label>
-                    <div className={`flex bg-[#F8F5F2] rounded-2xl p-1.5 h-[58px] ${fieldErrors.parking ? 'border-2 border-red-300 bg-red-50' : ''}`}>
+                    <div className={`flex bg-[#F8F5F2]  p-1.5 h-[46px] rounded ${fieldErrors.parking ? 'border-2 border-red-300 bg-red-50' : ''}`}>
                        <button 
                         type="button" 
                         onClick={() => updateSelection({ parking: 'Yes' })}
-                        className={`flex-1 rounded-xl text-sm font-bold transition-all ${selection.parking === 'Yes' ? 'bg-white shadow-md text-[#A67153]' : 'text-gray-400 hover:text-gray-600'}`}
+                        className={`flex-1 rounded text-[.8rem] font-bold transition-all ${selection.parking === 'Yes' ? 'bg-white shadow-md text-[#A67153]' : 'text-gray-400 hover:text-gray-600'}`}
                        >
                          Yes
                        </button>
                        <button 
                         type="button" 
                         onClick={() => updateSelection({ parking: 'No' })}
-                        className={`flex-1 rounded-xl text-sm font-bold transition-all ${selection.parking === 'No' ? 'bg-white shadow-md text-[#A67153]' : 'text-gray-400 hover:text-gray-600'}`}
+                        className={`flex-1 rounded text-[.8rem] font-bold transition-all ${selection.parking === 'No' ? 'bg-white shadow-md text-[#A67153]' : 'text-gray-400 hover:text-gray-600'}`}
                        >
                          No
                        </button>
@@ -301,16 +278,20 @@ export default function EstimatorHero({
                 </div>
 
                 {submittedEstimate && (
-                  <div className="rounded-[2rem] bg-[#F8F5F2] border border-[#A67153]/15 p-6">
+                  <div className="rounded bg-[#F8F5F2] border border-[#A67153]/15 p-6">
                     <div className="flex items-center gap-2 text-[#A67153] text-[10px] font-black uppercase tracking-[0.2em]">
                       <CheckCircle2 size={15} />
-                      Estimate Submitted
+                      Thank you for using our calculator
                     </div>
                     <div className="mt-3 text-4xl font-black text-[#2D2926] tracking-tighter">
                       {submittedEstimate.formatted}
                     </div>
                     <p className="mt-2 text-xs font-semibold text-gray-500">
-                      Based on {submittedEstimate.packageName} at ₹{submittedEstimate.price || '--'}/{submittedEstimate.unit}.
+                      {formatCurrency(submittedEstimate.singleFloorEstimate)} single floor estimate x {submittedEstimate.billableFloors} billable floor{submittedEstimate.billableFloors === 1 ? '' : 's'}.
+                      {submittedEstimate.parking === 'Yes' ? ' Stilt parking is counted as one additional floor.' : ''}
+                    </p>
+                    <p className="mt-1 text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                      {submittedEstimate.packageName} package at ₹{submittedEstimate.price || '--'}/{submittedEstimate.unit}
                     </p>
                   </div>
                 )}
@@ -324,9 +305,18 @@ export default function EstimatorHero({
 
                 <button
                   disabled={isPending}
-                  className="w-full bg-[#2D2926] text-white py-5 rounded-2xl font-bold uppercase text-[11px] tracking-[0.3em] mt-4 hover:bg-[#A67153] transition-all shadow-xl shadow-black/10 flex items-center justify-center gap-3 group disabled:opacity-60 disabled:cursor-wait"
+                  className="w-full bg-[#2D2926] text-white py-5 rounded font-bold uppercase text-[11px] tracking-[0.3em] mt-4 hover:bg-[#A67153] transition-all shadow-xl shadow-black/10 flex items-center justify-center gap-3 group disabled:opacity-60 disabled:cursor-wait"
                 >
-                  {isPending ? 'Sending Estimate' : 'Get My Estimate'} <Zap size={16} className="group-hover:fill-current transition-all" />
+                  {isPending ? (
+                    <>
+                      <Loader2 size={16} className="animate-spin" />
+                      Calculating Estimate
+                    </>
+                  ) : (
+                    <>
+                      Get My Estimate <Zap size={16} className="group-hover:fill-current transition-all" />
+                    </>
+                  )}
                 </button>
 
                 <p className="text-[9px] text-center text-gray-400 font-medium">
