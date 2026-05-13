@@ -127,7 +127,7 @@ export default function EstimatorHero({
 
   return (
     <section className="relative min-h-screen pt-24 md:pb-16 pb-6 bg-[#F8F5F2] overflow-hidden flex items-center">
-      {/* Background Decorative Elements */}
+      {/* Background Decorative  */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-[#A67153]/5 -skew-x-12 translate-x-32 hidden lg:block" />
 
       <div className="max-w-7xl mx-auto px-5 lg:px-16 relative z-10">
