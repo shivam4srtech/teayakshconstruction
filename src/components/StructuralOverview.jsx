@@ -160,6 +160,7 @@ export default function CityDynamicComparison({
           </div>
         </div>
 
+
         <div className="mt-8 md:mt-10 p-5 md:p-8 bg-white/50 rounded-[1.5rem] border border-white flex items-start gap-4 md:gap-6">
           <Info className="text-[#A67153] shrink-0" />
           <p className="text-xs text-gray-500 leading-relaxed">
