@@ -7,6 +7,8 @@ export const metadata = {
     "Estimate construction cost by city, package, built-up area, floor count, and structural specification.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function CostEstimatorPage() {
   const catalog = await getEstimatorCatalog();
 
