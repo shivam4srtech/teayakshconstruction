@@ -1,4 +1,5 @@
 import CostEstimatorClient from "@/components/CostEstimatorClient";
+import EstimatorFaqs from "@/components/EstimatorFaqs";
 import { getEstimatorCatalog } from "@/lib/trayakshApi";
 
 export const metadata = {
@@ -12,5 +13,10 @@ export const dynamic = "force-dynamic";
 export default async function CostEstimatorPage() {
   const catalog = await getEstimatorCatalog();
 
-  return <CostEstimatorClient {...catalog} />;
+  return (
+        <>
+            <CostEstimatorClient {...catalog} />
+            <EstimatorFaqs/>
+        </>
+  )
 }

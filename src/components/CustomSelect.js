@@ -64,7 +64,7 @@ const CustomSelect = ({ options, placeholder, name, className, value, onChange }
 
       {/* Dropdown Menu */}
       {open && (
-        <div className="absolute z-[100] w-full bg-white border border-gray-100 mt-2 shadow-2xl rounded-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+        <div className="absolute z-[9999] w-full bg-white border border-gray-100 mt-2 shadow-2xl rounded-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
           <div className="max-h-60 overflow-y-auto no-scrollbar">
             {options.map((option, index) => {
               const optionValue = typeof option === "string" ? option : option.value;

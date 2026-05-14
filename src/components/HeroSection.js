@@ -44,18 +44,21 @@ export default function HeroSection() {
                 <div className="space-y-1.5">
                     <CustomSelect
                       name="city"
+                      className={"w-full bg-gray-50 border border-gray-200 p-2 flex justify-between items-center cursor-pointer"}
                       placeholder="---Select City---"
-                      options={["Hyderabad", "Delhi", "Mumbai", "Kolkata", "Chennai", "Noida"]}
+                      options={["Hyderabad", "Lucknow", "Benglure", "Other"]}
                     />
                 </div>
                 <div className="space-y-1.5">
                     <CustomSelect
                       name="project_type"
+                      className={"w-full bg-gray-50 border border-gray-200 p-2 flex justify-between items-center cursor-pointer"}
                       placeholder="---Project Type---"
                       options={[
                         "Commercial Construction",
                         "Residential Renovation",
                         "Architecture Planning",
+                       
                       ]}
                     />
                 </div>

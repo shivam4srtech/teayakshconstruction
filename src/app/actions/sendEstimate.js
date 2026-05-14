@@ -25,8 +25,8 @@ function validateEstimateForm(formData) {
     packageSlug: sanitizeText(formData.packageSlug),
     packageName: sanitizeText(formData.packageName),
     builtUpArea: sanitizeText(formData.builtUpArea),
+    totalBuiltUpArea: sanitizeText(formData.totalBuiltUpArea),
     floors: sanitizeText(formData.floors),
-    parking: sanitizeText(formData.parking),
     pricePerSqft: sanitizeText(formData.pricePerSqft),
     singleFloorEstimate: sanitizeText(formData.singleFloorEstimate),
     billableFloors: sanitizeText(formData.billableFloors),
@@ -42,7 +42,6 @@ function validateEstimateForm(formData) {
     packageSlug: values.packageSlug,
     builtUpArea: values.builtUpArea,
     floors: values.floors,
-    parking: values.parking,
   }).forEach(([key, value]) => {
     if (!value) fieldErrors[key] = REQUIRED_MESSAGE;
   });
@@ -55,7 +54,7 @@ function validateEstimateForm(formData) {
   const floors = Number(values.floors);
 
   if (values.builtUpArea && (!Number.isFinite(area) || area <= 0)) {
-    fieldErrors.builtUpArea = "Enter a built-up area greater than 0.";
+    fieldErrors.builtUpArea = "Enter a slab area greater than 0.";
   }
 
   if (values.floors && (!Number.isInteger(floors) || floors < 1)) {
@@ -102,9 +101,9 @@ export async function sendEstimateRequest(formData) {
               <tr><td style="padding: 8px 0;"><strong>Phone:</strong></td><td>${escapeHtml(values.phone)}</td></tr>
               <tr><td style="padding: 8px 0;"><strong>City:</strong></td><td>${escapeHtml(values.city)}</td></tr>
               <tr><td style="padding: 8px 0;"><strong>Package:</strong></td><td>${escapeHtml(packageLabel)}</td></tr>
-              <tr><td style="padding: 8px 0;"><strong>Built-up Area:</strong></td><td>${escapeHtml(values.builtUpArea)} sq.ft</td></tr>
+              <tr><td style="padding: 8px 0;"><strong>Slab Area:</strong></td><td>${escapeHtml(values.builtUpArea)} sq.ft</td></tr>
               <tr><td style="padding: 8px 0;"><strong>Floors:</strong></td><td>${escapeHtml(values.floors)}</td></tr>
-              <tr><td style="padding: 8px 0;"><strong>Stilt Parking:</strong></td><td>${escapeHtml(values.parking)}</td></tr>
+              <tr><td style="padding: 8px 0;"><strong>Total Built-up Area:</strong></td><td>${escapeHtml(values.totalBuiltUpArea)} sq.ft</td></tr>
               <tr><td style="padding: 8px 0;"><strong>Rate:</strong></td><td>${escapeHtml(values.pricePerSqft)} / sq.ft</td></tr>
               <tr><td style="padding: 8px 0;"><strong>Single Floor Estimate:</strong></td><td>${escapeHtml(values.singleFloorEstimate)}</td></tr>
               <tr><td style="padding: 8px 0;"><strong>Billable Floors:</strong></td><td>${escapeHtml(values.billableFloors)}</td></tr>

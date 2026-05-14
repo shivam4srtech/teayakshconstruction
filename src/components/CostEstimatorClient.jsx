@@ -16,7 +16,6 @@ export default function CostEstimatorClient({ cities, packageRates, pricingTiers
     packageSlug: defaultPackage,
     builtUpArea: "",
     floors: "",
-    parking: "Yes",
     submittedEstimate: null,
   });
 
@@ -32,15 +31,22 @@ export default function CostEstimatorClient({ cities, packageRates, pricingTiers
   const builtUpArea = Number(selection.builtUpArea);
   const floors = Number(selection.floors);
   const pricePerSqft = Number(selectedPackage?.price);
+  const totalBuiltUpArea =
+    builtUpArea > 0 && Number.isInteger(floors) && floors >= 1
+      ? builtUpArea * floors
+      : 0;
   const singleFloorEstimate =
     selectedPackage && builtUpArea > 0 && pricePerSqft > 0
       ? builtUpArea * pricePerSqft
       : 0;
   const billableFloors =
     Number.isInteger(floors) && floors >= 1
-      ? floors + (selection.parking === "Yes" ? 1 : 0)
+      ? floors
       : 0;
-  const estimatedValue = singleFloorEstimate * billableFloors;
+  const estimatedValue =
+    selectedPackage && totalBuiltUpArea > 0 && pricePerSqft > 0
+      ? totalBuiltUpArea * pricePerSqft
+      : 0;
 
   return (
     <>
@@ -49,6 +55,7 @@ export default function CostEstimatorClient({ cities, packageRates, pricingTiers
         pricingTiers={pricingTiers}
         selection={selection}
         selectedPackage={selectedPackage}
+        totalBuiltUpArea={totalBuiltUpArea}
         singleFloorEstimate={singleFloorEstimate}
         billableFloors={billableFloors}
         estimatedValue={estimatedValue}

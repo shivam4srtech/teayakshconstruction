@@ -31,6 +31,7 @@ export default function EstimatorHero({
   pricingTiers = [],
   selection,
   selectedPackage,
+  totalBuiltUpArea,
   singleFloorEstimate,
   billableFloors,
   estimatedValue,
@@ -85,8 +86,8 @@ export default function EstimatorHero({
         packageSlug: 'basic',
         packageName,
         builtUpArea: selection.builtUpArea,
+        totalBuiltUpArea: String(totalBuiltUpArea || ''),
         floors: selection.floors,
-        parking: selection.parking,
         pricePerSqft: selectedPackage
           ? `${selectedPackage.currency || '₹'}${selectedPackage.price}/${selectedPackage.unit || 'sqft'}`
           : 'Rate card unavailable',
@@ -110,10 +111,10 @@ export default function EstimatorHero({
           price: selectedPackage?.price,
           unit: selectedPackage?.unit || 'sqft',
           tax: selectedPackage?.tax,
+          totalBuiltUpArea,
           singleFloorEstimate,
           billableFloors,
           floors: selection.floors,
-          parking: selection.parking,
         };
 
         setSubmittedEstimate(nextEstimate);
@@ -131,7 +132,7 @@ export default function EstimatorHero({
       <div className="absolute top-0 right-0 w-1/2 h-full bg-[#A67153]/5 -skew-x-12 translate-x-32 hidden lg:block" />
 
       <div className="max-w-7xl mx-auto px-5 lg:px-16 relative z-10">
-        <div className="grid lg:grid-cols-2 md:gap-16 gap-6 items-center">
+        <div className="grid lg:grid-cols-2 md:gap-16 gap-6 items-start">
           
           {/* LEFT SIDE: Content */}
           <motion.div 
@@ -224,7 +225,7 @@ export default function EstimatorHero({
                     <FieldError message={fieldErrors.city} />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Built-up Area (Sqft)*</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Slab Area (Sqft)*</label>
                     <div className="relative">
                       <input
                         type="number"
@@ -256,45 +257,21 @@ export default function EstimatorHero({
                     <FieldError message={fieldErrors.floors} />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Stilt Parking?</label>
-                    <div className={`flex bg-[#F8F5F2]  p-1.5 h-[46px] rounded ${fieldErrors.parking ? 'border-2 border-red-300 bg-red-50' : ''}`}>
-                       <button 
-                        type="button" 
-                        onClick={() => updateSelection({ parking: 'Yes' })}
-                        className={`flex-1 rounded text-[.8rem] font-bold transition-all ${selection.parking === 'Yes' ? 'bg-white shadow-md text-[#A67153]' : 'text-gray-400 hover:text-gray-600'}`}
-                       >
-                         Yes
-                       </button>
-                       <button 
-                        type="button" 
-                        onClick={() => updateSelection({ parking: 'No' })}
-                        className={`flex-1 rounded text-[.8rem] font-bold transition-all ${selection.parking === 'No' ? 'bg-white shadow-md text-[#A67153]' : 'text-gray-400 hover:text-gray-600'}`}
-                       >
-                         No
-                       </button>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Total Built-up Area (Sqft)*</label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        readOnly
+                        value={totalBuiltUpArea ? totalBuiltUpArea.toLocaleString('en-IN') : ''}
+                        placeholder="Auto calculated"
+                        className={`${inputStyles} cursor-not-allowed text-gray-500 bg-[#EFEAE5]`}
+                      />
+                      <Building2 size={16} className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-300" />
                     </div>
-                    <FieldError message={fieldErrors.parking} />
                   </div>
                 </div>
 
-                {submittedEstimate && (
-                  <div className="rounded bg-[#F8F5F2] border border-[#A67153]/15 p-6">
-                    <div className="flex items-center gap-2 text-[#A67153] text-[10px] font-black uppercase tracking-[0.2em]">
-                      <CheckCircle2 size={15} />
-                      Thank you for using our calculator
-                    </div>
-                    <div className="mt-3 text-4xl font-black text-[#2D2926] tracking-tighter">
-                      {submittedEstimate.formatted}
-                    </div>
-                    <p className="mt-2 text-xs font-semibold text-gray-500">
-                      {formatCurrency(submittedEstimate.singleFloorEstimate)} single floor estimate x {submittedEstimate.billableFloors} billable floor{submittedEstimate.billableFloors === 1 ? '' : 's'}.
-                      {submittedEstimate.parking === 'Yes' ? ' Stilt parking is counted as one additional floor.' : ''}
-                    </p>
-                    <p className="mt-1 text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                      {submittedEstimate.packageName} package at ₹{submittedEstimate.price || '--'}/{submittedEstimate.unit}
-                    </p>
-                  </div>
-                )}
+                
 
                 {message && !submittedEstimate && (
                   <p className="flex items-center gap-2 text-sm font-bold text-red-600">
@@ -305,7 +282,7 @@ export default function EstimatorHero({
 
                 <button
                   disabled={isPending}
-                  className="w-full bg-[#2D2926] text-white py-5 rounded font-bold uppercase text-[11px] tracking-[0.3em] mt-4 hover:bg-[#A67153] transition-all shadow-xl shadow-black/10 flex items-center justify-center gap-3 group disabled:opacity-60 disabled:cursor-wait"
+                  className="w-full bg-[#2D2926] text-white py-5 rounded font-bold uppercase text-[11px] tracking-[0.3em] mt-4 hover:bg-[#A67153] transition-all shadow-xl shadow-black/10 flex items-center justify-center gap-3 group disabled:opacity-60 disabled:cursor-wait mb-3"
                 >
                   {isPending ? (
                     <>
@@ -319,9 +296,26 @@ export default function EstimatorHero({
                   )}
                 </button>
 
-                <p className="text-[9px] text-center text-gray-400 font-medium">
+                <p className="text-[9px] text-left text-gray-400 font-medium mb-3">
                   *Results are based on current market survey of materials in 2026.
                 </p>
+                {submittedEstimate && (
+                  <div className="rounded bg-[#F8F5F2] border border-[#A67153]/15 md:p-4 p-3">
+                    <div className="flex items-center gap-2 text-[#A67153] text-[10px] font-black uppercase tracking-[0.2em]">
+                      <CheckCircle2 size={15} />
+                      Thank you for using our calculator
+                    </div>
+                    <div className="mt-2 md:text-3xl text-2xl font-bold text-[#2D2926] tracking-tighter">
+                      {submittedEstimate.formatted}
+                    </div>
+                    <p className="mt-2 text-xs font-semibold text-gray-500">
+                      {submittedEstimate.totalBuiltUpArea.toLocaleString('en-IN')} total sq.ft x ₹{submittedEstimate.price || '--'}/{submittedEstimate.unit}.
+                    </p>
+                    <p className="mt-1 text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                      {submittedEstimate.packageName} package at ₹{submittedEstimate.price || '--'}/{submittedEstimate.unit}
+                    </p>
+                  </div>
+                )}
               </form>
             </div>
           </motion.div>
