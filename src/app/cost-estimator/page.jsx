@@ -1,5 +1,7 @@
 import CostEstimatorClient from "@/components/CostEstimatorClient";
+import EstimatorContent from "@/components/EstimatorContent";
 import EstimatorFaqs from "@/components/EstimatorFaqs";
+import GlobalCta from "@/components/GlobalCta";
 import { getEstimatorCatalog } from "@/lib/trayakshApi";
 
 export const metadata = {
@@ -16,7 +18,10 @@ export default async function CostEstimatorPage() {
   return (
         <>
             <CostEstimatorClient {...catalog} />
+            <GlobalCta/>
+            <EstimatorContent/>
             <EstimatorFaqs/>
+            
         </>
   )
 }

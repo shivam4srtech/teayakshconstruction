@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus, HelpCircle } from "lucide-react";
 import { MdVerified } from "react-icons/md";
+import { useModalStore } from '@/store/useModalStore';
 
 const FAQ_DATA = [
   {
@@ -36,10 +37,11 @@ const FAQ_DATA = [
 ];
 
 export default function EstimatorFaqs() {
-  const [activeFaq, setActiveFaq] = useState(0); // Keeping the first one open for better UX
+  const [activeFaq, setActiveFaq] = useState(0);
+  const openModal = useModalStore((state) => state.openModal);
 
   return (
-    <section className="py-10 bg-white">
+    <section className="py-10  bg-white">
       <div className="max-w-4xl mx-auto px-5 lg:px-16">
         
         {/* Header Section */}
@@ -122,12 +124,12 @@ export default function EstimatorFaqs() {
               <h3 className="md:text-2xl text-xl font-bold mb-2">Still have a specific query?</h3>
               <p className="text-white/50 text-sm">Our structural experts are available for a 1-on-1 walkthrough.</p>
            </div>
-           <a 
-             href="tel:+917505205205" 
+           <button 
+             onClick={openModal}
              className="relative z-10 px-8 py-4 bg-[#A67153] rounded text-[11px] font-black uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-xl shadow-black/20"
            >
              Speak with an Expert
-           </a>
+           </button>
            {/* Decorative background circle */}
            <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-[#A67153]/10 rounded-full blur-3xl" />
         </div>
