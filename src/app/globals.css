@@ -41,3 +41,19 @@ input[type=number] {
 }
 
 }
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  @keyframes bounce-x {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+  }
+  .animate-bounce-x {
+    animation: bounce-x 1s infinite;
+  }
+}

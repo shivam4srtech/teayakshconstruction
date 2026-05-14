@@ -9,7 +9,7 @@ import { IoIosCall } from "react-icons/io";
 
 const navLinks = [
   { name: 'Projects', href: '/projects' },
-  { name: 'Interiors', href: '/interiors' },
+  { name: 'Interior', href: '/interior' },
   { name: 'Pharmacy Setup', href: '/pharmacy-setup' },
   { name: 'Pricing', href: '/pricing' },
   { name: 'Cost Estimator', href: '/cost-estimator' },
