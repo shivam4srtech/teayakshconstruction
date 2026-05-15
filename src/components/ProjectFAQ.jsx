@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IoAddOutline, IoRemoveOutline } from 'react-icons/io5';
+// import { Link } from 'lucide-react';
+import Link from 'next/link';
 
 const PROJECT_FAQS = [
   {
@@ -41,9 +43,9 @@ export default function ProjectFAQ() {
               <p className="text-sm text-brand-dark/50 mt-6 leading-relaxed">
                 Everything you need to know about our construction process, site visits, and delivery timelines.
               </p>
-              <button className="mt-8 text-xs font-bold uppercase tracking-widest text-brand border-b border-brand pb-2 hover:text-brand-dark hover:border-brand-dark transition-all">
+              <Link href='/contact' className="mt-8 text-xs font-bold uppercase tracking-widest text-brand border-b border-brand pb-2 hover:text-brand-dark hover:border-brand-dark transition-all">
                 Contact Support
-              </button>
+              </Link>
             </div>
           </div>
 
