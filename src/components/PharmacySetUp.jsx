@@ -1,7 +1,9 @@
 'use client';
-
+import HeroFrom from './HeroFrom';
 import  { useState } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
+import { useModalStore } from '@/store/useModalStore';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -11,9 +13,10 @@ import {
   ArrowRight, HardHat, FileCheck, Layers
 } from 'lucide-react';
 
+
 const TRUST_BADGES = [
   { icon: <Layout size={20} />, text: "Space Optimized Layouts" },
-  { icon: <ShieldCheck size={20} />, text: "FDA & Drug License Compliant Designs" },
+  { icon: <ShieldCheck size={20} />, text: "FDA & Drug License Compliant" },
   { icon: <HardHat size={20} />, text: "End-to-End Execution" },
   { icon: <Clock size={20} />, text: "Fast Project Delivery" },
 ];
@@ -47,7 +50,7 @@ const PACKAGES = [
 
 const SectionHeading = ({ badge, title, sub }) => (
   <div className="text-center md:mb-14 mb-6 space-y-4">
-    <div className='mb-3'>
+    <div className='mb-6'>
         <span className="px-4 py-1.5 rounded-full bg-[#A67153]/10 text-[#A67153] text-xs font-bold uppercase tracking-widest leading-none">
           {badge}
         </span>
@@ -59,6 +62,7 @@ const SectionHeading = ({ badge, title, sub }) => (
 
 export default function PharmacySetupPage() {
   const [activeFaq, setActiveFaq] = useState(null);
+  const openModal = useModalStore((state) => state.openModal);
 
   const fadeInUp = {
     initial: { opacity: 0, y: 30 },
@@ -71,7 +75,7 @@ export default function PharmacySetupPage() {
     <div className="min-h-screen bg-white font-sans text-[#2D2926]">
       
       {/* 1. HERO SECTION */}
-      {/* 1. HERO SECTION */}
+     
 <section className="relative min-h-[600px] lg:min-h-[700px] flex items-center overflow-hidden">
   {/* Background Image with Overlay 
     Using a linear gradient from solid light beige to transparent to ensure left-side text visibility
@@ -87,8 +91,8 @@ export default function PharmacySetupPage() {
     <div className="absolute inset-0 bg-gradient-to-r from-[#F8F5F2] via-[#F8F5F2]/95 md:via-[#F8F5F2]/80 to-transparent" />
   </div>
 
-  <div className="max-w-7xl mx-auto px-5 lg:px-16 relative z-10 w-full pt-20 pb-10 lg:pt-28 lg:pb-20">
-    <div className="grid lg:grid-cols-2 gap-12">
+  <div className="max-w-7xl mx-auto px-5 lg:px-16 relative z-10 w-full pt-12 pb-10 lg:pt-28 lg:pb-20">
+    <div className="flex md:flex-row flex-col md:place-content-between items-center md:items-start">
       
       {/* Left Content Side */}
       <motion.div 
@@ -97,7 +101,7 @@ export default function PharmacySetupPage() {
         transition={{ duration: 0.8 }}
         className="max-w-xl"
       >
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#A67153]/10 border border-[#A67153]/20 text-[#A67153] mb-6">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#A67153]/10 border border-[#A67153]/20 text-[#A67153] mb-4">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#A67153] opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#A67153]"></span>
@@ -105,21 +109,25 @@ export default function PharmacySetupPage() {
           <span className="text-[10px] font-bold uppercase tracking-widest">FDA Compliant Designs</span>
         </div>
 
-        <h1 className="text-[2.5rem] md:text-[4rem] font-medium leading-[1.1] mb-6 text-[#2D2926]">
+        <h1 className="text-[1.6rem] md:text-[3.2rem] font-medium leading-[1.1] md:mb-3 mb-6 text-[#2D2926]">
           Professional <span className="text-[#A67153]">Pharmacy Setup</span> & Interior Solutions
         </h1>
         
-        <p className="text-gray-600 text-lg mb-8 leading-relaxed hidden md:block">
+        <p className="text-gray-600 text-lg mb-4 leading-relaxed hidden md:block">
           Complete turnkey solutions for medical stores—from layout planning and drug-license compliant designs to modular shelving and premium branding.
         </p>
 
-        <div className="flex flex-wrap md:justify-start justify-center md:gap-4 gap-3 mb-10">
-          <button className="bg-[#A67153] text-white md:px-8 px-6 py-4 rounded-xl font-bold uppercase md:text-xs text-[.75rem] tracking-widest hover:bg-[#2D2926] transition-all shadow-xl shadow-[#A67153]/30">
+        <div className="flex flex-wrap md:justify-start justify-center md:gap-4 gap-3 md:mb-10 mb-5">
+          <button
+            onClick={openModal}
+            className="bg-[#A67153] text-white md:px-8 px-2 py-4 rounded font-bold uppercase md:text-xs text-[.65rem] tracking-widest hover:bg-[#2D2926] transition-all shadow-xl shadow-[#A67153]/30">
             Get Free Consultation
           </button>
-          <button className="bg-white/80 backdrop-blur-md text-[#2D2926] border border-gray-200 md:px-8 px-6 py-4 rounded-xl font-bold uppercase md:text-xs text-[.75rem] tracking-widest hover:border-[#A67153] transition-all">
+          <Link
+            href={'/projects'}
+            className="bg-white/80 backdrop-blur-md text-[#2D2926] border border-gray-200 md:px-8 px-2 py-4 rounded font-bold uppercase md:text-xs text-[.65rem] tracking-widest hover:border-[#A67153] transition-all">
             View Our Work
-          </button>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -139,28 +147,21 @@ export default function PharmacySetupPage() {
         transition={{ duration: 0.8, delay: 0.2 }} 
         className="relative hidden lg:block"
       >
-        <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white transform rotate-2 hover:rotate-0 transition-transform duration-700">
-          <Image 
-            src="/images/medical-store-2.avif"
-            alt="Modern Pharmacy Interior Detail" 
-            width={100}
-            height={100}
-            className="w-full h-[450px] object-cover"
-          />
-          {/* Overlay on the image itself */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#2D2926]/40 to-transparent" />
+      
+        <div className=" p-4 lg:p-6 shadow-2xl border border-brand/10 relative overflow-hidden group max-w-[350px]  bg-[#efebe2]">
+            {/* Decorative Top Bar */}
+            <div className="absolute top-0 left-0 w-full h-1.5 bg-brand" />
+            
+            <div className="mb-4">
+              <h3 className="lg:text-[1.2rem] text-[1.1rem] font-bold text-brand-dark mb-0">Request a Free Consultation</h3>
+              {/* <p className="text-sm text-brand-dark/50">Fill out the form below and our design experts will contact you within 24 hours.</p> */}
+            </div>
+  
+            <HeroFrom/>
         </div>
+        
 
-        {/* Experience Badge */}
-        <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-[2rem] shadow-2xl border border-gray-100">
-          <p className="text-4xl font-bold text-[#A67153]">30</p>
-          <p className="text-[10px] uppercase font-black tracking-[0.2em] text-gray-400">Day Handover</p>
-        </div>
-
-        {/* Floating Detail Badge */}
-        <div className="absolute -top-6 -right-6 bg-[#2D2926] text-white p-6 rounded-[2rem] shadow-2xl border border-white/10">
-          <p className="text-xs font-bold uppercase tracking-widest">Premium Finish</p>
-        </div>
+        
       </motion.div>
 
     </div>
@@ -183,7 +184,7 @@ export default function PharmacySetupPage() {
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-4 opacity-80">
                     <div className="mt-1"><Minus className="text-[#A67153]" /></div>
-                    <p>{item}</p>
+                    <p className='text-sm'>{item}</p>
                   </li>
                 ))}
               </ul>
@@ -197,9 +198,9 @@ export default function PharmacySetupPage() {
                   "Modular storage that adapts to your inventory",
                   "Strategic retail flow to increase customer basket size"
                 ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-4">
+                  <li key={i} className="flex items-start gap-4 mb-3">
                     <div className="mt-1"><CheckCircle2 className="text-[#A67153]" /></div>
-                    <p className="font-medium">{item}</p>
+                    <p className="font-medium text-sm">{item}</p>
                   </li>
                 ))}
               </ul>
@@ -212,11 +213,11 @@ export default function PharmacySetupPage() {
       <section className="py-12 bg-[#F8F5F2]">
         <div className="max-w-7xl mx-auto px-5 lg:px-16">
           <SectionHeading badge="The Process" title="Execution Timeline" />
-          <div className="relative flex flex-col md:flex-row justify-between gap-8">
+          <div className="relative flex flex-col md:flex-row justify-between md:gap-8 gap-4">
             <div className="absolute top-10 left-0 w-full h-0.5 bg-gray-200 hidden md:block z-0" />
             {STEPS.map((step, i) => (
               <motion.div key={i} {...fadeInUp} transition={{ delay: i * 0.1 }} className="relative z-10 flex-1 text-center group">
-                <div className="w-20 h-20 bg-white rounded-2xl shadow-md border border-gray-100 flex items-center justify-center mx-auto mb-6 group-hover:bg-[#A67153] group-hover:text-white transition-all duration-500">
+                <div className="md:w-20 md:h-20 w-15 h-15 bg-white md:rounded-2xl rounded-xl shadow-md border border-gray-100 flex items-center justify-center mx-auto md:mb-6 mb-4 group-hover:bg-[#A67153] group-hover:text-white transition-all duration-500">
                   <span className="text-2xl font-bold">{i + 1}</span>
                 </div>
                 <h4 className="font-bold text-sm uppercase tracking-widest mb-3">{step.title}</h4>
@@ -250,7 +251,7 @@ export default function PharmacySetupPage() {
       </section>
 
       {/* 5. FDA COMPLIANCE SECTION */}
-      <section className="py-24 bg-[#2D2926] text-white relative overflow-hidden">
+      <section className="py-16 bg-[#2D2926] text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none">
           <div className="absolute top-10 right-10 w-64 h-64 border border-white rounded-full" />
         </div>
@@ -258,7 +259,7 @@ export default function PharmacySetupPage() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <span className="text-[#A67153] font-bold text-xs uppercase tracking-[0.4em] mb-4 block">Regulatory Experts</span>
-              <h2 className="text-4xl lg:text-5xl font-medium mb-8">FDA & Drug License <br/><span className="italic text-[#A67153]">Compliant Layouts.</span></h2>
+              <h2 className="text-4xl lg:text-5xl font-medium mb-8">FDA & Drug License <br/><span className="text-[#A67153]">Compliant Layouts.</span></h2>
               <div className="space-y-4">
                 {[
                   { t: "Categorization", d: "Strict segregation for Schedule H, Narcotics, and FMCG zones." },
@@ -280,8 +281,20 @@ export default function PharmacySetupPage() {
               </p>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <img src="https://images.unsplash.com/photo-1631549916768-4119b2e5f926?q=80&w=600&auto=format&fit=crop" className="rounded-3xl h-64 w-full object-cover" />
-              <img src="https://images.unsplash.com/photo-1576602976047-174e57a47881?q=80&w=600&auto=format&fit=crop" className="rounded-3xl h-64 w-full object-cover mt-8" />
+              <Image
+                  src="/images/pharmacy-setup.jpg" 
+                  width={200}
+                  height={200}
+                  alt='pharmacy-setup'
+                  className="rounded-3xl h-64 w-full object-cover" 
+              />
+              <Image
+                width={200}
+                height={200}
+                src="/images/pharmacy-setup-2.jpg" 
+                alt='medical-store-setup'
+                className="rounded-3xl h-64 w-full object-cover mt-8" 
+              />
             </div>
           </div>
         </div>
@@ -344,7 +357,7 @@ export default function PharmacySetupPage() {
                   <input type="text" className="w-full bg-gray-50 border border-gray-200 rounded p-3 focus:ring-2 focus:ring-[#A67153] outline-none" />
                 </div>
                 <div className="md:col-span-2 space-y-2">
-                  <label className="text-[10px] font-bold uppercase text-gray-400 ml-1">How can we help?</label>
+                  <label className="text-[10px] font-bold uppercase text-gray-400 ml-1">How can we help? (Optional)</label>
                   <textarea rows="4" className="w-full bg-gray-50 border border-gray-200 rounded p-3 focus:ring-2 focus:ring-[#A67153] outline-none" />
                 </div>
                 <button className="md:col-span-2 bg-[#A67153] text-white py-5 px-2 rounded font-bold uppercase text-xs tracking-widest shadow-xl hover:bg-[#2D2926] transition-all">
@@ -396,12 +409,14 @@ export default function PharmacySetupPage() {
           <h2 className="text-3xl lg:text-5xl font-medium text-white mb-8">Planning to Start a Pharmacy?</h2>
           <p className="text-white/80 mb-12 max-w-2xl mx-auto font-medium">Let's build a compliant, modern, and profitable medical store today. Our experts are ready to guide you.</p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="bg-[#2D2926] text-white px-10 py-5 rounded-full font-bold uppercase text-xs tracking-[0.2em] shadow-2xl hover:scale-105 transition-all">
+            <button 
+              onClick={openModal}
+              className="bg-[#2D2926] text-white px-10 py-5 rounded-full font-bold uppercase text-xs tracking-[0.2em] shadow-2xl hover:scale-105 transition-all"> 
               Talk to Our Expert
             </button>
-            <button className="bg-white text-[#A67153] px-10 py-5 rounded-full font-bold uppercase text-xs tracking-[0.2em] shadow-2xl hover:bg-gray-100 transition-all">
+            <Link href={'/cost-estimator'} className="bg-white text-[#A67153] px-10 py-5 rounded-full font-bold uppercase text-xs tracking-[0.2em] shadow-2xl hover:bg-gray-100 transition-all">
               Get Cost Estimate
-            </button>
+            </Link>
           </div>
         </div>
       </section>

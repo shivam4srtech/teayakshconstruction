@@ -55,7 +55,7 @@ export default function ProjectHero() {
   };
 
   return (
-    <section className="pt-25 pb-20 bg-white relative">
+    <section className="pt-25 pb-10 bg-white relative">
       <div className="max-w-7xl mx-auto px-5 lg:px-16">
         
         {/* Breadcrumb Header */}

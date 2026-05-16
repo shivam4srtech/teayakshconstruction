@@ -67,9 +67,9 @@ export default function GlobalConsultationModal() {
             </div>
 
             {/* RIGHT COLUMN: The Form */}
-            <div className="w-full md:w-[60%] p-12 lg:p-16 bg-white overflow-y-auto">
+            <div className="w-full md:w-[60%] p-6 lg:p-16 bg-white overflow-y-auto">
               <div className="mb-3">
-                <h3 className="text-2xl font-bold text-[#2D2926] mb-2">Consult with an Expert</h3>
+                <h3 className="md:text-2xl text-xl font-bold text-[#2D2926] mb-2">Consult with an Expert</h3>
                 <p className="text-gray-400 text-sm">Fill in the information below to get started.</p>
               </div>
 
