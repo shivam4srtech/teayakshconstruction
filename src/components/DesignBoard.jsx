@@ -1,0 +1,137 @@
+'use client';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { Linkedin, Mail, ArrowUpRight } from 'lucide-react';
+import { FaLinkedin } from "react-icons/fa";
+
+const BOARD_MEMBERS = [
+  {
+    name: "Ar. Vikram Aditya",
+    role: "Chief Design Visionary & Founder",
+    credentials: "M.Arch, Architectural Association (AA), London",
+    bio: "With over 14+ years of luxury residential execution, Vikram handles master-planning, parametric framing, and spatial layouts for our ultra-luxury portfolio.",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600", // Replace with real executive portraits
+    linkedin: "#",
+    email: "vikram@trayaksh.com"
+  },
+  {
+    name: "Er. Rajesh K. Reddy",
+    role: "Director of Structural Engineering",
+    credentials: "M.Tech (Structures), IIT Madras",
+    bio: "Rajesh commands the structural audit processes. He translates intricate designs into indestructible fortresses, ensuring all 470+ checkpoints are met on-site.",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600",
+    linkedin: "#",
+    email: "rajesh@trayaksh.com"
+  },
+  {
+    name: "Ananya Deshmukh",
+    role: "Head of Interior Couture & Sourcing",
+    credentials: "B.Des, Domus Academy, Milan",
+    bio: "Ananya manages global material networks, directly coordinating hand-picked marble lots from Carrara and custom hardware fittings from Milan.",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600",
+    linkedin: "#",
+    email: "ananya@trayaksh.com"
+  }
+];
+
+export default function DesignBoard() {
+  return (
+    <section className="py-28 bg-white text-[#2D2926] overflow-hidden">
+      <div className="max-w-7xl mx-auto px-5 lg:px-16">
+        
+        {/* Editorial Header Section */}
+        <div className=" mb-8">
+          <div className=''>
+            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#A67153] mb-3 block">
+              Leadership & Vision
+            </span>
+            <h2 className="text-3xl md:text-5xl font-medium tracking-tighter leading-[1.2] mb-4">
+              The Brains Behind <span className="font-light text-[#A67153]"> The Blueprints</span>
+            </h2>
+          </div>
+          <div >
+            <p className="text-gray-500 text-sm md:text-base leading-relaxed">
+              Our executive board brings together an elite convergence of avant-garde space planning, mathematical engineering, and meticulous material curation. We don't manage projects; we steward legacies.
+            </p>
+          </div>
+        </div>
+
+        {/* Profiles Grid System */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
+          {BOARD_MEMBERS.map((member, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8, delay: idx * 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col h-full group"
+            >
+              {/* Profile Portrait Image Frame */}
+              <div className="relative h-[400px] md:h-[460px] w-full rounded-[3rem] overflow-hidden bg-[#F8F5F2] mb-8 shadow-xl shadow-black/[0.01]">
+                <Image 
+                  src={member.image} 
+                  alt={member.name}
+                  fill 
+                  className="object-cover transition-transform duration-1000 grayscale group-hover:grayscale-0 group-hover:scale-105"
+                  sizes="(max-w-7xl) 33vw, 100vw"
+                />
+                
+                {/* Micro Connect Buttons Box Overlaid on Image Hover */}
+                <div className="absolute bottom-6 right-6 flex gap-2 translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 z-10">
+                  <a 
+                    href={`mailto:${member.email}`}
+                    className="w-12 h-12 rounded-2xl bg-white text-[#2D2926] border border-gray-100 flex items-center justify-center hover:bg-[#A67153] hover:text-white transition-colors"
+                    title="Send Email"
+                  >
+                    <Mail size={16} />
+                  </a>
+                  <a 
+                    href={member.linkedin}
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 rounded-2xl bg-white text-[#2D2926] border border-gray-100 flex items-center justify-center hover:bg-[#A67153] hover:text-white transition-colors"
+                    title="LinkedIn Profile"
+                  >
+                    <FaLinkedin  size={16} />
+                  </a>
+                </div>
+
+                {/* Permanent Gradient Base Mask */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
+              </div>
+
+              {/* Profile Identity Details Area */}
+              <div className="space-y-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <h3 className="text-2xl font-bold tracking-tight text-[#2D2926]">
+                        {member.name}
+                      </h3>
+                      <p className="text-xs font-black text-[#A67153] uppercase tracking-wider mt-1">
+                        {member.role}
+                      </p>
+                    </div>
+                    <ArrowUpRight size={18} className="text-gray-300 group-hover:text-[#A67153] transition-colors mt-1" />
+                  </div>
+                  
+                  {/* Executive Credentials Badge */}
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-3 bg-[#F8F5F2] inline-block px-3 py-1 rounded-md">
+                    {member.credentials}
+                  </p>
+
+                  <p className="text-gray-500 text-sm leading-relaxed mt-5">
+                    {member.bio}
+                  </p>
+                </div>
+              </div>
+
+            </motion.div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}

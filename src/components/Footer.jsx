@@ -27,11 +27,11 @@ export default function Footer() {
   ];
 
   const company = [
-    { name: 'About Us', href: '#' },
-    { name: 'Our Projects', href: '#' },
-    { name: 'Process', href: '#' },
-    { name: 'Testimonials', href: '#' },
-    { name: 'Contact', href: '#' },
+    { name: 'About Us', href: '/about' },
+    { name: 'Our Projects', href: '/projects' },
+    { name: 'Pricing', href: '/pricing' },
+    { name: 'Testimonials', href: '/reviews' },
+    { name: 'Contact', href: '/contact' },
   ];
 
   return (
