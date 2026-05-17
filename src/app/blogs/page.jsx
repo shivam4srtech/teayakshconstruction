@@ -1,5 +1,6 @@
 import BlogJournalWithSidebar from "@/components/BlogJournalWithSidebar";
 import BlogListHero from "@/components/BlogListHero";
+import GlobalCta from "@/components/GlobalCta";
 
 
 export default function AllBlogs(){
@@ -7,6 +8,7 @@ export default function AllBlogs(){
         <>
             <BlogListHero/>
             <BlogJournalWithSidebar/>
+            <GlobalCta/>
         </>
     )
 }
