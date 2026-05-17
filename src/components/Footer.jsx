@@ -32,6 +32,7 @@ export default function Footer() {
     { name: 'Pricing', href: '/pricing' },
     { name: 'Testimonials', href: '/reviews' },
     { name: 'Contact', href: '/contact' },
+    { name: 'Blogs', href: '/blogs' },
   ];
 
   return (
