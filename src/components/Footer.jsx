@@ -25,7 +25,6 @@ export default function Footer() {
     { name: 'Renovation', href: '#' },
     { name: 'Architecture', href: '#' },
   ];
-
   const company = [
     { name: 'About Us', href: '/about' },
     { name: 'Our Projects', href: '/projects' },
