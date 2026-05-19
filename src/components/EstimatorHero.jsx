@@ -305,15 +305,16 @@ export default function EstimatorHero({
                       <CheckCircle2 size={15} />
                       Thank you for using our calculator
                     </div>
-                    <div className="mt-2 md:text-3xl text-2xl font-bold text-[#2D2926] tracking-tighter">
-                      {submittedEstimate.formatted}
+                    <div className="mt-2 md:text-3xl text-2xl font-bold text-[#2D2926] tracking-tighter flex items-end">
+                      <span>*{submittedEstimate.formatted}</span>
+                      <span className='text-xs font-semibold text-gray-500'>
+                          Approx
+                      </span>
                     </div>
                     <p className="mt-2 text-xs font-semibold text-gray-500">
                       {submittedEstimate.totalBuiltUpArea.toLocaleString('en-IN')} total sq.ft x ₹{submittedEstimate.price || '--'}/{submittedEstimate.unit}.
                     </p>
-                    <p className="mt-1 text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                      {submittedEstimate.packageName} package at ₹{submittedEstimate.price || '--'}/{submittedEstimate.unit}
-                    </p>
+                    
                   </div>
                 )}
               </form>

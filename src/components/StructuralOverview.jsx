@@ -91,7 +91,7 @@ export default function CityDynamicComparison({
           </div>
           <div className="w-full md:w-72 bg-white p-3 rounded shadow-xl border border-white">
             <label className="text-[9px] font-black uppercase tracking-widest text-gray-400 ml-4 mb-1 flex items-center gap-2">
-              <MdLocationPin size={14} /> Pricing Region
+              <MdLocationPin size={14} /> Region
             </label>
             <CustomSelect
               options={cityOptions}

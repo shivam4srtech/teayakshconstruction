@@ -17,10 +17,7 @@ export default function VerticalFloatingButton() {
         onClick={openModal}
         className="group relative flex items-center"
       >
-        {/* The Label (Appears on Hover) */}
-        <span className="absolute right-full  px-2 py-2 bg-[#2D2926] text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-lg opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-300 whitespace-nowrap shadow-xl">
-          Get Free Quote
-        </span>
+      
 
         {/* The Vertical Button Body */}
         <div className="bg-[#2D2926] hover:bg-[#A67153] text-white md:py-3 py-2 md:px-2 px-1 rounded-l-2xl border-l border-y border-[#A67153]/30 transition-all duration-500 flex flex-col items-center gap-3 shadow-[-10px_0_30px_rgba(0,0,0,0.1)]">
