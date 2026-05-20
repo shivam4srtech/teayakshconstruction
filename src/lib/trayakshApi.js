@@ -50,3 +50,9 @@ export async function getEstimatorCatalog() {
     pricingTiers: unwrapList(pricingTiersPayload),
   };
 }
+
+export async function getProjects() {
+  const projectsPayload = await fetchApi("/projects");
+
+  return unwrapList(projectsPayload);
+}
