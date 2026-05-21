@@ -27,6 +27,8 @@ function validateConsultationLead(formData) {
     city: sanitizeText(formData.city),
     phone: sanitizeText(formData.phone),
     email: sanitizeText(formData.email),
+    projectType: sanitizeText(formData.projectType || formData.project_type),
+    requireProjectType: Boolean(formData.requireProjectType),
     source: sanitizeText(formData.source) || "Website Consultation",
   };
   const fieldErrors = {};
@@ -34,6 +36,9 @@ function validateConsultationLead(formData) {
   if (!values.name) fieldErrors.name = REQUIRED_MESSAGE;
   if (!values.city) fieldErrors.city = REQUIRED_MESSAGE;
   if (!values.phone) fieldErrors.phone = REQUIRED_MESSAGE;
+  if (values.requireProjectType && !values.projectType) {
+    fieldErrors.projectType = REQUIRED_MESSAGE;
+  }
 
   if (values.phone && !/^[0-9+\-\s()]{7,20}$/.test(values.phone)) {
     fieldErrors.phone = "Enter a valid phone number.";
@@ -69,6 +74,7 @@ function adminEmailTemplate(values) {
           <tr><td style="padding: 10px 0; color: #777;"><strong>City</strong></td><td style="padding: 10px 0;">${escapeHtml(values.city)}</td></tr>
           <tr><td style="padding: 10px 0; color: #777;"><strong>Phone</strong></td><td style="padding: 10px 0;">${escapeHtml(values.phone)}</td></tr>
           <tr><td style="padding: 10px 0; color: #777;"><strong>Email</strong></td><td style="padding: 10px 0;">${escapeHtml(values.email || "Not provided")}</td></tr>
+          ${values.projectType ? `<tr><td style="padding: 10px 0; color: #777;"><strong>Project Type</strong></td><td style="padding: 10px 0;">${escapeHtml(values.projectType)}</td></tr>` : ""}
           <tr><td style="padding: 10px 0; color: #777;"><strong>Source</strong></td><td style="padding: 10px 0;">${escapeHtml(values.source)}</td></tr>
         </tbody>
       </table>
@@ -99,6 +105,7 @@ function userConfirmationTemplate(values) {
                     <p style="margin: 0 0 10px; color: #A67153; font-size: 11px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase;">Request Summary</p>
                     <p style="margin: 8px 0; font-size: 14px;"><strong>Phone:</strong> ${escapeHtml(values.phone)}</p>
                     <p style="margin: 8px 0; font-size: 14px;"><strong>City:</strong> ${escapeHtml(values.city)}</p>
+                    ${values.projectType ? `<p style="margin: 8px 0; font-size: 14px;"><strong>Project Type:</strong> ${escapeHtml(values.projectType)}</p>` : ""}
                   </div>
                   <p style="margin: 0; color: #77716b; font-size: 13px; line-height: 1.7;">
                     You do not need to reply to this email. This is a confirmation copy for your records.
