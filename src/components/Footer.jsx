@@ -1,12 +1,17 @@
 'use client';
+import { useState } from 'react';
 import Link from 'next/link';
+import { useModalStore } from '@/store/useModalStore';
+import { subscribeNewsletter } from '@/app/actions/subscribeNewsletter';
 // Importing specific icon sets from react-icons
 import { 
   FaFacebookF, 
   FaInstagram, 
   FaLinkedinIn, 
   FaTwitter,
-  FaArrowRight 
+  FaArrowRight,
+  FaSpinner,
+  FaCheck
 } from 'react-icons/fa';
 import { 
   IoMailOutline, 
@@ -17,7 +22,12 @@ import { HiOutlineArrowLongRight } from 'react-icons/hi2';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-
+  const openModal = useModalStore((state) => state.openModal);
+  const [email, setEmail] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const services = [
     { name: 'Luxury Villas', href: '#' },
     { name: 'Commercial Spaces', href: '#' },
@@ -34,18 +44,38 @@ export default function Footer() {
     { name: 'Blogs', href: '/blogs' },
   ];
 
+  const handleNewsletterSubmit = async (event) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setFieldErrors({});
+    setMessage('');
+
+    const result = await subscribeNewsletter({ email });
+
+    setIsSubmitting(false);
+    setFieldErrors(result.fieldErrors || {});
+    setMessage(result.message || '');
+
+    if (result.ok) {
+      setIsSuccess(true);
+      setEmail('');
+    }
+  };
+
   return (
     <footer className="bg-brand-dark text-white md:pt-20 pt-10 pb-10 px-5 lg:px-16 overflow-hidden relative">
       <div className="max-w-7xl mx-auto">
         
         {/* Top Section: CTA & Newsletter */}
-        <div className="grid lg:grid-cols-2 md:gap-12 gap-4 border-b border-white/10">
+        <div className="grid lg:grid-cols-2 md:gap-12 gap-4 border-b border-white/10 pb-5">
           <div className="space-y-6">
             <h2 className="text-2xl lg:text-5xl font-medium leading-tight md:mb-3 mb-0">
               Ready to build your <br />
               <span className=". text-brand">dream space?</span>
             </h2>
-            <button className="flex items-center gap-3 group text-brand font-bold uppercase tracking-widest text-xs cursor-pointer">
+            <button 
+              onClick={openModal}
+              className="flex items-center gap-3 group text-brand font-bold uppercase tracking-widest text-xs cursor-pointer">
               Start a Conversation 
               <HiOutlineArrowLongRight size={22} className="group-hover:translate-x-2 transition-transform duration-300" />
             </button>
@@ -53,16 +83,35 @@ export default function Footer() {
           
           <div className="flex flex-col justify-end">
             <p className="text-white/50 text-sm mb-4 uppercase tracking-widest">Subscribe to our newsletter</p>
-            <div className="flex border-b border-white/20 pb-2 focus-within:border-brand transition-colors">
-              <input 
-                type="email" 
-                placeholder="Your email address" 
-                className="bg-transparent w-full outline-none text-sm py-2 placeholder:text-white/20"
-              />
-              <button className="text-brand hover:text-white transition-colors cursor-pointer">
-                <FaArrowRight size={16} />
-              </button>
-            </div>
+            <form onSubmit={handleNewsletterSubmit} noValidate>
+              <div className={`flex border-b pb-2 focus-within:border-brand transition-colors ${fieldErrors.email ? 'border-red-400' : 'border-white/20'}`}>
+                <input 
+                  type="email" 
+                  placeholder="Your email address"
+                  value={email}
+                  onChange={(event) => {
+                    setEmail(event.target.value);
+                    setFieldErrors({});
+                    setMessage('');
+                    setIsSuccess(false);
+                  }}
+                  className="bg-transparent w-full outline-none text-sm py-2 placeholder:text-white/20"
+                />
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="text-brand hover:text-white transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-70"
+                  aria-label="Subscribe to newsletter"
+                >
+                  {isSubmitting ? <FaSpinner size={16} className="animate-spin" /> : isSuccess ? <FaCheck size={16} /> : <FaArrowRight size={16} />}
+                </button>
+              </div>
+              {(fieldErrors.email || message) && (
+                <p className={`mt-3 text-[10px] font-bold uppercase tracking-widest ${isSuccess ? 'text-green-400' : fieldErrors.email ? 'text-red-400' : 'text-white/40'}`}>
+                  {fieldErrors.email || message}
+                </p>
+              )}
+            </form>
           </div>
         </div>
 
