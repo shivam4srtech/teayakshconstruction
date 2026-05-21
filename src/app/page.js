@@ -10,7 +10,14 @@ import MobilePricing from '@/components/MobilePricing';
 import HomeownerGuarantees from '@/components/HomeownerGuarantees';
 import CalculatorCTA from '@/components/CalculatorCTA';
 import QualityCommandCenter from '@/components/QualityCommandCenter';
-export default function Home() {
+import { getEstimatorCatalog, getTestimonials } from '@/lib/trayakshApi';
+
+export default async function Home() {
+  const [testimonials, catalog] = await Promise.all([
+    getTestimonials(),
+    getEstimatorCatalog(),
+  ]);
+
   return (
      <>
         <HeroSection />
@@ -18,10 +25,10 @@ export default function Home() {
         <HomeownerGuarantees/>
         <QualityCommandCenter/>
         <CalculatorCTA/>
-        <PricingSection/>
-        <MobilePricing/>
+        <PricingSection cities={catalog.cities} pricingTiers={catalog.pricingTiers} packageRates={catalog.packageRates}/>
+        <MobilePricing cities={catalog.cities} pricingTiers={catalog.pricingTiers} packageRates={catalog.packageRates}/>
         <PhilosophySection/>
-        <TestimonialSection/>
+        <TestimonialSection testimonials={testimonials}/>
         <ServicesSection/>
         <FAQSection/>
        

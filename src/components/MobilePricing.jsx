@@ -1,31 +1,84 @@
 'use client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaCheck, FaCrown, FaBolt, FaLeaf, FaGem, FaChevronDown } from 'react-icons/fa6';
+import { FaCheck, FaBolt, FaLeaf, FaGem, FaChevronDown } from 'react-icons/fa6';
+import { useModalStore } from '@/store/useModalStore';
 
-const CITY_DATA = {
-  "Noida": [
-    { name: "Basic", price: "1910", icon: <FaBolt />, desc: "Essential quality for Noida urban setups.", features: ["Standard Brands", "Quality Flooring", "Structural Warranty"] },
-    { name: "Premium", price: "2490", icon: <FaLeaf />, desc: "Modern living with solar setups.", features: ["Smart Home Ready", "Solar Provision", "Italian Marble"] },
-    { name: "Royale", price: "2790", icon: <FaGem />, desc: "High-end finishes and EV charging.", features: ["EV Charging", "Copper Gas Line", "Designer Paints"] }
-  ],
-  "Delhi": [
-    { name: "Basic", price: "2100", icon: <FaBolt />, desc: "Optimized for Delhi space constraints.", features: ["Standard Brands", "Quality Flooring", "Structural Warranty"] },
-    { name: "Premium", price: "2700", icon: <FaLeaf />, desc: "Luxury living with green energy.", features: ["Smart Home Ready", "Solar Provision", "Italian Marble"] },
-    { name: "Royale", price: "3100", icon: <FaGem />, desc: "Elite finishes for posh localities.", features: ["EV Charging", "Copper Gas Line", "Designer Paints"] }
-  ],
-  "Gurgaon": [
-    { name: "Basic", price: "2050", icon: <FaBolt />, desc: "Quality construction for Millennium City.", features: ["Standard Brands", "Quality Flooring", "Structural Warranty"] },
-    { name: "Premium", price: "2650", icon: <FaLeaf />, desc: "Advanced provisions for luxury floors.", features: ["Smart Home Ready", "Solar Provision", "Italian Marble"] },
-    { name: "Royale", price: "2950", icon: <FaGem />, desc: "Ultra-luxury specs with smart tech.", features: ["EV Charging", "Copper Gas Line", "Designer Paints"] }
-  ]
+const PACKAGE_ICONS = {
+  basic: <FaBolt />,
+  premium: <FaLeaf />,
+  luxury: <FaGem />,
 };
 
-export default function MobilePricing() {
-  const [activeCity, setActiveCity] = useState("Noida");
-  const [activeIndex, setActiveIndex] = useState(1); // Default to 'Classic'
-  
-  const currentPkg = CITY_DATA[activeCity][activeIndex];
+function normalizeCityKey(city, packageRates) {
+  const cityKeys = Object.keys(packageRates || {});
+  const normalizedCity = city.trim().toLowerCase();
+  return cityKeys.find((key) => key.trim().toLowerCase() === normalizedCity) || city;
+}
+
+function findPackageKey(slug, cityData) {
+  const normalizedSlug = slug.trim().toLowerCase();
+  return Object.keys(cityData || {}).find((key) => key.trim().toLowerCase() === normalizedSlug);
+}
+
+function getCityOptions(cities, packageRates) {
+  const apiCities = cities.map((city) => city.name).filter(Boolean);
+  const rateCities = Object.keys(packageRates || {});
+  return [...new Set([...apiCities, ...rateCities])];
+}
+
+function getPackageFeatures(packageData) {
+  const featureGroups = Object.entries(packageData?.features || {});
+  const features = featureGroups.flatMap(([groupName, group]) => {
+    if (!group || typeof group !== 'object') return [groupName];
+    return Object.entries(group).map(([key, value]) => `${key}: ${value}`);
+  });
+
+  return features.length > 0 ? features.slice(0, 4) : ['Specification review', 'Quality checks', 'Transparent estimate'];
+}
+
+function getPackageDescription(packageData, tier, city) {
+  return packageData?.description || tier.description || `${tier.name} construction package for ${city}.`;
+}
+
+function buildPackages(activeCity, pricingTiers, packageRates) {
+  const normalizedCity = normalizeCityKey(activeCity, packageRates);
+  const cityData = packageRates?.[normalizedCity] || {};
+
+  return pricingTiers
+    .filter((tier) => tier.slug && findPackageKey(tier.slug, cityData))
+    .map((tier, index) => {
+      const packageKey = findPackageKey(tier.slug, cityData);
+      const packageData = cityData[packageKey];
+      const normalizedSlug = tier.slug.trim().toLowerCase();
+      const hasPrice = packageData.price !== undefined && packageData.price !== null;
+
+      return {
+        slug: normalizedSlug,
+        name: tier.name || tier.slug,
+        price: hasPrice ? Number(packageData.price).toLocaleString('en-IN') : '--',
+        currency: packageData.currency || 'Rs.',
+        unit: packageData.unit || 'sqft',
+        icon: PACKAGE_ICONS[tier.slug] || <FaGem />,
+        desc: getPackageDescription(packageData, tier, activeCity),
+        features: getPackageFeatures(packageData),
+        popular: normalizedSlug === 'premium' || index === 1,
+      };
+    });
+}
+
+export default function MobilePricing({ cities = [], pricingTiers = [], packageRates = {} }) {
+  const openModal = useModalStore((state) => state.openModal);
+  const cityOptions = useMemo(() => getCityOptions(cities, packageRates), [cities, packageRates]);
+  const [selectedCity, setSelectedCity] = useState('');
+  const activeCity = selectedCity || cityOptions[0] || '';
+  const [activeIndex, setActiveIndex] = useState(0);
+  const currentPackages = buildPackages(activeCity, pricingTiers, packageRates);
+  const currentPkg = currentPackages[Math.min(activeIndex, Math.max(currentPackages.length - 1, 0))];
+
+  if (!activeCity || !currentPkg) {
+    return null;
+  }
 
   return (
     <section className="py-6 bg-gray-50 lg:hidden"> {/* Only visible on Mobile */}
@@ -43,10 +96,13 @@ export default function MobilePricing() {
             <label className="text-[8px] uppercase font-bold text-brand-dark/40 absolute top-2 left-4">Location</label>
             <select 
               value={activeCity}
-              onChange={(e) => setActiveCity(e.target.value)}
+              onChange={(e) => {
+                setSelectedCity(e.target.value);
+                setActiveIndex(0);
+              }}
               className="w-full bg-transparent pt-5 pb-2 text-sm font-bold uppercase tracking-widest outline-none appearance-none"
             >
-              {Object.keys(CITY_DATA).map(city => (
+              {cityOptions.map(city => (
                 <option key={city} value={city}>{city}</option>
               ))}
             </select>
@@ -56,9 +112,9 @@ export default function MobilePricing() {
 
         {/* Segmented Toggle Buttons */}
         <div className="flex bg-gray-200/50 p-1 rounded-xl mb-4 overflow-x-auto no-scrollbar">
-          {CITY_DATA[activeCity].map((pkg, idx) => (
+          {currentPackages.map((pkg, idx) => (
             <button
-              key={pkg.name}
+              key={pkg.slug}
               onClick={() => setActiveIndex(idx)}
               className={`relative flex-1 py-3 text-[10px] font-bold uppercase tracking-tighter rounded-lg transition-all duration-300 whitespace-nowrap px-4 ${
                 activeIndex === idx ? 'text-white' : 'text-brand-dark/50'
@@ -103,8 +159,8 @@ export default function MobilePricing() {
               <div>
                 <h3 className="text-2xl font-medium text-brand-dark tracking-tight">{currentPkg.name}</h3>
                 <div className="flex items-baseline gap-1">
-                  <span className="text-brand font-bold">₹{currentPkg.price}</span>
-                  <span className="text-[10px] text-gray-400 uppercase">/sqft</span>
+                  <span className="text-brand font-bold">{currentPkg.currency}{currentPkg.price}</span>
+                  <span className="text-[10px] text-gray-400 uppercase">/{currentPkg.unit}</span>
                 </div>
               </div>
             </div>
@@ -114,9 +170,9 @@ export default function MobilePricing() {
             </p>
 
             <div className="space-y-4 mb-10">
-              <p className="text-[9px] font-bold uppercase tracking-widest text-brand">What's Included:</p>
+              <p className="text-[9px] font-bold uppercase tracking-widest text-brand">What&apos;s Included:</p>
               {currentPkg.features.map((feature, i) => (
-                <div key={i} className="flex items-center gap-3">
+                <div key={`${feature}-${i}`} className="flex items-center gap-3">
                   <div className="w-5 h-5 rounded-full bg-green-50 flex items-center justify-center">
                     <FaCheck className="text-green-600" size={8} />
                   </div>
@@ -125,8 +181,12 @@ export default function MobilePricing() {
               ))}
             </div>
 
-            <button className="w-full bg-brand py-5 rounded-2xl text-white text-[11px] font-bold uppercase tracking-widest shadow-lg shadow-brand/20 active:scale-95 transition-transform">
-              Get Detailed Quote
+            <button
+              type="button"
+              onClick={openModal}
+              className="w-full bg-brand py-5 rounded-2xl text-white text-[11px] font-bold uppercase tracking-widest shadow-lg shadow-brand/20 active:scale-95 transition-transform"
+            >
+              Choose Plan
             </button>
           </motion.div>
         </AnimatePresence>

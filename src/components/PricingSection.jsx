@@ -1,32 +1,83 @@
 'use client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaCheck, FaCrown, FaBolt, FaLeaf, FaGem, FaChevronDown } from 'react-icons/fa6';
+import { FaCheck, FaBolt, FaLeaf, FaGem, FaChevronDown } from 'react-icons/fa6';
+import { useModalStore } from '@/store/useModalStore';
 
-const CITY_DATA = {
-  "Noida": [
-    { name: "Basic", price: "1910", icon: <FaBolt />, desc: "Essential quality for Noida urban setups.", features: ["Standard Brands", "Quality Flooring", "Structural Warranty"] },
-    
-    { name: "Premium", price: "2490", icon: <FaLeaf />, desc: "Modern living with solar setups.", features: ["Smart Home Ready", "Solar Provision", "Italian Marble"] },
-    { name: "Royale", price: "2790", icon: <FaGem />, desc: "High-end finishes and EV charging.", features: ["EV Charging", "Copper Gas Line", "Designer Paints"] }
-  ],
-  "Delhi": [
-    { name: "Basic", price: "2100", icon: <FaBolt />, desc: "Optimized for Delhi space constraints.", features: ["Standard Brands", "Quality Flooring", "Structural Warranty"] },
-   
-    { name: "Premium", price: "2700", icon: <FaLeaf />, desc: "Luxury living with green energy.", features: ["Smart Home Ready", "Solar Provision", "Italian Marble"] },
-    { name: "Royale", price: "3100", icon: <FaGem />, desc: "Elite finishes for posh localities.", features: ["EV Charging", "Copper Gas Line", "Designer Paints"] }
-  ],
-  "Gurgaon": [
-    { name: "Basic", price: "2050", icon: <FaBolt />, desc: "Quality construction for Millennium City.", features: ["Standard Brands", "Quality Flooring", "Structural Warranty"] },
-   
-    { name: "Premium", price: "2650", icon: <FaLeaf />, desc: "Advanced provisions for luxury floors.", features: ["Smart Home Ready", "Solar Provision", "Italian Marble"] },
-    { name: "Royale", price: "2950", icon: <FaGem />, desc: "Ultra-luxury specs with smart tech.", features: ["EV Charging", "Copper Gas Line", "Designer Paints"] }
-  ]
+const PACKAGE_ICONS = {
+  basic: <FaBolt />,
+  premium: <FaLeaf />,
+  luxury: <FaGem />,
 };
 
-export default function PricingSection() {
-  const [activeCity, setActiveCity] = useState("Noida");
-  const currentPackages = CITY_DATA[activeCity];
+function normalizeCityKey(city, packageRates) {
+  const cityKeys = Object.keys(packageRates || {});
+  const normalizedCity = city.trim().toLowerCase();
+  return cityKeys.find((key) => key.trim().toLowerCase() === normalizedCity) || city;
+}
+
+function findPackageKey(slug, cityData) {
+  const normalizedSlug = slug.trim().toLowerCase();
+  return Object.keys(cityData || {}).find((key) => key.trim().toLowerCase() === normalizedSlug);
+}
+
+function getCityOptions(cities, packageRates) {
+  const apiCities = cities.map((city) => city.name).filter(Boolean);
+  const rateCities = Object.keys(packageRates || {});
+  return [...new Set([...apiCities, ...rateCities])];
+}
+
+function getPackageFeatures(packageData) {
+  const featureGroups = Object.entries(packageData?.features || {});
+  const features = featureGroups.flatMap(([groupName, group]) => {
+    if (!group || typeof group !== 'object') return [groupName];
+    return Object.entries(group).map(([key, value]) => `${key}: ${value}`);
+  });
+
+  return features.length > 0 ? features.slice(0, 4) : ['Specification review', 'Quality checks', 'Transparent estimate'];
+}
+
+function getPackageDescription(packageData, tier, city) {
+  return packageData?.description || tier.description || `${tier.name} construction package for ${city}.`;
+}
+
+function buildPackages(activeCity, pricingTiers, packageRates) {
+  const normalizedCity = normalizeCityKey(activeCity, packageRates);
+  const cityData = packageRates?.[normalizedCity] || {};
+
+  return pricingTiers
+    .filter((tier) => tier.slug && findPackageKey(tier.slug, cityData))
+    .map((tier, index) => {
+      const packageKey = findPackageKey(tier.slug, cityData);
+      const packageData = cityData[packageKey];
+      const normalizedSlug = tier.slug.trim().toLowerCase();
+      const isPopular = normalizedSlug === 'premium' || index === 1;
+      const hasPrice = packageData.price !== undefined && packageData.price !== null;
+
+      return {
+        slug: normalizedSlug,
+        name: tier.name || tier.slug,
+        price: hasPrice ? Number(packageData.price).toLocaleString('en-IN') : '--',
+        currency: packageData.currency || 'Rs.',
+        unit: packageData.unit || 'sqft',
+        icon: PACKAGE_ICONS[tier.slug] || <FaGem />,
+        desc: getPackageDescription(packageData, tier, activeCity),
+        features: getPackageFeatures(packageData),
+        popular: isPopular,
+      };
+    });
+}
+
+export default function PricingSection({ cities = [], pricingTiers = [], packageRates = {} }) {
+  const openModal = useModalStore((state) => state.openModal);
+  const cityOptions = useMemo(() => getCityOptions(cities, packageRates), [cities, packageRates]);
+  const [selectedCity, setSelectedCity] = useState('');
+  const activeCity = selectedCity || cityOptions[0] || '';
+  const currentPackages = buildPackages(activeCity, pricingTiers, packageRates);
+
+  if (!activeCity || currentPackages.length === 0) {
+    return null;
+  }
 
   return (
     <section className="hidden lg:block py-10 bg-[#FBFBFB] overflow-hidden">
@@ -54,10 +105,10 @@ export default function PricingSection() {
             <div className="relative group">
               <select 
                 value={activeCity}
-                onChange={(e) => setActiveCity(e.target.value)}
+                onChange={(e) => setSelectedCity(e.target.value)}
                 className="w-full appearance-none bg-white border border-gray-100 rounded py-5 px-6 text-xs font-bold uppercase tracking-widest outline-none cursor-pointer shadow-sm group-hover:shadow-md transition-all duration-300"
               >
-                {Object.keys(CITY_DATA).map(city => (
+                {cityOptions.map(city => (
                   <option key={city} value={city}>{city}</option>
                 ))}
               </select>
@@ -71,7 +122,7 @@ export default function PricingSection() {
           <AnimatePresence mode="wait">
             {currentPackages.map((pkg, idx) => (
               <motion.div
-                key={`${activeCity}-${pkg.name}`}
+                key={`${activeCity}-${pkg.slug}`}
                 initial={{ opacity: 0, scale: 0.95, y: 30 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: -20 }}
@@ -107,8 +158,8 @@ export default function PricingSection() {
                     {pkg.name}
                   </h3>
                   <div className="flex items-center justify-center gap-1">
-                    <span className="text-5xl font-medium text-brand-dark tracking-tighter">₹{pkg.price}</span>
-                    <span className="text-[11px] uppercase font-black text-brand-dark/20 italic">/sqft</span>
+                    <span className="text-5xl font-medium text-brand-dark tracking-tighter">{pkg.currency}{pkg.price}</span>
+                    <span className="text-[11px] uppercase font-black text-brand-dark/20 italic">/{pkg.unit}</span>
                   </div>
                 </div>
 
@@ -132,6 +183,8 @@ export default function PricingSection() {
 
                 {/* CTA */}
                 <motion.button 
+                  type="button"
+                  onClick={openModal}
                   whileTap={{ scale: 0.98 }}
                   className={`w-full py-5 rounded text-[11px] font-bold uppercase tracking-[0.2em] transition-all ${
                     pkg.popular 
@@ -156,7 +209,7 @@ export default function PricingSection() {
            >
               <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
               <p className="text-[10px] uppercase tracking-widest text-brand-dark/40 font-bold">
-                Rates Verified for {activeCity} — 2024 Index
+                Rates Verified for {activeCity} - Live API Index
               </p>
            </motion.div>
         </div>

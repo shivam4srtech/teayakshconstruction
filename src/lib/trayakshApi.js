@@ -40,6 +40,17 @@ function unwrapList(payload) {
   return [];
 }
 
+function unwrapObject(payload) {
+  if (!payload || Array.isArray(payload) || typeof payload !== "object") return {};
+  if (payload.data && !Array.isArray(payload.data) && typeof payload.data === "object") {
+    return payload.data;
+  }
+  if (payload.value && !Array.isArray(payload.value) && typeof payload.value === "object") {
+    return payload.value;
+  }
+  return payload;
+}
+
 export async function getEstimatorCatalog() {
   const [citiesPayload, packageRatesPayload, pricingTiersPayload] =
     await Promise.all([
@@ -50,7 +61,7 @@ export async function getEstimatorCatalog() {
 
   return {
     cities: unwrapList(citiesPayload),
-    packageRates: packageRatesPayload || {},
+    packageRates: unwrapObject(packageRatesPayload),
     pricingTiers: unwrapList(pricingTiersPayload),
   };
 }
@@ -65,6 +76,12 @@ export async function getCities() {
   const citiesPayload = await fetchApi("/cities");
 
   return unwrapList(citiesPayload);
+}
+
+export async function getTestimonials() {
+  const testimonialsPayload = await fetchApi("/testimonials");
+
+  return unwrapList(testimonialsPayload);
 }
 
 export async function getProjectByUrl(projectUrl) {
