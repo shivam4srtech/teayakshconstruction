@@ -133,7 +133,7 @@ export default function OurProject({ projects = [] }) {
               <AnimatePresence mode='popLayout'>
                 {visibleProjects.map((project) => (
                   <Link
-                    href={`project/${project.url}`}
+                    href={`/project/${project.url}`}
                     key={project.id}
                     
                     className="group relative bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500"

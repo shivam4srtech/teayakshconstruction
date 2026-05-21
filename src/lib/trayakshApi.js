@@ -16,11 +16,15 @@ function getApiHeaders() {
   };
 }
 
-async function fetchApi(path) {
+async function fetchApi(path, { allowNotFound = false } = {}) {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     headers: getApiHeaders(),
     next: { revalidate: 3600 },
   });
+
+  if (allowNotFound && response.status === 404) {
+    return null;
+  }
 
   if (!response.ok) {
     throw new Error(`Trayaksh API request failed: ${path}`);
@@ -55,4 +59,20 @@ export async function getProjects() {
   const projectsPayload = await fetchApi("/projects");
 
   return unwrapList(projectsPayload);
+}
+
+export async function getCities() {
+  const citiesPayload = await fetchApi("/cities");
+
+  return unwrapList(citiesPayload);
+}
+
+export async function getProjectByUrl(projectUrl) {
+  if (!projectUrl) return null;
+
+  const encodedProjectUrl = encodeURIComponent(projectUrl);
+
+  const project = await fetchApi(`/project/${encodedProjectUrl}`, { allowNotFound: true });
+
+  return project || fetchApi(`/${encodedProjectUrl}`, { allowNotFound: true });
 }

@@ -2,6 +2,8 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
+const FALLBACK_STAGE_IMAGE = "/images/no-image.jpg";
+
 const STAGES = [
   {
     phase: "Stage 01",
@@ -29,7 +31,28 @@ const STAGES = [
   }
 ];
 
-export default function ProjectStages() {
+function normalizeStages(stages) {
+  if (!Array.isArray(stages) || stages.length === 0) return STAGES;
+
+  return stages
+    .slice()
+    .sort((a, b) => (a.order || a.stage_id || 0) - (b.order || b.stage_id || 0))
+    .filter((stage) => stage.title && stage.description)
+    .map((stage, index) => ({
+      phase: `Stage ${String(index + 1).padStart(2, "0")}`,
+      title: stage.title,
+      desc: stage.description,
+      image: typeof stage.image === "string" ? stage.image : stage.image?.url || FALLBACK_STAGE_IMAGE,
+    }));
+}
+
+export default function ProjectStages({ stages }) {
+  const projectStages = normalizeStages(stages);
+
+  if (Array.isArray(stages) && projectStages.length === 0) {
+    return null;
+  }
+
   return (
     <section className="py-10 bg-white text-[#2D2926] overflow-hidden">
       <div className="max-w-7xl mx-auto px-5 lg:px-16">
@@ -49,7 +72,7 @@ export default function ProjectStages() {
           <div className="absolute left-1/2 top-0 bottom-0 w-[1px] bg-gray-100 -translate-x-1/2 hidden lg:block" />
 
           <div className="space-y-10 lg:-space-y-6">
-            {STAGES.map((stage, i) => {
+            {projectStages.map((stage, i) => {
               const isEven = i % 2 === 0;
 
               return (

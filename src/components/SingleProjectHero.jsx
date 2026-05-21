@@ -11,11 +11,10 @@ import {
   Fingerprint, 
   Diamond,
   Share2,
-  X,
-  Download
+  X
 } from 'lucide-react';
 
-const PROJECT_DATA = {
+const DEFAULT_PROJECT_DATA = {
   title: "The Obsidian Villa",
   location: "Jubilee Hills, Hyderabad",
   id: "TR-2026-084",
@@ -30,43 +29,118 @@ const PROJECT_DATA = {
   ]
 };
 
-export default function ProjectHero() {
+function formatArea(area) {
+  if (!area) return DEFAULT_PROJECT_DATA.area;
+
+  const numericArea = Number(area);
+  const formattedArea = Number.isFinite(numericArea) ? numericArea.toLocaleString("en-IN") : area;
+  return `${formattedArea} Sq.Ft.`;
+}
+
+function formatFloors(elevation) {
+  return elevation ? `${elevation} Floors` : DEFAULT_PROJECT_DATA.floors;
+}
+
+function getImageUrl(image) {
+  if (typeof image === "string") return image;
+  return image?.url || image?.image || image?.path || null;
+}
+
+function normalizeProjectData(project) {
+  if (!project) return DEFAULT_PROJECT_DATA;
+
+  const sliderImages = Array.isArray(project.slider_images)
+    ? project.slider_images
+        .map(getImageUrl)
+        .filter(Boolean)
+    : [];
+  const images = sliderImages.length > 0
+    ? sliderImages
+    : [getImageUrl(project.thumbnail_image), getImageUrl(project.animated_image)].filter(Boolean);
+
+  return {
+    title: project.title || DEFAULT_PROJECT_DATA.title,
+    location: project.city ? project.city.replace(/-/g, " ") : DEFAULT_PROJECT_DATA.location,
+    id: project.id || DEFAULT_PROJECT_DATA.id,
+    area: formatArea(project.area),
+    floors: formatFloors(project.elevation),
+    package: project.pricing_tier_name || project.type || project.pricing_tier || DEFAULT_PROJECT_DATA.package,
+    styleTier: project.pricing_tier_name || project.type || project.pricing_tier || "Elite Luxury",
+    images: images.length > 0 ? images : DEFAULT_PROJECT_DATA.images,
+  };
+}
+
+export default function ProjectHero({ project }) {
+  const projectData = normalizeProjectData(project);
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isMaximized, setIsMaximized] = useState(false);
   const timerRef = useRef(null);
+  const imageCount = projectData.images.length;
+  const activeIndex = Math.min(current, imageCount - 1);
+  const activeImage = projectData.images[activeIndex];
+
+  const handleNext = () => {
+    setCurrent((prev) => (prev === imageCount - 1 ? 0 : prev + 1));
+  };
+
+  const handlePrev = () => {
+    setCurrent((prev) => (prev === 0 ? imageCount - 1 : prev - 1));
+  };
+
+  const handleShare = async () => {
+    const url = window.location.href;
+    const shareData = {
+      title: projectData.title,
+      text: `Explore ${projectData.title}`,
+      url,
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch (error) {
+        if (error.name === "AbortError") return;
+      }
+    }
+
+    if (navigator.clipboard) {
+      await navigator.clipboard.writeText(url);
+      return;
+    }
+
+    window.prompt("Copy this project link", url);
+  };
 
   // Synchronization: Auto-scroll logic
   useEffect(() => {
     if (!isPaused && !isMaximized) {
       timerRef.current = setInterval(() => {
-        handleNext();
+        setCurrent((prev) => (prev === imageCount - 1 ? 0 : prev + 1));
       }, 5000);
     }
     return () => clearInterval(timerRef.current);
-  }, [isPaused, isMaximized]);
-
-  const handleNext = () => {
-    setCurrent((prev) => (prev === PROJECT_DATA.images.length - 1 ? 0 : prev + 1));
-  };
-
-  const handlePrev = () => {
-    setCurrent((prev) => (prev === 0 ? PROJECT_DATA.images.length - 1 : prev - 1));
-  };
+  }, [isPaused, isMaximized, imageCount]);
 
   return (
-    <section className="pt-25 pb-10 bg-white relative">
-      <div className="max-w-7xl mx-auto px-5 lg:px-16">
+    <section className="pt-25 pb-10 bg-white relative overflow-x-clip">
+      <div className="max-w-7xl mx-auto px-5 lg:px-16 overflow-hidden">
         
         {/* Breadcrumb Header */}
-        <div className="flex items-center justify-between mb-5">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between gap-4 mb-5 min-w-0">
+          <div className="flex items-center gap-3 min-w-0">
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#A67153] hidden md:block">Residential Portfolio</span>
             <div className="w-10 h-[1px] bg-gray-200 hidden md:block" />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">{PROJECT_DATA.location}</span>
+            <span className="min-w-0 truncate text-[10px] font-bold uppercase tracking-widest text-gray-400">{projectData.location}</span>
           </div>
-          <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#2D2926] hover:text-[#A67153] transition-colors">
-            <Share2 size={14} /> Share Project
+          <button
+            type="button"
+            onClick={handleShare}
+            className="shrink-0 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#2D2926] hover:text-[#A67153] transition-colors"
+            aria-label={`Share ${projectData.title}`}
+          >
+            <Share2 size={14} /> <span className="hidden sm:inline">Share Project</span>
           </button>
         </div>
 
@@ -79,18 +153,18 @@ export default function ProjectHero() {
             onMouseLeave={() => setIsPaused(false)}
           >
             <div className="relative h-[500px] md:h-[400px] rounded-[3.5rem] overflow-hidden bg-[#F8F5F2] shadow-2xl">
-              <AnimatePresence mode="wait">
+              <AnimatePresence initial={false}>
                 <motion.div
-                  key={current}
-                  initial={{ opacity: 0, scale: 1.1 }}
+                  key={activeImage}
+                  initial={{ opacity: 0, scale: 1.04 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                  exit={{ opacity: 0, scale: 1.02 }}
+                  transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
                   className="absolute inset-0"
                 >
                   <Image 
-                    src={PROJECT_DATA.images[current]}
-                    alt={PROJECT_DATA.title}
+                    src={activeImage}
+                    alt={projectData.title}
                     fill
                     className="object-cover"
                     priority
@@ -118,9 +192,9 @@ export default function ProjectHero() {
 
               {/* Visual Indicators */}
               <div className="absolute bottom-10 left-10 flex gap-3">
-                {PROJECT_DATA.images.map((_, i) => (
+                {projectData.images.map((_, i) => (
                   <div key={i} className="w-16 h-[2px] bg-white/20 rounded-full overflow-hidden">
-                    {current === i && (
+                    {activeIndex === i && (
                       <motion.div 
                         initial={{ x: "-100%" }}
                         animate={{ x: "0%" }}
@@ -141,25 +215,25 @@ export default function ProjectHero() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-3xl md:text-5xl font-medium tracking-tighter text-[#2D2926] mb-4 leading-[0.85]">
-                {PROJECT_DATA.title.split(' ')[0]} <span className="font-light text-[#A67153]">{PROJECT_DATA.title.split(' ').slice(1).join(' ')}</span>
+              <h1 className="text-3xl md:text-4xl font-medium tracking-tighter text-[#2D2926] mb-4 leading-[0.85]">
+                {projectData.title.split(' ')[0]} <span className="font-light text-[#A67153]">{projectData.title.split(' ').slice(1).join(' ')}</span>
               </h1>
 
              
 
               {/* Specs Grid */}
               <div className="grid grid-cols-2 gap-6 mb-6">
-                <SpecItem icon={<Fingerprint />} label="Project ID" value={PROJECT_DATA.id} />
-                <SpecItem icon={<Box />} label="Total Area" value={PROJECT_DATA.area} />
-                <SpecItem icon={<Layers />} label="Structure" value={PROJECT_DATA.floors} />
-                <SpecItem icon={<Diamond />} label="Style Tier" value="Elite Luxury" />
+                <SpecItem icon={<Fingerprint />} label="Project ID" value={projectData.id} />
+                <SpecItem icon={<Box />} label="Total Area" value={projectData.area} />
+                <SpecItem icon={<Layers />} label="Structure" value={projectData.floors} />
+                <SpecItem icon={<Diamond />} label="Style Tier" value={projectData.styleTier} />
               </div>
 
               {/* Package Details */}
               <div className="relative p-4 rounded bg-[#F8F5F2] border border-[#A67153]/10 overflow-hidden">
                 <div className="relative z-10">
                   <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#A67153] mb-1">Service Package</p>
-                  <p className="text-2xl font-bold text-[#2D2926]">{PROJECT_DATA.package}</p>
+                  <p className="text-2xl font-bold text-[#2D2926]">{projectData.package}</p>
                   <p className="mt-2 text-xs text-gray-500 leading-relaxed max-w-[250px]">
                     Includes end-to-end bespoke furniture, Italian marble flooring, and smart home automation.
                   </p>
@@ -185,7 +259,7 @@ export default function ProjectHero() {
             <div className="flex justify-between items-center mb-8">
               <div className="text-white">
                 <p className="text-[10px] font-black uppercase tracking-widest text-[#A67153] mb-1">Visual Study</p>
-                <h2 className="text-2xl font-bold">{PROJECT_DATA.title}</h2>
+                <h2 className="text-2xl font-bold">{projectData.title}</h2>
               </div>
               <button 
                 onClick={() => setIsMaximized(false)}
@@ -213,14 +287,14 @@ export default function ProjectHero() {
                     <div className="relative w-full h-full flex items-center justify-center">
                         <AnimatePresence mode="wait">
                             <motion.div
-                            key={current}
+                            key={activeIndex}
                             initial={{ opacity: 0, scale: 0.98 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 1.02 }}
                             className="absolute inset-0"
                             >
                             <Image 
-                                src={PROJECT_DATA.images[current]} 
+                                src={activeImage} 
                                 fill
                                 /* CHANGE: Changed object-cover to object-contain */
                                 className="object-contain p-4 md:p-8 " 
@@ -242,11 +316,11 @@ export default function ProjectHero() {
 
             {/* Interactive Thumbnails */}
             <div className="mt-12 flex justify-center gap-4 overflow-x-auto pb-4 custom-scrollbar">
-              {PROJECT_DATA.images.map((img, i) => (
+              {projectData.images.map((img, i) => (
                 <button 
                   key={i}
                   onClick={() => setCurrent(i)}
-                  className={`relative w-24 h-16 md:w-32 md:h-20 rounded-2xl overflow-hidden border-2 transition-all shrink-0 ${current === i ? 'border-[#A67153] scale-105 shadow-lg shadow-[#A67153]/20' : 'border-transparent opacity-40 hover:opacity-100'}`}
+                  className={`relative w-24 h-16 md:w-32 md:h-20 rounded-2xl overflow-hidden border-2 transition-all shrink-0 ${activeIndex === i ? 'border-[#A67153] scale-105 shadow-lg shadow-[#A67153]/20' : 'border-transparent opacity-40 hover:opacity-100'}`}
                 >
                   <Image src={img} fill className="object-cover" alt="thumbnail" />
                 </button>

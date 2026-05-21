@@ -3,7 +3,26 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Compass, Paintbrush, ShieldCheck } from 'lucide-react';
 
-export default function AboutProject() {
+const DEFAULT_DESCRIPTION = `
+  <h3>The Symphony of Dark Textures and Natural Illumination.</h3>
+  <p>Designed as a sanctuary within the bustling core of Jubilee Hills, The Obsidian Villa redefines structural luxury. The design philosophy centers heavily on dramatic contrasts, juxtaposing deep charcoal tones with expansive double-height glazing that floods the core areas with daylight.</p>
+  <p>Every room has been laid out to maximize privacy while encouraging spatial flow. Our engineers executed custom structural steel overhangs to provide passive shading, drastically cutting thermal load while keeping the monolithic appearance clean.</p>
+`;
+
+function getImageUrl(image) {
+  if (typeof image === "string") return image;
+  return image?.url || image?.image || image?.path || null;
+}
+
+export default function AboutProject({ project }) {
+  const description = project?.description || DEFAULT_DESCRIPTION;
+  const showcaseImage = getImageUrl(project?.animated_image) || getImageUrl(project?.thumbnail_image) || "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1200";
+  const title = project?.title || "The Obsidian Villa";
+
+  if (project && !project.description) {
+    return null;
+  }
+
   return (
     <section className="py-10 bg-[#F8F5F2] text-[#2D2926]">
       <div className="max-w-7xl mx-auto px-5 lg:px-16">
@@ -22,15 +41,10 @@ export default function AboutProject() {
           
           {/* LEFT COLUMN: Narrative & Philosophy */}
           <div className="lg:col-span-6 space-y-3">
-            <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
-              The Symphony of Dark Textures and Natural Illumination.
-            </h3>
-            <p className="text-gray-500 leading-relaxed text-base md:text-lg">
-              Designed as a sanctuary within the bustling core of Jubilee Hills, *The Obsidian Villa* redefines structural luxury. The design philosophy centers heavily on dramatic contrasts—juxtaposing deep charcoal tones with expansive double-height glazing that floods the core areas with daylight.
-            </p>
-            <p className="text-gray-500 leading-relaxed">
-              Every room has been laid out to maximize privacy while encouraging spatial flow. Our engineers executed custom structural steel overhangs to provide passive shading, drastically cutting thermal load while keeping the monolithic appearance clean.
-            </p>
+            <div
+              className="space-y-3 text-gray-500 leading-relaxed [&_h2]:text-2xl [&_h2]:md:text-3xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-[#2D2926] [&_h3]:text-xl [&_h3]:md:text-2xl [&_h3]:font-bold [&_h3]:tracking-tight [&_h3]:text-[#2D2926] [&_p]:text-base [&_p]:md:text-lg [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5 [&_li]:text-sm [&_li]:md:text-base"
+              dangerouslySetInnerHTML={{ __html: description }}
+            />
 
             {/* Core Highlights Row */}
             <div className="grid grid-cols-2 gap-6 pt-3">
@@ -71,8 +85,8 @@ export default function AboutProject() {
               className="relative h-[350px] md:h-[400px] w-full rounded-[3.5rem] overflow-hidden shadow-2xl"
             >
               <Image 
-                src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1200" 
-                alt="The Obsidian Villa Interior Concept" 
+                src={showcaseImage} 
+                alt={`${title} Interior Concept`} 
                 fill 
                 className="object-cover transition-transform duration-1000 hover:scale-105"
                 priority

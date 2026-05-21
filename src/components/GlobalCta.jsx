@@ -1,10 +1,57 @@
 'use client';
-import Link from 'next/link';
-import { ArrowRight, ShieldCheck, Building2 } from 'lucide-react';
-import CustomSelect from './CustomSelect'; 
+import { useState } from 'react';
+import { ArrowRight, ShieldCheck, Building2, Loader2, CheckCircle2 } from 'lucide-react';
+import CustomSelect from './CustomSelect';
 import Image from 'next/image';
+import { sendConsultationLead } from '@/app/actions/sendConsultationLead';
+import { useCityOptions } from '@/hooks/useCityOptions';
+
+const INITIAL_FORM = {
+  name: '',
+  city: '',
+  phone: '',
+  email: '',
+};
+
+function FieldError({ message }) {
+  if (!message) return null;
+  return <p className="ml-2 text-[10px] font-bold uppercase tracking-wider text-red-500">{message}</p>;
+}
 
 export default function GlobalCta() {
+  const { cityOptions, isLoadingCities } = useCityOptions();
+  const [formData, setFormData] = useState(INITIAL_FORM);
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const updateField = (field, value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    setFieldErrors((prev) => ({ ...prev, [field]: '' }));
+    setMessage('');
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setMessage('');
+
+    const result = await sendConsultationLead({
+      ...formData,
+      source: 'Global CTA',
+    });
+
+    setIsSubmitting(false);
+    setFieldErrors(result.fieldErrors || {});
+    setMessage(result.message || '');
+
+    if (result.ok) {
+      setIsSuccess(true);
+      setFormData(INITIAL_FORM);
+    }
+  };
+
   return (
     <section className="py-10 pt-0 bg-[#F8F5F2]">
       <div className="max-w-7xl mx-auto px-5 lg:px-16">
@@ -51,70 +98,113 @@ export default function GlobalCta() {
                 ))}
               </div>
             </div>
-
-            
           </div>
 
           {/* RIGHT COLUMN: The Form */}
-          <div className="w-full md:w-[55%] md:p-12 p-4  bg-white flex flex-col justify-center">
+          <div className="w-full md:w-[55%] md:p-12 p-4 bg-white flex flex-col justify-center">
             <div className="mb-4">
               <h3 className="md:text-3xl text-xl font-bold text-[#2D2926] tracking-tight mb-2">Consult with an Expert</h3>
               <p className="text-gray-400 text-sm">Our structural consultants typically respond within 2 business hours.</p>
             </div>
 
-            <form className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {/* Name */}
-              <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Full Name</label>
-                <input 
-                  type="text" 
-                  placeholder="eg. Prince Mishra"
-                  className="w-full p-4 rounded-xl border border-gray-100 bg-[#F8F5F2] focus:border-[#A67153] focus:bg-white outline-none transition-all text-sm font-medium"
-                />
-              </div>
-
-              {/* City Custom Select */}
-              <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Select City</label>
-                <CustomSelect 
-                  options={["Bengaluru", "Hyderabad", "Lucknow", "Chennai"]} 
-                  placeholder="Select City" 
-                  className="w-full bg-[#F8F5F2] rounded-xl p-4 flex justify-between items-center cursor-pointer border border-transparent hover:border-gray-200"
-                />
-              </div>
-
-            
-
-              {/* Phone & Email */}
-              <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Phone Number</label>
-                <input 
-                  type="tel" 
-                  placeholder="+91 00000 00000"
-                  className="w-full p-4 rounded-xl border border-gray-100 bg-[#F8F5F2] focus:border-[#A67153] focus:bg-white outline-none transition-all text-sm font-medium"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Email Address</label>
-                <input 
-                  type="email" 
-                  placeholder="prince@example.com"
-                  className="w-full p-4 rounded-xl border border-gray-100 bg-[#F8F5F2] focus:border-[#A67153] focus:bg-white outline-none transition-all text-sm font-medium"
-                />
-              </div>
-
-              {/* Submit Button */}
-              <div className="md:col-span-2 pt-4">
-                <button className="w-full group bg-[#2D2926] text-white py-4 rounded-xl font-black uppercase text-[11px] tracking-[0.4em] flex items-center justify-center gap-4 hover:bg-[#A67153] transition-all shadow-2xl shadow-black/10">
-                   Request Consultation
-                  <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
+            {isSuccess ? (
+              <div className="rounded-2xl border border-green-100 bg-green-50 p-6 text-center">
+                <CheckCircle2 className="mx-auto mb-3 text-green-600" size={34} />
+                <h4 className="text-xl font-bold text-[#2D2926]">Request Sent</h4>
+                <p className="mt-2 text-sm text-gray-500">{message}</p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsSuccess(false);
+                    setMessage('');
+                  }}
+                  className="mt-5 text-[10px] font-black uppercase tracking-widest text-[#A67153]"
+                >
+                  Send another request
                 </button>
-                <p className="text-center text-[9px] text-gray-400 mt-4 uppercase tracking-widest">
-                    No spam. Your data is encrypted and secure.
-                </p>
               </div>
-            </form>
+            ) : (
+              <form onSubmit={handleSubmit} noValidate className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {/* Name */}
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Full Name</label>
+                  <input 
+                    type="text" 
+                    placeholder="eg. Prince Mishra"
+                    value={formData.name}
+                    onChange={(event) => updateField('name', event.target.value)}
+                    className={`w-full p-4 rounded-xl border bg-[#F8F5F2] focus:border-[#A67153] focus:bg-white outline-none transition-all text-sm font-medium ${fieldErrors.name ? 'border-red-300' : 'border-gray-100'}`}
+                  />
+                  <FieldError message={fieldErrors.name} />
+                </div>
+
+                {/* City Custom Select */}
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Select City</label>
+                  <CustomSelect 
+                    options={cityOptions} 
+                    placeholder={isLoadingCities ? "Loading cities..." : "Select City"}
+                    value={formData.city}
+                    onChange={(value) => updateField('city', value)}
+                    className={`w-full bg-[#F8F5F2] rounded-xl p-4 flex justify-between items-center cursor-pointer border hover:border-gray-200 ${fieldErrors.city ? 'border-red-300' : 'border-transparent'}`}
+                  />
+                  <FieldError message={fieldErrors.city} />
+                </div>
+
+                {/* Phone & Email */}
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Phone Number</label>
+                  <input 
+                    type="tel" 
+                    placeholder="+91 00000 00000"
+                    value={formData.phone}
+                    onChange={(event) => updateField('phone', event.target.value)}
+                    className={`w-full p-4 rounded-xl border bg-[#F8F5F2] focus:border-[#A67153] focus:bg-white outline-none transition-all text-sm font-medium ${fieldErrors.phone ? 'border-red-300' : 'border-gray-100'}`}
+                  />
+                  <FieldError message={fieldErrors.phone} />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Email Address <span className="text-gray-300">(Optional)</span></label>
+                  <input 
+                    type="email" 
+                    placeholder="prince@example.com"
+                    value={formData.email}
+                    onChange={(event) => updateField('email', event.target.value)}
+                    className={`w-full p-4 rounded-xl border bg-[#F8F5F2] focus:border-[#A67153] focus:bg-white outline-none transition-all text-sm font-medium ${fieldErrors.email ? 'border-red-300' : 'border-gray-100'}`}
+                  />
+                  <FieldError message={fieldErrors.email} />
+                </div>
+
+                {message && (
+                  <p className="md:col-span-2 text-center text-xs font-bold text-red-500">{message}</p>
+                )}
+
+                {/* Submit Button */}
+                <div className="md:col-span-2 pt-4">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full group bg-[#2D2926] text-white py-4 rounded-xl font-black uppercase text-[11px] tracking-[0.4em] flex items-center justify-center gap-4 hover:bg-[#A67153] transition-all shadow-2xl shadow-black/10 disabled:cursor-not-allowed disabled:opacity-70"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        Sending
+                        <Loader2 size={18} className="animate-spin" />
+                      </>
+                    ) : (
+                      <>
+                        Request Consultation
+                        <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
+                      </>
+                    )}
+                  </button>
+                  <p className="text-center text-[9px] text-gray-400 mt-4 uppercase tracking-widest">
+                    No spam. Your data is encrypted and secure.
+                  </p>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       </div>
