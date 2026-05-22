@@ -82,12 +82,14 @@ function resolveBlogImage(value) {
 }
 
 function normalizeBlog(blog) {
-  const slug = blog?.slug ? `/blog/${blog.slug}` : "/blogs";
+  const rawSlug = blog?.slug || "";
+  const slug = rawSlug ? `/blog/${rawSlug}` : "/blogs";
   const title = blog?.title || "Untitled article";
   const publishedAt = blog?.published_at || blog?.created_at || blog?.updated_at || "";
 
   return {
     id: blog?.id || blog?.slug || title,
+    rawSlug,
     title,
     excerpt: blog?.short_description || blog?.excerpt || blog?.description || "",
     category: blog?.category?.name || "Journal",
@@ -99,6 +101,74 @@ function normalizeBlog(blog) {
     imageAlt: blog?.featured_image_alt || title,
     slug,
     author: blog?.author?.name || "",
+  };
+}
+
+function slugifyHeading(value) {
+  return value
+    .replace(/<[^>]*>/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/&amp;/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function decodeHtml(value) {
+  return value
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
+
+function enrichBlogHtml(description = "") {
+  const usedIds = new Map();
+  const toc = [];
+  const html = description.replace(/<h([23])([^>]*)>([\s\S]*?)<\/h\1>/gi, (match, level, attrs, content) => {
+    const existingId = attrs.match(/\sid=["']([^"']+)["']/i)?.[1];
+    const baseId = existingId || slugifyHeading(content) || `section-${toc.length + 1}`;
+    const count = usedIds.get(baseId) || 0;
+    const id = count === 0 ? baseId : `${baseId}-${count + 1}`;
+
+    usedIds.set(baseId, count + 1);
+    toc.push({
+      id,
+      label: decodeHtml(content.replace(/<[^>]*>/g, "").trim()),
+      level: Number(level),
+    });
+
+    const cleanAttrs = attrs.replace(/\sid=["'][^"']+["']/i, "");
+    return `<h${level}${cleanAttrs} id="${id}">${content}</h${level}>`;
+  });
+
+  return { html, toc };
+}
+
+function stripHtml(value = "") {
+  return value.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function normalizeBlogDetail(blog) {
+  const baseBlog = normalizeBlog(blog);
+  const { html, toc } = enrichBlogHtml(blog?.description || "");
+
+  return {
+    ...baseBlog,
+    description: html,
+    shortDescription: blog?.short_description || "",
+    featuredImage: resolveBlogImage(blog?.featured_image),
+    authorBio: blog?.author?.bio || "",
+    authorAvatar: resolveBlogImage(blog?.author?.avatar),
+    categoryDescription: blog?.category?.description || "",
+    seo: blog?.seo || {},
+    faqs: Array.isArray(blog?.faqs) ? blog.faqs : [],
+    toc,
+    plainText: stripHtml(blog?.description || blog?.short_description || ""),
+    relatedBlogs: Array.isArray(blog?.related_blogs)
+      ? sortRecentBlogs(blog.related_blogs.map(normalizeBlog))
+      : [],
   };
 }
 
@@ -157,6 +227,18 @@ export async function getBlogsByCategory(categorySlug) {
   const blogsPayload = await fetchApi(`/blogs/category/${encodedCategorySlug}`);
 
   return sortRecentBlogs(unwrapList(blogsPayload).map(normalizeBlog));
+}
+
+export async function getBlogBySlug(slug) {
+  if (!slug) return null;
+
+  const encodedSlug = encodeURIComponent(slug);
+  const blogPayload = await fetchApi(`/blog/${encodedSlug}`, { allowNotFound: true });
+  const blog = unwrapObject(blogPayload);
+
+  if (!blog || Object.keys(blog).length === 0) return null;
+
+  return normalizeBlogDetail(blog);
 }
 
 export async function getProjectByUrl(projectUrl) {

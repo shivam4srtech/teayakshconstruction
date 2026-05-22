@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { Calendar, Clock, ArrowUpRight, LayoutGrid } from 'lucide-react';
 
 const NO_IMAGE = "/images/no-image.jpg";
-const POSTS_PER_PAGE = 4;
+const POSTS_PER_PAGE = 2
 
 function matchesSearch(post, query) {
   if (!query) return true;
