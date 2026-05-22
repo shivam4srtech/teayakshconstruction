@@ -1,9 +1,11 @@
 'use client';
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
-import { Search, Calculator, ArrowRight, Clock, Sparkles } from 'lucide-react';
+import { Search, Calculator, ArrowRight, Clock } from 'lucide-react';
 import HeroFrom from './HeroFrom';
+
+const NO_IMAGE = "/images/no-image.jpg";
 
 const SIDEBAR_TOOLS = [
   { name: "Brick Calculator", desc: "Estimate exact brick count" },
@@ -11,43 +13,57 @@ const SIDEBAR_TOOLS = [
   { name: "Steel Weight Chart", desc: "Structural steel reference" }
 ];
 
-const SIDEBAR_RECENT_POSTS = [
-  {
-    title: "Understanding High-Acoustic Double Glazing Window Systems",
-    date: "May 10, 2026",
-    slug: "/blog/high-acoustic-double-glazing",
-    thumbnail: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=150"
-  },
-  {
-    title: "The Ultimate Framework Guide to Premium Foundation Waterproofing",
-    date: "April 29, 2026",
-    slug: "/blog/foundation-waterproofing",
-    thumbnail: "https://images.unsplash.com/photo-1541915351239-015846f4b670?q=80&w=150"
-  },
-  {
-    title: "Sankranti Architectural Special: High-Yield Muhurat Planning",
-    date: "Jan 12, 2026",
-    slug: "/blog/sankranti-special-muhurat-planning",
-    thumbnail: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=150"
-  }
-];
+function filterBlogs(blogs, query) {
+  const normalizedQuery = query.trim().toLowerCase();
+  if (!normalizedQuery) return [];
 
-export default function BlogSidebar() {
-  // Estimator State Controls
-  const [area, setArea] = useState('');
-  const [quality, setQuality] = useState('premium'); // premium, ultra, couture
-  const [estimatedCost, setEstimatedCost] = useState(null);
+  return blogs.filter((post) => {
+    const haystack = [
+      post.title,
+      post.excerpt,
+      post.category,
+      post.author,
+    ].filter(Boolean).join(" ").toLowerCase();
 
-  const calculateEstimate = (e) => {
-    e.preventDefault();
-    if (!area || isNaN(area)) return;
+    return haystack.includes(normalizedQuery);
+  });
+}
 
-    let ratePerSqFt = 1800; // Premium base rate
-    if (quality === 'ultra') ratePerSqFt = 2600;
-    if (quality === 'couture') ratePerSqFt = 4200;
+export default function BlogSidebar({ blogs = [], searchQuery, onSearchChange }) {
+  const [internalSearchQuery, setInternalSearchQuery] = useState('');
+  const [fallbackBlogs, setFallbackBlogs] = useState([]);
+  const currentSearchQuery = searchQuery ?? internalSearchQuery;
+  const availableBlogs = blogs.length > 0 ? blogs : fallbackBlogs;
+  const recentPosts = availableBlogs.slice(0, 4);
+  const searchResults = filterBlogs(availableBlogs, currentSearchQuery).slice(0, 6);
 
-    const baseline = area * ratePerSqFt;
-    setEstimatedCost(baseline.toLocaleString('en-IN'));
+  useEffect(() => {
+    if (blogs.length > 0) return;
+
+    let isMounted = true;
+
+    fetch('/api/blogs')
+      .then((response) => (response.ok ? response.json() : { blogs: [] }))
+      .then((payload) => {
+        if (isMounted) setFallbackBlogs(Array.isArray(payload.blogs) ? payload.blogs : []);
+      })
+      .catch(() => {
+        if (isMounted) setFallbackBlogs([]);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [blogs.length]);
+
+  const handleSearchChange = (event) => {
+    const value = event.target.value;
+    if (onSearchChange) {
+      onSearchChange(value);
+      return;
+    }
+
+    setInternalSearchQuery(value);
   };
 
   return (
@@ -60,10 +76,30 @@ export default function BlogSidebar() {
           <input 
             type="text" 
             placeholder="Search keywords, materials, vastu..."
+            value={currentSearchQuery}
+            onChange={handleSearchChange}
             className="w-full bg-[#F8F5F2] text-xs px-5 py-4 rounded-xl text-[#2D2926] placeholder-gray-400 border border-transparent focus:border-[#A67153]/30 focus:bg-white outline-none transition-all duration-300"
           />
           <Search size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" />
         </div>
+        {currentSearchQuery.trim() && (
+          <div className="mt-4 space-y-3">
+            {searchResults.length > 0 ? (
+              searchResults.map((post) => (
+                <Link key={post.id} href={post.slug} className="block rounded-xl bg-[#F8F5F2] px-4 py-3 group">
+                  <h4 className="text-xs font-bold text-[#2D2926] group-hover:text-[#A67153] transition-colors line-clamp-2">
+                    {post.title}
+                  </h4>
+                  <p className="mt-1 text-[10px] text-gray-400 font-medium">{post.category}</p>
+                </Link>
+              ))
+            ) : (
+              <p className="text-xs text-gray-400 bg-[#F8F5F2] px-4 py-3 rounded-xl">
+                No matching blogs found.
+              </p>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Form */}
@@ -81,10 +117,16 @@ export default function BlogSidebar() {
         </h3>
         
         <div className="space-y-6">
-          {SIDEBAR_RECENT_POSTS.map((post, i) => (
-            <Link key={i} href={post.slug} className="flex items-center gap-4 group">
+          {recentPosts.length > 0 ? recentPosts.map((post) => (
+            <Link key={post.id} href={post.slug} className="flex items-center gap-4 group">
               <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-gray-100 shrink-0 border border-gray-100">
-                <img src={post.thumbnail} alt="" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <Image
+                  src={post.thumbnail || NO_IMAGE}
+                  alt={post.imageAlt || post.title}
+                  fill
+                  sizes="64px"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
               </div>
               <div className="space-y-1">
                 <h4 className="text-xs font-bold text-[#2D2926] group-hover:text-[#A67153] transition-colors leading-snug line-clamp-2">
@@ -93,7 +135,9 @@ export default function BlogSidebar() {
                 <p className="text-[10px] text-gray-400 font-medium">{post.date}</p>
               </div>
             </Link>
-          ))}
+          )) : (
+            <p className="text-xs text-gray-400">No recent articles available.</p>
+          )}
         </div>
       </div>
       {/* 4. More Tools Card */}
