@@ -172,6 +172,74 @@ function normalizeBlogDetail(blog) {
   };
 }
 
+function toTitleCase(value = "") {
+  return value
+    .toString()
+    .replace(/[-_]+/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function formatFloorCount(value) {
+  const count = Number(value);
+  if (!Number.isFinite(count)) return value || "";
+  if (count === 1) return "Ground Floor Only";
+
+  return `G+${count - 1}`;
+}
+
+function normalizeFloorPlan(plan) {
+  const rawSlug = plan?.slug || "";
+  const plotSize = plan?.plot_size || plan?.plot_area_sqft || "";
+  const facing = plan?.facing_direction ? `${toTitleCase(plan.facing_direction)} Facing` : "";
+  const propertyType = toTitleCase(plan?.property_type || "Floor Plan");
+  const floors = formatFloorCount(plan?.total_floors);
+  const title = plan?.title || "Untitled floor plan";
+
+  return {
+    id: plan?.id || rawSlug || title,
+    rawSlug,
+    slug: rawSlug ? `/floor-plan/${rawSlug}` : "/floor-plan",
+    title,
+    excerpt: plan?.short_description || "",
+    description: plan?.description || "",
+    planCode: plan?.plan_code || "",
+    type: propertyType,
+    dimensions: plotSize ? `${plotSize} sq.ft` : "",
+    plotSize,
+    facing,
+    facingDirection: plan?.facing_direction || "",
+    floors,
+    totalFloors: plan?.total_floors || "",
+    bhk: plan?.bhk_type || (plan?.bedrooms_count ? `${plan.bedrooms_count} BHK` : ""),
+    bedrooms: plan?.bedrooms_count || "",
+    bathrooms: plan?.bathrooms_count || "",
+    kitchens: plan?.kitchens_count || "",
+    balconies: plan?.balconies_count || "",
+    parking: plan?.parking_count || "",
+    budget: plan?.house_budget || "",
+    vastuCompliant: Boolean(plan?.vastu_compliant),
+    vastuLabel: plan?.vastu_compliant ? "Yes" : "No",
+    gardenAvailable: Boolean(plan?.garden_available),
+    specialRequirements: Array.isArray(plan?.special_requirements) ? plan.special_requirements : [],
+    likes: plan?.likes_count || 0,
+    views: plan?.views_count || 0,
+    featuredImage: resolveBlogImage(plan?.featured_image),
+    image: resolveBlogImage(plan?.featured_image),
+    imageAlt: plan?.featured_image_alt || title,
+    threeDImage: resolveBlogImage(plan?.["3d_image"]),
+    blueprintPdf: plan?.plan_blueprint_pdf || "",
+    drawingImages: Array.isArray(plan?.drawing_image)
+      ? plan.drawing_image.map((image) => ({
+          caption: image?.caption || "Drawing",
+          url: resolveBlogImage(image?.urn),
+        }))
+      : [],
+    floorLayout: Array.isArray(plan?.floor_layout) ? plan.floor_layout : [],
+    faqs: Array.isArray(plan?.faqs) ? plan.faqs : [],
+    seo: plan?.seo || {},
+  };
+}
+
 function sortRecentBlogs(blogs) {
   return [...blogs].sort((a, b) => {
     const aTime = new Date(a.publishedAt || 0).getTime();
@@ -239,6 +307,44 @@ export async function getBlogBySlug(slug) {
   if (!blog || Object.keys(blog).length === 0) return null;
 
   return normalizeBlogDetail(blog);
+}
+
+export async function getFloorPlans() {
+  const floorPlansPayload = await fetchApi("/floor-plans");
+
+  const floorPlans = unwrapList(floorPlansPayload).map(normalizeFloorPlan);
+
+  const detailedFloorPlans = await Promise.all(
+    floorPlans.map(async (floorPlan) => {
+      if (!floorPlan.rawSlug) return floorPlan;
+
+      try {
+        const detailPayload = await fetchApi(`/floor-plans/${encodeURIComponent(floorPlan.rawSlug)}`, {
+          allowNotFound: true,
+        });
+        const detail = unwrapObject(detailPayload);
+
+        return detail && Object.keys(detail).length > 0 ? normalizeFloorPlan(detail) : floorPlan;
+      } catch (error) {
+        console.error(`Unable to load floor plan detail: ${floorPlan.rawSlug}`, error);
+        return floorPlan;
+      }
+    })
+  );
+
+  return detailedFloorPlans;
+}
+
+export async function getFloorPlanBySlug(slug) {
+  if (!slug) return null;
+
+  const encodedSlug = encodeURIComponent(slug);
+  const floorPlanPayload = await fetchApi(`/floor-plans/${encodedSlug}`, { allowNotFound: true });
+  const floorPlan = unwrapObject(floorPlanPayload);
+
+  if (!floorPlan || Object.keys(floorPlan).length === 0) return null;
+
+  return normalizeFloorPlan(floorPlan);
 }
 
 export async function getProjectByUrl(projectUrl) {
