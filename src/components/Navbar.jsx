@@ -90,7 +90,7 @@ export default function Navbar() {
           </div>
 
           {/* RIGHT: Action Buttons */}
-          <div className="flex-1 flex justify-end items-center gap-4 z-[1001]">
+          <div className="flex justify-end items-center gap-4 z-[1001]">
             {/* Desktop Quote Button */}
             <button className="hidden lg:block bg-brand hover:bg-brand-dark text-white px-8 py-3 text-[11px] font-bold uppercase tracking-widest transition-all">
               Get A Quote

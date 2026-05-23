@@ -1,12 +1,9 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import { useState } from 'react';
 import { useModalStore } from '@/store/useModalStore';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import * as THREE from 'three';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, useTexture, Html, Environment } from '@react-three/drei';
 import { Share2, ThumbsUp, Scale, ZoomIn, Info, Download, ArrowRight, UserCheck, X, Move } from 'lucide-react';
 
 const NO_IMAGE = "/images/no-image.jpg";
@@ -27,8 +24,10 @@ const FALLBACK_PLAN = {
 };
 
 function getHeroImage(floorPlan) {
+  if (floorPlan?.featuredImage && floorPlan.featuredImage !== NO_IMAGE) return floorPlan.featuredImage;
+  if (floorPlan?.image && floorPlan.image !== NO_IMAGE) return floorPlan.image;
   if (floorPlan?.threeDImage && floorPlan.threeDImage !== NO_IMAGE) return floorPlan.threeDImage;
-  return floorPlan?.featuredImage || floorPlan?.image || FALLBACK_PLAN.image;
+  return FALLBACK_PLAN.image;
 }
 
 function getModalImage(floorPlan) {
@@ -71,6 +70,7 @@ export default function DetailedFloorPlanHero({ floorPlan }) {
   const plan = floorPlan || FALLBACK_PLAN;
   const heroImage = getHeroImage(floorPlan);
   const modalImage = getModalImage(floorPlan);
+  const [heroImageSrc, setHeroImageSrc] = useState(heroImage);
   const specifications = getSpecifications(floorPlan);
 
   return (
@@ -83,11 +83,12 @@ export default function DetailedFloorPlanHero({ floorPlan }) {
               onClick={() => setModalOpen(true)}
             >
               <Image
-                src={heroImage}
+                src={heroImageSrc}
                 alt={plan.imageAlt || plan.title}
                 fill
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-103"
                 priority
+                onError={() => setHeroImageSrc(NO_IMAGE)}
               />
 
               <div className="absolute top-6 left-6 z-10 flex gap-2.5">
@@ -189,15 +190,7 @@ export default function DetailedFloorPlanHero({ floorPlan }) {
               className="w-full h-full max-w-6xl max-h-[80vh] bg-neutral-900 rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/10 relative"
               onClick={(e) => e.stopPropagation()}
             >
-              <Canvas camera={{ position: [0, 0, 3.2], fov: 50 }} className="w-full h-full cursor-grab active:cursor-grabbing">
-                <Suspense fallback={<Loader />}>
-                  <OrbitControls enableZoom enablePan maxPolarAngle={Math.PI / 1.5} minPolarAngle={Math.PI / 3} />
-                  <ambientLight intensity={0.7} />
-                  <directionalLight position={[10, 10, 5]} intensity={1} />
-                  <Environment preset="studio" />
-                  <PlanBoardMesh textureUrl={modalImage} />
-                </Suspense>
-              </Canvas>
+              <InteractivePlanBoard key={modalImage} imageUrl={modalImage} title={plan.title} />
 
               <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/60 backdrop-blur-md text-white/90 border border-white/10 px-5 py-2.5 rounded-full text-[11px] font-medium uppercase tracking-wider opacity-90 select-none pointer-events-none shadow-xl">
                 <Move size={12} className="text-[#A67153] animate-pulse" />
@@ -211,24 +204,61 @@ export default function DetailedFloorPlanHero({ floorPlan }) {
   );
 }
 
-function PlanBoardMesh({ textureUrl }) {
-  const texture = useTexture(textureUrl);
+function InteractivePlanBoard({ imageUrl, title }) {
+  const [imageSrc, setImageSrc] = useState(imageUrl || NO_IMAGE);
+  const [isDragging, setIsDragging] = useState(false);
+  const [rotation, setRotation] = useState({ x: 8, y: -14 });
+  const [scale, setScale] = useState(1);
+
+  const handlePointerMove = (event) => {
+    if (!isDragging) return;
+
+    setRotation((current) => ({
+      x: Math.max(-28, Math.min(28, current.x - event.movementY * 0.18)),
+      y: Math.max(-42, Math.min(42, current.y + event.movementX * 0.18)),
+    }));
+  };
+
+  const handleWheel = (event) => {
+    event.preventDefault();
+    setScale((current) => Math.max(0.85, Math.min(1.35, current - event.deltaY * 0.0008)));
+  };
 
   return (
-    <mesh castShadow receiveShadow>
-      <boxGeometry args={[2.4, 1.6, 0.04]} />
-      <meshStandardMaterial map={texture} roughness={0.2} metalness={0.1} side={THREE.DoubleSide} />
-    </mesh>
-  );
-}
-
-function Loader() {
-  return (
-    <Html center>
-      <div className="flex flex-col items-center gap-3 whitespace-nowrap bg-black/40 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/5">
-        <div className="w-8 h-8 border-2 border-t-[#A67153] border-white/10 rounded-full animate-spin"></div>
-        <p className="text-xs font-bold tracking-widest text-white/80 uppercase">Loading 3D Showroom Matrix...</p>
+    <div
+      className={`w-full h-full flex items-center justify-center bg-[radial-gradient(circle_at_center,#2d2926_0%,#141211_58%,#070605_100%)] ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+      onPointerDown={(event) => {
+        setIsDragging(true);
+        event.currentTarget.setPointerCapture(event.pointerId);
+      }}
+      onPointerMove={handlePointerMove}
+      onPointerUp={() => setIsDragging(false)}
+      onPointerCancel={() => setIsDragging(false)}
+      onWheel={handleWheel}
+    >
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.04)_1px,transparent_1px)] bg-[size:36px_36px] opacity-40" />
+      <div
+        className="relative w-[82%] max-w-4xl aspect-[4/3] rounded-[2rem] bg-neutral-950 shadow-2xl shadow-black/60 border border-white/10 transition-transform duration-100 ease-out"
+        style={{
+          transform: `perspective(1200px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(${scale})`,
+          transformStyle: 'preserve-3d',
+        }}
+      >
+        <div className="absolute inset-0 rounded-[2rem] translate-x-5 translate-y-5 bg-black/45 blur-sm" />
+        <div className="absolute inset-0 rounded-[2rem] overflow-hidden border border-white/15 bg-white">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={imageSrc}
+            alt={title || "Floor plan 3D preview"}
+            className="w-full h-full object-cover select-none"
+            draggable={false}
+            onError={() => setImageSrc(NO_IMAGE)}
+          />
+          <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-white/10 pointer-events-none" />
+        </div>
+        <div className="absolute -right-4 top-8 bottom-8 w-4 rounded-r-2xl bg-[#8E5E41] opacity-70" style={{ transform: 'translateZ(-18px)' }} />
+        <div className="absolute left-8 right-8 -bottom-4 h-4 rounded-b-2xl bg-[#6f4a36] opacity-70" style={{ transform: 'translateZ(-18px)' }} />
       </div>
-    </Html>
+    </div>
   );
 }
