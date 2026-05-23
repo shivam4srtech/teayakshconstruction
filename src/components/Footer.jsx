@@ -192,8 +192,8 @@ export default function Footer() {
             © {currentYear} TRAYAKSH Constructions & Interiors.
           </p>
           <div className="flex gap-8 text-[10px] uppercase tracking-widest text-white/30">
-            <Link href="#" className="hover:text-brand transition-colors">Privacy Policy</Link>
-            <Link href="#" className="hover:text-brand transition-colors">Terms of Service</Link>
+            <Link href="/privacy-policy" className="hover:text-brand transition-colors">Privacy Policy</Link>
+            <Link href="/terms-of-use" className="hover:text-brand transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>
