@@ -11,9 +11,8 @@ const navLinks = [
   { name: 'Projects', href: '/projects' },
   { name: 'Interior', href: '/interior' },
   { name: 'Pharmacy Setup', href: '/pharmacy-setup' },
-  { name: 'Pricing', href: '/pricing' },
+  { name: 'Floor Plans', href: '/floor-plan' },
   { name: 'Cost Estimator', href: '/cost-estimator' },
-  { name: 'About Us', href: '/about' },
   { name: 'Contact', href: '/contact' },
 ];
 

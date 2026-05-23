@@ -22,7 +22,7 @@ export default function MobileNavStrip() {
   const pathname = usePathname();
 
   return (
-    <div className="block sm:hidden fixed bottom-6 left-0 right-0 z-[2000] px-4 pointer-events-none">
+    <div className="block sm:hidden fixed bottom-6 left-0 right-0  px-4 pointer-events-none">
       <motion.div 
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

@@ -43,7 +43,7 @@ const FILTER_GROUPS = [
     label: "Vastu Compliant",
     options: ["Yes"]
   },
-   {
+  {
     id: "Special Requirement",
     label: "Special Requirement",
     options: ["Swiming Pool", "Gym", "Lift"]
