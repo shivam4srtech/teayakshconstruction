@@ -32,7 +32,7 @@ const FAQ_DATA = [
   }
 ];
 
-export default function FloorPlanFAQs() {
+export default function FloorPlanFAQs({ faqs = FAQ_DATA }) {
   // Track currently active expanded accordion row index
   const [expandedIndex, setExpandedIndex] = useState(0);
 
@@ -58,11 +58,11 @@ export default function FloorPlanFAQs() {
 
         {/* ACCORDION LOOP MATRIX */}
         <div className="space-y-4">
-          {FAQ_DATA.map((faq, idx) => {
+          {faqs.map((faq, idx) => {
             const isOpen = expandedIndex === idx;
             return (
               <motion.div
-                key={faq.id}
+                key={faq.id || faq.question}
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

@@ -89,8 +89,30 @@ const POPULAR_PLANS_DATA = [
   }
 ];
 
-export default function PopularFloorPlans() {
+const NO_IMAGE = "/images/no-image.jpg";
+
+function normalizePopularPlans(floorPlans) {
+  if (!floorPlans?.length) return POPULAR_PLANS_DATA;
+
+  return floorPlans.map((plan) => ({
+    id: plan.id,
+    title: plan.title,
+    category: plan.type,
+    image: plan.featuredImage || plan.image || NO_IMAGE,
+    dimensions: plan.dimensions,
+    floors: plan.floors,
+    bhk: plan.bhk,
+    facing: plan.facing,
+    price: plan.budget || "On Request",
+    likes: plan.likes,
+    isPopular: plan.likes > 20,
+    slug: plan.slug,
+  }));
+}
+
+export default function PopularFloorPlans({ floorPlans = [] }) {
   const [favorites, setFavorites] = useState({});
+  const plans = normalizePopularPlans(floorPlans);
 
   const toggleFavorite = (id) => {
     setFavorites(prev => ({ ...prev, [id]: !prev[id] }));
@@ -121,7 +143,7 @@ export default function PopularFloorPlans() {
 
         {/* ================= MULTIPLE FLOOR PLANS GRID MATRIX ================= */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {POPULAR_PLANS_DATA.map((plan, idx) => {
+          {plans.map((plan, idx) => {
             const isFav = !!favorites[plan.id];
             
             return (
@@ -137,7 +159,7 @@ export default function PopularFloorPlans() {
                 <div className="space-y-5">
                   <div className="relative h-[240px] rounded-[2rem] overflow-hidden bg-neutral-50 border border-gray-100">
                     <Image
-                      src={plan.image}
+                      src={plan.image || NO_IMAGE}
                       alt={plan.title}
                       fill
                       className="object-cover transition-transform duration-700 ease-out group-hover:scale-103"
@@ -153,7 +175,10 @@ export default function PopularFloorPlans() {
 
                     {/* Right Action Trigger: Favorite Heart */}
                     <button 
-                      onClick={() => toggleFavorite(plan.id)}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        toggleFavorite(plan.id);
+                      }}
                       className="absolute top-4 right-4 z-10 w-8 h-8 rounded-xl bg-white/90 backdrop-blur-sm flex items-center justify-center text-gray-400 hover:text-red-500 transition-all shadow-sm active:scale-90"
                     >
                       <Heart size={14} className={isFav ? "fill-red-500 text-red-500" : ""} />
@@ -200,9 +225,9 @@ export default function PopularFloorPlans() {
                     <p className="text-base font-black text-[#2D2926]">{plan.price}</p>
                   </div>
                   
-                  <button className="h-11 w-11 rounded-xl bg-[#F8F5F2] group-hover:bg-[#A67153] text-[#2D2926] group-hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm active:scale-95">
+                  <Link href={plan.slug || "/floor-plan"} className="h-11 w-11 rounded-xl bg-[#F8F5F2] group-hover:bg-[#A67153] text-[#2D2926] group-hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm active:scale-95">
                     <ArrowRight size={16} className="transform group-hover:translate-x-0.5 transition-transform" />
-                  </button>
+                  </Link>
                 </div>
 
               </motion.div>

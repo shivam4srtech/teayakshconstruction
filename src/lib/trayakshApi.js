@@ -18,10 +18,10 @@ function getApiHeaders() {
   };
 }
 
-async function fetchApi(path, { allowNotFound = false } = {}) {
+async function fetchApi(path, { allowNotFound = false, revalidate = 3600, cache = undefined } = {}) {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     headers: getApiHeaders(),
-    next: { revalidate: 3600 },
+    ...(cache ? { cache } : { next: { revalidate } }),
   });
 
   if (allowNotFound && response.status === 404) {
@@ -321,6 +321,7 @@ export async function getFloorPlans() {
       try {
         const detailPayload = await fetchApi(`/floor-plans/${encodeURIComponent(floorPlan.rawSlug)}`, {
           allowNotFound: true,
+          revalidate: 60,
         });
         const detail = unwrapObject(detailPayload);
 
@@ -339,7 +340,10 @@ export async function getFloorPlanBySlug(slug) {
   if (!slug) return null;
 
   const encodedSlug = encodeURIComponent(slug);
-  const floorPlanPayload = await fetchApi(`/floor-plans/${encodedSlug}`, { allowNotFound: true });
+  const floorPlanPayload = await fetchApi(`/floor-plans/${encodedSlug}`, {
+    allowNotFound: true,
+    cache: "no-store",
+  });
   const floorPlan = unwrapObject(floorPlanPayload);
 
   if (!floorPlan || Object.keys(floorPlan).length === 0) return null;
