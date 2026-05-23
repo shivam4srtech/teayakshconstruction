@@ -13,9 +13,9 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: "trayakshconstruction.com"
-          username: "root"                  # Or your cPanel user if configured for SSH
+          username: "root"                  
           key: ${{ secrets.VPS_SSH_KEY }}
-          port: 22                          # Change if your VPS uses a custom SSH port
+          port: 8756                          
           script: |
             cd /home/trayaksh/frontend
             
