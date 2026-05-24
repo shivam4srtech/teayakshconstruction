@@ -15,18 +15,18 @@ const navItems = [
   { name: 'Projects', href: '/projects', icon: IoBusinessOutline },
   { name: 'Call', href: 'tel:+919876543210', isCenter: true },
   { name: 'Estimate', href: '/cost-estimator', icon: IoCalculatorOutline },
-  { name: 'Plans', href: '/floor-plans', icon: IoLayersOutline },
+  { name: 'Plans', href: '/floor-plan', icon: IoLayersOutline },
 ];
 
 export default function MobileNavStrip() {
   const pathname = usePathname();
 
   return (
-    <div className="block sm:hidden fixed bottom-6 left-0 right-0  px-4 pointer-events-none">
+    <div className="block sm:hidden fixed bottom-6 left-0 right-0  px-4 pointer-events-none z-[99]">
       <motion.div 
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="max-w-md mx-auto h-16 bg-brand-dark/90 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl flex items-center justify-around px-2 pointer-events-auto relative"
+        className="max-w-md mx-auto h-16 bg-brand-dark/70 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl flex items-center justify-around px-2 pointer-events-auto relative"
       >
         {navItems.map((item) => {
           const isActive = pathname === item.href;
