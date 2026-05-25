@@ -3,7 +3,7 @@ name: Automated Frontend Deployment
 on:
   push:
     branches:
-      - main  # Change this if your primary branch is called master
+      - main  
 
 jobs:
   deploy:
