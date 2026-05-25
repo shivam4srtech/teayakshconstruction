@@ -136,7 +136,7 @@ export default function LoanCalculatorHero() {
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 text-[#A67153] bg-white border border-gray-200/60 px-4 py-2 rounded-full shadow-sm">
                 <Landmark size={14} />
-                <span className="text-[10px] font-black uppercase tracking-widest">Instant Pre-Approval Panel</span>
+                <span className="text-[10px] font-black uppercase tracking-widest">Instant Calculation</span>
               </div>
               <h1 className="text-3xl md:text-4xl font-medium tracking-tight text-[#2D2926] leading-[1.1]">
                 Calculate Your <span className=" font-light text-[#A67153]">Home Loan EMI</span> In Real-Time
@@ -184,11 +184,11 @@ export default function LoanCalculatorHero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-2xl shadow-black/[0.015]"
+              className="bg-white md:p-8 p-4 rounded-[1rem] border border-gray-100 shadow-2xl shadow-black/[0.015]"
             >
               <form onSubmit={handleFormSubmit} className="space-y-6" noValidate>
                 <div className="space-y-1.5 mb-2">
-                  <h3 className="text-lg font-bold tracking-tight text-[#2D2926]">Configure & Secure Quotes</h3>
+                  <h3 className="text-lg font-bold tracking-tight text-[#2D2926]">Home Loan EMI Calculator</h3>
                   <p className="text-xs text-gray-400 leading-relaxed">Enter your parameters below to request targeted institutional interest offers.</p>
                 </div>
 
@@ -202,14 +202,14 @@ export default function LoanCalculatorHero() {
                     <input
                       type="text"
                       required
-                      placeholder="Rahul Sharma"
+                      placeholder="Prince Mishra"
                       value={clientName}
                       onChange={(event) => {
                         setClientName(event.target.value);
                         clearFieldError('name');
                         resetSubmittedResult();
                       }}
-                      className={`w-full bg-[#F8F5F2] border focus:border-[#A67153]/30 focus:bg-white text-xs font-bold rounded-xl px-4 py-3 text-[#2D2926] placeholder-gray-300 outline-none transition-all ${fieldErrors.name ? 'border-red-300' : 'border-transparent'}`}
+                      className={`w-full bg-[#F8F5F2] border focus:border-[#A67153]/30 focus:bg-white text-xs font-bold rounded px-4 py-3 text-[#2D2926] placeholder-gray-300 outline-none transition-all ${fieldErrors.name ? 'border-red-300' : 'border-transparent'}`}
                     />
                     <FieldError message={fieldErrors.name} />
                   </div>
@@ -230,7 +230,7 @@ export default function LoanCalculatorHero() {
                         clearFieldError('phone');
                         resetSubmittedResult();
                       }}
-                      className={`w-full bg-[#F8F5F2] border focus:border-[#A67153]/30 focus:bg-white text-xs font-bold rounded-xl px-4 py-3 text-[#2D2926] placeholder-gray-300 outline-none transition-all ${fieldErrors.phone ? 'border-red-300' : 'border-transparent'}`}
+                      className={`w-full bg-[#F8F5F2] border focus:border-[#A67153]/30 focus:bg-white text-xs font-bold rounded px-4 py-3 text-[#2D2926] placeholder-gray-300 outline-none transition-all ${fieldErrors.phone ? 'border-red-300' : 'border-transparent'}`}
                     />
                     <FieldError message={fieldErrors.phone} />
                   </div>
@@ -254,7 +254,7 @@ export default function LoanCalculatorHero() {
                         clearFieldError('loanAmount');
                         resetSubmittedResult();
                       }}
-                      className={`w-full bg-[#F8F5F2] border focus:border-[#A67153]/30 focus:bg-white text-xs font-black rounded-xl px-4 py-3.5 text-[#2D2926] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none outline-none transition-all ${fieldErrors.loanAmount ? 'border-red-300' : 'border-transparent'}`}
+                      className={`w-full bg-[#F8F5F2] border focus:border-[#A67153]/30 focus:bg-white text-xs font-black rounded px-4 py-3.5 text-[#2D2926] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none outline-none transition-all ${fieldErrors.loanAmount ? 'border-red-300' : 'border-transparent'}`}
                     />
                     <span className="absolute right-4 text-[10px] font-black uppercase text-gray-400 bg-white shadow-sm border border-gray-100 px-2 py-1 rounded-md pointer-events-none">
                       {formatAmountLabel(loanAmount)}
@@ -267,7 +267,7 @@ export default function LoanCalculatorHero() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs">
                     <label className="text-[10px] font-black uppercase tracking-wider text-gray-400 flex items-center gap-1"><Percent size={10} /> Interest Rate Base</label>
-                    <span className="text-[#2D2926] font-black bg-[#F8F5F2] px-2.5 py-1 rounded-lg">{interestRate}% p.a.</span>
+                    <span className="text-[#2D2926] font-black bg-[#F8F5F2] px-2.5 py-1 rounded">{interestRate}% p.a.</span>
                   </div>
                   <input
                     type="range"
@@ -294,7 +294,7 @@ export default function LoanCalculatorHero() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs">
                     <label className="text-[10px] font-black uppercase tracking-wider text-gray-400 flex items-center gap-1"><Calendar size={10} /> Loan Tenure Term</label>
-                    <span className="text-[#2D2926] font-black bg-[#F8F5F2] px-2.5 py-1 rounded-lg">{loanTenure} Years</span>
+                    <span className="text-[#2D2926] font-black bg-[#F8F5F2] px-2.5 py-1 rounded">{loanTenure} Years</span>
                   </div>
                   <input
                     type="range"
