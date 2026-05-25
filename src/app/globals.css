@@ -25,6 +25,7 @@
     font-family: var(--font-montserrat);
     font-weight: 500;
   }
+  
   button{
     cursor: pointer;
   }
