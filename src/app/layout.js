@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
         <Footer/>
         <MobileNavStrip/>
         <GlobalConsultationModal/>
-        <VerticalFloatingButton/>
+        {/* <VerticalFloatingButton/> */}
       </body>
     </html>
   );
