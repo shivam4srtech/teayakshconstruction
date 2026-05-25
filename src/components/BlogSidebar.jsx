@@ -8,9 +8,9 @@ import HeroFrom from './HeroFrom';
 const NO_IMAGE = "/images/no-image.jpg";
 
 const SIDEBAR_TOOLS = [
-  { name: "Brick Calculator", desc: "Estimate exact brick count" },
-  { name: "Paint Area Estimator", desc: "Wall coverage calculator" },
-  { name: "Steel Weight Chart", desc: "Structural steel reference" }
+  { name: "Brick Calculator", desc: "Estimate exact brick count", url: "home-loan-emi-calculator" },
+  { name: "Paint Area Estimator", desc: "Wall coverage calculator", url: "home-loan-emi-calculator" },
+  { name: "Home Loan EMI Calculator", desc: "Get Verified Home Loan Calculation", url: "home-loan-emi-calculator" }
 ];
 
 function filterBlogs(blogs, query) {
@@ -148,13 +148,16 @@ export default function BlogSidebar({ blogs = [], searchQuery, onSearchChange })
         </div>
         <div className="space-y-4">
             {SIDEBAR_TOOLS.map((tool, i) => (
-            <div key={i} className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-[#A67153]/30 transition-all cursor-pointer group">
+            <Link 
+                key={i} 
+                href={tool.url}
+                className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-[#A67153]/30 transition-all cursor-pointer group block">
                 <div className="flex justify-between items-center mb-1">
                 <span className="text-xs font-bold">{tool.name}</span>
                 <ArrowRight size={14} className="text-[#A67153] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
                 </div>
                 <p className="text-[10px] text-white/40 uppercase tracking-widest">{tool.desc}</p>
-            </div>
+            </Link>
             ))}
         </div>
     </div>
