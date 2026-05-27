@@ -149,17 +149,6 @@ export default function RootLayout({ children }) {
             })(window,document,'script','dataLayer','GTM-WLN9LF8X');
           `}
         </Script>
-      </head>
-      <body className={`${montserrat.variable} font-montserrat antialiased selection:bg-[#A67153] selection:text-white`}>
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-WLN9LF8X"
-            height="0"
-            width="0"
-            style={{ display: 'none', visibility: 'hidden' }}
-            title="Google Tag Manager"
-          />
-        </noscript>
         <Script id="meta-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)
@@ -174,6 +163,17 @@ export default function RootLayout({ children }) {
             fbq('track', 'PageView');
           `}
         </Script>
+      </head>
+      <body className={`${montserrat.variable} font-montserrat antialiased selection:bg-[#A67153] selection:text-white`}>
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-WLN9LF8X"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+            title="Google Tag Manager"
+          />
+        </noscript>
         <noscript>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
