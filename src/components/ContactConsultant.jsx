@@ -71,7 +71,7 @@ export default function ContactConsultant() {
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-brand-dark/40 font-bold">Call our Office</p>
-                  <p className="text-brand-dark font-medium">+91 98765 43210</p>
+                  <p className="text-brand-dark font-medium">+91 88860 60442</p>
                 </div>
               </div>
               <div className="flex items-center gap-6 group">
@@ -80,7 +80,7 @@ export default function ContactConsultant() {
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-brand-dark/40 font-bold">Email Inquiries</p>
-                  <p className="text-brand-dark font-medium">consult@TRAYAKSH.com</p>
+                  <p className="text-brand-dark font-medium">info@trayakshconstruction.com</p>
                 </div>
               </div>
             </div>
