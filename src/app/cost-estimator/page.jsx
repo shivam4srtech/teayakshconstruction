@@ -5,9 +5,9 @@ import GlobalCta from "@/components/GlobalCta";
 import { getEstimatorCatalog } from "@/lib/trayakshApi";
 
 export const metadata = {
-  title: "Construction Cost Estimator | TRAYAKSH Construction",
-  description:
-    "Estimate construction cost by city, package, built-up area, floor count, and structural specification.",
+  title: 'House Construction Cost Calculator | TRAYAKSH Construction',
+  description: 'Estimate your home building budget with our accurate construction cost calculator. Get instant per square foot estimates for luxury homes, villas, and commercial spaces.',
+  keywords: ['construction cost calculator', 'house construction cost estimator', 'building cost per sq ft', 'home budget calculator india', 'trayaksh construction calculator'],
 };
 
 export const dynamic = "force-dynamic";

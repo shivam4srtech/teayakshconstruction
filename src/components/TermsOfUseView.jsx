@@ -28,7 +28,7 @@ export default function TermsOfUseView() {
       <div className="max-w-7xl mx-auto px-5 lg:px-16 space-y-16">
         
         {/* ================= EDITORIAL HERO TITLE HEADER ================= */}
-        <header className="max-w-3xl space-y-4 border-b border-gray-200/60 pb-10">
+        <header className="max-w-3xl space-y-4 border-b border-gray-200/60 pb-10 mb-0">
           <div className="inline-flex items-center gap-2 text-[#A67153] bg-white border border-gray-200/50 px-3.5 py-1.5 rounded-xl shadow-sm">
             <Scale size={14} />
             <span className="text-[10px] font-black uppercase tracking-widest">Legal Agreement</span>
