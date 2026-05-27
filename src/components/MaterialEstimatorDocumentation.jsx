@@ -22,7 +22,7 @@ export default function MaterialEstimatorDocumentation() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
           {/* ================= LEFT SIDE: DEEP TEXT & DOCUMENTATION DATA (8 COLS) ================= */}
-          <div className="lg:col-span-8 bg-white p-8 md:p-12 rounded-[3.5rem] border border-gray-100 shadow-xl shadow-black/[0.005] space-y-12">
+          <div className="lg:col-span-8 bg-white p-8 md:p-12 rounded-[3.5rem] border border-gray-100 shadow-xl shadow-black/[0.005] space-y-6">
             
             {/* 1. Component Introduction Header */}
             <div className="space-y-4">
@@ -32,15 +32,15 @@ export default function MaterialEstimatorDocumentation() {
               <h1 className="text-2xl md:text-3xl font-medium tracking-tight leads-[1.15]">
                 Understanding Your Physical Material Reconciliations
               </h1>
-              <p className="text-gray-500 text-sm md:text-lg font-normal leading-relaxed">
+              <p className="text-gray-500 text-xs md:text-sm leading-relaxed">
                 The Trayaksh Building Material Quantity Estimator leverages precise civil thumb-rules and load-bearing matrices to isolated the core inventory payload parameters required for your specific custom residential build—minimizing material procurement waste.
               </p>
             </div>
 
-            <hr className="border-gray-100" />
+           
 
             {/* 2. Topic: What is This Calculator? */}
-            <div className="space-y-4">
+            <div className="space-y-2">
               <h2 className="text-xl md:text-2xl font-bold tracking-tight text-[#2D2926] flex items-center gap-2.5">
                 <Target size={20} className="text-[#A67153]" />
                 Decoding the Quantity Estimation Framework
@@ -117,9 +117,8 @@ export default function MaterialEstimatorDocumentation() {
                 Quantity = Area Parameters × Thumb-Rule Constants
               </p>
               <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-[10px] text-gray-400 font-bold uppercase tracking-wider pt-2 border-t border-white/5">
-                <span>Steel Ratio ≈ 4.2 kg / sqft built-up</span>
-                <span>Cement Metric ≈ 0.4 bags / sqft built-up</span>
-                <span>Brick Matrix ≈ 8.5 pcs / sqft built-up</span>
+                <span>Steel Ratio ≈ 4kg / sqft built-up</span>
+                <span>Brick Matrix ≈ 32 pcs / sqft built-up</span>
               </div>
             </div>
 
