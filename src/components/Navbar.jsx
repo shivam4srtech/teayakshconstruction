@@ -14,7 +14,7 @@ const navLinks = [
   { name: 'Pharmacy Setup', href: '/pharmacy-setup' },
   { name: 'Floor Plans', href: '/floor-plan' },
   { name: 'Cost Estimator', href: '/cost-estimator' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Tools', href: '/tools' },
 ];
 
 export default function Navbar() {
@@ -93,11 +93,11 @@ export default function Navbar() {
           {/* RIGHT: Action Buttons */}
           <div className="flex justify-end items-center gap-4 z-[1001]">
             {/* Desktop Quote Button */}
-            <button 
-              onClick={openModal}
-              className="hidden lg:block bg-brand hover:bg-brand-dark text-white px-8 py-3 text-[11px] font-bold uppercase tracking-widest transition-all">
-              Get A Quote
-            </button>
+            <Link 
+              href={'/contact'}
+              className="hidden lg:block rounded-lg bg-brand hover:bg-brand-dark text-white px-4 py-3 text-[11px] font-bold uppercase tracking-widest transition-all">
+              Connect Expert
+            </Link>
 
             {/* Mobile Calling Button with Pulse Animation */}
             <a 
@@ -119,10 +119,10 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 180 }}
-              className="fixed inset-0 bg-white z-[999] lg:hidden flex flex-col w-[85%] sm:w-[350px] shadow-2xl"
+              className="fixed inset-0 bg-white z-[999] lg:hidden flex flex-col w-[100%]  shadow-2xl"
             >
-              <div className="flex flex-col h-full px-8 pt-16 pb-12 overflow-y-auto">
-                <div className="space-y-1">
+              <div className="flex flex-col h-full px-7 pt-16 pb-12 overflow-y-auto">
+                <div className="space-y-0">
 
                   {navLinks.map((link, i) => (
                     <motion.div
@@ -136,7 +136,7 @@ export default function Navbar() {
                         onClick={() => setIsOpen(false)}
                         className="group flex items-center justify-between py-1 border-b border-gray-50"
                       >
-                        <span className={`text-xl font-medium tracking-tight ${pathname === link.href ? 'text-brand ' : 'text-brand-dark'}`}>
+                        <span className={`text-sm font-medium tracking-tight ${pathname === link.href ? 'text-brand ' : 'text-brand-dark'}`}>
                           {link.name}
                         </span>
                       </Link>
@@ -152,9 +152,11 @@ export default function Navbar() {
                       <span className="text-sm font-bold">+91 88860 60442</span>
                     </div>
                   </div>
-                  <button className="w-full bg-brand-dark text-white py-4 text-[10px] font-bold uppercase tracking-[0.2em] shadow-lg">
+                  <a
+                    href={'/contact'}
+                    className="w-full bg-brand-dark rounded-lg text-white py-4 text-[10px] font-bold uppercase tracking-[0.2em] shadow-lg block text-center">
                     Book Consultation
-                  </button>
+                  </a>
                 </div>
               </div>
             </motion.div>

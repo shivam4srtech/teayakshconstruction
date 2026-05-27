@@ -55,9 +55,8 @@ export default function ContactConsultant() {
               <p className="text-brand font-bold text-[10px] tracking-[0.4em] uppercase border-l-2 border-brand pl-4">
                 Get Started
               </p>
-              <h2 className="text-4xl lg:text-6xl font-medium text-brand-dark tracking-tight">
-                Request a <br />
-                <span className=". font-light text-brand/80">Consultant.</span>
+              <h2 className="text-3xl lg:text-6xl font-medium text-brand-dark tracking-tight">
+                Request a <span className=". font-light text-brand/80">Consultant.</span>
               </h2>
               <p className="text-brand-dark/50 text-lg leading-relaxed max-w-sm">
                 Take the first step toward your masterpiece. Our experts will review your scope and schedule a private consultation.

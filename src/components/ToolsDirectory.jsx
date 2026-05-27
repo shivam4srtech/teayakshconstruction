@@ -39,11 +39,21 @@ const CALC_TOOLS = [
     color: "from-[#2D2926]/5 to-transparent",
     accent: "#2D2926"
   },
-   {
+  {
     id: "tool-04",
     title: "Building Material Estimator",
     description: "calculate steel and brick quantities using Trayaksh thumb rules for residential construction planning.",
     href: "/building-material-estimator",
+    icon: Calculator,
+    badge: "Instant Estimate",
+    color: "from-[#2D2926]/5 to-transparent",
+    accent: "#2D2926"
+  },
+  {
+    id: "tool-05",
+    title: "Stamp Duty Calculator",
+    description: "Estimate statutory property purchase charges across Indian states and union territories ",
+    href: "/stamp-duty-cost-estimator",
     icon: Calculator,
     badge: "Instant Estimate",
     color: "from-[#2D2926]/5 to-transparent",
@@ -112,13 +122,13 @@ export default function ToolsDirectory() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
-                  className="group relative bg-white rounded-xl border border-gray-200/60 p-8 md:p-10 flex flex-col justify-between transition-all duration-300 hover:border-gray-300 hover:shadow-xl hover:shadow-black/[0.005] overflow-hidden min-h-[300px]"
+                  className="group relative bg-white rounded-xl border border-gray-200/60 p-6 flex flex-col justify-between transition-all duration-300 hover:border-gray-300 hover:shadow-xl hover:shadow-black/[0.005] overflow-hidden min-h-[200px]"
                 >
                   {/* Background Gradient Blend */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${tool.color} opacity-40 pointer-events-none transition-opacity group-hover:opacity-60`} />
 
                   {/* Card Top Block */}
-                  <div className="space-y-6 relative z-10">
+                  <div className="space-y-2 relative z-10">
                     <div className="flex items-center justify-between gap-4">
                       {/* Dynamic Graphic Floating Bubble */}
                       <div className="w-12 h-12 rounded-2xl bg-[#F8F5F2] text-[#2D2926] flex items-center justify-center border border-gray-100 transition-colors group-hover:bg-white shrink-0">

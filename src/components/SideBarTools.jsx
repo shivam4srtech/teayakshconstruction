@@ -5,7 +5,8 @@ const SIDEBAR_TOOLS = [
   { name: "Home Loan EMI Calculator", desc: "Estimat", url: "home-loan-emi-calculator" },
   { name: "Cost Estimator", desc: "Get construction estimate", url: "cost-estimator" },
   { name: "Material Estimator", desc: "calculate steel and brick quantities", url: "building-material-estimator" },
-  { name: "Brick Calculator", desc: "calculate exact brick quantities", url: "building-material-estimator" }
+  { name: "Brick Calculator", desc: "calculate exact brick quantities", url: "building-material-estimator" },
+  { name: "Stamp Duty Calculator", desc: "stamp duty and registration fee", url: "stamp-duty-cost-estimator" }
 ];
 export default function SideBarTools(){
     return(
