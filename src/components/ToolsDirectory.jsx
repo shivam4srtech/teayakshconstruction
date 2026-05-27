@@ -39,6 +39,16 @@ const CALC_TOOLS = [
     color: "from-[#2D2926]/5 to-transparent",
     accent: "#2D2926"
   },
+   {
+    id: "tool-04",
+    title: "Building Material Estimator",
+    description: "calculate steel and brick quantities using Trayaksh thumb rules for residential construction planning.",
+    href: "/building-material-estimator",
+    icon: Calculator,
+    badge: "Instant Estimate",
+    color: "from-[#2D2926]/5 to-transparent",
+    accent: "#2D2926"
+  },
  
 ];
 

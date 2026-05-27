@@ -157,7 +157,7 @@ export default function MaterialEstimatorHero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-2xl shadow-black/[0.015]"
+              className="bg-white p-8 rounded-[1rem] border border-gray-100 shadow-2xl shadow-black/[0.015]"
             >
               <form onSubmit={handleFormSubmit} className="space-y-5" noValidate>
                 <div className="space-y-1.5 mb-1">

@@ -4,14 +4,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Search, Calculator, ArrowRight, Clock } from 'lucide-react';
 import HeroFrom from './HeroFrom';
+import SideBarTools from './SideBarTools'
 
 const NO_IMAGE = "/images/no-image.jpg";
 
-const SIDEBAR_TOOLS = [
-  { name: "Brick Calculator", desc: "Estimate exact brick count", url: "home-loan-emi-calculator" },
-  { name: "Paint Area Estimator", desc: "Wall coverage calculator", url: "home-loan-emi-calculator" },
-  { name: "Home Loan EMI Calculator", desc: "Get Verified Home Loan Calculation", url: "home-loan-emi-calculator" }
-];
 
 function filterBlogs(blogs, query) {
   const normalizedQuery = query.trim().toLowerCase();
@@ -140,27 +136,7 @@ export default function BlogSidebar({ blogs = [], searchQuery, onSearchChange })
           )}
         </div>
       </div>
-      {/* 4. More Tools Card */}
-    <div className="bg-[#2D2926] p-8 rounded-[1rem] text-white">
-        <div className="flex items-center gap-3 mb-6">
-            <Calculator size={20} className="text-[#A67153]" />
-            <h4 className="font-bold uppercase text-xs tracking-widest">Tools &amp; Calculator</h4>
-        </div>
-        <div className="space-y-4">
-            {SIDEBAR_TOOLS.map((tool, i) => (
-            <Link 
-                key={i} 
-                href={tool.url}
-                className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-[#A67153]/30 transition-all cursor-pointer group block">
-                <div className="flex justify-between items-center mb-1">
-                <span className="text-xs font-bold">{tool.name}</span>
-                <ArrowRight size={14} className="text-[#A67153] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
-                </div>
-                <p className="text-[10px] text-white/40 uppercase tracking-widest">{tool.desc}</p>
-            </Link>
-            ))}
-        </div>
-    </div>
+      <SideBarTools/>
 
     </div>
   );
