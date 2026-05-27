@@ -1,5 +1,6 @@
 'use client';
 import { FaArrowRight } from 'react-icons/fa6';
+import Link from 'next/link';
 
 const services = [
   {
@@ -63,7 +64,8 @@ export default function SpecialtyGrid() {
         {/* The Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-8 gap-4">
           {services.map((service, index) => (
-            <div 
+            <Link 
+              href={'/projects'}
               key={index} 
               className="group relative md:h-[400px] h-[300px] overflow-hidden cursor-pointer bg-brand-dark"
             >
@@ -101,7 +103,7 @@ export default function SpecialtyGrid() {
 
               {/* Corner Accent Line */}
               <div className="absolute bottom-0 left-0 w-0 h-1 bg-brand group-hover:w-full transition-all duration-700" />
-            </div>
+            </Link>
           ))}
         </div>
         

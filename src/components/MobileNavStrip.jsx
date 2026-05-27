@@ -10,16 +10,18 @@ import {
   IoCall 
 } from 'react-icons/io5';
 
+
 const navItems = [
   { name: 'Home', href: '/', icon: IoHomeOutline },
   { name: 'Projects', href: '/projects', icon: IoBusinessOutline },
-  { name: 'Call', href: 'tel:+919876543210', isCenter: true },
+  { name: 'Call', href: 'tel:+918886060442', isCenter: true },
   { name: 'Estimate', href: '/cost-estimator', icon: IoCalculatorOutline },
   { name: 'Plans', href: '/floor-plan', icon: IoLayersOutline },
 ];
 
 export default function MobileNavStrip() {
   const pathname = usePathname();
+
 
   return (
     <div className="block sm:hidden fixed bottom-6 left-0 right-0  px-4 pointer-events-none z-[99]">

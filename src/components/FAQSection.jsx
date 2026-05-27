@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { FiPlus, FiMinus } from 'react-icons/fi';
 import { HiOutlineChatBubbleLeftRight } from 'react-icons/hi2';
+import { useModalStore } from '@/store/useModalStore';
 
 const faqs = [
   {
@@ -28,7 +29,7 @@ const faqs = [
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState(0);
-
+  const openModal = useModalStore((state) => state.openModal);
   return (
     <section className="bg-white py-6 lg:py-12 pt-0">
       <div className="max-w-7xl mx-auto px-5 lg:px-16">
@@ -48,7 +49,9 @@ export default function FAQSection() {
             </p>
             
             <div className="md:pt-8 pt-0">
-              <button className="flex items-center gap-3 bg-brand-dark text-white px-8 py-4 text-[10px] font-bold uppercase tracking-widest hover:bg-brand transition-all duration-300 shadow-xl">
+              <button 
+                 onClick={openModal}
+                 className="flex items-center gap-3 bg-brand-dark text-white px-8 py-4 text-[10px] font-bold uppercase tracking-widest hover:bg-brand transition-all duration-300 shadow-xl">
                 <HiOutlineChatBubbleLeftRight size={18} />
                 Ask a Specific Question
               </button>

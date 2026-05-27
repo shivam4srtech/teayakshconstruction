@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { IoCloseOutline, IoCallOutline, IoMailOutline } from 'react-icons/io5';
 import { IoMdMenu } from "react-icons/io";
 import { IoIosCall } from "react-icons/io";
+import { useModalStore } from '@/store/useModalStore';
 
 const navLinks = [
   { name: 'Projects', href: '/projects' },
@@ -31,7 +32,7 @@ export default function Navbar() {
     if (isOpen) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = 'unset';
   }, [isOpen]);
-
+  const openModal = useModalStore((state) => state.openModal);
   return (
     <>
       {/* Pulse Animation CSS */}
@@ -92,13 +93,15 @@ export default function Navbar() {
           {/* RIGHT: Action Buttons */}
           <div className="flex justify-end items-center gap-4 z-[1001]">
             {/* Desktop Quote Button */}
-            <button className="hidden lg:block bg-brand hover:bg-brand-dark text-white px-8 py-3 text-[11px] font-bold uppercase tracking-widest transition-all">
+            <button 
+              onClick={openModal}
+              className="hidden lg:block bg-brand hover:bg-brand-dark text-white px-8 py-3 text-[11px] font-bold uppercase tracking-widest transition-all">
               Get A Quote
             </button>
 
             {/* Mobile Calling Button with Pulse Animation */}
             <a 
-              href="tel:+919876543210"
+              href="tel:+918886060442"
               className="lg:hidden relative w-11 h-11 flex items-center justify-center rounded-full bg-brand text-white shadow-lg"
             >
               <div className="pulse-ring" style={{ animationDelay: '0s' }}></div>
@@ -146,7 +149,7 @@ export default function Navbar() {
                   <div className="space-y-4 mb-8">
                     <div className="flex items-center gap-3 text-brand-dark/70">
                       <IoCallOutline className="text-brand" size={18} />
-                      <span className="text-sm font-bold">+91 98765 43210</span>
+                      <span className="text-sm font-bold">+91 88860 60442</span>
                     </div>
                   </div>
                   <button className="w-full bg-brand-dark text-white py-4 text-[10px] font-bold uppercase tracking-[0.2em] shadow-lg">

@@ -11,7 +11,8 @@ import {
   FaTwitter,
   FaArrowRight,
   FaSpinner,
-  FaCheck
+  FaCheck,
+  FaYoutube 
 } from 'react-icons/fa';
 import { 
   IoMailOutline, 
@@ -128,10 +129,16 @@ export default function Footer() {
               Crafting masterfully designed luxury homes and commercial landmarks with precision and passion.
             </p>
             <div className="flex gap-5">
-              <FaInstagram className="text-white/40 hover:text-brand cursor-pointer transition-colors text-lg" />
-              <FaLinkedinIn className="text-white/40 hover:text-brand cursor-pointer transition-colors text-lg" />
-              <FaFacebookF className="text-white/40 hover:text-brand cursor-pointer transition-colors text-lg" />
-              <FaTwitter className="text-white/40 hover:text-brand cursor-pointer transition-colors text-lg" />
+              <Link href={'https://www.facebook.com/Trayakshconstruction'} target='_blank'>
+                   <FaFacebookF className="text-white/40 hover:text-brand cursor-pointer transition-colors text-lg" />
+              </Link>
+              <Link href={'https://www.instagram.com/trayakshconstruction'} target='_blank'>
+                   <FaInstagram className="text-white/40 hover:text-brand cursor-pointer transition-colors text-lg" />
+              </Link>
+              <Link href={'https://www.youtube.com/@Trayakshconstruction'} target='_blank'>
+                   <FaYoutube  className="text-white/40 hover:text-brand cursor-pointer transition-colors text-lg" />
+              </Link>
+             
             </div>
           </div>
 
@@ -171,11 +178,11 @@ export default function Footer() {
             <ul className="space-y-5">
               <li className="flex items-start gap-4 text-sm text-white/60">
                 <IoLocationOutline size={22} className="text-brand shrink-0" />
-                <span className="leading-relaxed">123 Architectural Blvd, <br />Design District, Hyderabad</span>
+                <span className="leading-relaxed">Plot no 202, Phase 1,  Dandamudi Enclave, <br /> Jeedimetla, Hyderabad, Telangana 500067</span>
               </li>
               <li className="flex items-center gap-4 text-sm text-white/60">
                 <IoCallOutline size={20} className="text-brand shrink-0" />
-                <span>+1 (234) 567-890</span>
+                <span>+91 8886060442, 8885499322</span>
               </li>
               <li className="flex items-center gap-4 text-sm text-white/60">
                 <IoMailOutline size={20} className="text-brand shrink-0" />
