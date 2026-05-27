@@ -188,10 +188,10 @@ export default function PrivacyPolicyView() {
                   <p className="text-[11px] text-gray-400">Response Window: Under 2 Business Days</p>
                 </div>
                 <a 
-                  href="mailto:legal@trayaksh.com" 
+                  href="mailto:info@trayakshconstruction.com" 
                   className="bg-[#2D2926] hover:bg-[#1A1817] text-white text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all text-center"
                 >
-                  legal@trayaksh.com
+                  info@trayakshconstruction.com
                 </a>
               </div>
             </section>

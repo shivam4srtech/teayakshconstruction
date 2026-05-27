@@ -180,7 +180,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-4 text-sm text-white/60">
                 <IoMailOutline size={20} className="text-brand shrink-0" />
-                <span>office@TRAYAKSH.com</span>
+                <span>info@trayakshconstruction.com</span>
               </li>
             </ul>
           </div>
