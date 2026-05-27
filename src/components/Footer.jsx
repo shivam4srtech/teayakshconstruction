@@ -116,14 +116,17 @@ export default function Footer() {
         </div>
 
         {/* Middle Section: Links & Info */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:py-16 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-12 gap-6 md:py-16 py-8">
           {/* Brand Identity */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 border border-brand flex items-center justify-center">
                 <span className="text-brand font-bold text-lg">T</span>
               </div>
-              <span className="text-xl font-bold tracking-[0.2em] uppercase">TRAYAKSH</span>
+              <div>
+                  <div className="text-xl font-bold tracking-[0.2em] uppercase">TRAYAKSH</div>
+                  <div className="text-[8px] tracking-[0.3em] text-brand font-sans font-bold uppercase ">Construction &amp; Interiors</div>
+              </div>
             </div>
             <p className="text-white/50 text-sm leading-relaxed max-w-xs">
               Crafting masterfully designed luxury homes and commercial landmarks with precision and passion.

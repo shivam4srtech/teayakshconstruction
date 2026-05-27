@@ -75,7 +75,7 @@ export default function Navbar() {
               </div> */}
               <div className="flex flex-col leading-tight">
                 <span className="text-xl font-bold tracking-[0.2em] text-brand-dark uppercase">TRAYAKSH</span>
-                <span className="text-[8px] tracking-[0.3em] text-brand font-sans font-bold uppercase ">Constructions</span>
+                <span className="text-[8px] tracking-[0.3em] text-brand font-sans font-bold uppercase ">Construction & Interiors</span>
               </div>
             </Link>
           </div>
