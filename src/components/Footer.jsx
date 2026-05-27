@@ -138,6 +138,9 @@ export default function Footer() {
               <Link href={'https://www.youtube.com/@Trayakshconstruction'} target='_blank'>
                    <FaYoutube  className="text-white/40 hover:text-brand cursor-pointer transition-colors text-lg" />
               </Link>
+              <Link href={'https://www.linkedin.com/company/trayaksh-construction/'} target='_blank'>
+                   <FaLinkedinIn  className="text-white/40 hover:text-brand cursor-pointer transition-colors text-lg" />
+              </Link>
              
             </div>
           </div>
