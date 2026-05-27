@@ -29,15 +29,14 @@ export default function Footer() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const services = [
-    { name: 'Luxury Villas', href: '#' },
-    { name: 'Commercial Spaces', href: '#' },
-    { name: 'Interior Design', href: '#' },
-    { name: 'Renovation', href: '#' },
-    { name: 'Architecture', href: '#' },
+    { name: 'Interior', href: '/interior' },
+    { name: 'Pharmacy Setup', href: '/pharmacy-setup' },
+    { name: 'Floor Plan', href: '/floor-plan' },
+    { name: 'Tools', href: '/tools' },
+    { name: 'Our Projects', href: '/projects' },
   ];
   const company = [
     { name: 'About Us', href: '/about' },
-    { name: 'Our Projects', href: '/projects' },
     { name: 'Pricing', href: '/pricing' },
     { name: 'Testimonials', href: '/reviews' },
     { name: 'Contact', href: '/contact' },
