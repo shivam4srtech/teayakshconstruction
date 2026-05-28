@@ -136,7 +136,7 @@ export default function Navbar() {
                         onClick={() => setIsOpen(false)}
                         className="group flex items-center justify-between py-1 border-b border-gray-50"
                       >
-                        <span className={`text-sm font-medium tracking-tight ${pathname === link.href ? 'text-brand ' : 'text-brand-dark'}`}>
+                        <span className={`text-lg font-medium tracking-tight ${pathname === link.href ? 'text-brand ' : 'text-brand-dark'}`}>
                           {link.name}
                         </span>
                       </Link>

@@ -98,15 +98,15 @@ export default function OurProject({ projects = [] }) {
               <button
                 key={s}
                 onClick={() => handleFilterChange(s)}
-                className={`white-space-nowrap relative px-6 py-2.5 text-[10px] font-bold uppercase tracking-widest transition-all duration-300 rounded-xl ${
+                className={` relative md:px-6 px-2 md:py-2.5 py-2 text-[10px] font-bold uppercase tracking-widest transition-all duration-300 rounded-xl ${
                   filter === s ? 'text-white' : 'text-brand-dark/50 hover:text-brand-dark'
                 }`}
               >
-                <span className="relative z-10">{s}</span>
+                <span className="relative z-10 whitespace-nowrap">{s}</span>
                 {filter === s && (
                   <motion.div 
                     layoutId="activeFilter"
-                    className="absolute inset-0 bg-brand-dark rounded-xl shadow-lg"
+                    className="absolute inset-0 bg-brand-dark md:rounded-xl rounded shadow-lg"
                     transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                   />
                 )}
