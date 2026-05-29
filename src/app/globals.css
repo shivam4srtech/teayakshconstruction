@@ -135,4 +135,13 @@ input[type=number] {
   .blog-rich-content tbody tr:nth-child(even) {
     background: #F8F5F2;
   }
+
+ 
+
+  @media (max-width: 767px) {
+    #zsiq_float,
+    #zsiq_floatmain {
+      bottom: 80px !important;
+    }
+  }
 }
