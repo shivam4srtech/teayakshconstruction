@@ -82,10 +82,10 @@ export default function CityDynamicComparison({
 
   return (
     <section className="py-10 pt-5 bg-[#F8F5F2]">
-      <div className="max-w-7xl mx-auto px-3 sm:px-5 lg:px-16">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 md:10 gap-6 md:gap-8">
+      <div className="max-w-5xl mx-auto px-3 sm:px-5 lg:px-16">
+        <div className="flex flex-col md:flex-row justify-between items-start  mb-6 md:10 gap-6 md:gap-8">
           <div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-[#2D2926] tracking-tighter">
+            <h2 className="text-3xl sm:text-4xl  font-medium text-[#2D2926] tracking-tighter">
               Structural <span className="font-light text-[#A67153]">Comparison</span>
             </h2>
           </div>
@@ -134,7 +134,7 @@ export default function CityDynamicComparison({
             />
           </div>
 
-          <div className="bg-white p-2 sm:p-4 md:p-6 space-y-2 md:space-y-4">
+          <div className="bg-white p-2 sm:p-4 md:p-6 space-y-2 md:space-y-3">
             {pairedSpecs.length > 0 ? pairedSpecs.map((spec, index) => (
               <SharedFeatureAccordion
                 key={`${spec.title}-${index}`}
@@ -198,7 +198,7 @@ function PackageHeader({ packageData, pricingTiers, currentPkg, setPkg, side }) 
           )}
         </div>
       </div>
-      <div className="text-[1.55rem] sm:text-4xl md:text-5xl font-bold tracking-tighter leading-none truncate flex items-end">₹{displayPrice}<div className="text-xs sm:text-sm font-semibold  opacity-40 leading-[30px]">/ s q f t</div></div>
+      <div className="text-[1.55rem] sm:text-4xl  font-bold tracking-tighter leading-none truncate flex items-end">₹{displayPrice}<div className="text-xs sm:text-sm font-semibold  opacity-40 leading-[30px]">/ s q f t</div></div>
     </div>
   );
 }
@@ -229,7 +229,7 @@ function FeatureDetailColumn({ name, rows }) {
     <div className="min-w-0 bg-white p-3 sm:p-5 md:p-6 space-y-3">
       <p className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 truncate">{name} Package</p>
       {(rows?.length ? rows : getFeatureRows(null)).map((row) => (
-        <p key={row.key} className="text-[.7rem] sm:text-sm font-medium text-gray-600 leading-relaxed">
+        <p key={row.key} className="text-[.7rem] sm:text-[.8rem] font-medium text-gray-600 leading-relaxed">
           <span className="font-black text-[#A67153] uppercase tracking-wide">{row.key}:</span> {row.value}
         </p>
       ))}

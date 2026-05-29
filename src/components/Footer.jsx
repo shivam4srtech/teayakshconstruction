@@ -30,7 +30,7 @@ export default function Footer() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const services = [
-    { name: 'Interior', href: '/interior' },
+    { name: 'Interiors', href: '/interior' },
     { name: 'Pharmacy Setup', href: '/pharmacy-setup' },
     { name: 'Floor Plan', href: '/floor-plan' },
     { name: 'Tools', href: '/tools' },

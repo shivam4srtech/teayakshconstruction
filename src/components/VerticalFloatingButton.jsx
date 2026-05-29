@@ -1,11 +1,13 @@
 'use client';
 import { motion } from 'framer-motion';
 import { MessageSquareText } from 'lucide-react';
-import { useModalStore } from '@/store/useModalStore';
+import Link from 'next/link';
 
 export default function VerticalFloatingButton() {
-  const openModal = useModalStore((state) => state.openModal);
-
+    const WHATSAPP_NUMBER = "918886060442"; // International country code added for direct API routing
+  const PRE_FILLED_TEXT = "Hello Trayaksh Studio, I am exploring your design toolkits and want to discuss a custom construction project.";
+  
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(PRE_FILLED_TEXT)}`;
   return (
     <motion.div 
       initial={{ x: 100, opacity: 0 }}
@@ -13,8 +15,9 @@ export default function VerticalFloatingButton() {
       transition={{ delay: 1, duration: 0.8, ease: "easeOut" }}
       className="fixed right-0 top-1/2 -translate-y-1/2 z-[999]"
     >
-      <button 
-        onClick={openModal}
+      <Link 
+        href={whatsappUrl}
+        target="_blank"
         className="group relative flex items-center"
       >
       
@@ -38,7 +41,7 @@ export default function VerticalFloatingButton() {
           {/* Bottom Indicator Dot */}
           <div className="w-1.5 h-1.5 rounded-full bg-[#A67153] group-hover:bg-white animate-pulse" />
         </div>
-      </button>
+      </Link>
     </motion.div>
   );
 }

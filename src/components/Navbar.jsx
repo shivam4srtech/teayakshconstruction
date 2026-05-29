@@ -10,7 +10,7 @@ import { useModalStore } from '@/store/useModalStore';
 
 const navLinks = [
   // { name: 'Projects', href: '/projects' },
-  { name: 'Interior', href: '/interior' },
+  { name: 'Interiors', href: '/interior' },
   { name: 'Pharmacy Setup', href: '/pharmacy-setup' },
   // { name: 'Floor Plans', href: '/floor-plan' },
   { name: 'Cost Estimator', href: '/cost-estimator' },

@@ -122,7 +122,7 @@ export default function MaterialEstimatorHero() {
                 <p className="text-2xl font-black text-[#2D2926]">
                   {formatResult(submittedResult?.totalBuiltUpArea)} <span className="text-xs font-medium text-gray-400">Sq.Ft.</span>
                 </p>
-                <span className="text-[10px] text-gray-400 font-medium block">{submittedResult ? 'Slab area x floors' : 'Submit form to view'}</span>
+                
               </div>
 
               <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-black/[0.005] space-y-1">
@@ -130,7 +130,7 @@ export default function MaterialEstimatorHero() {
                 <p className="text-2xl font-black text-[#2D2926]">
                   {formatResult(submittedResult?.steel)} <span className="text-xs font-medium text-gray-400">Kg</span>
                 </p>
-                <span className="text-[10px] text-gray-400 font-medium block">4 kg per sq.ft.</span>
+                
               </div>
 
               <div className="col-span-2 sm:col-span-1 bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-black/[0.005] space-y-1">
@@ -138,7 +138,7 @@ export default function MaterialEstimatorHero() {
                 <p className="text-2xl font-black text-[#2D2926]">
                   {formatResult(submittedResult?.bricks)} <span className="text-xs font-medium text-gray-400">Pcs</span>
                 </p>
-                <span className="text-[10px] text-gray-400 font-medium block">15 bricks per sq.ft.</span>
+                
               </div>
             </div>
 

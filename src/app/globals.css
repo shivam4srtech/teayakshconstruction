@@ -141,7 +141,7 @@ input[type=number] {
   @media (max-width: 767px) {
     #zsiq_float,
     #zsiq_floatmain {
-      bottom: 80px !important;
+      bottom: 86px !important;
     }
   }
 }
