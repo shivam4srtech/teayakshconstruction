@@ -138,7 +138,7 @@ export default function MaterialEstimatorHero() {
                 <p className="text-2xl font-black text-[#2D2926]">
                   {formatResult(submittedResult?.bricks)} <span className="text-xs font-medium text-gray-400">Pcs</span>
                 </p>
-                <span className="text-[10px] text-gray-400 font-medium block">32 bricks per sq.ft.</span>
+                <span className="text-[10px] text-gray-400 font-medium block">15 bricks per sq.ft.</span>
               </div>
             </div>
 
