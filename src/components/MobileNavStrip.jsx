@@ -31,7 +31,7 @@ export default function MobileNavStrip() {
       <motion.div 
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="max-w-md mx-auto h-16 bg-brand-dark/70 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl flex items-center justify-around px-2 pointer-events-auto relative"
+        className="max-w-md mx-auto h-16 bg-brand-dark/90 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl flex items-center justify-around px-2 pointer-events-auto relative"
       >
         {navItems.map((item) => {
           const isActive = pathname === item.href;

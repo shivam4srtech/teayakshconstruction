@@ -9,6 +9,7 @@ import MobileNavStrip from '@/components/MobileNavStrip';
 import GlobalConsultationModal from '@/components/GlobalConsultationModal';
 import VerticalFloatingButton from '@/components/VerticalFloatingButton';
 import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton';
+import CookieConsentPopup from '@/components/CookieConsentPopup';
 
 const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://trayakshconstruction.com');
 const siteName = 'TRAYAKSH Construction';
@@ -192,6 +193,7 @@ export default function RootLayout({ children }) {
         <GlobalConsultationModal/>
         <VerticalFloatingButton/>
         <FloatingWhatsAppButton/>
+        <CookieConsentPopup/>
         <Script id="zoho-salesiq-init" strategy="afterInteractive">
           {`
             window.$zoho = window.$zoho || {};
