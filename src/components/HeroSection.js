@@ -23,7 +23,7 @@ export default function HeroSection() {
         </div>
 
         {/* Right Column: Enquiry Form */}
-        <div className=" p-4 lg:p-6 shadow-2xl border border-brand/10 relative overflow-hidden group max-w-[350px] lg:mt-20 bg-[#efebe2]">
+        <div className=" p-4 lg:p-6 shadow-2xl border border-brand/10 relative  group max-w-[350px] lg:mt-20 bg-[#efebe2]">
           {/* Decorative Top Bar */}
           <div className="absolute top-0 left-0 w-full h-1.5 bg-brand" />
           

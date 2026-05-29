@@ -21,7 +21,7 @@ export default async function Home() {
   return (
      <>
         <HeroSection />
-        <ProjectSection/>
+        {/* <ProjectSection/> */}
         <HomeownerGuarantees/>
         <QualityCommandCenter/>
         <CalculatorCTA/>

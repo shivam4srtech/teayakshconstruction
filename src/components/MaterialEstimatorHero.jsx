@@ -116,7 +116,7 @@ export default function MaterialEstimatorHero() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div className="lg:grid hidden grid-cols-2 sm:grid-cols-3 gap-4">
               <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-black/[0.005] space-y-1">
                 <span className="text-[9px] uppercase font-black tracking-wider text-gray-400 block">Built-Up Area</span>
                 <p className="text-2xl font-black text-[#2D2926]">
@@ -193,7 +193,7 @@ export default function MaterialEstimatorHero() {
                       type="tel"
                       required
                       pattern="[0-9]{10}"
-                      placeholder="9876543210"
+                      placeholder="+91 XXX"
                       value={clientPhone}
                       onChange={(event) => {
                         setClientPhone(event.target.value);
@@ -335,6 +335,31 @@ export default function MaterialEstimatorHero() {
                 </button>
               </form>
             </motion.div>
+            <div className="grid lg:hidden grid-cols-2 sm:grid-cols-3 gap-4 mt-3">
+              <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-black/[0.005] space-y-1">
+                <span className="text-[9px] uppercase font-black tracking-wider text-gray-400 block">Built-Up Area</span>
+                <p className="text-2xl font-black text-[#2D2926]">
+                  {formatResult(submittedResult?.totalBuiltUpArea)} <span className="text-xs font-medium text-gray-400">Sq.Ft.</span>
+                </p>
+                
+              </div>
+
+              <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-black/[0.005] space-y-1">
+                <span className="text-[9px] uppercase font-black tracking-wider text-gray-400 block">Structural Steel</span>
+                <p className="text-2xl font-black text-[#2D2926]">
+                  {formatResult(submittedResult?.steel)} <span className="text-xs font-medium text-gray-400">Kg</span>
+                </p>
+                
+              </div>
+
+              <div className="col-span-2 sm:col-span-1 bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-black/[0.005] space-y-1">
+                <span className="text-[9px] uppercase font-black tracking-wider text-gray-400 block">Bricks / Blocks</span>
+                <p className="text-2xl font-black text-[#2D2926]">
+                  {formatResult(submittedResult?.bricks)} <span className="text-xs font-medium text-gray-400">Pcs</span>
+                </p>
+                
+              </div>
+            </div>
           </div>
         </div>
       </div>

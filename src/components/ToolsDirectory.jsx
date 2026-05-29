@@ -103,7 +103,7 @@ export default function ToolsDirectory() {
             </div>
             
           
-            <div className=' p-4 lg:p-6 shadow-2xl border border-brand/10 relative overflow-hidden group max-w-[350px] lg:mt-5 bg-[#efebe2]'>
+            <div className=' p-4 lg:p-6 shadow-2xl border border-brand/10 relative group max-w-[350px] lg:mt-5 bg-[#efebe2]'>
                   <div className="absolute top-0 left-0 w-full h-1.5 bg-brand"></div>
                   <div className="mb-4"><h3 className="lg:text-[1.2rem] text-[1.1rem] font-bold text-brand-dark mb-0">Request a Free Consultation</h3></div>
                   <HeroFrom/>

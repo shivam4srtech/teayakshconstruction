@@ -146,8 +146,8 @@ export default function LoanCalculatorHero() {
               </p>
             </div>
 
-            {/* DYNAMIC REAL-TIME OUTPUT CARDS DASHBOARD */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {/* DYNAMIC REAL-TIME OUTPUT CARDS DASHBOARD For Desktop */}
+            <div className="lg:grid hidden grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-black/[0.005] space-y-1">
                 <span className="text-[9px] uppercase font-black tracking-wider text-gray-400 block">Monthly EMI</span>
                 <p className="text-xl md:text-2xl font-bold text-[#A67153]">&#8377;{formatResult(submittedResult?.monthlyEmi)}</p>
@@ -223,7 +223,7 @@ export default function LoanCalculatorHero() {
                       type="tel"
                       required
                       pattern="[0-9]{10}"
-                      placeholder="9876543210"
+                      placeholder="+91 XXX"
                       value={clientPhone}
                       onChange={(event) => {
                         setClientPhone(event.target.value);
@@ -342,6 +342,26 @@ export default function LoanCalculatorHero() {
                 </button>
               </form>
             </motion.div>
+            {/* DYNAMIC REAL-TIME OUTPUT CARDS DASHBOARD For Desktop */}
+            <div className="grid mt-3 lg:hidden grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-black/[0.005] space-y-1">
+                <span className="text-[9px] uppercase font-black tracking-wider text-gray-400 block">Monthly EMI</span>
+                <p className="text-xl md:text-2xl font-bold text-[#A67153]">&#8377;{formatResult(submittedResult?.monthlyEmi)}</p>
+                <span className="text-[10px] text-gray-400 font-medium block">{submittedResult ? 'Principal + Interest' : 'Submit form to view'}</span>
+              </div>
+
+              <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-black/[0.005] space-y-1">
+                <span className="text-[9px] uppercase font-bold tracking-wider text-gray-400 block">Total Interest </span>
+                <p className="text-xl md:text-2xl font-black text-[#2D2926]">&#8377;{formatResult(submittedResult?.totalInterest)}</p>
+                <span className="text-[10px] text-gray-400 font-medium block">{submittedResult ? 'Total Interest Payload' : 'Awaiting verification'}</span>
+              </div>
+
+              <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-black/[0.005] space-y-1">
+                <span className="text-[9px] uppercase font-bold tracking-wider text-gray-400 block">Total Payable </span>
+                <p className="text-xl md:text-2xl font-black text-[#2D2926]">&#8377;{formatResult(submittedResult?.totalPayment)}</p>
+                <span className="text-[10px] text-gray-400 font-medium block">{submittedResult ? 'Over Selected Tenure' : 'After form submission'}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

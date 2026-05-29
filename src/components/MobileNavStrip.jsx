@@ -9,14 +9,17 @@ import {
   IoLayersOutline, 
   IoCall 
 } from 'react-icons/io5';
-
+import { MdVerified } from "react-icons/md";
+import { FaTools, FaUserTie  } from "react-icons/fa";
 
 const navItems = [
   { name: 'Home', href: '/', icon: IoHomeOutline },
-  { name: 'Projects', href: '/projects', icon: IoBusinessOutline },
+  // { name: 'Projects', href: '/projects', icon: IoBusinessOutline },
+  { name: 'Tools & Calculator', href: '/tools', icon: FaTools  },
   { name: 'Call', href: 'tel:+918886060442', isCenter: true },
   { name: 'Estimate', href: '/cost-estimator', icon: IoCalculatorOutline },
-  { name: 'Plans', href: '/floor-plan', icon: IoLayersOutline },
+  // { name: 'Plans', href: '/floor-plan', icon: IoLayersOutline },
+  { name: 'Connect Expert', href: '/contact', icon: FaUserTie },
 ];
 
 export default function MobileNavStrip() {
@@ -41,7 +44,7 @@ export default function MobileNavStrip() {
                 
                 <a 
                   href={item.href}
-                  className="relative w-14 h-14 bg-brand text-white rounded-full flex items-center justify-center shadow-lg border-4 border-gray-50 active:scale-90 transition-transform"
+                  className="relative w-12 h-12 bg-brand text-white rounded-full flex items-center justify-center shadow-lg border-4 border-gray-50 active:scale-90 transition-transform"
                 >
                   <IoCall size={24} />
                 </a>
@@ -66,7 +69,7 @@ export default function MobileNavStrip() {
                   />
                 )}
               </div>
-              <span className={`text-[10px] font-bold tracking-tight transition-colors ${isActive ? 'text-brand' : 'text-white/40'}`}>
+              <span className={`text-[10px] font-medium tracking-tight transition-colors ${isActive ? 'text-brand' : 'text-white/40'}`}>
                 {item.name}
               </span>
             </Link>

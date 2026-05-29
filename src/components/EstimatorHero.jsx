@@ -311,9 +311,7 @@ export default function EstimatorHero({
                           Approx
                       </span>
                     </div>
-                    <p className="mt-2 text-xs font-semibold text-gray-500">
-                      {submittedEstimate.totalBuiltUpArea.toLocaleString('en-IN')} total sq.ft x ₹{submittedEstimate.price || '--'}/{submittedEstimate.unit}.
-                    </p>
+                  
                     
                   </div>
                 )}

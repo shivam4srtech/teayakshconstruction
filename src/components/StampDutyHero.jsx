@@ -135,21 +135,21 @@ export default function StampDutyHero() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="lg:grid hidden grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="bg-white p-3 rounded-xl border border-gray-100 shadow-xl shadow-black/[0.005] space-y-1">
                 <span className="text-[9px] uppercase font-black tracking-wider text-gray-400 block">Stamp Duty Fees</span>
                 <p className="text-xl font-black text-[#A67153]">&#8377;{formatResult(submittedResult?.stampDuty)}</p>
-                <span className="text-[10px] text-gray-400 font-medium block">{submittedResult ? submittedResult.stampDutyLabel : 'Submit form to view'}</span>
+                {/* <span className="text-[10px] text-gray-400 font-medium block">{submittedResult ? submittedResult.stampDutyLabel : 'Submit form to view'}</span> */}
               </div>
               <div className="bg-white p-3 rounded-xl border border-gray-100 shadow-xl shadow-black/[0.005] space-y-1">
                 <span className="text-[9px] uppercase font-black tracking-wider text-gray-400 block">Registration Charges</span>
                 <p className="text-xl font-black text-[#2D2926]">&#8377;{formatResult(submittedResult?.registrationFee)}</p>
-                <span className="text-[10px] text-gray-400 font-medium block">{submittedResult ? submittedResult.registrationLabel : 'Awaiting verification'}</span>
+                {/* <span className="text-[10px] text-gray-400 font-medium block">{submittedResult ? submittedResult.registrationLabel : 'Awaiting verification'}</span> */}
               </div>
               <div className="bg-white p-3 rounded-xl border border-gray-100 shadow-xl shadow-black/[0.005] space-y-1">
                 <span className="text-[9px] uppercase font-black tracking-wider text-gray-400 block">Total Asset Outlay</span>
                 <p className="text-xl font-black text-[#2D2926]">&#8377;{formatResult(submittedResult?.totalOutlay)}</p>
-                <span className="text-[10px] text-gray-400 font-medium block">{submittedResult ? 'Value + statutory costs' : 'After successful submit'}</span>
+                {/* <span className="text-[10px] text-gray-400 font-medium block">{submittedResult ? 'Value + statutory costs' : 'After successful submit'}</span> */}
               </div>
             </div>
 
@@ -195,7 +195,7 @@ export default function StampDutyHero() {
                     <input
                       type="tel"
                       required
-                      placeholder="9876543210"
+                      placeholder="+91 XXX"
                       value={clientPhone}
                       onChange={(event) => {
                         setClientPhone(event.target.value);
@@ -302,6 +302,23 @@ export default function StampDutyHero() {
                 </button>
               </form>
             </motion.div>
+            <div className="grid lg:hidden grid-cols-1 sm:grid-cols-3 gap-4 mt-3">
+              <div className="bg-white p-3 rounded-xl border border-gray-100 shadow-xl shadow-black/[0.005] space-y-1">
+                <span className="text-[9px] uppercase font-black tracking-wider text-gray-400 block">Stamp Duty Fees</span>
+                <p className="text-xl font-black text-[#A67153]">&#8377;{formatResult(submittedResult?.stampDuty)}</p>
+                {/* <span className="text-[10px] text-gray-400 font-medium block">{submittedResult ? submittedResult.stampDutyLabel : 'Submit form to view'}</span> */}
+              </div>
+              <div className="bg-white p-3 rounded-xl border border-gray-100 shadow-xl shadow-black/[0.005] space-y-1">
+                <span className="text-[9px] uppercase font-black tracking-wider text-gray-400 block">Registration Charges</span>
+                <p className="text-xl font-black text-[#2D2926]">&#8377;{formatResult(submittedResult?.registrationFee)}</p>
+                {/* <span className="text-[10px] text-gray-400 font-medium block">{submittedResult ? submittedResult.registrationLabel : 'Awaiting verification'}</span> */}
+              </div>
+              <div className="bg-white p-3 rounded-xl border border-gray-100 shadow-xl shadow-black/[0.005] space-y-1">
+                <span className="text-[9px] uppercase font-black tracking-wider text-gray-400 block">Total Asset Outlay</span>
+                <p className="text-xl font-black text-[#2D2926]">&#8377;{formatResult(submittedResult?.totalOutlay)}</p>
+                {/* <span className="text-[10px] text-gray-400 font-medium block">{submittedResult ? 'Value + statutory costs' : 'After successful submit'}</span> */}
+              </div>
+            </div>
           </div>
         </div>
       </div>

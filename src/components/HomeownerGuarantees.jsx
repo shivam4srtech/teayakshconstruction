@@ -62,7 +62,7 @@ export default function GuaranteesSlider() {
   };
 
   return (
-    <section className="py-2 overflow-hidden">
+    <section className="py-10 pb-0 overflow-hidden">
       <div className="max-w-7xl mx-auto px-5 lg:px-16">
         
         {/* Header with Navigation */}
