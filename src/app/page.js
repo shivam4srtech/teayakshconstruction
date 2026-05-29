@@ -28,7 +28,7 @@ export default async function Home() {
         <PricingSection cities={catalog.cities} pricingTiers={catalog.pricingTiers} packageRates={catalog.packageRates}/>
         <MobilePricing cities={catalog.cities} pricingTiers={catalog.pricingTiers} packageRates={catalog.packageRates}/>
         <PhilosophySection/>
-        <TestimonialSection testimonials={testimonials}/>
+        {/* <TestimonialSection testimonials={testimonials}/> */}
         <ServicesSection/>
         <FAQSection/>
        

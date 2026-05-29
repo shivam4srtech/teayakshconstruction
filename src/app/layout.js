@@ -8,6 +8,7 @@ import Footer from '@/components/Footer';
 import MobileNavStrip from '@/components/MobileNavStrip';
 import GlobalConsultationModal from '@/components/GlobalConsultationModal';
 import VerticalFloatingButton from '@/components/VerticalFloatingButton';
+import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton';
 
 const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://trayakshconstruction.com');
 const siteName = 'TRAYAKSH Construction';
@@ -190,6 +191,18 @@ export default function RootLayout({ children }) {
         <MobileNavStrip/>
         <GlobalConsultationModal/>
         <VerticalFloatingButton/>
+        <FloatingWhatsAppButton/>
+        <Script id="zoho-salesiq-init" strategy="afterInteractive">
+          {`
+            window.$zoho = window.$zoho || {};
+            $zoho.salesiq = $zoho.salesiq || { ready: function() {} };
+          `}
+        </Script>
+        <Script
+          id="zsiqscript"
+          src="https://salesiq.zohopublic.in/widget?wc=siq54a70265c25601adc203637686bd79ec345bf4c106b7e8cf5ea06b62b3b3d16c50cdd2786506bc6ad40a1202c17fe688"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

@@ -3,35 +3,18 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Linkedin, Mail, ArrowUpRight } from 'lucide-react';
 import { FaLinkedin } from "react-icons/fa";
+import Link from 'next/link'
 
 const BOARD_MEMBERS = [
   {
-    name: "Ar. Vikram Aditya",
+    name: "Mr. Prince Mishra",
     role: "Chief Design Visionary & Founder",
-    credentials: "M.Arch, Architectural Association (AA), London",
+    credentials: "M.Tech, Architectural Association Hyderabad",
     bio: "With over 14+ years of luxury residential execution, Vikram handles master-planning, parametric framing, and spatial layouts for our ultra-luxury portfolio.",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600", // Replace with real executive portraits
+    image: "/images/founder_img.webp", // Replace with real executive portraits
     linkedin: "#",
     email: "vikram@trayaksh.com"
   },
-  {
-    name: "Er. Rajesh K. Reddy",
-    role: "Director of Structural Engineering",
-    credentials: "M.Tech (Structures), IIT Madras",
-    bio: "Rajesh commands the structural audit processes. He translates intricate designs into indestructible fortresses, ensuring all 470+ checkpoints are met on-site.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600",
-    linkedin: "#",
-    email: "rajesh@trayaksh.com"
-  },
-  {
-    name: "Ananya Deshmukh",
-    role: "Head of Interior Couture & Sourcing",
-    credentials: "B.Des, Domus Academy, Milan",
-    bio: "Ananya manages global material networks, directly coordinating hand-picked marble lots from Carrara and custom hardware fittings from Milan.",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600",
-    linkedin: "#",
-    email: "ananya@trayaksh.com"
-  }
 ];
 
 export default function DesignBoard() {
@@ -57,7 +40,7 @@ export default function DesignBoard() {
         </div>
 
         {/* Profiles Grid System */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 justify-center">
           {BOARD_MEMBERS.map((member, idx) => (
             <motion.div
               key={idx}
@@ -79,14 +62,8 @@ export default function DesignBoard() {
                 
                 {/* Micro Connect Buttons Box Overlaid on Image Hover */}
                 <div className="absolute bottom-6 right-6 flex gap-2 translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 z-10">
-                  <a 
-                    href={`mailto:${member.email}`}
-                    className="w-12 h-12 rounded-2xl bg-white text-[#2D2926] border border-gray-100 flex items-center justify-center hover:bg-[#A67153] hover:text-white transition-colors"
-                    title="Send Email"
-                  >
-                    <Mail size={16} />
-                  </a>
-                  <a 
+                  
+                  <Link
                     href={member.linkedin}
                     target="_blank" 
                     rel="noopener noreferrer"
@@ -94,7 +71,7 @@ export default function DesignBoard() {
                     title="LinkedIn Profile"
                   >
                     <FaLinkedin  size={16} />
-                  </a>
+                  </Link>
                 </div>
 
                 {/* Permanent Gradient Base Mask */}
@@ -121,7 +98,7 @@ export default function DesignBoard() {
                     {member.credentials}
                   </p>
 
-                  <p className="text-gray-500 text-sm leading-relaxed mt-5">
+                  <p className="text-gray-500 text-sm leading-relaxed mt-2">
                     {member.bio}
                   </p>
                 </div>

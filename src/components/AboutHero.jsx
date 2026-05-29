@@ -1,19 +1,63 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { Shield, Compass, Landmark } from 'lucide-react';
 
+const videoUrl = '#';
+const fallbackImageUrl = '/images/about_hero.webp';
+
+function getVideoEmbedUrl(url) {
+  const trimmedUrl = url?.trim();
+
+  if (!trimmedUrl || trimmedUrl === '#') return null;
+
+  try {
+    const parsedUrl = new URL(trimmedUrl);
+    const isShortYoutubeUrl = parsedUrl.hostname === 'youtu.be';
+    const isYoutubeUrl = parsedUrl.hostname === 'youtube.com' || parsedUrl.hostname === 'www.youtube.com';
+    const videoId = isShortYoutubeUrl ? parsedUrl.pathname.slice(1) : parsedUrl.searchParams.get('v');
+
+    if ((isShortYoutubeUrl || isYoutubeUrl) && videoId) {
+      return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
+    }
+
+    parsedUrl.searchParams.set('autoplay', '1');
+    parsedUrl.searchParams.set('muted', '1');
+    return parsedUrl.toString();
+  } catch {
+    return null;
+  }
+}
+
 export default function AboutHero() {
   const [showThumbnail, setShowThumbnail] = useState(true);
+  const iframeRef = useRef(null);
+  const embedVideoUrl = getVideoEmbedUrl(videoUrl);
+  const hasVideo = Boolean(embedVideoUrl);
+
+  const playVideo = useCallback(() => {
+    const player = iframeRef.current?.contentWindow;
+
+    if (!player) return;
+
+    player.postMessage(JSON.stringify({ event: 'command', func: 'mute', args: [] }), 'https://www.youtube.com');
+    player.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), 'https://www.youtube.com');
+  }, []);
 
   // Smoothly fade out the placeholder once the background frame warm-up completes
   useEffect(() => {
+    if (!hasVideo) return;
+
+    const playTimers = [600, 1400, 2400].map((delay) => setTimeout(playVideo, delay));
     const timer = setTimeout(() => {
       setShowThumbnail(false);
     }, 2500); // 2.5 seconds gives the YouTube stream plenty of buffer room to load behind the scenes
-    return () => clearTimeout(timer);
-  }, []);
+    return () => {
+      playTimers.forEach(clearTimeout);
+      clearTimeout(timer);
+    };
+  }, [hasVideo, playVideo]);
 
   return (
     <section className="pt-28 pb-24 bg-white text-[#2D2926] overflow-hidden">
@@ -65,7 +109,7 @@ export default function AboutHero() {
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Cinematic YouTube Frame with Instant Thumbnail Cover */}
+          {/* RIGHT COLUMN: Cinematic YouTube Frame with Image Fallback */}
           <div className="lg:col-span-6 w-full relative">
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
@@ -74,16 +118,21 @@ export default function AboutHero() {
               className="relative h-[300px] md:h-[400px] w-full rounded-[3.5rem] overflow-hidden shadow-2xl bg-black"
             >
               {/* Background Video Stream */}
-              <iframe 
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ&controls=0&showinfo=0&rel=0&modestbranding=1"
-                title="Trayaksh Cinematic Brand Reel"
-                className="w-full h-full scale-125 object-cover pointer-events-none" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              />
+              {hasVideo && (
+                <iframe 
+                  ref={iframeRef}
+                  src={embedVideoUrl}
+                  title="Trayaksh Cinematic Brand Reel"
+                  className="w-full h-full scale-125 object-cover pointer-events-none" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  onLoad={playVideo}
+                />
+              )}
 
-              {/* INSTANT PLACEHOLDER OVERLAY LAYER */}
+              {/* INSTANT PLACEHOLDER / FALLBACK IMAGE LAYER */}
               <AnimatePresence>
-                {showThumbnail && (
+                {(!hasVideo || showThumbnail) && (
                   <motion.div 
                     initial={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -91,8 +140,8 @@ export default function AboutHero() {
                     className="absolute inset-0 z-10"
                   >
                     <Image 
-                      src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200" 
-                      alt="Trayaksh Architecture Showcase Placeholder"
+                      src={fallbackImageUrl} 
+                      alt="Trayaksh Architecture Showcase"
                       fill
                       className="object-cover"
                       priority
