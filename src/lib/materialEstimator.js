@@ -41,6 +41,6 @@ export function calculateMaterialEstimate(slabArea, floors) {
   return {
     totalBuiltUpArea,
     steel: Math.round(totalBuiltUpArea * 4),
-    bricks: Math.round(totalBuiltUpArea * 32),
+    bricks: Math.round(totalBuiltUpArea * 15),
   };
 }
