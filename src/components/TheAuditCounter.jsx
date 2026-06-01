@@ -6,7 +6,7 @@ import { ClipboardCheck, ShieldAlert, Award, Hammer } from 'lucide-react';
 const COUNTERS = [
   {
     icon: <ClipboardCheck size={24} />,
-    value: 470,
+    value: 334,
     suffix: "+",
     label: "Quality Benchmarks",
     sub: "Rigorous structural and material compliance checks performed daily on-site."

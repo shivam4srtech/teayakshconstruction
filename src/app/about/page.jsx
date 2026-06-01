@@ -15,7 +15,7 @@ export default function AboutPage() {
             <AboutPhilospy/>
             <TheAuditCounter/>
             <GlobalCta/>
-            <DesignBoard/>
+            {/* <DesignBoard/> */}
         </>
     )
 }
