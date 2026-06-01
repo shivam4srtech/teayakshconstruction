@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Calculator, BookOpen, CheckCircle2, ChevronRight } from 'lucide-react';
 import { useModalStore } from '@/store/useModalStore';
+import BlogSidebar from './BlogSidebar';
 
 const SIDEBAR_ARTICLES = [
   { title: "Top 10 Vastu Tips for Modern Homes", readTime: "5 min read" },
@@ -117,55 +118,9 @@ export default function EstimatorContent() {
           {/* SIDEBAR (Right) */}
           <aside className="w-full lg:w-[350px] space-y-8">
             
-            {/* Related Articles Card */}
-            <div className="bg-[#F8F5F2] p-8 rounded-[2rem] border border-[#A67153]/10">
-              <div className="flex items-center gap-3 mb-6">
-                <BookOpen size={20} className="text-[#A67153]" />
-                <h4 className="font-bold text-[#2D2926] uppercase text-xs tracking-widest">Related Articles</h4>
-              </div>
-              <div className="space-y-6">
-                {SIDEBAR_ARTICLES.map((art, i) => (
-                  <a key={i} href="#" className="group block">
-                    <p className="text-sm font-bold text-[#2D2926] group-hover:text-[#A67153] transition-colors mb-1">{art.title}</p>
-                    <span className="text-[10px] text-gray-400 uppercase tracking-tighter">{art.readTime}</span>
-                  </a>
-                ))}
-              </div>
-              <button className="w-full mt-8 py-3 text-[10px] font-black uppercase tracking-widest text-[#A67153] border-t border-[#A67153]/10 flex items-center justify-center gap-2 hover:gap-4 transition-all">
-                View Blog <ChevronRight size={14} />
-              </button>
-            </div>
+            <BlogSidebar/>
 
-            {/* More Tools Card */}
-            <div className="bg-[#2D2926] p-8 rounded-[2rem] text-white">
-              <div className="flex items-center gap-3 mb-6">
-                <Calculator size={20} className="text-[#A67153]" />
-                <h4 className="font-bold uppercase text-xs tracking-widest">More Tools</h4>
-              </div>
-              <div className="space-y-4">
-                {SIDEBAR_TOOLS.map((tool, i) => (
-                  <div key={i} className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-[#A67153]/30 transition-all cursor-pointer group">
-                    <div className="flex justify-between items-center mb-1">
-                      <span className="text-xs font-bold">{tool.name}</span>
-                      <ArrowRight size={14} className="text-[#A67153] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
-                    </div>
-                    <p className="text-[10px] text-white/40 uppercase tracking-widest">{tool.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Sticky Ad / CTA */}
-            <div className="sticky top-10 rounded-[2rem] overflow-hidden bg-[#A67153] p-8 text-white shadow-2xl shadow-[#A67153]/20">
-               <h4 className="text-xl font-bold leading-tight mb-4">Want a Custom Structural Drawing?</h4>
-               <p className="text-white/70 text-xs mb-6">Connect with our structural engineers for a detailed feasibility report of your plot.</p>
-               <button 
-                 className="w-full py-4 bg-white text-[#2D2926] rounded-xl font-black uppercase text-[10px] tracking-widest hover:scale-105 transition-all"
-                 onClick={openModal}
-                 >
-                 Book Call
-               </button>
-            </div>
+           
 
           </aside>
 

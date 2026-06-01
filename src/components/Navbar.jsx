@@ -9,14 +9,14 @@ import { IoIosCall } from "react-icons/io";
 import { useModalStore } from '@/store/useModalStore';
 
 const navLinks = [
-  // { name: 'Projects', href: '/projects' },
+  { name: 'Projects', href: '/projects' },
   { name: 'Interiors', href: '/interior' },
   { name: 'Pharmacy Setup', href: '/pharmacy-setup' },
-  // { name: 'Floor Plans', href: '/floor-plan' },
+  { name: 'Floor Plans', href: '/floor-plan' },
   { name: 'Cost Estimator', href: '/cost-estimator' },
   { name: 'Tools', href: '/tools' },
-  { name: 'About', href: '/about' },
-  { name: 'Contact', href: '/contact' },
+  // { name: 'About', href: '/about' },
+  // { name: 'Contact', href: '/contact' },
 ];
 
 export default function Navbar() {

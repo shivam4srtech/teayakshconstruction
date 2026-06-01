@@ -142,7 +142,7 @@ export default function EstimatorHero({
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm mb-3">
               <Zap size={14} className="text-[#A67153] fill-[#A67153]" />
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#2D2926]">Instant Quotes v3.0</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#2D2926]">Instant Quotes</span>
             </div>
 
             <h1 className="text-[2.4rem] md:text-[3.8rem] font-medium leading-[1.1] mb-3 text-[#2D2926] tracking-tighter">
