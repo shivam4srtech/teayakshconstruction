@@ -117,7 +117,7 @@ export default function DetailedFloorPlanHero({ floorPlan }) {
                 >
                   <Share2 size={15} />
                 </button>
-                {plan.blueprintPdf && (
+                {/* {plan.blueprintPdf && (
                   <a
                     href={plan.blueprintPdf}
                     target="_blank"
@@ -126,7 +126,7 @@ export default function DetailedFloorPlanHero({ floorPlan }) {
                   >
                     <Download size={14} /> Download CAD Blueprints
                   </a>
-                )}
+                )} */}
               </div>
             </div>
           </div>

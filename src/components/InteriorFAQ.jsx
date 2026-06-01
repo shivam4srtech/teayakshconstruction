@@ -6,24 +6,44 @@ import { useModalStore } from '@/store/useModalStore';
 
 const FAQS = [
   {
-    question: "How long does a typical home interior project take?",
-    answer: "For a standard 3BHK, it usually takes 45–60 working days from the moment the designs are finalized. Luxury projects with custom stone work or intricate carpentry may take 75–90 days."
+    question: "What interior design services does Trayaksh Construction provide?",
+    answer: "We provide complete residential, commercial, hospital, and medical interior solutions including modular kitchens, wardrobes, false ceilings, reception areas, clinic interiors, patient rooms, lighting, space planning, furniture design, wall finishes, and turnkey interior execution."
   },
   {
-    question: "Do you offer a warranty on the furniture and fittings?",
-    answer: "Absolutely. Trayaksh offers a comprehensive 10-year warranty on all modular woodwork and a 1-year service warranty for on-site installations."
+    question: "How much does home interior work cost?",
+    answer: "Interior costs depend on the size of the space, materials, design style, and customization requirements. We provide transparent quotations tailored to your budget and preferences."
   },
   {
-    question: "Can I choose my own materials or brands?",
-    answer: "Yes! While we have curated 'Basic' and 'Premium' packages, we are a bespoke studio. You can work with our designers to select specific brands for laminates, hardware (like Hafele or Hettich), and electrical fixtures."
+    question: "Do you offer customized interior designs?",
+    answer: "Yes. Every interior project is designed according to your lifestyle, space requirements, storage needs, and design preferences."
   },
   {
-    question: "Is the 3D visualization included in the package?",
-    answer: "Every Trayaksh project starts with high-fidelity 3D renders. This ensures you see exactly what your home will look like—down to the lighting and textures—before we even buy the first piece of wood."
+    question: "How long does it take to complete interior work?",
+    answer: "The timeline depends on the scope of work and project size. Most home interior projects are completed within a few weeks to a few months."
   },
   {
-    question: "Do you handle civil work like flooring and painting?",
-    answer: "We are an end-to-end solution provider. From breaking walls for spatial planning to electrical, plumbing, false ceilings, and final deep cleaning, we manage it all."
+    question: "Do you provide modular kitchen designs?",
+    answer: "Yes. We design and install modern modular kitchens with smart storage, durable materials, and functional layouts tailored to your cooking and lifestyle needs."
+  },
+  {
+    question: "Can I choose the materials and finishes for my interiors?",
+    answer: "Absolutely. We help you select materials, colors, laminates, flooring, lighting, and finishes that match your taste and budget."
+  },
+  {
+    question: "Do you provide 3D interior design concepts before execution?",
+    answer: "Yes. We provide design concepts and visualizations so you can understand the final look and make changes before execution begins."
+  },
+  {
+    question: "How do you ensure the quality of interior work?",
+    answer: "We use quality-tested materials, experienced craftsmen, and detailed supervision to ensure premium finishing and long-lasting interiors."
+  },
+  {
+    question: "Will I receive regular updates during the project?",
+    answer: "Yes. Our team shares regular updates, progress reports, and site discussions throughout the interior execution process."
+  },
+  {
+    question: "Why should I choose Trayaksh Construction for interiors?",
+    answer: "Trayaksh Construction offers customized designs, transparent pricing, quality workmanship, timely delivery, and end-to-end interior solutions that combine functionality with modern aesthetics."
   }
 ];
 
@@ -43,7 +63,7 @@ export default function InteriorFAQ() {
                 Common <span className="font-light">Questions</span>
               </h2>
               <p className="text-gray-500 mb-6 max-w-sm leading-relaxed">
-                Everything you need to know about the Trayaksh interior experience. Can't find what you're looking for?
+                Everything you need to know about the Trayaksh interior experience. Can not find what you are looking for?
               </p>
 
               <div className="bg-[#2D2926] p-8 rounded-[2.5rem] text-white shadow-2xl">

@@ -136,7 +136,7 @@ export default function ContactConsultant() {
           </div>
 
           {/* Right Side: Multi-Step Form */}
-          <div className="lg:col-span-7 bg-white shadow-2xl p-4 lg:p-6 relative overflow-hidden min-h-[400px] flex flex-col justify-center">
+          <div className="lg:col-span-7 bg-white shadow-2xl p-4 lg:p-6 relative overflow-hidden flex flex-col justify-center gap-0">
             
             {success ? (
               /* SUCCESS STATE VIEW */

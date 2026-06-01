@@ -4,26 +4,70 @@ import { FiPlus, FiMinus } from 'react-icons/fi';
 import { HiOutlineChatBubbleLeftRight } from 'react-icons/hi2';
 import { useModalStore } from '@/store/useModalStore';
 
-const faqs = [
+const Homefaqs = [
   {
-    question: "What is the typical timeline for a luxury villa construction?",
-    answer: "A bespoke luxury villa typically takes 12 to 18 months from groundbreaking to handover. This timeline ensures meticulous attention to structural integrity, artisanal finishes, and high-end fit-outs that define a TRAYAKSH home."
+    question: "What services does Trayaksh Construction provide?",
+    answer: "Trayaksh Construction offers end-to-end construction solutions including residential construction, commercial projects, architectural planning, structural design, interior works, renovation, project management, and turnkey construction services."
   },
   {
-    question: "Do you handle medical and pharmacy setup compliance?",
-    answer: "Yes. Our medical construction vertical specialized in ISO-standard clean rooms, specialized HVAC systems for pharmacies, and healthcare-grade plumbing, ensuring all local health authority regulations are met."
+    question: "Do you provide complete turnkey construction services?",
+    answer: "Yes. We handle everything from design, approvals, material procurement, construction, quality checks, and project delivery, so you can enjoy a hassle-free building experience."
   },
   {
-    question: "Can TRAYAKSH manage both architecture and interior design?",
-    answer: "Absolutely. We offer a 'Design-Build' model where our architects and interior designers work under one roof. This prevents communication gaps and ensures the interior aesthetic is baked into the structural DNA of the building."
+    question: "How much does it cost to build a house?",
+    answer: "The cost depends on factors such as plot size, design preferences, location, materials, and finishes. We provide transparent and customized quotations after understanding your requirements."
   },
   {
-    question: "How do you ensure transparency in construction costs?",
-    answer: "We provide a detailed Bill of Quantities (BOQ) and use project management software that gives clients real-time access to procurement logs, labor milestones, and budget tracking."
+    question: "Is the construction cost fixed after the agreement?",
+    answer: "We provide detailed specifications and transparent pricing before starting the project. Any additional work or design changes requested during construction will be discussed and approved before execution."
   },
   {
-    question: "What kind of post-construction warranty do you provide?",
-    answer: "We stand by our craftsmanship. Every TRAYAKSH project comes with a structural warranty and a dedicated maintenance support period to ensure the building performs as intended for years to come."
+    question: "Do you help with house planning and design?",
+    answer: "Yes. Our team assists with architectural design, floor planning, 3D elevation concepts, structural drawings, and space optimization based on your budget and lifestyle needs."
+  },
+  {
+    question: "Can I customize the design of my home?",
+    answer: "Absolutely. Every client has different preferences, and we create customized designs that match your vision, functionality, and budget."
+  },
+  {
+    question: "What materials do you use for construction?",
+    answer: "We use quality-tested materials from trusted brands and suppliers to ensure durability, safety, and long-term value."
+  },
+  {
+    question: "How do you ensure construction quality?",
+    answer: "We follow strict quality control procedures at every stage of construction, including material checks, site supervision, structural standards, and regular inspections."
+  },
+  {
+    question: "Will I receive regular updates about my project?",
+    answer: "Yes. We provide regular progress updates on site photos/videos, and milestone reports on our app, so you stay informed throughout the construction journey."
+  },
+  {
+    question: "Do you offer interior design services?",
+    answer: "Yes. We provide interior solutions including modular kitchens, wardrobes, false ceilings, lighting, flooring, and complete home interiors."
+  },
+  {
+    question: "Can you build on a small or irregular plot?",
+    answer: "Yes. Our design and engineering team specializes in maximizing space utilization for plots of different sizes and shapes."
+  },
+  {
+    question: "Do you provide renovation and remodeling services?",
+    answer: "Yes. We undertake renovation projects for homes, offices, kitchens, bathrooms, and complete property makeovers."
+  },
+  {
+    question: "How do payment schedules work?",
+    answer: "Payments are typically linked to project milestones. This ensures transparency and allows clients to pay based on the progress of the work completed."
+  },
+  {
+    question: "What makes Trayaksh Construction different from local contractors?",
+    answer: "Unlike traditional contractors, Trayaksh Construction focuses on professional project management, transparent pricing, quality control, timely execution, and regular customer updates. We combine expert planning, skilled workmanship, and modern construction practices to deliver a smooth and reliable building experience."
+  },
+  {
+    question: "Do you provide eco-friendly or sustainable construction options?",
+    answer: "Yes. We can incorporate energy-efficient designs, sustainable materials, rainwater harvesting, and eco-friendly construction practices based on your preferences."
+  },
+  {
+    question: "How can I get started with Trayaksh Construction?",
+    answer: "Simply contact us through our website, phone, or WhatsApp to schedule a consultation. Our team will understand your requirements and guide you through the next steps."
   }
 ];
 
@@ -45,7 +89,7 @@ export default function FAQSection() {
               Expert Insights & <span className=". text-brand/80">Client Clarity.</span>
             </h2>
             <p className="text-brand-dark/50 text-sm leading-relaxed max-w-sm">
-              We believe in total transparency. If your question isn't listed here, our consultants are ready to discuss your specific project needs.
+              We believe in total transparency. If your question is not listed here, our consultants are ready to discuss your specific project needs.
             </p>
             
             <div className="md:pt-8 pt-0">
@@ -60,7 +104,7 @@ export default function FAQSection() {
 
           {/* Right Side: Accordion Grid */}
           <div className="lg:col-span-7 space-y-4">
-            {faqs.map((faq, index) => {
+            {Homefaqs.map((faq, index) => {
               const isOpen = openIndex === index;
               return (
                 <div 

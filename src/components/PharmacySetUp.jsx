@@ -47,6 +47,57 @@ const PACKAGES = [
   { name: "Premium Pharmacy", area: "800+ sq.ft.", features: ["Luxury Interiors", "Consultation Room", "Advanced Branding", "Full Turnkey"] },
 ];
 
+const PHARMACY_FAQS = [
+  {
+    question: "Do you provide racks and counters?",
+    answer: "Yes, we provide end-to-end furniture including modular medicine racks, billing counters, and storage cabinets."
+  },
+  {
+    question: "Do you help with pharmacy layout planning?",
+    answer: "Yes, we provide professional 2D and 3D layout plans that optimize your store space for customer flow and regulatory requirements."
+  },
+  {
+    question: "What pharmacy setup services does Trayaksh Construction provide?",
+    answer: "We provide complete pharmacy setup solutions, including pharmacy interior design, medical store layout planning, storage systems, counters, shelving, branding, and turnkey execution."
+  },
+  {
+    question: "Can you design both retail and hospital pharmacies?",
+    answer: "Yes. We design and execute retail medical stores, hospital pharmacies, clinic pharmacies, and healthcare retail spaces with efficient layouts and professional interiors."
+  },
+  {
+    question: "Do you provide customised pharmacy designs",
+    answer: "Absolutely. Every pharmacy is designed based on your available space, product categories, customer flow, storage requirements, and branding preferences."
+  },
+  {
+    question: "How much does a pharmacy setup cost?",
+    answer: "The cost depends on the pharmacy size, interior specifications, storage systems, materials, and customize requirements. We provide transparent quotations tailored to your needs and budget."
+  },
+  {
+    question: "How long does it take to complete a pharmacy setup?",
+    answer: "The timeline varies depending on the project scope and design complexity. Most pharmacy interior projects are completed within 12 days after finalizing the design and materials."
+  },
+  {
+    question: "Do you help with pharmacy space planning and storage optimization?",
+    answer: "Yes. We create smart layouts that improve medicine storage, staff movement, customer experience, and operational efficiency while maximizing available space."
+  },
+  {
+    question: "Can you create modern and professional pharmacy interiors?",
+    answer: "Yes. We design modern pharmacy interiors with organized shelving, clean aesthetics, waiting areas, and customer-friendly layouts."
+  },
+  {
+    question: "What materials do you use for pharmacy interiors?",
+    answer: "We use durable, easy-to-maintain, and quality-tested materials suitable for healthcare and retail environments to ensure long-lasting performance and hygiene."
+  },
+  {
+    question: "Will I receive updates during the pharmacy setup project?",
+    answer: "Yes. We provide regular project updates, progress reports, and site coordination throughout the execution process."
+  },
+  {
+    question: "Why should I choose Trayaksh Construction for pharmacy setup?",
+    answer: "Trayaksh Construction combines functional planning, quality execution, transparent pricing, timely delivery, and customized healthcare interior solutions to help create efficient and professional pharmacy spaces."
+  }
+];
+
 // --- COMPONENTS ---
 
 const SectionHeading = ({ badge, title, sub }) => (
@@ -375,25 +426,20 @@ export default function PharmacySetupPage() {
         <div className="max-w-3xl mx-auto px-5">
           <SectionHeading badge="Support" title="Frequently Asked Questions" />
           <div className="space-y-4">
-            {[
-              { q: "Do you help with pharmacy layout planning?", a: "Yes, we provide professional 2D and 3D layout plans that optimize your store space for customer flow and regulatory requirements." },
-              { q: "Are your designs FDA and Drug License compliant?", a: "Our team designs layouts specifically to meet Drug License requirements, including storage height, and counseling zones." },
-              { q: "Can you set up a pharmacy in a small space?", a: "Definitely. We specialize in space-optimization and custom modular racks that maximize storage even in 100-200 sq.ft. areas." },
-              { q: "Do you provide racks and counters?", a: "Yes, we provide end-to-end furniture including modular medicine racks, billing counters, and storage cabinets." },
-            ].map((faq, i) => (
+            {PHARMACY_FAQS.map((faq, i) => (
               <div key={i} className="border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
                 <button 
                   onClick={() => setActiveFaq(activeFaq === i ? null : i)}
                   className="w-full flex items-center justify-between p-6 text-left bg-white hover:bg-[#F8F5F2] transition-all"
                 >
-                  <span className="font-bold text-[#2D2926] uppercase text-xs tracking-widest">{faq.q}</span>
+                  <span className="font-bold text-[#2D2926] uppercase text-xs tracking-widest">{faq.question}</span>
                   {activeFaq === i ? <Minus size={16} /> : <Plus size={16} />}
                 </button>
                 <AnimatePresence>
                   {activeFaq === i && (
                     <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden">
                       <div className="p-6 bg-[#F8F5F2]/50 text-gray-500 text-sm border-t border-gray-100 leading-relaxed">
-                        {faq.a}
+                        {faq.answer}
                       </div>
                     </motion.div>
                   )}
@@ -408,7 +454,7 @@ export default function PharmacySetupPage() {
       <section className="md:py-20 py-12 bg-[#A67153]">
         <div className="max-w-7xl mx-auto px-5 lg:px-16 text-center">
           <h2 className="text-3xl lg:text-5xl font-medium text-white mb-8">Planning to Start a Pharmacy?</h2>
-          <p className="text-white/80 mb-12 max-w-2xl mx-auto font-medium">Let's build a compliant, modern, and profitable medical store today. Our experts are ready to guide you.</p>
+          <p className="text-white/80 mb-12 max-w-2xl mx-auto font-medium">Let us build a compliant, modern, and profitable medical store today. Our experts are ready to guide you.</p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button 
               onClick={openModal}
