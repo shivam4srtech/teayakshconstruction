@@ -12,6 +12,7 @@ import {
   Store, Users, ChevronRight, Phone, Mail, MapPin, 
   ArrowRight, HardHat, FileCheck, Layers
 } from 'lucide-react';
+import GlobalCta from './GlobalCta';
 
 
 const TRUST_BADGES = [
@@ -25,7 +26,7 @@ const SERVICES = [
   { title: "Pharmacy Interior Design", icon: <Layout />, desc: "Complete 3D visualization and floor planning for maximum efficiency." },
   { title: "Medicine Rack Design", icon: <Layers />, desc: "Ergonomic, modular racks designed for high-density storage and easy retrieval." },
   { title: "Billing Counter Setup", icon: <Monitor />, desc: "Sleek, integrated POS counters with concealed wiring and storage." },
-  { title: "Storage & Inventory", icon: <Package />, desc: "Organized back-office storage and cold-chain (fridge) integration zones." },
+  { title: "Storage ", icon: <Package />, desc: "Organized back-office storage" },
   { title: "Electrical & Lighting", icon: <Lightbulb />, desc: "Anti-glare clinical lighting and UPS/Inverter ready electrical wiring." },
   { title: "Branding & Signage", icon: <Store />, desc: "Premium 3D glow-sign boards and interior category branding." },
   { title: "Flooring & Ceiling", icon: <Layers />, desc: "Medical-grade anti-bacterial flooring and modern false ceilings." },
@@ -43,7 +44,7 @@ const STEPS = [
 const PACKAGES = [
   { name: "Small Setup", area: "100 - 300 sq.ft.", features: ["Modular Racks", "Single Billing Counter", "Basic Lighting", "Signage"] },
   { name: "Medium Store", area: "300 - 800 sq.ft.", features: ["Premium Shelving", "Dual Counters", "Storage Cabinets", "False Ceiling", "FDA Guidance"] },
-  { name: "Premium Pharmacy", area: "800+ sq.ft.", features: ["Luxury Interiors", "Consultation Room", "Cold Storage Zone", "Advanced Branding", "Full Turnkey"] },
+  { name: "Premium Pharmacy", area: "800+ sq.ft.", features: ["Luxury Interiors", "Consultation Room", "Advanced Branding", "Full Turnkey"] },
 ];
 
 // --- COMPONENTS ---
@@ -88,7 +89,7 @@ export default function PharmacySetupPage() {
     {/* The Gradient Shield: 
       Darker on mobile for readability, then transitions to a clean fade on desktop 
     */}
-    <div className="absolute inset-0 bg-gradient-to-r from-[#F8F5F2] via-[#F8F5F2]/95 md:via-[#F8F5F2]/80 to-transparent" />
+    <div className="absolute inset-0 bg-gradient-to-r from-[#F8F5F2] via-[#F8F5F2]/95 " />
   </div>
 
   <div className="max-w-7xl mx-auto px-5 lg:px-16 relative z-10 w-full pt-12 pb-10 lg:pt-28 lg:pb-20">
@@ -263,7 +264,6 @@ export default function PharmacySetupPage() {
               <div className="space-y-4">
                 {[
                   { t: "Categorization", d: "Strict segregation for Schedule H, Narcotics, and FMCG zones." },
-                  { t: "Cold Chain", d: "Dedicated, ventilated zones for refrigerators and vaccines." },
                   { t: "Pharmacist Area", d: "Mandatory counseling and dispensing space planning." },
                   { t: "Material Specs", d: "Non-reactive, easy-to-clean shelves and anti-bacterial surfaces." }
                 ].map((item, i) => (
@@ -327,7 +327,8 @@ export default function PharmacySetupPage() {
       </section>
 
       {/* 9. LEAD CAPTURE FORM */}
-      <section className="md:py-24 py-16 bg-[#F8F5F2]">
+      <GlobalCta/>
+      {/* <section className="md:py-24 py-16 bg-[#F8F5F2]">
         <div className="max-w-7xl mx-auto px-5 lg:px-16">
           <div className="bg-white rounded-[3rem] shadow-2xl flex flex-col lg:flex-row overflow-hidden border border-white">
             <div className="lg:w-1/3 bg-[#2D2926] md:p-12 p-6 text-white">
@@ -367,7 +368,7 @@ export default function PharmacySetupPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* 10. FAQ SECTION */}
       <section className="py-10 bg-white">
@@ -376,7 +377,7 @@ export default function PharmacySetupPage() {
           <div className="space-y-4">
             {[
               { q: "Do you help with pharmacy layout planning?", a: "Yes, we provide professional 2D and 3D layout plans that optimize your store space for customer flow and regulatory requirements." },
-              { q: "Are your designs FDA and Drug License compliant?", a: "Our team designs layouts specifically to meet Drug License requirements, including storage height, cold storage ventilation, and counseling zones." },
+              { q: "Are your designs FDA and Drug License compliant?", a: "Our team designs layouts specifically to meet Drug License requirements, including storage height, and counseling zones." },
               { q: "Can you set up a pharmacy in a small space?", a: "Definitely. We specialize in space-optimization and custom modular racks that maximize storage even in 100-200 sq.ft. areas." },
               { q: "Do you provide racks and counters?", a: "Yes, we provide end-to-end furniture including modular medicine racks, billing counters, and storage cabinets." },
             ].map((faq, i) => (

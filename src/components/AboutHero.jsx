@@ -90,7 +90,7 @@ export default function AboutHero() {
                   <Shield size={14} />
                   <span className="text-[9px] font-black uppercase tracking-wider text-gray-400">Shield</span>
                 </div>
-                <p className="text-xs font-bold leading-tight">470+ Quality Checkpoints</p>
+                <p className="text-xs font-bold leading-tight">334+ Quality Checkpoints</p>
               </div>
               <div className="space-y-2">
                 <div className="flex items-center gap-1.5 text-[#A67153]">

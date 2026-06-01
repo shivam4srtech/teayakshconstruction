@@ -44,13 +44,13 @@ const QUALITY_STEPS = [
     detail: "Zero-Leakage Assurance"
   },
   {
-    title: "7nd Stage Waterproofing",
+    title: "7th Stage Waterproofing",
     desc: "Not just one layer—seven. We treat every wet area with a multi-coat specialized polymer membrane.",
     icon: <CheckCircle2 />,
     detail: "10-Year Seepage Warranty"
   },
   {
-    title: "Final 400-Point Inspection",
+    title: "Final 334-Point Inspection",
     desc: "Before handover, our QC head walks through with a 400-point checklist covering everything from paint finish to socket earthing.",
     icon: <HardHat />,
     detail: "White-Glove Handover"

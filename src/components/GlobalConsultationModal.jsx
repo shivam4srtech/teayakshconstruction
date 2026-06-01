@@ -105,7 +105,7 @@ export default function GlobalConsultationModal() {
 
                 <div className="space-y-6">
                   {[
-                    { icon: <ShieldCheck size={18} />, txt: "470+ Quality Checks" },
+                    { icon: <ShieldCheck size={18} />, txt: "334+ Quality Checks" },
                     { icon: <Building2 size={18} />, txt: "Transparent Pricing" },
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-white/80">

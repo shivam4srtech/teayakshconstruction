@@ -5,12 +5,13 @@ import { TfiWrite } from "react-icons/tfi";
 import { MdOutlineSpatialTracking } from "react-icons/md";
 import { PiHandshake } from "react-icons/pi";
 import { FaWpforms } from "react-icons/fa";
+import { useModalStore } from '@/store/useModalStore';
 
 const steps = [
   {
     number: "01",
     title: "Fill Form & Meet Expert",
-    desc: "Fill a quick form, and our team will call you within 20 minutes. Then meet our expert and architect to discuss your needs and get an initial price estimate.",
+    desc: "Pay a small token amount to confirm your booking. We will then survey your site, conduct tests, and create drawings and 3D models for your review.",
     icon: <FaWpforms className="text-3xl" />,
   },
   {
@@ -34,12 +35,13 @@ const steps = [
   {
     number: "05",
     title: "Delivered with Warranty",
-    desc: "After final inspections, your home is handed over with a 10-year warranty for complete peace of mind.",
+    desc: "After final inspections, your project is handed over after thorough quality checks and completion standards are met.",
     icon: <PiHandshake className="text-3xl" />,
   },
 ];
 
 export default function PhilosophySection() {
+  const openModal = useModalStore((state) => state.openModal);
   return (
     <section className="relative bg-brand-light py-10 lg:py-20 overflow-hidden">
       {/* Ghost Background Text */}
@@ -109,7 +111,9 @@ export default function PhilosophySection() {
 
         {/* Final CTA within Timeline */}
         <div className="md:mt-12 mt-4 text-center">
-          <button className="bg-brand-dark text-white px-12 py-5 text-[11px] font-sans font-bold uppercase tracking-[0.2em] hover:bg-brand transition-all cursor-pointer shadow-2xl">
+          <button
+            onClick={openModal}
+            className="bg-brand-dark text-white px-12 py-5 text-[11px] font-sans font-bold uppercase tracking-[0.2em] hover:bg-brand transition-all cursor-pointer shadow-2xl">
             Start Your Journey
           </button>
         </div>

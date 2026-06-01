@@ -19,7 +19,7 @@ const PROCESS_STEPS = [
   },
   {
     title: "Precision Execution",
-    desc: "The heavy lifting begins. Our on-site team executes the design with 470+ quality checks at every structural milestone.",
+    desc: "The heavy lifting begins. Our on-site team executes the design with 334+ Quality checks at every structural milestone.",
     icon: <Hammer size={20} />,
     image: "/interior/image25.jpg"
   },

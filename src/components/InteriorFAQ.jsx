@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus, MessageCircle, PhoneCall } from 'lucide-react';
+import { useModalStore } from '@/store/useModalStore';
 
 const FAQS = [
   {
@@ -28,7 +29,7 @@ const FAQS = [
 
 export default function InteriorFAQ() {
   const [activeIndex, setActiveIndex] = useState(null);
-
+  const openModal = useModalStore((state) => state.openModal);
   return (
     <section className="py-10 bg-[#F8F5F2]">
       <div className="max-w-7xl mx-auto px-5 lg:px-16">
@@ -48,17 +49,19 @@ export default function InteriorFAQ() {
               <div className="bg-[#2D2926] p-8 rounded-[2.5rem] text-white shadow-2xl">
                 <p className="text-xl font-bold mb-6">Still have doubts?</p>
                 <div className="space-y-4">
-                  <a href="tel:+910000000000" className="flex items-center gap-4 group">
+                  <a href="tel:+918885499322" className="flex items-center gap-4 group">
                     <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[#A67153] transition-all">
                       <PhoneCall size={18} />
                     </div>
                     <div>
                       <p className="text-[10px] text-white/50 uppercase tracking-widest">Call Expert</p>
-                      <p className="text-sm font-bold">+91 99999 88888</p>
+                      <p className="text-sm font-bold">+91 88854 99322</p>
                     </div>
                   </a>
-                  <button className="w-full mt-4 py-4 bg-[#A67153] rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-white hover:text-[#2D2926] transition-all flex items-center justify-center gap-2">
-                    <MessageCircle size={14} /> WhatsApp Us
+                  <button 
+                   onClick={openModal}
+                    className="w-full mt-4 py-4 bg-[#A67153] rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-white hover:text-[#2D2926] transition-all flex items-center justify-center gap-2">
+                    <MessageCircle size={14} /> Chat With Expert
                   </button>
                 </div>
               </div>

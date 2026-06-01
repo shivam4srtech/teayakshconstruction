@@ -11,9 +11,9 @@ export default function InteriorVirtualTour() {
   const [activeView, setActiveView] = useState('Living');
 
   const views = {
-    Living: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1974&auto=format&fit=crop",
-    Kitchen: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=2070&auto=format&fit=crop",
-    Bedroom: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?q=80&w=2080&auto=format&fit=crop"
+    Living: "/images/interior-1.avif",
+    Kitchen: "/images/kitchen-1.avif",
+    Bedroom: "/images/bedroom-1.avif"
   };
  const openModal = useModalStore((state) => state.openModal); 
   return (
@@ -45,26 +45,14 @@ export default function InteriorVirtualTour() {
                 transition={{ duration: 1 }}
                 src={views[activeView]}
                 className="w-full h-full object-cover opacity-80"
+                loading='lazy'
                 alt="Virtual Tour"
               />
             </AnimatePresence>
 
             {/* Overlay UI Elements */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
-            
-            {/* 360 Badge */}
-            <div className="absolute top-8 left-8 flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full text-white text-[10px] font-bold uppercase tracking-widest">
-              <RotateCcw size={14} className="animate-spin-slow" />
-              360° Perspective Active
-            </div>
-
-            {/* Hotspots (Decorative for UI feel) */}
-            <motion.button 
-              whileHover={{ scale: 1.2 }}
-              className="absolute top-1/2 left-1/3 w-8 h-8 rounded-full bg-[#A67153] flex items-center justify-center text-white shadow-lg border-4 border-white/20"
-            >
-              <Info size={14} />
-            </motion.button>
+          
 
             {/* View Controls Overlay */}
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center md:gap-4 gap-2 bg-[#2D2926]/80 backdrop-blur-xl p-2 rounded-2xl border border-white/10">

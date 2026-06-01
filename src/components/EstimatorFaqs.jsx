@@ -28,7 +28,7 @@ const FAQ_DATA = [
   },
   {
     q: "What kind of quality checks can I expect on-site?",
-    a: "Quality isn't a goal; it's our standard. Trayaksh Construction implements a rigorous multi-point quality assessment system. This includes over 470+ distinct checks performed at every stage—from foundation pouring to the final coat of paint—ensuring your home stands strong for generations."
+    a: "Quality isn't a goal; it's our standard. Trayaksh Construction implements a rigorous multi-point quality assessment system. This includes over 334+ distinct checks performed at every stage—from foundation pouring to the final coat of paint—ensuring your home stands strong for generations."
   },
   {
     q: "What if I want a specific brand of tiles or paint not in your list?",

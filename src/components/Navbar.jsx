@@ -103,7 +103,7 @@ export default function Navbar() {
 
             {/* Mobile Calling Button with Pulse Animation */}
             <a 
-              href="tel:+918886060442"
+              href="tel:+918885499322"
               className="lg:hidden relative w-11 h-11 flex items-center justify-center rounded-full bg-brand text-white shadow-lg"
             >
               <div className="pulse-ring" style={{ animationDelay: '0s' }}></div>

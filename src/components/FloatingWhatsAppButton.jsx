@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
 
 export default function FloatingWhatsAppButton() {
-  const WHATSAPP_NUMBER = "918886060442"; // International country code added for direct API routing
+  const WHATSAPP_NUMBER = "918885499322"; // International country code added for direct API routing
   const PRE_FILLED_TEXT = "Hello Trayaksh Studio, I am exploring your design toolkits and want to discuss a custom construction project.";
   
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(PRE_FILLED_TEXT)}`;
@@ -34,7 +34,7 @@ export default function FloatingWhatsAppButton() {
 
         {/* Desktop Slide-out Label Text */}
         <span className="max-w-0 overflow-hidden md:group-hover:max-w-xs font-bold text-[11px] uppercase tracking-widest whitespace-nowrap opacity-0 md:group-hover:opacity-100 transition-all duration-500 ease-in-out">
-          Chat With Architects
+          CHAT WITH EXPERTS
         </span>
       </motion.a>
     </div>

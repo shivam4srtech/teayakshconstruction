@@ -16,7 +16,7 @@ const navItems = [
   { name: 'Home', href: '/', icon: IoHomeOutline },
   // { name: 'Projects', href: '/projects', icon: IoBusinessOutline },
   { name: 'Tools & Calculator', href: '/tools', icon: FaTools  },
-  { name: 'Call', href: 'tel:+918886060442', isCenter: true },
+  { name: 'Call', href: 'tel:+918885499322', isCenter: true },
   { name: 'Estimate', href: '/cost-estimator', icon: IoCalculatorOutline },
   // { name: 'Plans', href: '/floor-plan', icon: IoLayersOutline },
   { name: 'Connect Expert', href: '/contact', icon: FaUserTie },

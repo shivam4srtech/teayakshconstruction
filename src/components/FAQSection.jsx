@@ -53,7 +53,7 @@ export default function FAQSection() {
                  onClick={openModal}
                  className="flex items-center gap-3 bg-brand-dark text-white px-8 py-4 text-[10px] font-bold uppercase tracking-widest hover:bg-brand transition-all duration-300 shadow-xl">
                 <HiOutlineChatBubbleLeftRight size={18} />
-                Ask a Specific Question
+                CHAT WITH EXPERTS
               </button>
             </div>
           </div>
@@ -73,7 +73,7 @@ export default function FAQSection() {
                     onClick={() => setOpenIndex(isOpen ? null : index)}
                     className="w-full py-3 md:py-5 py-2 md:px-4 px-0 flex items-center justify-between text-left group cursor-pointer"
                   >
-                    <span className={`text-[.9rem] lg:text-xl font-medium tracking-tight transition-colors duration-300 ${
+                    <span className={`text-[.9rem] lg:text-lg font-medium tracking-tight transition-colors duration-300 ${
                       isOpen ? 'text-brand' : 'text-brand-dark'
                     }`}>
                       {faq.question}

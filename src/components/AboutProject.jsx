@@ -71,7 +71,7 @@ export default function AboutProject({ project }) {
             {/* Quality Seals */}
             <div className="pt-3 border-t border-gray-200/60 flex items-center gap-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
               <ShieldCheck size={18} className="text-[#A67153]" /> 
-              <span>Trayaksh 470+ Quality Check Certified</span>
+              <span>Trayaksh 334+ Quality Check Certified</span>
             </div>
           </div>
 

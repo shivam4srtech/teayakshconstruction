@@ -75,7 +75,7 @@ export default function CalculatorCTA() {
                       <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-[#2D2926]">
                         <Calculator size={20} />
                       </div>
-                      <span className="text-white font-bold text-sm tracking-widest">ESTIMATOR v2.0</span>
+                      <span className="text-white font-bold text-sm tracking-widest">ESTIMATOR</span>
                     </div>
                     <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
                   </div>
@@ -126,7 +126,7 @@ export default function CalculatorCTA() {
                 transition={{ repeat: Infinity, duration: 3 }}
                 className="absolute -top-6 md:-right-6 -right-1 bg-white p-4 rounded-2xl shadow-xl"
               >
-                <p className="text-[10px] font-black text-[#A67153]">ACCURATE</p>
+                <p className="text-[10px] font-black text-[#A67153]">Approximate</p>
               </motion.div>
             </motion.div>
 
