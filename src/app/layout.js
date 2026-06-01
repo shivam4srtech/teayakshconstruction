@@ -191,7 +191,7 @@ export default function RootLayout({ children }) {
         <Footer/>
         <MobileNavStrip/>
         <GlobalConsultationModal/>
-        <VerticalFloatingButton/>
+        {/* <VerticalFloatingButton/> */}
         <FloatingWhatsAppButton/>
         <CookieConsentPopup/>
         <Script id="zoho-salesiq-init" strategy="afterInteractive">
