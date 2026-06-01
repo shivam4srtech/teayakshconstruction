@@ -18,7 +18,7 @@ function getApiHeaders() {
   };
 }
 
-async function fetchApi(path, { allowNotFound = false, revalidate = 3600, cache = undefined } = {}) {
+async function fetchApi(path, { allowNotFound = false, revalidate = 60, cache = undefined } = {}) {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     headers: getApiHeaders(),
     ...(cache ? { cache } : { next: { revalidate } }),
