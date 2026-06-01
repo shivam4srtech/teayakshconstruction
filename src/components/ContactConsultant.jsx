@@ -80,7 +80,7 @@ export default function ContactConsultant() {
         <div className="grid lg:grid-cols-12 gap-8">
           
           {/* Left Side: Contact Info */}
-          <div className="lg:col-span-5 space-y-10">
+          <div className="lg:col-span-6 space-y-10">
             <div className="space-y-4">
               <p className="text-brand font-bold text-[10px] tracking-[0.4em] uppercase border-l-2 border-brand pl-4">
                 Get Started
@@ -136,7 +136,7 @@ export default function ContactConsultant() {
           </div>
 
           {/* Right Side: Multi-Step Form */}
-          <div className="lg:col-span-7 bg-white shadow-2xl p-4 lg:p-6 relative overflow-hidden flex flex-col justify-center gap-0">
+          <div className="lg:col-span-6 bg-white shadow-2xl p-4 lg:p-6 relative overflow-hidden flex flex-col justify-center gap-0">
             
             {success ? (
               /* SUCCESS STATE VIEW */
