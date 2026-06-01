@@ -19,7 +19,7 @@ export default function FloatingWhatsAppButton() {
   }, []);
 
   return (
-    <div className="fixed md:bottom-18 bottom-36 md:right-3 right-4 z-99 pointer-events-auto font-sans">
+    <div className="fixed md:bottom-18 bottom-36 md:right-3 right-4 z-[999] pointer-events-auto font-sans">
       <motion.a
         href={whatsappUrl}
         target="_blank"

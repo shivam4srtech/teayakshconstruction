@@ -5,11 +5,7 @@ import { headers } from 'next/headers';
 import Script from 'next/script';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import MobileNavStrip from '@/components/MobileNavStrip';
-import GlobalConsultationModal from '@/components/GlobalConsultationModal';
-import VerticalFloatingButton from '@/components/VerticalFloatingButton';
-import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton';
-import CookieConsentPopup from '@/components/CookieConsentPopup';
+import UtilityProvider from '@/components/UtilityProvider';
 
 const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://trayakshconstruction.com');
 const siteName = 'TRAYAKSH Construction';
@@ -189,11 +185,7 @@ export default function RootLayout({ children }) {
         <Navbar/>
         {children}
         <Footer/>
-        <MobileNavStrip/>
-        <GlobalConsultationModal/>
-        {/* <VerticalFloatingButton/> */}
-        <FloatingWhatsAppButton/>
-        <CookieConsentPopup/>
+        <UtilityProvider/>
         <Script id="zoho-salesiq-init" strategy="afterInteractive">
           {`
             window.$zoho = window.$zoho || {};
