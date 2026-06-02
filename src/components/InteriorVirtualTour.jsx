@@ -12,7 +12,7 @@ export default function InteriorVirtualTour() {
 
   const views = {
     Living: "/images/interior-1.avif",
-    Kitchen: "/images/kitchen-1.avif",
+    Kitchen: "/interior/image29.jpg",
     Bedroom: "/images/bedroom-1.avif"
   };
  const openModal = useModalStore((state) => state.openModal); 

@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 import { IoHomeOutline, IoHammerOutline, IoCalendarOutline, IoPeopleOutline } from 'react-icons/io5';
 
 const stats = [
-  { label: 'Completed', value: '150+', suffix: 'Handovers', icon: <IoHomeOutline /> },
-  { label: 'Live Sites', value: '45', suffix: 'Ongoing', icon: <IoHammerOutline /> },
-  { label: 'Experience', value: '12', suffix: 'Years', icon: <IoCalendarOutline /> },
-  { label: 'Happy Families', value: '2k+', suffix: 'Trust', icon: <IoPeopleOutline /> },
+  { label: 'Completed', value: '35+', suffix: 'Handovers', icon: <IoHomeOutline /> },
+  { label: 'Live Sites', value: '15', suffix: 'Ongoing', icon: <IoHammerOutline /> },
+  { label: 'Experience', value: '5', suffix: 'Years', icon: <IoCalendarOutline /> },
+  { label: 'Happy Families', value: '750+', suffix: 'Trust', icon: <IoPeopleOutline /> },
 ];
 
 export default function SymmetricalStatsGrid() {

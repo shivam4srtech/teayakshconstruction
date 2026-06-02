@@ -10,6 +10,11 @@ const MATERIALS = [
   { id: 3, name: "Brushed Champagne", category: "Hardware", desc: "Custom PVD coated fixtures and handles.", src: "/interior/image4.jpg" },
   { id: 4, name: "Fluted Charcoal", category: "Wall Paneling", desc: "Architectural louvers for acoustic depth.", src: "/interior/image12.jpg" },
   { id: 5, name: "Artisanal Terrazzo", category: "Surfaces", desc: "Hand-poured chips in a seamless resin base.", src: "/interior/image16.jpg" },
+  { id: 6, name: "Honed Basalt", category: "Flooring", desc: "Dense volcanic stone with a matte, non-slip finish.", src: "/interior/image17.jpg" },
+  { id: 7, name: "Patina Brass", category: "Hardware", desc: "Aged living finish that develops character over time.", src: "/interior/image18.jpg" },
+
+  { id: 9, name: "Linen Weave", category: "Textiles", desc: "Belgian linen blend for upholstery and drapery.", src: "/interior/image20.jpg" },
+  { id: 10, name: "Cinder Block Glazed", category: "Wall Paneling", desc: "Rectified porcelain in a structural brick format.", src: "/interior/image21.jpg" }
 ];
 
 export default function MaterialCarousel() {
