@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Calculator } from "lucide-react";
 
 const SIDEBAR_TOOLS = [
-  { name: "Home Loan EMI Calculator", desc: "Estimat", url: "home-loan-emi-calculator" },
+  { name: "Home Loan EMI Calculator", desc: "Estimate", url: "home-loan-emi-calculator" },
   { name: "Cost Estimator", desc: "Get construction estimate", url: "cost-estimator" },
   { name: "Material Estimator", desc: "calculate steel and brick quantities", url: "building-material-estimator" },
   { name: "Brick Calculator", desc: "calculate  brick quantities", url: "building-material-estimator" },

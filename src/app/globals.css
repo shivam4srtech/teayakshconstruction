@@ -136,7 +136,9 @@ input[type=number] {
     background: #F8F5F2;
   }
 
- 
+ .pharmacy_pricing ul li:last-child{
+  margin-bottom: 5.5rem;
+ }
 
   @media (max-width: 767px) {
     #zsiq_float,

@@ -42,9 +42,9 @@ const STEPS = [
 ];
 
 const PACKAGES = [
-  { name: "Small Setup", area: "100 - 300 sq.ft.", features: ["Modular Racks", "Single Billing Counter", "Basic Lighting", "Signage"] },
-  { name: "Medium Store", area: "300 - 800 sq.ft.", features: ["Premium Shelving", "Dual Counters", "Storage Cabinets", "False Ceiling", "FDA Guidance"] },
-  { name: "Premium Pharmacy", area: "800+ sq.ft.", features: ["Luxury Interiors", "Consultation Room", "Advanced Branding", "Full Turnkey"] },
+  { name: "Basic", area: "₹1519", features: ["Modular Medicine Storage Racks", "Billing Counter", "Storage Drawers", "Laminated Modular finish", "Edge Band finish", "Island", "Vinyl Flooring", "Pharmacy Box"] },
+  { name: "Premium", area: "₹1749", features: ["Modular Medicine Storage Racks", "Shutter Cabinets", "Billing Counter with glass provision", "Storage drawers", "Laminated Modular finish", "Edge Band finish", "island with Glass Partition", "Vinyl flooring", "Open Shelves", "Pharmacy Box", "Profile light provision in Counter only"] },
+  { name: "Luxury", area: "₹1939", features: ["Modular Medicine Storage Racks", "Glass Shutter Cabinets", "Billing and cash counter with glass partition and granite counter top", "Storage drawers", "Laminated Modular finish", "Edge Band finish", "island with Glass Partition", "Wall Panelling", "Vinyl Flooring", "Open Shelves", "Pharmacy Box with Cap", "Profile Light Provision in racks and counter "] },
 ];
 
 const PHARMACY_FAQS = [
@@ -357,18 +357,21 @@ export default function PharmacySetupPage() {
           <SectionHeading badge="Estimates" title="Setup Options" />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {PACKAGES.map((pkg, i) => (
-              <div key={i} className={`p-10 rounded-[2.5rem] border ${i === 1 ? 'bg-[#F8F5F2] border-[#A67153]' : 'bg-white border-gray-100'} shadow-sm relative overflow-hidden group hover:shadow-2xl transition-all duration-500`}>
+              <div key={i} className={` pharmacy_pricing p-5 rounded-[1rem] relative border ${i === 1 ? 'bg-[#F8F5F2] border-[#A67153]' : 'bg-white border-gray-100'} shadow-sm relative overflow-hidden group hover:shadow-2xl transition-all duration-500`}>
                 <h3 className="text-2xl font-medium mb-2">{pkg.name}</h3>
-                <p className="text-[#A67153] font-bold text-sm mb-8 uppercase tracking-widest">{pkg.area}</p>
+                <p className="text-[#A67153] font-bold text-sm mb-4 uppercase tracking-widest">{pkg.area}/sqft.</p>
                 <ul className="space-y-4 mb-10">
                   {pkg.features.map((f, j) => (
-                    <li key={j} className="flex items-center gap-3 text-sm text-gray-600">
-                      <CheckCircle2 size={16} className="text-[#A67153]" />
+                    <li key={j} className="flex items-center gap-3 text-sm text-gray-600 ">
+                      <CheckCircle2 size={16} className="text-[#A67153] shrink-0" />
                       {f}
                     </li>
                   ))}
                 </ul>
-                <button className="w-full py-4 bg-[#2D2926] text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-[#A67153] transition-colors">
+                <div className='mt-10'></div>
+                <button 
+                  onClick={openModal}
+                  className="absolute bottom-10 left-0 right-0 w-[90%] block mx-auto py-4 bg-[#2D2926] text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-[#A67153] transition-colors ">
                   Get Quote
                 </button>
               </div>
