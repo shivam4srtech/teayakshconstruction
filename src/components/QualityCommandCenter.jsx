@@ -50,8 +50,8 @@ const QUALITY_STEPS = [
     detail: "10-Year Seepage Warranty"
   },
   {
-    title: "Final 334-Point Inspection",
-    desc: "Before handover, our QC head walks through with a 400-point checklist covering everything from paint finish to socket earthing.",
+    title: "Final 334 Point Inspection",
+    desc: "Before handover, our QC head walks through with a 334 point checklist covering everything from paint finish to socket earthing.",
     icon: <HardHat />,
     detail: "White-Glove Handover"
   }
@@ -79,7 +79,7 @@ export default function QualityCommandCenter() {
           
           
           <h2 className="text-xl lg:text-4xl font-medium text-[#2D2926] leading-tight tracking-tighter text-center">
-            334+ QASCON <span className=" font-light text-[#A67153]">Quality Test.</span>
+            334+ Construction <span className=" font-light text-[#A67153]">Quality Test.</span>
           </h2>
         </div>
 
