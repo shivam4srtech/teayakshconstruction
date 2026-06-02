@@ -56,7 +56,6 @@ const QUALITY_STEPS = [
     detail: "White-Glove Handover"
   }
 ];
-
 export default function QualityCommandCenter() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
