@@ -10,7 +10,8 @@ export default function HeroSection() {
       style={{ backgroundImage: "url('/images/banner-bg.webp')" }}
     >
       {/* Overlay to ensure text readability */}
-      <div className="absolute inset-0 bg-white/85 -z-10" />
+      {/* <div className="absolute inset-0 bg-white/85 -z-10" /> */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#F8F5F2]/10 via-[#F8F5F2]/95 " />
 
       <div className="w-full md:px-16 px-5 mx-auto flex md:flex-row flex-col md:place-content-between items-center md:items-start gap-6 md:gap-20 relative z-10">
         
