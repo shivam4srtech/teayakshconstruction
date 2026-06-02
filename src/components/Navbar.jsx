@@ -151,7 +151,8 @@ export default function Navbar() {
                   <div className="space-y-4 mb-8">
                     <div className="flex items-center gap-3 text-brand-dark/70">
                       <IoCallOutline className="text-brand" size={18} />
-                      <span className="text-sm font-bold">+91 88860 60442</span>
+                      <span className="text-sm font-bold">+91 88860 60442,</span>
+                      <span className="text-sm font-bold">88854 99322</span>
                     </div>
                   </div>
                   <a

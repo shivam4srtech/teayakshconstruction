@@ -95,18 +95,22 @@ export default function ContactConsultant() {
 
             <div className="space-y-6 pt-0">
               <div className="flex items-center gap-6 group">
-                <div className="w-12 h-12 bg-white flex items-center justify-center text-brand shadow-sm border border-gray-100 group-hover:bg-brand group-hover:text-white transition-all">
+                <Link
+                  href={"tel:918886060442"}
+                  className="cursor-pointer w-12 h-12 bg-white flex items-center justify-center text-brand shadow-sm border border-gray-100 group-hover:bg-brand group-hover:text-white transition-all">
                   <IoCallOutline size={20} />
-                </div>
+                </Link>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-brand-dark/40 font-bold">Call our Office</p>
-                  <p className="text-brand-dark font-medium">+91 88860 60442</p>
+                  <p className="text-brand-dark font-medium">+91 88860 60442, 88860 60442</p>
                 </div>
               </div>
               <div className="flex items-center gap-6 group">
-                <div className="w-12 h-12 bg-white flex items-center justify-center text-brand shadow-sm border border-gray-100 group-hover:bg-brand group-hover:text-white transition-all">
+                <Link 
+                 href={"mailto:info@trayakshconstruction.com"}
+                 className="cursor-pointer w-12 h-12 bg-white flex items-center justify-center text-brand shadow-sm border border-gray-100 group-hover:bg-brand group-hover:text-white transition-all">
                   <IoMailOutline size={20} />
-                </div>
+                </Link>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-brand-dark/40 font-bold">Email Inquiries</p>
                   <p className="text-brand-dark font-medium">info@trayakshconstruction.com</p>
@@ -126,7 +130,7 @@ export default function ContactConsultant() {
                     rel="noopener noreferrer"
                     title={`Follow Trayaksh on ${social.name}`}
                     
-                    className="w-10 h-10 rounded-full bg-[#A67153] border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-[#A67153] hover:border-[#A67153]/40 transition-all duration-300 ease-out transform hover:-translate-y-1 hover:scale-105 shadow-lg shadow-black/[0.02]"
+                    className="w-10 h-10 rounded-full bg-[#A67153] border border-white/10 flex items-center justify-center text-white hover:text-white hover:bg-[#A67153] hover:border-[#A67153]/40 transition-all duration-300 ease-out transform hover:-translate-y-1 hover:scale-105 shadow-lg shadow-black/[0.02]"
                   >
                     <IconComponent className="text-sm transition-transform duration-300 group-hover:rotate-6" />
                   </Link>
