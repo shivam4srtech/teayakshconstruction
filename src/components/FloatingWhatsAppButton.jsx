@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { MessageCircle } from 'lucide-react';
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function FloatingWhatsAppButton() {
   const WHATSAPP_NUMBER = "918885499322"; 
@@ -19,7 +19,7 @@ export default function FloatingWhatsAppButton() {
   }, []);
 
   return (
-    <div className="fixed md:bottom-18 bottom-36 md:right-3 right-4 z-[999] pointer-events-auto font-sans">
+    <div className="fixed md:bottom-18 bottom-36 md:right-3 right-4 z-[999] pointer-events-auto">
       <motion.a
         href={whatsappUrl}
         target="_blank"
@@ -30,15 +30,15 @@ export default function FloatingWhatsAppButton() {
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.92 }}
       
-        className="flex items-center justify-center bg-[#25D366] hover:bg-[#20ba5a] text-white md:w-14 md:h-14 w-[40px] h-[40px] rounded-full shadow-2xl group transition-colors duration-300 relative border border-white/10"
+        className="flex items-center justify-center bg-[#25D366] hover:bg-[#20ba5a] text-white md:w-14 md:h-14 w-[42px] h-[42px] rounded-full shadow-2xl group transition-colors duration-300 relative border border-white/10"
         title="Chat with our Architecture Experts"
       >
         
 
         {/* WhatsApp Vector Icon Asset */}
-        <MessageCircle 
+        <FaWhatsapp 
           size={24} 
-          className="fill-white/20 transform group-hover:rotate-12 transition-transform duration-300" 
+          className="fill-white transform group-hover:rotate-12 transition-transform duration-300" 
         />
       </motion.a>
     </div>
