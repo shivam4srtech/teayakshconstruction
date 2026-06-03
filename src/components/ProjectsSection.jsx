@@ -4,39 +4,44 @@ import Link from 'next/link';
 import { HiOutlineArrowLongLeft, HiOutlineArrowLongRight } from 'react-icons/hi2';
 import { FaArrowRight } from 'react-icons/fa6';
 
-const projects = [
-  {
-    id: 1,
-    title: "The Azure Residence",
-    category: "Luxury Villa",
-    location: "Malibu, CA",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop",
-  },
-  {
-    id: 2,
-    title: "Vortex Corporate Hub",
-    category: "Commercial",
-    location: "Dubai, UAE",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop",
-  },
-  {
-    id: 3,
-    title: "Ethereal Interiors",
-    category: "Interior",
-    location: "Milan, Italy",
-    image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop",
-  },
-  {
-    id: 4,
-    title: "Obsidian Manor",
-    category: "Residential",
-    location: "London, UK",
-    image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2070&auto=format&fit=crop",
-  },
-];
+const FALLBACK_IMAGE = "/images/enscape_1.jpg";
 
-export default function ProjectSection() {
+function getProjectTime(project) {
+  const value = project.created_at || project.updated_at || project.published_at;
+  const time = value ? new Date(value).getTime() : 0;
+
+  return Number.isNaN(time) ? 0 : time;
+}
+
+function formatLocation(project) {
+  return [project.city, project.state, project.country]
+    .filter(Boolean)
+    .join(", ")
+    .replace(/-/g, " ");
+}
+
+function normalizeProject(project) {
+  return {
+    id: project.id,
+    title: project.title || "Untitled Project",
+    category: project.pricing_tier_name || project.pricing_tier || project.type || project.status || "Project",
+    location: formatLocation(project) || project.location || project.status || "Trayaksh Construction",
+    image: project.thumbnail_image || project.animated_image || FALLBACK_IMAGE,
+    href: project.project_url ? `/project/${project.project_url}` : "/projects",
+    sortTime: getProjectTime(project),
+  };
+}
+
+export default function ProjectSection({ projects = [] }) {
   const scrollRef = useRef(null);
+  const latestProjects = [...projects]
+    .sort((a, b) => {
+      const timeDifference = getProjectTime(b) - getProjectTime(a);
+
+      return timeDifference || Number(b.id || 0) - Number(a.id || 0);
+    })
+    .slice(0, 5)
+    .map(normalizeProject);
 
   const scroll = (direction) => {
     if (scrollRef.current) {
@@ -84,7 +89,7 @@ export default function ProjectSection() {
           className="flex md:gap-8 gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {projects.map((project) => (
+          {latestProjects.map((project, index) => (
             <div 
               key={project.id}
               className="min-w-[65vw] md:min-w-[30vw] lg:min-w-[35vw] snap-start group relative"
@@ -99,7 +104,7 @@ export default function ProjectSection() {
                 
                 {/* Overlay on Hover */}
                 <div className="absolute inset-0 bg-brand-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                  <Link href={`/projects/${project.id}`} className="w-10 h-10 bg-brand text-white rounded-full flex items-center justify-center scale-0 group-hover:scale-100 transition-transform duration-500 delay-100">
+                  <Link href={project.href} className="w-10 h-10 bg-brand text-white rounded-full flex items-center justify-center scale-0 group-hover:scale-100 transition-transform duration-500 delay-100">
                     <FaArrowRight size={20} />
                   </Link>
                 </div>
@@ -123,7 +128,7 @@ export default function ProjectSection() {
                   </p>
                 </div>
                 <div className="text-brand font-bold text-xs tracking-tighter shrink-0">
-                  0{project.id} / 0{projects.length}
+                  {String(index + 1).padStart(2, '0')} / {String(latestProjects.length).padStart(2, '0')}
                 </div>
               </div>
             </div>
