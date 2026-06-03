@@ -32,7 +32,6 @@ export default async function Home() {
         {/* <TestimonialSection testimonials={testimonials}/> */}
         <ServicesSection/>
         <FAQSection/>
-       
      </>
   );
 }
