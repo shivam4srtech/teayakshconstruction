@@ -35,6 +35,7 @@ export default function CookieConsent() {
             
             <button 
               onClick={() => setIsVisible(false)}
+              area-label='close banner'
               className="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors"
             >
               <X size={16} />
@@ -45,7 +46,7 @@ export default function CookieConsent() {
                 <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#A67153]">
                   <Cookie size={18} />
                 </div>
-                <h4 className="text-sm font-bold tracking-tight text-gray-100">Cookie Notice</h4>
+                <div className="text-sm font-bold tracking-tight text-gray-100">Cookie Notice</div>
               </div>
 
               <p className="text-xs text-gray-400 leading-relaxed">

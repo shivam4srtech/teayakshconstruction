@@ -118,6 +118,7 @@ export default function GuaranteesSlider() {
                   <span className="text-[10px] font-black uppercase tracking-widest text-white/30">Verified Promise</span>
                   <button 
                     onClick={() => setSelectedIdx(i)}
+                    aria-label="View verified promise details"
                     className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-[#F05A29] bg-white cursor-pointer hover:scale-110 active:scale-95 transition-all shadow-lg"
                   >
                     <ChevronRight size={18} />

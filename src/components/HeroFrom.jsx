@@ -116,6 +116,7 @@ export default function HeroFrom() {
         <div className="space-y-1.5">
           <CustomSelect
             name="city"
+            area-label='select city'
             value={formData.city}
             onChange={(value) => updateField("city", value)}
             className={`w-full bg-gray-50 border p-2 flex justify-between items-center cursor-pointer ${fieldErrors.city ? "border-red-300" : "border-gray-200"}`}
@@ -128,6 +129,7 @@ export default function HeroFrom() {
         <div className="space-y-1.5">
           <CustomSelect
             name="project_type"
+            area-label='select project type'
             value={formData.projectType}
             onChange={(value) => updateField("projectType", value)}
             className={`w-full bg-gray-50 border p-2 flex justify-between items-center cursor-pointer ${fieldErrors.projectType ? "border-red-300" : "border-gray-200"}`}

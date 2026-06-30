@@ -116,12 +116,14 @@ export default function ProjectSection({ projects = [] }) {
           <div className="md:flex hidden gap-4">
             <button 
               onClick={() => scroll('left')}
+              area-label='scroll to left'
               className="p-3 border border-brand/20 text-brand-dark hover:bg-brand hover:text-white transition-all duration-300 rounded-full cursor-pointer"
             >
               <HiOutlineArrowLongLeft size={24} />
             </button>
             <button 
               onClick={() => scroll('right')}
+              area-label='scroll to right'
               className="p-3 border border-brand/20 text-brand-dark hover:bg-brand hover:text-white transition-all duration-300 rounded-full cursor-pointer"
             >
               <HiOutlineArrowLongRight size={24} />
@@ -146,7 +148,10 @@ export default function ProjectSection({ projects = [] }) {
                 
                 {/* Overlay on Hover */}
                 <div className="absolute inset-0 bg-brand-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                  <Link href={project.href} className="w-10 h-10 bg-brand text-white rounded-full flex items-center justify-center scale-0 group-hover:scale-100 transition-transform duration-500 delay-100">
+                  <Link 
+                    href={project.href}
+                    aria-label= {`show ${project.title} project`}
+                    className="w-10 h-10 bg-brand text-white rounded-full flex items-center justify-center scale-0 group-hover:scale-100 transition-transform duration-500 delay-100">
                     <FaArrowRight size={20} />
                   </Link>
                 </div>
@@ -179,7 +184,10 @@ export default function ProjectSection({ projects = [] }) {
           {/* "View All" Card */}
           <div className="min-w-[85vw] md:min-w-[45vw] lg:min-w-[20vw] snap-start bg-brand-dark flex flex-col items-center justify-center text-center p-12 group hover:bg-brand transition-colors duration-500">
             <h3 className="text-white text-3xl font-medium mb-6">Explore All <br /> Projects</h3>
-            <Link href="/projects" className="w-14 h-14 border border-white/20 rounded-full flex items-center justify-center text-white group-hover:bg-white group-hover:text-brand transition-all">
+            <Link 
+              href="/projects"
+              area-label='visit project page'
+              className="w-14 h-14 border border-white/20 rounded-full flex items-center justify-center text-white group-hover:bg-white group-hover:text-brand transition-all">
               <HiOutlineArrowLongRight size={28} />
             </Link>
           </div>

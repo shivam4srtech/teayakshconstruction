@@ -65,6 +65,7 @@ export default function Navbar() {
                 <button 
                   className="flex items-center justify-center transition-transform active:scale-90 z-[1001] relative" 
                   onClick={() => setIsOpen(!isOpen)}
+                  aria-label='open mobile nav bar'
                 >
                   {isOpen ? <IoCloseOutline size={32} /> : <IoMdMenu size={32} fill='#000'/>}
                 </button>
@@ -97,19 +98,21 @@ export default function Navbar() {
             {/* Desktop Quote Button */}
             <Link 
               href={'/contact'}
+
               className="hidden lg:block rounded-lg bg-brand hover:bg-brand-dark text-white px-4 py-3 text-[11px] font-bold uppercase tracking-widest transition-all">
               Connect Expert
             </Link>
 
             {/* Mobile Calling Button with Pulse Animation */}
-            <a 
+            <Link 
               href="tel:+918885499322"
+              aria-label="Call customer support"
               className="lg:hidden relative w-11 h-11 flex items-center justify-center rounded-full bg-brand text-white shadow-lg"
             >
               <div className="pulse-ring" style={{ animationDelay: '0s' }}></div>
               <div className="pulse-ring" style={{ animationDelay: '0.5s' }}></div>
               <IoIosCall size={20} className="relative z-10" /> 
-            </a>
+            </Link>
           </div>
         </div>
 

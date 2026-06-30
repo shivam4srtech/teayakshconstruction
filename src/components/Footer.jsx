@@ -99,7 +99,7 @@ export default function Footer() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="text-brand hover:text-white transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-70"
+                  className="text-brand hover:text-white transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 p-4"
                   aria-label="Subscribe to newsletter"
                 >
                   {isSubmitting ? <FaSpinner size={16} className="animate-spin" /> : isSuccess ? <FaCheck size={16} /> : <FaArrowRight size={16} />}
@@ -131,16 +131,27 @@ export default function Footer() {
               Crafting masterfully designed luxury homes and commercial landmarks with precision and passion.
             </p>
             <div className="flex gap-5">
-              <Link href={'https://www.facebook.com/Trayakshconstruction'} target='_blank'>
+              <Link href={'https://www.facebook.com/Trayakshconstruction'}
+                    area-label='Facebook profile of Trayaksh Construction'
+                    target='_blank'>
                    <FaFacebookF className="text-white/40 hover:text-brand cursor-pointer transition-colors text-lg" />
               </Link>
-              <Link href={'https://www.instagram.com/trayakshconstruction'} target='_blank'>
+              <Link 
+                   href={'https://www.instagram.com/trayakshconstruction'} 
+                   area-label='Instagram profile of Trayaksh Construction'
+                   target='_blank'>
                    <FaInstagram className="text-white/40 hover:text-brand cursor-pointer transition-colors text-lg" />
               </Link>
-              <Link href={'https://www.youtube.com/@Trayakshconstruction'} target='_blank'>
+              <Link 
+                    href={'https://www.youtube.com/@Trayakshconstruction'}
+                    area-label='Youtube Channel of Trayaksh Construction'
+                    target='_blank'>
                    <FaYoutube  className="text-white/40 hover:text-brand cursor-pointer transition-colors text-lg" />
               </Link>
-              <Link href={'https://www.linkedin.com/company/trayaksh-construction/'} target='_blank'>
+              <Link 
+                   href={'https://www.linkedin.com/company/trayaksh-construction/'}
+                   area-label='Linkedin profile of Trayaksh Construction'
+                   target='_blank'>
                    <FaLinkedinIn  className="text-white/40 hover:text-brand cursor-pointer transition-colors text-lg" />
               </Link>
              

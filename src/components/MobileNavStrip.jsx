@@ -42,12 +42,13 @@ export default function MobileNavStrip() {
                 {/* Outer Glow for Center Button */}
                 <div className="absolute inset-0 bg-brand/30 rounded-full blur-xl animate-pulse" />
                 
-                <a 
+                <Link 
                   href={item.href}
+                  area-label='connect with expert'
                   className="relative w-12 h-12 bg-brand text-white rounded-full flex items-center justify-center shadow-lg border-4 border-gray-50 active:scale-90 transition-transform"
                 >
                   <IoCall size={24} />
-                </a>
+                </Link>
                 <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[9px] font-bold uppercase tracking-widest text-white">
                   {item.name}
                 </span>
