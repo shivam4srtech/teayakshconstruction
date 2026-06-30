@@ -1,42 +1,43 @@
 'use client';
 import { FaArrowRight } from 'react-icons/fa6';
 import Link from 'next/link';
+import Image from 'next/image'
 
 const services = [
   {
     title: "Luxury Villas",
     slug: "luxury-villas",
-    image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=1600&auto=format&fit=crop",
+    image: "/images/luxury-villa.webp",
     desc: "Bespoke estates designed for elite living."
   },
   {
     title: "Commercial Construction",
     slug: "commercial",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1600&auto=format&fit=crop",
+    image: "/images/commercial-construction.webp",
     desc: "Innovative hubs for modern businesses."
   },
   {
     title: "Residential Homes",
     slug: "residential",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop",
+    image: "/images/residential.webp",
     desc: "Master-planned residential communities."
   },
   {
     title: "Medical & Pharmacy",
     slug: "medical-setups",
-    image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=1600&auto=format&fit=crop",
+    image: "/images/medical-setup.webp",
     desc: "High-precision healthcare environments."
   },
   {
     title: "Interior Architecture",
     slug: "interiors",
-    image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1600&auto=format&fit=crop",
+    image: "/images/image17.webp",
     desc: "Curated spaces with artisanal finishes."
   },
   {
     title: "Retail & Hospitality",
     slug: "retail",
-    image: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?q=80&w=1600&auto=format&fit=crop",
+    image: "/images/retail-shop.webp",
     desc: "Captivating spaces for brands and guests."
   }
 ];
@@ -70,9 +71,11 @@ export default function SpecialtyGrid() {
               className="group relative md:h-[400px] h-[300px] overflow-hidden cursor-pointer bg-brand-dark"
             >
               {/* Background Image */}
-              <img 
+              <Image 
+                fill
                 src={service.image} 
                 alt={service.title} 
+                loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-80 group-hover:opacity-60"
               />
 

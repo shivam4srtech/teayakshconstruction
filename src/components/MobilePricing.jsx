@@ -1,6 +1,5 @@
 'use client';
 import { useMemo, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { FaCheck, FaBolt, FaLeaf, FaGem, FaChevronDown } from 'react-icons/fa6';
 import { useModalStore } from '@/store/useModalStore';
 
@@ -116,80 +115,68 @@ export default function MobilePricing({ cities = [], pricingTiers = [], packageR
             <button
               key={pkg.slug}
               onClick={() => setActiveIndex(idx)}
-              className={`relative flex-1 py-3 text-[10px] font-bold uppercase tracking-tighter rounded-lg transition-all duration-300 whitespace-nowrap px-4 ${
-                activeIndex === idx ? 'text-white' : 'text-brand-dark/50'
+              className={`relative flex-1 py-3 text-[10px] font-bold uppercase tracking-tighter rounded-lg transition-[background-color,color,box-shadow,transform] duration-300 whitespace-nowrap px-4 ${
+                activeIndex === idx ? 'bg-brand-dark text-white shadow-md' : 'text-brand-dark/50'
               }`}
             >
               <span className="relative z-10">{pkg.name}</span>
-              {activeIndex === idx && (
-                <motion.div 
-                  layoutId="activeTab"
-                  className="absolute inset-0 bg-brand-dark rounded-lg shadow-md"
-                  transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                />
-              )}
             </button>
           ))}
         </div>
 
         {/* Animated Single Card Display */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`${activeCity}-${activeIndex}`}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 relative overflow-hidden"
-          >
-            {/* Background Icon Decoration */}
-            <div className="absolute -right-4 -top-4 text-gray-50 opacity-50 scale-[3]">
+        <div
+          key={`${activeCity}-${activeIndex}`}
+          className="mobile-pricing-card bg-white rounded-3xl p-8 shadow-xl border border-gray-100 relative overflow-hidden"
+        >
+          {/* Background Icon Decoration */}
+          <div className="absolute -right-4 -top-4 text-gray-50 opacity-50 scale-[3]">
+            {currentPkg.icon}
+          </div>
+
+          {currentPkg.popular && (
+            <span className="inline-block bg-brand/10 text-brand text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
+              Recommended Choice
+            </span>
+          )}
+
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-12 h-12 bg-brand-dark text-white rounded-2xl flex items-center justify-center shadow-lg">
               {currentPkg.icon}
             </div>
-
-            {currentPkg.popular && (
-              <span className="inline-block bg-brand/10 text-brand text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
-                Recommended Choice
-              </span>
-            )}
-
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-12 h-12 bg-brand-dark text-white rounded-2xl flex items-center justify-center shadow-lg">
-                {currentPkg.icon}
-              </div>
-              <div>
-                <h3 className="text-2xl font-medium text-brand-dark tracking-tight">{currentPkg.name}</h3>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-brand font-bold">{currentPkg.currency}{currentPkg.price}</span>
-                  <span className="text-[10px] text-gray-400 uppercase">/{currentPkg.unit}</span>
-                </div>
+            <div>
+              <h3 className="text-2xl font-medium text-brand-dark tracking-tight">{currentPkg.name}</h3>
+              <div className="flex items-baseline gap-1">
+                <span className="text-brand font-bold">{currentPkg.currency}{currentPkg.price}</span>
+                <span className="text-[10px] text-gray-400 uppercase">/{currentPkg.unit}</span>
               </div>
             </div>
+          </div>
 
-            <p className="text-sm text-gray-500 leading-relaxed mb-8">
-              {currentPkg.desc}
-            </p>
+          <p className="text-sm text-gray-500 leading-relaxed mb-8">
+            {currentPkg.desc}
+          </p>
 
-            <div className="space-y-4 mb-10">
-              <p className="text-[9px] font-bold uppercase tracking-widest text-brand">What&apos;s Included:</p>
-              {currentPkg.features.map((feature, i) => (
-                <div key={`${feature}-${i}`} className="flex items-center gap-3">
-                  <div className="w-5 h-5 rounded-full bg-green-50 flex items-center justify-center">
-                    <FaCheck className="text-green-600" size={8} />
-                  </div>
-                  <span className="text-xs font-medium text-brand-dark/80">{feature}</span>
+          <div className="space-y-4 mb-10">
+            <p className="text-[9px] font-bold uppercase tracking-widest text-brand">What&apos;s Included:</p>
+            {currentPkg.features.map((feature, i) => (
+              <div key={`${feature}-${i}`} className="flex items-center gap-3">
+                <div className="w-5 h-5 rounded-full bg-green-50 flex items-center justify-center">
+                  <FaCheck className="text-green-600" size={8} />
                 </div>
-              ))}
-            </div>
+                <span className="text-xs font-medium text-brand-dark/80">{feature}</span>
+              </div>
+            ))}
+          </div>
 
-            <button
-              type="button"
-              onClick={openModal}
-              className="w-full bg-brand py-5 rounded-2xl text-white text-[11px] font-bold uppercase tracking-widest shadow-lg shadow-brand/20 active:scale-95 transition-transform"
-            >
-              Choose Plan
-            </button>
-          </motion.div>
-        </AnimatePresence>
+          <button
+            type="button"
+            onClick={openModal}
+            className="w-full bg-brand py-5 rounded-2xl text-white text-[11px] font-bold uppercase tracking-widest shadow-lg shadow-brand/20 active:scale-95 transition-transform"
+          >
+            Choose Plan
+          </button>
+        </div>
 
         <p className="text-center mt-10 text-[9px] text-gray-400 uppercase tracking-widest leading-loose">
           *Rates applicable for {activeCity} area.<br/>

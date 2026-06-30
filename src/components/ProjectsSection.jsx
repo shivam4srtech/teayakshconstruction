@@ -1,10 +1,12 @@
 'use client';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Link from 'next/link';
 import { HiOutlineArrowLongLeft, HiOutlineArrowLongRight } from 'react-icons/hi2';
 import { FaArrowRight } from 'react-icons/fa6';
+import Image from 'next/image';
 
 const FALLBACK_IMAGE = "/images/enscape_1.jpg";
+const PROJECT_IMAGE_SIZES = "(max-width: 767px) 65vw, (max-width: 1023px) 30vw, 35vw";
 
 function getProjectTime(project) {
   const value = project.created_at || project.updated_at || project.published_at;
@@ -30,6 +32,44 @@ function normalizeProject(project) {
     href: project.project_url ? `/project/${project.project_url}` : "/projects",
     sortTime: getProjectTime(project),
   };
+}
+
+function ProjectImage({ project }) {
+  const [loaded, setLoaded] = useState(false);
+  const [imageSrc, setImageSrc] = useState(project.image);
+
+  return (
+    <>
+      {!loaded && (
+        <div
+          aria-hidden="true"
+          className="project-image-loader absolute inset-0 z-10 bg-gray-100"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-100 via-white to-gray-100" />
+        </div>
+      )}
+      <Image
+        fill
+        src={imageSrc}
+        alt={project.title}
+        sizes={PROJECT_IMAGE_SIZES}
+        loading="lazy"
+        className={`w-full h-full object-cover transition-[opacity,transform] duration-700 ease-out group-hover:scale-110 ${
+          loaded ? 'opacity-100' : 'opacity-0'
+        }`}
+        onLoad={() => setLoaded(true)}
+        onError={() => {
+          if (imageSrc !== FALLBACK_IMAGE) {
+            setImageSrc(FALLBACK_IMAGE);
+            setLoaded(false);
+            return;
+          }
+
+          setLoaded(true);
+        }}
+      />
+    </>
+  );
 }
 
 export default function ProjectSection({ projects = [] }) {
@@ -96,11 +136,7 @@ export default function ProjectSection({ projects = [] }) {
             >
               <div className="relative h-[300px] lg:h-[300px] overflow-hidden">
                 {/* Image with subtle parallax effect on hover */}
-                <img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110"
-                />
+                <ProjectImage project={project} />
                 
                 {/* Overlay on Hover */}
                 <div className="absolute inset-0 bg-brand-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">

@@ -1,6 +1,5 @@
 'use client';
 import { useMemo, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { FaCheck, FaBolt, FaLeaf, FaGem, FaChevronDown } from 'react-icons/fa6';
 import { useModalStore } from '@/store/useModalStore';
 
@@ -86,14 +85,12 @@ export default function PricingSection({ cities = [], pricingTiers = [], package
         {/* Architecture Header & Selector */}
         <div className="flex justify-between items-center mb-10">
           <div className="space-y-4">
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="flex items-center gap-3"
+            <div
+              className="pricing-fade-left flex items-center gap-3"
             >
               <span className="w-8 h-[2px] bg-brand" />
               <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-brand">Construction Costs</p>
-            </motion.div>
+            </div>
             <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-brand-dark leading-[1.1]">
               Our Construction <span className="font-light text-brand">Packages.</span>
             </h2>
@@ -119,99 +116,85 @@ export default function PricingSection({ cities = [], pricingTiers = [], package
 
         {/* The Grid */}
         <div className="grid grid-cols-3 gap-6">
-          <AnimatePresence mode="wait">
-            {currentPackages.map((pkg, idx) => (
-              <motion.div
-                key={`${activeCity}-${pkg.slug}`}
-                initial={{ opacity: 0, scale: 0.95, y: 30 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: -20 }}
-                transition={{ 
-                  duration: 0.5, 
-                  delay: idx * 0.1,
-                  type: "spring",
-                  stiffness: 100 
-                }}
-                whileHover={{ y: -12 }}
-                className={`relative p-5 rounded-[1rem] flex flex-col h-full transition-all duration-500 border ${
-                  pkg.popular 
-                  ? 'bg-white border-brand shadow-[0_20px_50px_rgba(196,164,124,0.15)] z-10' 
-                  : 'bg-white border-gray-100 shadow-sm hover:shadow-xl'
+          {currentPackages.map((pkg, idx) => (
+            <div
+              key={`${activeCity}-${pkg.slug}`}
+              style={{ animationDelay: `${idx * 80}ms` }}
+              className={`pricing-card-enter pricing-card-hover group relative p-5 rounded-[1rem] flex flex-col h-full border ${
+                pkg.popular
+                ? 'bg-white border-brand shadow-[0_20px_50px_rgba(196,164,124,0.15)] z-10'
+                : 'bg-white border-gray-100 shadow-sm'
+              }`}
+            >
+              {pkg.popular && (
+                <div className="absolute -top-5 inset-x-0 flex justify-center">
+                  <span className="bg-brand text-white text-[10px] font-bold uppercase tracking-widest py-2.5 px-8 rounded-full shadow-lg">
+                    Signature Choice
+                  </span>
+                </div>
+              )}
+
+              {/* Header Section */}
+              <div className="mb-4 text-center">
+                <div className={`w-14 h-14 mx-auto flex items-center justify-center rounded mb-3 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:rotate-6 motion-reduce:transition-none motion-reduce:group-hover:rotate-0 ${
+                  pkg.popular ? 'bg-brand text-white shadow-brand/30 shadow-lg' : 'bg-gray-50 text-brand-dark/30 border border-gray-100'
+                }`}>
+                  {pkg.icon}
+                </div>
+                <h3 className={`text-xs font-black uppercase tracking-[0.3em] mb-4 ${pkg.popular ? 'text-brand' : 'text-brand-dark/40'}`}>
+                  {pkg.name}
+                </h3>
+                <div className="flex items-center justify-center gap-1">
+                  <span className="text-5xl font-medium text-brand-dark tracking-tighter">{pkg.currency}{pkg.price}</span>
+                  <span className="text-[11px] uppercase font-black text-brand-dark/20 italic">/{pkg.unit}</span>
+                </div>
+              </div>
+
+              {/* Feature Box */}
+              <div className="flex-grow space-y-6 mb-5">
+                <p className="text-[13px] text-brand-dark/60 leading-relaxed text-center px-2 mb-3">
+                  {pkg.desc}
+                </p>
+                <div className="h-[1px] w-12 bg-brand/20 mx-auto" />
+                <ul className="space-y-4">
+                  {pkg.features.map((feature) => (
+                    <li key={feature} className="flex items-center gap-4 text-[11px] font-bold uppercase tracking-wider text-brand-dark/80 mb-3">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-brand/5 flex items-center justify-center">
+                        <FaCheck size={9} className="text-brand" />
+                      </div>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* CTA */}
+              <button
+                type="button"
+                onClick={openModal}
+                className={`w-full py-5 rounded text-[11px] font-bold uppercase tracking-[0.2em] transition-[background-color,color,border-color,transform] duration-300 active:scale-[0.98] ${
+                  pkg.popular
+                  ? 'bg-brand-dark text-white shadow-xl hover:bg-brand'
+                  : 'bg-gray-50 text-brand-dark border border-gray-200 hover:border-brand hover:text-brand'
                 }`}
               >
-                {pkg.popular && (
-                  <div className="absolute -top-5 inset-x-0 flex justify-center">
-                    <span className="bg-brand text-white text-[10px] font-bold uppercase tracking-widest py-2.5 px-8 rounded-full shadow-lg">
-                      Signature Choice
-                    </span>
-                  </div>
-                )}
-
-                {/* Header Section */}
-                <div className="mb-4 text-center">
-                  <div className={`w-14 h-14 mx-auto flex items-center justify-center rounded mb-3 transition-transform duration-500 group-hover:rotate-12 ${
-                    pkg.popular ? 'bg-brand text-white shadow-brand/30 shadow-lg' : 'bg-gray-50 text-brand-dark/30 border border-gray-100'
-                  }`}>
-                    {pkg.icon}
-                  </div>
-                  <h3 className={`text-xs font-black uppercase tracking-[0.3em] mb-4 ${pkg.popular ? 'text-brand' : 'text-brand-dark/40'}`}>
-                    {pkg.name}
-                  </h3>
-                  <div className="flex items-center justify-center gap-1">
-                    <span className="text-5xl font-medium text-brand-dark tracking-tighter">{pkg.currency}{pkg.price}</span>
-                    <span className="text-[11px] uppercase font-black text-brand-dark/20 italic">/{pkg.unit}</span>
-                  </div>
-                </div>
-
-                {/* Feature Box */}
-                <div className="flex-grow space-y-6 mb-5">
-                  <p className="text-[13px] text-brand-dark/60 leading-relaxed text-center px-2 mb-3">
-                    {pkg.desc}
-                  </p>
-                  <div className="h-[1px] w-12 bg-brand/20 mx-auto" />
-                  <ul className="space-y-4">
-                    {pkg.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-4 text-[11px] font-bold uppercase tracking-wider text-brand-dark/80 mb-3">
-                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-brand/5 flex items-center justify-center">
-                          <FaCheck size={9} className="text-brand" />
-                        </div>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* CTA */}
-                <motion.button 
-                  type="button"
-                  onClick={openModal}
-                  whileTap={{ scale: 0.98 }}
-                  className={`w-full py-5 rounded text-[11px] font-bold uppercase tracking-[0.2em] transition-all ${
-                    pkg.popular 
-                    ? 'bg-brand-dark text-white shadow-xl hover:bg-brand' 
-                    : 'bg-gray-50 text-brand-dark border border-gray-200 hover:border-brand hover:text-brand'
-                  }`}
-                >
-                  Choose Plan
-                </motion.button>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+                Choose Plan
+              </button>
+            </div>
+          ))}
         </div>
 
         {/* Dynamic Disclaimer */}
         <div className="mt-10 flex flex-col items-center gap-4">
-           <motion.div 
+           <div
             key={activeCity}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex items-center gap-2 px-6 py-2 rounded-full border border-gray-100 bg-white"
+            className="pricing-fade flex items-center gap-2 px-6 py-2 rounded-full border border-gray-100 bg-white"
            >
               <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
               <p className="text-[10px] uppercase tracking-widest text-brand-dark/40 font-bold">
                 Rates Verified for {activeCity} - Live API Index
               </p>
-           </motion.div>
+           </div>
         </div>
       </div>
     </section>

@@ -1,11 +1,33 @@
 'use client';
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Calculator, ArrowRight, Zap, PieChart, ShieldCheck, Coins } from 'lucide-react';
 
 export default function CalculatorCTA() {
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry], currentObserver) => {
+        if (!entry.isIntersecting) return;
+
+        setIsVisible(true);
+        currentObserver.disconnect();
+      },
+      { rootMargin: "0px 0px -15%", threshold: 0.2 }
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="md:py-10 py-5 pt-0 bg-white overflow-hidden">
+    <section ref={sectionRef} className="md:py-10 py-5 pt-0 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-5 lg:px-16">
         <div className="relative bg-[#2D2926] md:rounded-[3rem] rounded md:p-8 p-4 py-8 lg:py-10 lg:p-20 overflow-hidden shadow-2xl">
           
@@ -17,23 +39,23 @@ export default function CalculatorCTA() {
             
             {/* Left: Content */}
             <div className="space-y-8">
-              <motion.div 
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/10 border border-white/10 backdrop-blur-md mb-3"
+              <div
+                className={`inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/10 border border-white/10 backdrop-blur-md mb-3 transition-[opacity,transform] duration-700 ease-out motion-reduce:translate-x-0 motion-reduce:opacity-100 motion-reduce:transition-none ${
+                  isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-5'
+                }`}
               >
                 <Zap size={16} className="text-[#A67153]" />
                 <span className="text-[10px] font-black uppercase tracking-widest text-white/80">Instant Budgeting Tool</span>
-              </motion.div>
+              </div>
 
-              <motion.h2 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                className="text-xl md:text-3xl lg:text-4xl font-medium text-white leading-[1.3] mb-3"
+              <h2
+                className={`text-xl md:text-3xl lg:text-4xl font-medium text-white leading-[1.3] mb-3 transition-[opacity,transform] duration-700 delay-100 ease-out motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+                }`}
               >
                 Know your <span className="text-[#A67153]">Home Cost</span> <br /> 
                 in under 60 seconds.
-              </motion.h2>
+              </h2>
 
              
 
@@ -61,11 +83,10 @@ export default function CalculatorCTA() {
             </div>
 
             {/* Right: Visual Calculator Card */}
-            <motion.div 
-              initial={{ opacity: 0, rotateY: 20 }}
-              whileInView={{ opacity: 1, rotateY: 0 }}
-              transition={{ duration: 1 }}
-              className="relative perspective-1000"
+            <div
+              className={`relative [perspective:1000px] transition-[opacity,transform] duration-1000 delay-150 ease-out motion-reduce:opacity-100 motion-reduce:[transform:rotateY(0deg)] motion-reduce:transition-none ${
+                isVisible ? 'opacity-100 [transform:rotateY(0deg)]' : 'opacity-0 [transform:rotateY(12deg)]'
+              }`}
             >
               <div className="bg-white/10 backdrop-blur-2xl border border-white/20 p-4 py-8 lg:p-12 md:rounded-[2.5rem] rounded shadow-3xl">
                 {/* Simulated UI of the Calculator */}
@@ -108,27 +129,20 @@ export default function CalculatorCTA() {
                 </div>
 
                 {/* Decorative Cursor Mockup */}
-                <motion.div 
-                  animate={{ 
-                    x: [0, 50, 0], 
-                    y: [0, 80, 0] 
-                  }} 
-                  transition={{ repeat: Infinity, duration: 4 }}
-                  className="absolute pointer-events-none"
+                <div
+                  className="calculator-cursor absolute pointer-events-none"
                 >
                   <div className="w-5 h-5 bg-[#A67153] rounded-full border-4 border-white shadow-lg" />
-                </motion.div>
+                </div>
               </div>
               
               {/* Floaties */}
-              <motion.div 
-                animate={{ y: [0, -10, 0] }}
-                transition={{ repeat: Infinity, duration: 3 }}
-                className="absolute -top-6 md:-right-6 -right-1 bg-white p-4 rounded-2xl shadow-xl"
+              <div
+                className="calculator-floaty absolute -top-6 md:-right-6 -right-1 bg-white p-4 rounded-2xl shadow-xl"
               >
                 <p className="text-[10px] font-black text-[#A67153]">Approximate</p>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
 
           </div>
         </div>
