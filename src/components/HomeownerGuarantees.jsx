@@ -1,7 +1,7 @@
 'use client';
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, Banknote, Timer, Users, HardHat, Heart, X, ChevronLeft, ChevronRight, CheckCircle } from 'lucide-react';
+import { ShieldCheck, Banknote, Timer, Users, HardHat, Heart, X, ChevronRight, CheckCircle } from 'lucide-react';
 import { HiArrowLongRight } from "react-icons/hi2";
 
 const GUARANTEES = [

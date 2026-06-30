@@ -181,6 +181,24 @@ input[type=number] {
     }
   }
 
+  @keyframes service-image-loader {
+    from {
+      transform: translate3d(-100%, 0, 0);
+    }
+    to {
+      transform: translate3d(100%, 0, 0);
+    }
+  }
+  .service-image-loader > div {
+    animation: service-image-loader 1.2s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-image-loader > div {
+      animation: none;
+    }
+  }
+
   .blog-rich-content {
     color: #4b5563;
   }

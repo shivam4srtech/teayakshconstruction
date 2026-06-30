@@ -54,7 +54,13 @@ function ProjectImage({ project }) {
         alt={project.title}
         sizes={PROJECT_IMAGE_SIZES}
         loading="lazy"
-        className={`w-full h-full object-cover transition-[opacity,transform] duration-700 ease-out group-hover:scale-110 ${
+        className={`w-full h-full object-cover
+          transform-gpu
+          will-change-transform
+          transition-all
+          duration-[1200ms]
+          ease-[cubic-bezier(0.22,1,0.36,1)]
+          group-hover:scale-110 ${
           loaded ? 'opacity-100' : 'opacity-0'
         }`}
         onLoad={() => setLoaded(true)}

@@ -3,12 +3,11 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useModalStore } from '@/store/useModalStore';
 import { subscribeNewsletter } from '@/app/actions/subscribeNewsletter';
-// Importing specific icon sets from react-icons
+
 import { 
   FaFacebookF, 
   FaInstagram, 
   FaLinkedinIn, 
-  FaTwitter,
   FaArrowRight,
   FaSpinner,
   FaCheck,

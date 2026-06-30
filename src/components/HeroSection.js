@@ -1,6 +1,4 @@
 'use client';
-import { ArrowUpRight, ChevronRight, Send } from 'lucide-react';
-import CustomSelect from '@/components/CustomSelect'
 import HeroFrom from './HeroFrom';
 
 export default function HeroSection() {
@@ -37,6 +35,6 @@ export default function HeroSection() {
         </div>
       </div>
     </section>
-    // production
+  
   );
 }
