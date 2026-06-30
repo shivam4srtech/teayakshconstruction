@@ -1,7 +1,5 @@
 'use client';
-import { motion, useScroll, useSpring } from 'framer-motion';
-import React from 'react';
-import { useRef } from 'react';
+import { cloneElement, useEffect, useRef, useState } from 'react';
 import { 
   CheckCircle2, 
   Microscope, 
@@ -58,16 +56,52 @@ const QUALITY_STEPS = [
 ];
 export default function QualityCommandCenter() {
   const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start center", "end center"]
-  });
+  const itemRefs = useRef([]);
+  const [sectionVisible, setSectionVisible] = useState(false);
+  const [visibleItems, setVisibleItems] = useState(() => new Set());
 
-  const scaleY = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  useEffect(() => {
+    const container = containerRef.current;
+    const items = itemRefs.current.filter(Boolean);
+
+    if (!container || items.length === 0) return undefined;
+
+    const sectionObserver = new IntersectionObserver(
+      ([entry], observer) => {
+        if (entry.isIntersecting) {
+          setSectionVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "-15% 0px -20%", threshold: 0.1 }
+    );
+
+    const itemObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          const index = Number(entry.target.getAttribute("data-quality-index"));
+          setVisibleItems((current) => {
+            if (current.has(index)) return current;
+            const next = new Set(current);
+            next.add(index);
+            return next;
+          });
+          itemObserver.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -12%", threshold: 0.18 }
+    );
+
+    sectionObserver.observe(container);
+    items.forEach((item) => itemObserver.observe(item));
+
+    return () => {
+      sectionObserver.disconnect();
+      itemObserver.disconnect();
+    };
+  }, []);
 
   return (
     <section className="py-6 bg-white" ref={containerRef}>
@@ -87,20 +121,24 @@ export default function QualityCommandCenter() {
           
           {/* The Glowing Connection Line */}
           <div className="absolute left-4 lg:left-1/2 top-0 bottom-0 w-[2px] bg-gray-100 -translate-x-1/2 hidden md:block" />
-          <motion.div 
-            style={{ scaleY, originY: 0 }}
-            className="absolute left-4 lg:left-1/2 top-0 bottom-0 w-[2px] bg-[#A67153] -translate-x-1/2 hidden md:block z-10 shadow-[0_0_15px_rgba(166,113,83,0.5)]"
+          <div
+            className={`absolute left-4 lg:left-1/2 top-0 bottom-0 w-[2px] origin-top -translate-x-1/2 bg-[#A67153] hidden md:block z-10 shadow-[0_0_15px_rgba(166,113,83,0.5)] transition-transform duration-1000 ease-out motion-reduce:transition-none ${
+              sectionVisible ? 'scale-y-100' : 'scale-y-0'
+            }`}
           />
 
           <div className="md:space-y-12 space-10">
             {QUALITY_STEPS.map((step, i) => (
-              <motion.div 
+              <div
                 key={i}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, delay: i * 0.1 }}
-                className={`flex flex-col md:flex-row items-center gap-4 lg:gap-0 mb-4 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
+                ref={(node) => {
+                  itemRefs.current[i] = node;
+                }}
+                data-quality-index={i}
+                style={{ transitionDelay: visibleItems.has(i) ? `${Math.min(i * 70, 280)}ms` : '0ms' }}
+                className={`flex flex-col md:flex-row items-center gap-4 lg:gap-0 mb-4 transition-[opacity,transform] duration-700 ease-out motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none ${
+                  visibleItems.has(i) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                } ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
               >
                 
                 {/* Content Side */}
@@ -117,35 +155,34 @@ export default function QualityCommandCenter() {
 
                 {/* Center Icon Node */}
                 <div className="relative z-20 flex-shrink-0">
-                  <motion.div 
-                    whileHover={{ scale: 1.2, rotate: 360 }}
-                    className="w-16 h-16 rounded-2xl bg-[#2D2926] text-white flex items-center justify-center shadow-xl border-4 border-white group transition-colors hover:bg-[#A67153]"
+                  <div
+                    className="w-16 h-16 rounded-2xl bg-[#2D2926] text-white flex items-center justify-center shadow-xl border-4 border-white group transition-[background-color,transform] duration-500 ease-out hover:bg-[#A67153] hover:scale-110 hover:rotate-[360deg] motion-reduce:hover:rotate-0 motion-reduce:hover:scale-100"
                   >
                     <div className="group-hover:scale-110 transition-transform">
-                      {React.cloneElement(step.icon, { size: 24 })}
+                      {cloneElement(step.icon, { size: 24 })}
                     </div>
-                  </motion.div>
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-[#A67153]/5 rounded-full -z-10 animate-pulse" />
+                  </div>
+                  <div className="qcc-soft-pulse absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-[#A67153]/5 rounded-full -z-10 animate-pulse" />
                 </div>
 
                 {/* Placeholder/Empty Side for Desktop Symmetry */}
                 <div className="flex-1 hidden md:block" />
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
 
         {/* Final CTA Stamp */}
-        <motion.div 
-          initial={{ scale: 0.8, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          className="md:mt-14 mt-6 flex flex-col items-center text-center"
+        <div
+          className={`md:mt-14 mt-6 flex flex-col items-center text-center transition-[opacity,transform] duration-700 ease-out motion-reduce:scale-100 motion-reduce:opacity-100 motion-reduce:transition-none ${
+            sectionVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+          }`}
         >
           <div className="md:p-8 p-4  rounded border border-dashed border-[#A67153]/30 bg-[#F8F5F2]">
             <h4 className="text-xl font-bold text-[#2D2926] mb-2">Quality is our Signature.</h4>
-            <p className="text-sm text-gray-500">"We build every home as if our own family were moving in."</p>
+            <p className="text-sm text-gray-500">&ldquo;We build every home as if our own family were moving in.&rdquo;</p>
           </div>
-        </motion.div>
+        </div>
 
       </div>
     </section>

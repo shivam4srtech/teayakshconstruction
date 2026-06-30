@@ -58,6 +58,12 @@ input[type=number] {
     animation: bounce-x 1s infinite;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .qcc-soft-pulse {
+      animation: none;
+    }
+  }
+
   .blog-rich-content {
     color: #4b5563;
   }
