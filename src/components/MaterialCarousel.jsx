@@ -5,16 +5,16 @@ import Image from 'next/image';
 import { BoxSelect, X, Maximize2 } from 'lucide-react';
 
 const MATERIALS = [
-  { id: 1, name: "Italian Statuario", category: "Flooring", desc: "Premium book-matched marble with grey veining.", src: "/interior/image1.jpg" },
-  { id: 2, name: "Burmese Teak", category: "Woodwork", desc: "Seasoned hardwood for timeless door frames.", src: "/interior/image3.jpg" },
-  { id: 3, name: "Brushed Champagne", category: "Hardware", desc: "Custom PVD coated fixtures and handles.", src: "/interior/image4.jpg" },
-  { id: 4, name: "Fluted Charcoal", category: "Wall Paneling", desc: "Architectural louvers for acoustic depth.", src: "/interior/image12.jpg" },
-  { id: 5, name: "Artisanal Terrazzo", category: "Surfaces", desc: "Hand-poured chips in a seamless resin base.", src: "/interior/image16.jpg" },
-  { id: 6, name: "Honed Basalt", category: "Flooring", desc: "Dense volcanic stone with a matte, non-slip finish.", src: "/interior/image17.jpg" },
-  { id: 7, name: "Patina Brass", category: "Hardware", desc: "Aged living finish that develops character over time.", src: "/interior/image18.jpg" },
+  { id: 1, name: "Italian Statuario", category: "Flooring", desc: "Premium book-matched marble with grey veining.", src: "/images/image1.webp" },
+  { id: 2, name: "Burmese Teak", category: "Woodwork", desc: "Seasoned hardwood for timeless door frames.", src: "/images/image3.webp" },
+  { id: 3, name: "Brushed Champagne", category: "Hardware", desc: "Custom PVD coated fixtures and handles.", src: "/images/image4.webp" },
+  { id: 4, name: "Fluted Charcoal", category: "Wall Paneling", desc: "Architectural louvers for acoustic depth.", src: "/images/image12.webp" },
+  { id: 5, name: "Artisanal Terrazzo", category: "Surfaces", desc: "Hand-poured chips in a seamless resin base.", src: "/images/image16.webp" },
+  { id: 6, name: "Honed Basalt", category: "Flooring", desc: "Dense volcanic stone with a matte, non-slip finish.", src: "/images/image17.webp" },
+  { id: 7, name: "Patina Brass", category: "Hardware", desc: "Aged living finish that develops character over time.", src: "/images/image18.webp" },
 
-  { id: 9, name: "Linen Weave", category: "Textiles", desc: "Belgian linen blend for upholstery and drapery.", src: "/interior/image20.jpg" },
-  { id: 10, name: "Cinder Block Glazed", category: "Wall Paneling", desc: "Rectified porcelain in a structural brick format.", src: "/interior/image21.jpg" }
+  { id: 9, name: "Linen Weave", category: "Textiles", desc: "Belgian linen blend for upholstery and drapery.", src: "/images/image20.webp" },
+  { id: 10, name: "Cinder Block Glazed", category: "Wall Paneling", desc: "Rectified porcelain in a structural brick format.", src: "/images/image21.webp" }
 ];
 
 export default function MaterialCarousel() {

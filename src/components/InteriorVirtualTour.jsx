@@ -11,9 +11,9 @@ export default function InteriorVirtualTour() {
   const [activeView, setActiveView] = useState('Living');
 
   const views = {
-    Living: "/images/interior-1.avif",
-    Kitchen: "/interior/image29.jpg",
-    Bedroom: "/images/bedroom-1.avif"
+    Living: "/images/interior-1.webp",
+    Kitchen: "/interior/image29.webp",
+    Bedroom: "/images/bedroom-1.webp"
   };
  const openModal = useModalStore((state) => state.openModal); 
   return (

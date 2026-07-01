@@ -9,31 +9,31 @@ const PROCESS_STEPS = [
     title: "Discovery & Concept",
     desc: "We begin with a deep dive into your lifestyle. Through moodboards and sketches, we define the 'soul' of your space.",
     icon: <ClipboardCheck size={20} />,
-    image: "/interior/image14.jpg"
+    image: "/images/image14.webp"
   },
   {
     title: "Design Development",
     desc: "Our engineers and designers create detailed 3D visualizations and structural blueprints, ensuring aesthetics meet stability.",
     icon: <Layers size={20} />,
-    image: "/interior/image27.jpg"
+    image: "/images/image27.webp"
   },
   {
     title: "Precision Execution",
     desc: "The heavy lifting begins. Our on-site team executes the design with 334+ Quality checks at every structural milestone.",
     icon: <Hammer size={20} />,
-    image: "/interior/image25.jpg"
+    image: "/images/image25.webp"
   },
   {
     title: "Bespoke Finishing",
     desc: "Installing the details—Italian marble, custom cabinetry, and lighting fixtures that turn a house into a Trayaksh home.",
     icon: <Sparkles size={20} />,
-    image: "/interior/image13.jpg"
+    image: "/images/image13.webp"
   },
   {
     title: "The Grand Handover",
     desc: "A final walkthrough and 'Legacy' certification. We hand over the keys to your masterpiece, ready for generations.",
     icon: <Key size={20} />,
-    image: "/interior/image5.jpg"
+    image: "/images/image5.webp"
   }
 ];
 
