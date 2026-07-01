@@ -1,6 +1,5 @@
 'use client';
 import { useState, useTransition } from 'react';
-import { motion } from 'framer-motion';
 import { AlertCircle, Calculator, Zap, ShieldCheck, Building2, Layers, CheckCircle2, Loader2 } from 'lucide-react';
 import CustomSelect  from '@/components/CustomSelect'
 import { sendEstimateRequest } from '@/app/actions/sendEstimate';
@@ -135,10 +134,8 @@ export default function EstimatorHero({
         <div className="grid lg:grid-cols-2 md:gap-16 gap-6 items-start">
           
           {/* LEFT SIDE: Content */}
-          <motion.div 
-            initial={{ opacity: 0, x: -30 }} 
-            animate={{ opacity: 1, x: 0 }} 
-            transition={{ duration: 0.8 }}
+          <div 
+            
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm mb-3">
               <Zap size={14} className="text-[#A67153] fill-[#A67153]" />
@@ -167,10 +164,10 @@ export default function EstimatorHero({
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* RIGHT SIDE: The Unified Form */}
-          <motion.div 
+          <div 
             initial={{ opacity: 0, y: 30 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -317,7 +314,7 @@ export default function EstimatorHero({
                 )}
               </form>
             </div>
-          </motion.div>
+          </div>
 
         </div>
       </div>

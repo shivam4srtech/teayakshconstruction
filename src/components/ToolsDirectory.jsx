@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { 
-  Calculator, Layers, Compass, Ruler, ArrowRight, 
+  Calculator, Layers, ArrowRight, 
   Wrench, ChevronRight, Sparkles, ShieldCheck 
 } from 'lucide-react';
 import { useModalStore } from '@/store/useModalStore';
@@ -160,6 +160,7 @@ export default function ToolsDirectory() {
                     
                     <Link 
                       href={tool.href}
+                      aria-label={`Access ${tool.title} Tool`}
                       className="w-10 h-10 rounded-xl bg-[#2D2926] group-hover:bg-[#A67153] text-white flex items-center justify-center transition-colors duration-300 shadow-md shadow-black/5 transform group-hover:scale-105"
                     >
                       <ArrowRight size={14} className="transform group-hover:translate-x-0.5 transition-transform" />

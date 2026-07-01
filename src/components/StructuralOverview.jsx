@@ -1,6 +1,5 @@
 'use client';
 import { useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Info, Minus, Plus } from 'lucide-react';
 import { MdLocationPin } from 'react-icons/md';
 import CustomSelect from './CustomSelect';
@@ -205,21 +204,17 @@ function PackageHeader({ packageData, pricingTiers, currentPkg, setPkg, side }) 
 
 function SharedFeatureAccordion({ spec, leftName, rightName, isOpen, onToggle }) {
   return (
-    <div className={`rounded border overflow-hidden transition-all ${isOpen ? 'bg-[#F8F5F2] border-[#A67153]/25' : 'border-gray-100 bg-white'}`}>
+    <div className={`rounded border overflow-hidden transition-all duration-300 ease-out ${isOpen ? 'bg-[#F8F5F2] border-[#A67153]/25 shadow-sm' : 'border-gray-100 bg-white'} `}>
       <button onClick={onToggle} className="w-full flex items-center justify-between gap-3 p-4 ">
         <span className={`text-[10px] md:text-xs font-black uppercase tracking-wide md:tracking-widest text-left ${isOpen ? 'text-[#2D2926]' : 'text-gray-400'}`}>{spec.title}</span>
         {isOpen ? <Minus size={16} className="shrink-0" /> : <Plus size={16} className="shrink-0" />}
       </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden">
-            <div className="grid grid-cols-2 gap-px bg-gray-200 border-y border-[#A67153]/20">
-              <FeatureDetailColumn name={leftName} rows={spec.left?.rows} />
-              <FeatureDetailColumn name={rightName} rows={spec.right?.rows} />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div className={`overflow-hidden transition-all duration-300 ease-out ${isOpen ? 'max-h-[1200px] opacity-100 ' : 'max-h-0 opacity-0 py-0'}`}>
+        <div className="grid grid-cols-2 gap-px bg-gray-200 border-y border-[#A67153]/20">
+          <FeatureDetailColumn name={leftName} rows={spec.left?.rows} />
+          <FeatureDetailColumn name={rightName} rows={spec.right?.rows} />
+        </div>
+      </div>
     </div>
   );
 }
