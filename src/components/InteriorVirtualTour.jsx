@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Box, Palette, ArrowRight, Armchair, Lightbulb } from 'lucide-react';
 import { useModalStore } from '@/store/useModalStore';
@@ -38,7 +39,7 @@ export default function InteriorVirtualTour() {
         <div className="relative grid grid-cols-1 lg:grid-cols-12 md:gap-8 gap-4 bg-white p-4 rounded-[3rem] shadow-xl border border-white">
           
           {/* Main 360 View Port */}
-          <div className="lg:col-span-9 relative h-[500px] md:h-[650px] rounded-[2.5rem] overflow-hidden bg-gray-900 group" aria-busy={isImageLoading}>
+          <div className="lg:col-span-9 relative h-[400px] md:h-[500px] rounded-[2.5rem] overflow-hidden bg-gray-900 group" aria-busy={isImageLoading}>
             <div className="absolute inset-0 bg-[#1F1A17]">
               {isImageLoading && (
                 <div className="absolute inset-0 z-10 flex items-center justify-center bg-[#1F1A17]">
@@ -51,16 +52,16 @@ export default function InteriorVirtualTour() {
                 </div>
               )}
 
-              <img
+              <Image
                 key={activeView}
                 src={views[activeView]}
                 alt={`${activeView} interior view`}
-                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+                fill
+                priority={false}
+                sizes="(max-width: 1024px) 100vw, 66vw"
+                className={`object-cover transition-opacity duration-700 ${
                   isImageLoading ? 'opacity-0' : 'opacity-80'
                 }`}
-                loading="lazy"
-                decoding="async"
-                sizes="(max-width: 1024px) 100vw, 66vw"
                 onLoad={() => setIsImageLoading(false)}
                 onError={() => setIsImageLoading(false)}
               />
@@ -86,46 +87,46 @@ export default function InteriorVirtualTour() {
           </div>
 
           {/* SIDEBAR: Configuration / Info */}
-          <div className="lg:col-span-3 flex flex-col justify-between py-6 px-4">
+          <div className="lg:col-span-3 flex flex-col  py-6 px-4">
             <div>
-              <h4 className="text-xl font-bold text-[#2D2926] mb-6">Material Mood</h4>
+              <h4 className="text-xl font-bold text-[#2D2926] mb-4">Material Mood</h4>
               <div className="space-y-4">
-                  <div className="p-4 rounded-2xl bg-[#F8F5F2] border border-[#A67153]/10">
+                  <div className="p-3 rounded-2xl bg-[#F8F5F2] border border-[#A67153]/10">
                     <div className="flex items-center gap-3 mb-2">
                       <Box size={18} className="text-[#A67153]" />
                       <span className="text-xs font-bold uppercase tracking-widest">Flooring</span>
                     </div>
-                    <p className="text-[11px] text-gray-500 uppercase">Italian Statuario Marble</p>
+                    <p className="text-[8.6px] text-gray-500 uppercase">Italian Statuario Marble</p>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-[#F8F5F2] border border-[#A67153]/10">
+                  <div className="p-3 rounded-2xl bg-[#F8F5F2] border border-[#A67153]/10">
                     <div className="flex items-center gap-3 mb-2">
                       <Palette size={18} className="text-[#A67153]" />
                       <span className="text-xs font-bold uppercase tracking-widest">Walls</span>
                     </div>
-                    <p className="text-[11px] text-gray-500 uppercase">Dusty Rose / Charcoal Accent</p>
+                    <p className="text-[8.6px] text-gray-500 uppercase">Dusty Rose / Charcoal Accent</p>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-[#F8F5F2] border border-[#A67153]/10">
+                  <div className="p-3 rounded-2xl bg-[#F8F5F2] border border-[#A67153]/10">
                     <div className="flex items-center gap-3 mb-2">
                       <Armchair size={18} className="text-[#A67153]" />
                       <span className="text-xs font-bold uppercase tracking-widest">Millwork</span>
                     </div>
-                    <p className="text-[11px] text-gray-500 uppercase">White Oak / Satin Finish</p>
+                    <p className="text-[8.6px] text-gray-500 uppercase">White Oak / Satin Finish</p>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-[#F8F5F2] border border-[#A67153]/10">
+                  <div className="p-3 rounded-2xl bg-[#F8F5F2] border border-[#A67153]/10">
                     <div className="flex items-center gap-3 mb-2">
                       <Lightbulb size={18} className="text-[#A67153]" />
                       <span className="text-xs font-bold uppercase tracking-widest">Lighting</span>
                     </div>
-                    <p className="text-[11px] text-gray-500 uppercase">Warm 2700K / Recessed & Pendant</p>
+                    <p className="text-[8.6px] text-gray-500 uppercase">Warm 2700K / Recessed & Pendant</p>
                   </div>
               </div>
             </div>
 
-            <div className="mt-8">
-              <div className="bg-[#2D2926] p-6 rounded-3xl text-white">
+            <div className="mt-4">
+              <div className="bg-[#2D2926] p-4 rounded-2xl text-white">
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A67153] mb-2">Custom Package</p>
                 <p className="text-lg font-medium mb-4">Like this vibe?</p>
                 <button 
