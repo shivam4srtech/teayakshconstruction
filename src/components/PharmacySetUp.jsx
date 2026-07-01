@@ -5,12 +5,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useModalStore } from '@/store/useModalStore';
 
-import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Plus, Minus, CheckCircle2, Ruler, Layout, Stethoscope, 
-  ShieldCheck, Zap, Clock, Package, Monitor, Lightbulb, 
-  Store, Users, ChevronRight, Phone, Mail, MapPin, 
-  ArrowRight, HardHat, FileCheck, Layers
+  Plus, Minus, CheckCircle2, Layout, 
+  ShieldCheck, Clock, Package, Monitor, Lightbulb, 
+  Store, Users, HardHat, FileCheck, Layers
 } from 'lucide-react';
 import GlobalCta from './GlobalCta';
 
@@ -116,13 +114,6 @@ export default function PharmacySetupPage() {
   const [activeFaq, setActiveFaq] = useState(null);
   const openModal = useModalStore((state) => state.openModal);
 
-  const fadeInUp = {
-    initial: { opacity: 0, y: 30 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true },
-    transition: { duration: 0.6 }
-  };
-
   return (
     <div className="min-h-screen bg-white font-sans text-[#2D2926]">
       
@@ -135,7 +126,7 @@ export default function PharmacySetupPage() {
   <div className="absolute inset-0 z-0">
     <div 
       className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('/images/medical-store.jpg')" }}
+      style={{ backgroundImage: "url('/images/medical-store.webp')" }}
     />
     {/* The Gradient Shield: 
       Darker on mobile for readability, then transitions to a clean fade on desktop 
@@ -147,10 +138,8 @@ export default function PharmacySetupPage() {
     <div className="flex md:flex-row flex-col md:place-content-between items-center md:items-start">
       
       {/* Left Content Side */}
-      <motion.div 
-        initial={{ opacity: 0, x: -50 }} 
-        animate={{ opacity: 1, x: 0 }} 
-        transition={{ duration: 0.8 }}
+      <div 
+       
         className="max-w-xl"
       >
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#A67153]/10 border border-[#A67153]/20 text-[#A67153] mb-4">
@@ -190,13 +179,11 @@ export default function PharmacySetupPage() {
             </div>
           ))}
         </div>
-      </motion.div>
+      </div>
 
       {/* Right Side - Floating Card Feature */}
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.9 }} 
-        animate={{ opacity: 1, scale: 1 }} 
-        transition={{ duration: 0.8, delay: 0.2 }} 
+      <div 
+       
         className="relative hidden lg:block"
       >
       
@@ -214,12 +201,21 @@ export default function PharmacySetupPage() {
         
 
         
-      </motion.div>
+      </div>
 
     </div>
   </div>
 </section>
 
+      <style jsx global>{`
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(32px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeInUp {
+          animation: fadeInUp 0.7s ease forwards;
+        }
+      `}</style>
       {/* 2. PROBLEM/SOLUTION SECTION */}
       <section className="py-10 bg-white">
         <div className="max-w-7xl mx-auto px-5 lg:px-16">
@@ -268,13 +264,13 @@ export default function PharmacySetupPage() {
           <div className="relative flex flex-col md:flex-row justify-between md:gap-8 gap-4">
             <div className="absolute top-10 left-0 w-full h-0.5 bg-gray-200 hidden md:block z-0" />
             {STEPS.map((step, i) => (
-              <motion.div key={i} {...fadeInUp} transition={{ delay: i * 0.1 }} className="relative z-10 flex-1 text-center group">
+              <div key={i} className="relative z-10 flex-1 text-center group animate-fadeInUp" style={{ animationDelay: `${i * 100}ms` }}>
                 <div className="md:w-20 md:h-20 w-15 h-15 bg-white md:rounded-2xl rounded-xl shadow-md border border-gray-100 flex items-center justify-center mx-auto md:mb-6 mb-4 group-hover:bg-[#A67153] group-hover:text-white transition-all duration-500">
                   <span className="text-2xl font-bold">{i + 1}</span>
                 </div>
                 <h4 className="font-bold text-sm uppercase tracking-widest mb-3">{step.title}</h4>
                 <p className="text-xs text-gray-500 leading-relaxed">{step.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -286,17 +282,16 @@ export default function PharmacySetupPage() {
           <SectionHeading badge="Our Expertise" title="Everything You Need" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {SERVICES.map((service, i) => (
-              <motion.div 
+              <div 
                 key={i} 
-                whileHover={{ y: -10 }}
-                className="p-8 bg-white border border-gray-100 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-500 group"
+                className="p-8 bg-white border border-gray-100 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-500 group hover:-translate-y-2"
               >
                 <div className="w-12 h-12 bg-[#F8F5F2] text-[#A67153] rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#A67153] group-hover:text-white transition-all duration-500">
                   {service.icon}
                 </div>
                 <h4 className="text-lg font-bold mb-3">{service.title}</h4>
                 <p className="text-sm text-gray-500 leading-relaxed">{service.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -333,7 +328,7 @@ export default function PharmacySetupPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <Image
-                  src="/images/pharmacy-setup.jpg" 
+                  src="/images/pharmacy-setup.webp" 
                   width={200}
                   height={200}
                   alt='pharmacy-setup'
@@ -342,7 +337,7 @@ export default function PharmacySetupPage() {
               <Image
                 width={200}
                 height={200}
-                src="/images/pharmacy-setup-2.jpg" 
+                src="/images/pharmacy-setup-2.webp" 
                 alt='medical-store-setup'
                 className="rounded-3xl h-64 w-full object-cover mt-8" 
               />
@@ -438,15 +433,11 @@ export default function PharmacySetupPage() {
                   <span className="font-bold text-[#2D2926] uppercase text-xs tracking-widest">{faq.question}</span>
                   {activeFaq === i ? <Minus size={16} /> : <Plus size={16} />}
                 </button>
-                <AnimatePresence>
-                  {activeFaq === i && (
-                    <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden">
-                      <div className="p-6 bg-[#F8F5F2]/50 text-gray-500 text-sm border-t border-gray-100 leading-relaxed">
-                        {faq.answer}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <div className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out ${activeFaq === i ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                  <div className={`bg-[#F8F5F2]/50 text-gray-500 text-sm border-t border-gray-100 leading-relaxed transition-[padding] duration-300 ease-in-out ${activeFaq === i ? 'py-6 px-6' : 'py-0 px-6'}`}>
+                    {faq.answer}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
