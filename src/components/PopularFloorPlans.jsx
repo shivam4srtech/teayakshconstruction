@@ -179,6 +179,7 @@ export default function PopularFloorPlans({ floorPlans = [] }) {
                         event.preventDefault();
                         toggleFavorite(plan.id);
                       }}
+                      aria-label={isFav ? "Remove from favorites" : "Add to favorites"}
                       className="absolute top-4 right-4 z-10 w-8 h-8 rounded-xl bg-white/90 backdrop-blur-sm flex items-center justify-center text-gray-400 hover:text-red-500 transition-all shadow-sm active:scale-90"
                     >
                       <Heart size={14} className={isFav ? "fill-red-500 text-red-500" : ""} />
@@ -225,7 +226,9 @@ export default function PopularFloorPlans({ floorPlans = [] }) {
                     <p className="text-base font-black text-[#2D2926]">{plan.price}</p>
                   </div>
                   
-                  <Link href={plan.slug || "/floor-plan"} className="h-11 w-11 rounded-xl bg-[#F8F5F2] group-hover:bg-[#A67153] text-[#2D2926] group-hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm active:scale-95">
+                  <Link href={plan.slug || "/floor-plan"}
+                     aria-label={`View details for ${plan.title}`}
+                     className="h-11 w-11 rounded-xl bg-[#F8F5F2] group-hover:bg-[#A67153] text-[#2D2926] group-hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm active:scale-95">
                     <ArrowRight size={16} className="transform group-hover:translate-x-0.5 transition-transform" />
                   </Link>
                 </div>

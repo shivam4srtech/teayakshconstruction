@@ -141,7 +141,7 @@ export default function DetailedFloorPlanHero({ floorPlan }) {
 
               <div className="flex items-center gap-2.5 mb-2 text-xs font-semibold uppercase tracking-wider text-[#2D2926]">
                 <Info size={16} className="text-[#A67153]" />
-                <h4>Configuration Parameters</h4>
+                <span>Configuration Parameters</span>
               </div>
 
               <div className="grid grid-cols-2 gap-4">

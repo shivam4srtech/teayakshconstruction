@@ -1,9 +1,8 @@
 'use client';
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { 
-  Compass, Calculator, CheckCircle, ArrowRight, 
-  Layers, Info, FileSpreadsheet, ShieldCheck 
+  Compass, 
+  Layers, Info, FileSpreadsheet,  
 } from 'lucide-react';
 import BlogSidebar from './BlogSidebar';
 import FloorPlanFAQs from './FloorPlanFAQs';

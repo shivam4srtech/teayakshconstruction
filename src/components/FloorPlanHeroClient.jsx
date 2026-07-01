@@ -121,7 +121,7 @@ export default function FloorPlanHeroClient({ floorPlans = [] }) {
         {/* Crisp light grid & architectural drawing mask overlay */}
         <div className="absolute inset-0 opacity-15 mix-blend-multiply pointer-events-none">
           <Image 
-            src="/images/floor-plan.jpg" 
+            src="/images/floor-plan.webp" 
             alt="floor-plan"
             fill
             priority

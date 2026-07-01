@@ -21,7 +21,7 @@ export default function SideBarTools(){
                     {SIDEBAR_TOOLS.map((tool, i) => (
                     <Link 
                         key={i} 
-                        href={tool.url}
+                        href={`https://trayakshconstruction.com/${tool.url}`}
                         className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-[#A67153]/30 transition-all cursor-pointer group block">
                         <div className="flex justify-between items-center mb-1">
                         <span className="text-xs font-bold">{tool.name}</span>
