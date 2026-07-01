@@ -1,6 +1,5 @@
-'use client';
+ 'use client';
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Cookie, ArrowRight, X } from 'lucide-react';
 
@@ -18,21 +17,19 @@ export default function CookieConsent() {
   const handleAccept = () => {
     localStorage.setItem('trayaksh_cookie_consent', 'true');
     setIsVisible(false);
+    // notify other listeners in the page
+    try {
+      window.dispatchEvent(new Event('cookieConsentGiven'));
+    } catch (e) {}
   };
 
   return (
-    <AnimatePresence>
+    <> 
       {isVisible && (
-        <motion.div
-          initial={{ opacity: 0, y: 30, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 25, scale: 0.95 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="fixed bottom-6 right-6 left-6 md:left-auto md:max-w-md w-auto z-[9999] font-sans antialiased"
-        >
-          <div className="bg-[#2D2926] text-white md:rounded-[2.5rem]  rounded-xl border border-white/5 p-6 md:p-8 shadow-2xl relative overflow-hidden">
+        <div className="fixed bottom-6 right-6 left-6 md:left-auto md:max-w-md w-auto z-[9999] font-sans antialiased">
+          <div className="bg-[#2D2926] text-white md:rounded-[2.5rem]  rounded-xl border border-white/5 p-6 md:p-8 shadow-2xl relative overflow-hidden transform transition-all duration-300">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#A67153]/10 rounded-full blur-2xl pointer-events-none" />
-            
+
             <button 
               onClick={() => setIsVisible(false)}
               aria-label='close banner'
@@ -73,8 +70,8 @@ export default function CookieConsent() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
 }

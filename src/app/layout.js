@@ -7,6 +7,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import UtilityProvider from '@/components/UtilityProvider';
 import ZohoSalesIQLoader from '@/components/ZohoSalesIQLoader';
+import ThirdPartyScripts from '@/components/ThirdPartyScripts';
 
 const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://trayakshconstruction.com');
 const siteName = 'TRAYAKSH Construction';
@@ -148,20 +149,7 @@ export default function RootLayout({ children }) {
             })(window,document,'script','dataLayer','GTM-WLN9LF8X');
           `}
         </Script>
-        <Script id="meta-pixel" strategy="afterInteractive">
-          {`
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window,document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '326392107171140');
-            fbq('track', 'PageView');
-          `}
-        </Script>
+        {/* Facebook pixel will be injected client-side after consent */}
       </head>
       <body className={`${montserrat.variable} font-montserrat antialiased selection:bg-[#A67153] selection:text-white`}>
         <noscript>
@@ -188,6 +176,7 @@ export default function RootLayout({ children }) {
         <Footer/>
         <UtilityProvider/>
         <ZohoSalesIQLoader />
+        <ThirdPartyScripts />
       </body>
     </html>
   );

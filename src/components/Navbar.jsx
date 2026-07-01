@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { IoCloseOutline, IoCallOutline, IoMailOutline } from 'react-icons/io5';
+import { IoCloseOutline, IoCallOutline, } from 'react-icons/io5';
 import { IoMdMenu } from "react-icons/io";
 import { IoIosCall } from "react-icons/io";
 import { useModalStore } from '@/store/useModalStore';
