@@ -102,7 +102,7 @@ export default function ContactConsultant() {
                 </Link>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-brand-dark/40 font-bold">Call our Office</p>
-                  <p className="text-brand-dark font-medium">+91 88860 60442, 88860 60442</p>
+                  <p className="text-brand-dark font-medium">+91 88860 60442, 88854 99322</p>
                 </div>
               </div>
               <div className="flex items-center gap-6 group">

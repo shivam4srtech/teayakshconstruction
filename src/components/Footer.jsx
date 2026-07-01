@@ -81,7 +81,7 @@ export default function Footer() {
           </div>
           
           <div className="flex flex-col justify-end">
-            <p className="text-white/50 text-sm mb-4 uppercase tracking-widest">Subscribe to our newsletter</p>
+            <p className="text-white/50 text-sm mb-4 uppercase tracking-widest font-semibold">Subscribe to our newsletter</p>
             <form onSubmit={handleNewsletterSubmit} noValidate>
               <div className={`flex border-b pb-2 focus-within:border-brand transition-colors ${fieldErrors.email ? 'border-red-400' : 'border-white/20'}`}>
                 <input 
