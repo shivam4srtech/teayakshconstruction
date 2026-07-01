@@ -150,6 +150,7 @@ export default function RootLayout({ children }) {
           `}
         </Script>
         {/* Facebook pixel will be injected client-side after consent */}
+        <ThirdPartyScripts />
       </head>
       <body className={`${montserrat.variable} font-montserrat antialiased selection:bg-[#A67153] selection:text-white`}>
         <noscript>
@@ -176,7 +177,7 @@ export default function RootLayout({ children }) {
         <Footer/>
         <UtilityProvider/>
         <ZohoSalesIQLoader />
-        <ThirdPartyScripts />
+        
       </body>
     </html>
   );
