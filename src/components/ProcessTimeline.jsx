@@ -1,6 +1,6 @@
 'use client';
 import { motion, useScroll, useSpring } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { ClipboardCheck, Layers, Hammer, Sparkles, Key } from 'lucide-react';
 
@@ -36,6 +36,42 @@ const PROCESS_STEPS = [
     image: "/images/image5.webp"
   }
 ];
+
+function TimelineImage({ src, alt, className = '' }) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+
+  return (
+    <div className="relative h-full w-full overflow-hidden" aria-busy={isLoading}>
+      {isLoading && !hasError && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-[#F8F5F2]">
+          <div className="h-10 w-10 rounded-full border-4 border-[#A67153]/20 border-t-[#A67153] animate-spin" />
+        </div>
+      )}
+
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        loading="lazy"
+        decoding="async"
+        className={`object-cover transition-opacity duration-700 ${className} ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+        onLoad={() => setIsLoading(false)}
+        onError={() => {
+          setIsLoading(false);
+          setHasError(true);
+        }}
+      />
+
+      {hasError && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-[#F8F5F2] text-center text-[11px] font-semibold uppercase tracking-[0.3em] text-[#A67153]">
+          Image unavailable
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function ProcessTimeline() {
   const containerRef = useRef(null);
@@ -100,11 +136,10 @@ export default function ProcessTimeline() {
                   className="w-full md:w-1/2 px-4 md:px-20"
                 >
                   <div className="relative h-[300px] md:h-[450px] w-full rounded-[3rem] overflow-hidden shadow-2xl">
-                    <Image 
-                      src={step.image} 
-                      alt={step.title} 
-                      fill 
-                      className="object-cover transition-transform duration-1000 hover:scale-110" 
+                    <TimelineImage
+                      src={step.image}
+                      alt={step.title}
+                      className="transition-transform duration-1000 hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-tr from-[#2D2926]/20 to-transparent" />
                   </div>

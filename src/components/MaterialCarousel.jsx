@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { BoxSelect, X, Maximize2 } from 'lucide-react';
 
@@ -16,6 +15,42 @@ const MATERIALS = [
   { id: 9, name: "Linen Weave", category: "Textiles", desc: "Belgian linen blend for upholstery and drapery.", src: "/images/image20.webp" },
   { id: 10, name: "Cinder Block Glazed", category: "Wall Paneling", desc: "Rectified porcelain in a structural brick format.", src: "/images/image21.webp" }
 ];
+
+function MaterialImage({ src, alt, className = '' }) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+
+  return (
+    <div className="relative h-full w-full overflow-hidden" aria-busy={isLoading}>
+      {isLoading && !hasError && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-[#F8F5F2]">
+          <div className="h-10 w-10 rounded-full border-4 border-[#A67153]/20 border-t-[#A67153] animate-spin" />
+        </div>
+      )}
+
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        loading="lazy"
+        decoding="async"
+        className={`object-cover transition-opacity duration-700 ${className} ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+        onLoad={() => setIsLoading(false)}
+        onError={() => {
+          setIsLoading(false);
+          setHasError(true);
+        }}
+      />
+
+      {hasError && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-[#F8F5F2] text-center text-[11px] font-semibold uppercase tracking-[0.3em] text-[#A67153]">
+          Image unavailable
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function MaterialCarousel() {
   const [selectedImg, setSelectedImg] = useState(null);
@@ -44,11 +79,10 @@ export default function MaterialCarousel() {
             className="min-w-[300px] md:min-w-[450px] snap-start group cursor-pointer"
           >
             <div className="relative h-[300px] md:h-[400px] rounded-[3rem] overflow-hidden mb-6">
-              <Image 
+              <MaterialImage
                 src={item.src}
                 alt={item.name}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                className="transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                  <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/30">
@@ -64,18 +98,16 @@ export default function MaterialCarousel() {
         <div className="min-w-[50px] h-1" />
       </div>
 
-      {/* Lightbox Modal logic remains same as previous */}
-      <AnimatePresence>
-        {selectedImg && (
-           <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedImg(null)} className="absolute inset-0 bg-black/90 backdrop-blur-sm" />
-             <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="relative w-full max-w-5xl h-[80vh] rounded-[3rem] overflow-hidden">
-                <Image src={selectedImg.src} fill className="object-cover" alt="Full view" />
-                <button onClick={() => setSelectedImg(null)} className="absolute top-6 right-6 p-3 bg-white/10 rounded-full text-white backdrop-blur-md hover:bg-[#A67153] transition-all"><X /></button>
-             </motion.div>
-           </div>
-        )}
-      </AnimatePresence>
+      {/* Lightbox Modal */}
+      {selectedImg && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+          <div onClick={() => setSelectedImg(null)} className="absolute inset-0 bg-black/90 backdrop-blur-sm" />
+          <div className="relative w-full max-w-5xl h-[80vh] rounded-[3rem] overflow-hidden">
+            <MaterialImage src={selectedImg.src} alt="Full view" />
+            <button onClick={() => setSelectedImg(null)} className="absolute top-6 right-6 p-3 bg-white/10 rounded-full text-white backdrop-blur-md hover:bg-[#A67153] transition-all"><X /></button>
+          </div>
+        </div>
+      )}
 
       {/* INLINE CSS FOR THE PREMIUM SCROLLBAR */}
       <style jsx>{`
