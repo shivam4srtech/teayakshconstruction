@@ -1,21 +1,24 @@
 'use client';
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Maximize2, RotateCcw, Box, Palette, Info, ArrowRight, Armchair, Lightbulb } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Box, Palette, ArrowRight, Armchair, Lightbulb } from 'lucide-react';
 import { useModalStore } from '@/store/useModalStore';
-
-
-
 
 export default function InteriorVirtualTour() {
   const [activeView, setActiveView] = useState('Living');
+  const [isImageLoading, setIsImageLoading] = useState(true);
 
   const views = {
-    Living: "/images/interior-1.webp",
-    Kitchen: "/interior/image29.webp",
-    Bedroom: "/images/bedroom-1.webp"
+    Living: '/images/interior-1.webp',
+    Kitchen: '/images/image29.webp',
+    Bedroom: '/images/bedroom-1.webp',
   };
- const openModal = useModalStore((state) => state.openModal); 
+
+  useEffect(() => {
+    setIsImageLoading(true);
+  }, [activeView]);
+
+  const openModal = useModalStore((state) => state.openModal);
+
   return (
     <section className="py-24 bg-[#F8F5F2]">
       <div className="max-w-7xl mx-auto px-5 lg:px-16">
@@ -35,24 +38,36 @@ export default function InteriorVirtualTour() {
         <div className="relative grid grid-cols-1 lg:grid-cols-12 md:gap-8 gap-4 bg-white p-4 rounded-[3rem] shadow-xl border border-white">
           
           {/* Main 360 View Port */}
-          <div className="lg:col-span-9 relative h-[500px] md:h-[650px] rounded-[2.5rem] overflow-hidden bg-gray-900 group">
-            <AnimatePresence mode="wait">
-              <motion.img
+          <div className="lg:col-span-9 relative h-[500px] md:h-[650px] rounded-[2.5rem] overflow-hidden bg-gray-900 group" aria-busy={isImageLoading}>
+            <div className="absolute inset-0 bg-[#1F1A17]">
+              {isImageLoading && (
+                <div className="absolute inset-0 z-10 flex items-center justify-center bg-[#1F1A17]">
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="h-12 w-12 rounded-full border-4 border-[#A67153]/30 border-t-[#A67153] animate-spin" />
+                    <p className="text-[10px] font-black uppercase tracking-[0.35em] text-white/70">
+                      Loading view
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              <img
                 key={activeView}
-                initial={{ opacity: 0, scale: 1.1 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1 }}
                 src={views[activeView]}
-                className="w-full h-full object-cover opacity-80"
-                loading='lazy'
-                alt="Virtual Tour"
+                alt={`${activeView} interior view`}
+                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+                  isImageLoading ? 'opacity-0' : 'opacity-80'
+                }`}
+                loading="lazy"
+                decoding="async"
+                sizes="(max-width: 1024px) 100vw, 66vw"
+                onLoad={() => setIsImageLoading(false)}
+                onError={() => setIsImageLoading(false)}
               />
-            </AnimatePresence>
+            </div>
 
             {/* Overlay UI Elements */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
-          
 
             {/* View Controls Overlay */}
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center md:gap-4 gap-2 bg-[#2D2926]/80 backdrop-blur-xl p-2 rounded-2xl border border-white/10">
