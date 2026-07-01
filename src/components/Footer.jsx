@@ -164,7 +164,7 @@ export default function Footer() {
 
           {/* Service Links */}
           <div className="space-y-6">
-            <h4 className="text-xs uppercase tracking-[0.3em] font-bold text-brand">Services</h4>
+            <div className="text-xs uppercase tracking-[0.3em] font-bold text-brand">Services</div>
             <ul className="space-y-4">
               {services.map((item) => (
                 <li key={item.name}>

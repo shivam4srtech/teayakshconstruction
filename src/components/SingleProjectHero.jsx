@@ -174,10 +174,14 @@ export default function ProjectHero({ project }) {
 
               {/* Navigation Overlay */}
               <div className="absolute inset-0 flex items-center justify-between px-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <button onClick={handlePrev} className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center hover:bg-white hover:text-[#2D2926] transition-all">
+                <button onClick={handlePrev} 
+                  aria-label='click to previous image'
+                  className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center hover:bg-white hover:text-[#2D2926] transition-all">
                   <ChevronLeft size={24} />
                 </button>
-                <button onClick={handleNext} className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center hover:bg-white hover:text-[#2D2926] transition-all">
+                <button onClick={handleNext}
+                  aria-label='click to next image'
+                  className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center hover:bg-white hover:text-[#2D2926] transition-all">
                   <ChevronRight size={24} />
                 </button>
               </div>
@@ -185,6 +189,7 @@ export default function ProjectHero({ project }) {
               {/* Maximize Trigger */}
               <button 
                 onClick={() => setIsMaximized(true)}
+                aria-label='click to maximize image'
                 className="absolute top-8 right-8 w-14 h-14 bg-black/40 backdrop-blur-lg rounded-2xl flex items-center justify-center text-white hover:bg-[#A67153] transition-all z-20 border border-white/10"
               >
                 <Maximize2 size={20} />
@@ -263,6 +268,7 @@ export default function ProjectHero({ project }) {
               </div>
               <button 
                 onClick={() => setIsMaximized(false)}
+                aria-label='click to close modal'
                 className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-[#2D2926] transition-all"
               >
                 <X size={28} />
@@ -271,7 +277,9 @@ export default function ProjectHero({ project }) {
 
             {/* Main Stage */}
             <div className="flex-1 relative flex items-center justify-center group/lightbox">
-              <button onClick={handlePrev} className="absolute left-0 md:left-4 z-20 w-16 h-16 rounded-full bg-white/5 text-white flex items-center justify-center hover:bg-[#A67153] transition-all">
+              <button onClick={handlePrev}
+                aria-label="Previous Image"
+                className="absolute left-0 md:left-4 z-20 w-16 h-16 rounded-full bg-white/5 text-white flex items-center justify-center hover:bg-[#A67153] transition-all">
                 <ChevronLeft size={32} />
               </button>
               
@@ -309,7 +317,9 @@ export default function ProjectHero({ project }) {
                 </AnimatePresence>
               </div>
 
-              <button onClick={handleNext} className="absolute right-0 md:right-4 z-20 w-16 h-16 rounded-full bg-white/5 text-white flex items-center justify-center hover:bg-[#A67153] transition-all">
+              <button onClick={handleNext}
+                aria-label="Next Image"
+                className="absolute right-0 md:right-4 z-20 w-16 h-16 rounded-full bg-white/5 text-white flex items-center justify-center hover:bg-[#A67153] transition-all">
                 <ChevronRight size={32} />
               </button>
             </div>
