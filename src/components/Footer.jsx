@@ -132,25 +132,29 @@ export default function Footer() {
             </p>
             <div className="flex gap-5">
               <Link href={'https://www.facebook.com/Trayakshconstruction'}
-                    area-label='Facebook profile of Trayaksh Construction'
+                    aria-label='Facebook profile of Trayaksh Construction'
+                    rel="noopener noreferrer"
                     target='_blank'>
                    <FaFacebookF className="text-white/40 hover:text-brand cursor-pointer transition-colors text-lg" />
               </Link>
               <Link 
                    href={'https://www.instagram.com/trayakshconstruction'} 
-                   area-label='Instagram profile of Trayaksh Construction'
+                   aria-label='Instagram profile of Trayaksh Construction'
+                   rel="noopener noreferrer"
                    target='_blank'>
                    <FaInstagram className="text-white/40 hover:text-brand cursor-pointer transition-colors text-lg" />
               </Link>
               <Link 
                     href={'https://www.youtube.com/@Trayakshconstruction'}
-                    area-label='Youtube Channel of Trayaksh Construction'
+                    aria-label='Youtube Channel of Trayaksh Construction'
+                    rel="noopener noreferrer"
                     target='_blank'>
                    <FaYoutube  className="text-white/40 hover:text-brand cursor-pointer transition-colors text-lg" />
               </Link>
               <Link 
                    href={'https://www.linkedin.com/company/trayaksh-construction/'}
-                   area-label='Linkedin profile of Trayaksh Construction'
+                   aria-label='Linkedin profile of Trayaksh Construction'
+                   rel="noopener noreferrer"
                    target='_blank'>
                    <FaLinkedinIn  className="text-white/40 hover:text-brand cursor-pointer transition-colors text-lg" />
               </Link>

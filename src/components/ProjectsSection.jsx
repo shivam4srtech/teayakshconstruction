@@ -116,14 +116,14 @@ export default function ProjectSection({ projects = [] }) {
           <div className="md:flex hidden gap-4">
             <button 
               onClick={() => scroll('left')}
-              area-label='scroll to left'
+              aria-label='scroll to left'
               className="p-3 border border-brand/20 text-brand-dark hover:bg-brand hover:text-white transition-all duration-300 rounded-full cursor-pointer"
             >
               <HiOutlineArrowLongLeft size={24} />
             </button>
             <button 
               onClick={() => scroll('right')}
-              area-label='scroll to right'
+              aria-label='scroll to right'
               className="p-3 border border-brand/20 text-brand-dark hover:bg-brand hover:text-white transition-all duration-300 rounded-full cursor-pointer"
             >
               <HiOutlineArrowLongRight size={24} />
@@ -186,7 +186,7 @@ export default function ProjectSection({ projects = [] }) {
             <h3 className="text-white text-3xl font-medium mb-6">Explore All <br /> Projects</h3>
             <Link 
               href="/projects"
-              area-label='visit project page'
+              aria-label='visit project page'
               className="w-14 h-14 border border-white/20 rounded-full flex items-center justify-center text-white group-hover:bg-white group-hover:text-brand transition-all">
               <HiOutlineArrowLongRight size={28} />
             </Link>

@@ -44,7 +44,7 @@ export default function MobileNavStrip() {
                 
                 <Link 
                   href={item.href}
-                  area-label='connect with expert'
+                  aria-label='connect with expert'
                   className="relative w-12 h-12 bg-brand text-white rounded-full flex items-center justify-center shadow-lg border-4 border-gray-50 active:scale-90 transition-transform"
                 >
                   <IoCall size={24} />

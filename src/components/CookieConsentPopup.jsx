@@ -35,7 +35,7 @@ export default function CookieConsent() {
             
             <button 
               onClick={() => setIsVisible(false)}
-              area-label='close banner'
+              aria-label='close banner'
               className="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors"
             >
               <X size={16} />
@@ -56,6 +56,7 @@ export default function CookieConsent() {
               <div className="flex items-center justify-between gap-4 pt-2">
                 <Link 
                   href="/cookie-policy" 
+                  aria-label="Learn more about our cookie policy"
                   onClick={() => setIsVisible(false)}
                   className="text-[11px] font-bold uppercase tracking-wider text-gray-400 hover:text-[#A67153] underline underline-offset-4 transition-colors"
                 >
