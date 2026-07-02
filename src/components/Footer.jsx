@@ -179,7 +179,7 @@ export default function Footer() {
 
           {/* Company Links */}
           <div className="space-y-6">
-            <h4 className="text-xs uppercase tracking-[0.3em] font-bold text-brand">Company</h4>
+            <div className="text-xs uppercase tracking-[0.3em] font-bold text-brand">Company</div>
             <ul className="space-y-4">
               {company.map((item) => (
                 <li key={item.name}>
@@ -194,7 +194,7 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div className="space-y-6">
-            <h4 className="text-xs uppercase tracking-[0.3em] font-bold text-brand">Contact</h4>
+            <div className="text-xs uppercase tracking-[0.3em] font-bold text-brand">Contact</div>
             <ul className="space-y-5">
               <li className="flex items-start gap-4 text-sm text-white/60">
                 <IoLocationOutline size={22} className="text-brand shrink-0" />
