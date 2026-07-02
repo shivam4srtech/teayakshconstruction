@@ -97,6 +97,7 @@ export default function ContactConsultant() {
               <div className="flex items-center gap-6 group">
                 <Link
                   href={"tel:918886060442"}
+                  aria-label="Call Trayaksh Construction"
                   className="cursor-pointer w-12 h-12 bg-white flex items-center justify-center text-brand shadow-sm border border-gray-100 group-hover:bg-brand group-hover:text-white transition-all">
                   <IoCallOutline size={20} />
                 </Link>
@@ -108,6 +109,7 @@ export default function ContactConsultant() {
               <div className="flex items-center gap-6 group">
                 <Link 
                  href={"mailto:info@trayakshconstruction.com"}
+                 aria-label="Email Trayaksh Construction"
                  className="cursor-pointer w-12 h-12 bg-white flex items-center justify-center text-brand shadow-sm border border-gray-100 group-hover:bg-brand group-hover:text-white transition-all">
                   <IoMailOutline size={20} />
                 </Link>
