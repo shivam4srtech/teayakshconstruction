@@ -5,7 +5,7 @@ export default function HeroSection() {
   return (
     <section 
       className="relative flex items-center bg-cover bg-center bg-no-repeat min-h-[100vh] lg:py-0 py-20"
-      style={{ backgroundImage: "url('/images/banner-demo-1.png')" }}
+      style={{ backgroundImage: "url('/images/banner-cloud.webp')" }}
     >
       {/* Overlay to ensure text readability */}
       {/* <div className="absolute inset-0 bg-white/85 -z-10" /> */}
