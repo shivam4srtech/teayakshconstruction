@@ -1,0 +1,594 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { 
+  Maximize2, 
+  Layers, 
+  ShieldCheck, 
+  Sparkles, 
+  ArrowRight, 
+  CheckCircle2, 
+  Calculator, 
+  FileText, 
+  Truck, 
+  Phone,
+  Info
+} from 'lucide-react';
+import { FaWhatsapp, FaPhoneAlt } from 'react-icons/fa';
+import { useModalStore } from '@/store/useModalStore';
+
+const BOXES = [
+  {
+    id: 1,
+    boxNo: "Box No. 1",
+    dimensions: '8.5" × 3" × 2.5"',
+    dimensionsCm: "21.6 × 7.6 × 6.3 cm",
+    colorName: "Translucent",
+    colorHex: "#e2e8f0",
+    numberColor: "bg-emerald-700 text-white",
+    cardAccent: "border-slate-200 hover:border-slate-400",
+    image: "/images/medical-boxes/white-box-1.png",
+    mrp: 49,
+    distributorPrice: 25,
+    savingsPercent: 49,
+    savingsAmount: 24,
+    capBadge: "Standard Open Top",
+    capBadgeStyle: "bg-gray-100 text-gray-700 border-gray-200",
+    dividers: "No Divider (Open Trough)",
+    gauge: "Standard Medical Grade",
+    recommendedFor: "Tablet blister strips, eye/ear drops, ampoules & surgical suture packs",
+    highlightBadge: "High Volume Fast-Mover",
+    popular: false,
+  },
+  {
+    id: 2,
+    boxNo: "Box No. 2",
+    dimensions: '10" × 3" × 2.5"',
+    dimensionsCm: "25.4 × 7.6 × 6.3 cm",
+    colorName: " Cyan Teal",
+    colorHex: "#06b6d4",
+    numberColor: "bg-emerald-700 text-white",
+    cardAccent: "border-cyan-200 hover:border-cyan-400",
+    image: "/images/medical-boxes/light-blue-box-2.png",
+    mrp: 58,
+    distributorPrice: 33,
+    savingsPercent: 43,
+    savingsAmount: 25,
+    capBadge: "Standard Open Top",
+    capBadgeStyle: "bg-gray-100 text-gray-700 border-gray-200",
+    dividers: "No Divider (Elongated Open Trough)",
+    gauge: "Standard Medical Grade",
+    recommendedFor: "Disposable syringes, catheters, elongated strips & dropper vials",
+    highlightBadge: "Space Maximizer",
+    popular: false,
+  },
+  {
+    id: 3,
+    boxNo: "Box No. 3",
+    dimensions: '9.5" × 4" × 3.5"',
+    dimensionsCm: "24.1 × 10.2 × 8.9 cm",
+    colorName: "Clinical Red",
+    colorHex: "#ef4444",
+    numberColor: "bg-emerald-700 text-white",
+    cardAccent: "border-rose-200 hover:border-rose-400",
+    image: "/images/medical-boxes/red-box-3.png",
+    mrp: null,
+    distributorPrice: 39,
+    isDualGauge: true,
+    tierPricing: [
+      { grade: "Medium Gauge", price: 39 },
+      { grade: "Heavy Gauge", price: 46 }
+    ],
+    savingsPercent: null,
+    capBadge: "CAP ₹7 EXTRA",
+    capBadgeStyle: "bg-amber-400 text-slate-900 border-amber-500 font-bold",
+    dividers: "1 Black Center Divider Included",
+    gauge: "Medium (₹39) / Heavy (₹46)",
+    recommendedFor: "Emergency medicines, antibiotics, vials & compartmentalized ampoules",
+    highlightBadge: "Dual Gauge Options",
+    popular: false,
+  },
+  {
+    id: 4,
+    boxNo: "Box No. 4",
+    dimensions: '11" × 5" × 4"',
+    dimensionsCm: "27.9 × 12.7 × 10.2 cm",
+    colorName: "Deep Clinical Blue",
+    colorHex: "#2563eb",
+    numberColor: "bg-emerald-700 text-white",
+    cardAccent: "border-blue-200 hover:border-blue-500 ring-2 ring-blue-500/20",
+    image: "/images/medical-boxes/blue-box-4.png",
+    mrp: 180,
+    distributorPrice: 69,
+    savingsPercent: 62,
+    savingsAmount: 111,
+    capBadge: "CAP ₹10 EXTRA",
+    capBadgeStyle: "bg-amber-400 text-slate-900 border-amber-500 font-bold",
+    dividers: "1 Partition Divider Included (2 Deep Compartments)",
+    gauge: "Heavy Reinforced Polymer",
+    recommendedFor: "Syrup bottles, ointments, roll bandages, alcohol swabs & IV fluids",
+    highlightBadge: "Distributor Best Seller • 62% OFF",
+    popular: true,
+  },
+  {
+    id: 5,
+    boxNo: "Box No. 5",
+    dimensions: '13" × 6" × 4.5"',
+    dimensionsCm: "33.0 × 15.2 × 11.4 cm",
+    colorName: "Aqua Cyan",
+    colorHex: "#0d9488",
+    numberColor: "bg-emerald-700 text-white",
+    cardAccent: "border-teal-200 hover:border-teal-400",
+    image: "/images/medical-boxes/cyan-box-5.png",
+    mrp: 230,
+    distributorPrice: 95,
+    savingsPercent: 59,
+    savingsAmount: 135,
+    capBadge: "NO CAP AVAILABLE",
+    capBadgeStyle: "bg-amber-100 text-amber-900 border-amber-300 font-bold",
+    dividers: "2 Partition Dividers Included (3 Compartments)",
+    gauge: "Heavy Reinforced Polymer",
+    recommendedFor: "Infusion bottles, bulk sterile dressings, multi-category medicine lots",
+    highlightBadge: "Dual Dividers (3 Slots)",
+    popular: false,
+  },
+  {
+    id: 6,
+    boxNo: "Box No. 6",
+    dimensions: '15" × 7" × 5"',
+    dimensionsCm: "38.1 × 17.8 × 12.7 cm",
+    colorName: "High-Visibility Yellow",
+    colorHex: "#eab308",
+    numberColor: "bg-emerald-700 text-white",
+    cardAccent: "border-amber-200 hover:border-amber-400 ring-2 ring-amber-400/20",
+    image: "/images/medical-boxes/yellow-box-6.png",
+    mrp: 400,
+    distributorPrice: 149,
+    savingsPercent: 63,
+    savingsAmount: 251,
+    capBadge: "CAP AVAILABLE",
+    capBadgeStyle: "bg-amber-400 text-slate-900 border-amber-500 font-bold",
+    dividers: "3 Removable Dividers (4 Large Compartments)",
+    gauge: "Industrial Heavy Duty",
+    recommendedFor: "Hospital master inventory, surgical OT trays, high-density stock racks",
+    highlightBadge: "Max Capacity • Save 63%",
+    popular: true,
+  }
+];
+
+export default function MedicalBoxGrid() {
+  const [calcQuantity, setCalcQuantity] = useState(100);
+  const [activeBoxForCalc, setActiveBoxForCalc] = useState(null);
+  const openModal = useModalStore((state) => state.openModal);
+
+  // Prevent background scrolling when calculate bulk modal is open
+  useEffect(() => {
+    if (activeBoxForCalc) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [activeBoxForCalc]);
+
+  const generateWhatsAppUrl = (box, qty = 100) => {
+    const pageUrl = typeof window !== 'undefined' ? window.location.href : 'https://trayakshconstruction.com/medical-boxes';
+    const text = `Hello Divyamrit Industries, I want to place a distributor inquiry for:
+Product: *${box.boxNo}* (${box.dimensions})
+Color: ${box.colorName}
+Estimated Quantity: ${qty} units
+
+Page Reference: ${pageUrl}
+Please share official wholesale rate, freight to my city, and dispatch lead time.`;
+    return `https://wa.me/918886060442?text=${encodeURIComponent(text)}`;
+  };
+
+  const getBulkContainerWhatsAppUrl = () => {
+    const pageUrl = typeof window !== 'undefined' ? window.location.href : 'https://trayakshconstruction.com/medical-boxes';
+    const text = `Hello Divyamrit Industries, we require a bulk container/carton quotation for Medical Storage Boxes.\n\nPage Reference: ${pageUrl}`;
+    return `https://wa.me/918886060442?text=${encodeURIComponent(text)}`;
+  };
+
+  return (
+    <section id="box-sizes" className="py-10 bg-[#FCFBF9] relative overflow-hidden border-t border-gray-200/80">
+      
+      {/* Background Ambience */}
+      <div className="absolute inset-0 pointer-events-none opacity-30">
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(rgba(45, 41, 38, 0.07) 1px, transparent 1px)`,
+            backgroundSize: '28px 28px',
+          }}
+        />
+        <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-teal-100/30 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#A67153]/10 rounded-full blur-3xl" />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 z-10">
+
+        {/* SECTION HEADER */}
+        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-20 space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-teal-50 border border-teal-200 text-teal-800 shadow-sm">
+            <Sparkles size={14} className="text-teal-600" />
+            <span className="text-[11px] font-bold uppercase tracking-[0.25em]">
+              Factory Direct Price Catalog
+            </span>
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-[#2D2926] leading-[1.15]">
+            Medical Boxes — <span className="font-light text-teal-700">6 Different Sizes</span>
+          </h2>
+
+          <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
+            Manufactured by <strong className="text-slate-900 font-bold">Divyamrit Industries</strong> using 100% medical-grade, dust-repellent virgin polymer. Transparent manufacturer prices with up to <strong className="text-emerald-700 font-bold">63% distributor margin</strong>.
+          </p>
+
+          {/* Quick Specifications Strip */}
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs font-semibold text-gray-600">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white border border-gray-200 shadow-sm">
+              <CheckCircle2 size={13} className="text-teal-600" />
+              100% Medical-Grade
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white border border-gray-200 shadow-sm">
+              <Sparkles size={13} className="text-teal-600" />
+              Dust-Repellent Material
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white border border-gray-200 shadow-sm">
+              <Layers size={13} className="text-teal-600" />
+              Modular Dividers & Caps
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white border border-gray-200 shadow-sm">
+              <Truck size={13} className="text-teal-600" />
+              Pan-India Bulk Dispatch
+            </span>
+          </div>
+        </div>
+
+        {/* 3-COLUMN PRODUCT GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-8">
+          {BOXES.map((box, index) => {
+            const hasSavings = Boolean(box.savingsPercent);
+
+            return (
+              <motion.div
+                key={box.id}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.45, delay: index * 0.08 }}
+                className={`group relative flex flex-col bg-white rounded-[2.25rem] border ${box.cardAccent} shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden`}
+              >
+                
+                {/* Popular / Best Seller Flag */}
+                {box.popular && (
+                  <div className="absolute top-0 right-0 z-20">
+                    <div className="bg-gradient-to-l from-emerald-600 to-teal-700 text-white text-[10px] font-bold uppercase tracking-wider px-3.5 py-1 rounded-bl-2xl shadow-md">
+                      Best Seller
+                    </div>
+                  </div>
+                )}
+
+                {/* CARD HEADER: Number, Title, Dimensions */}
+                <div className="p-5 pb-3 flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    {/* Circle Number Badge matching Flyer */}
+                    <div className={`w-9 h-9 rounded-full ${box.numberColor} flex items-center justify-center font-bold text-base shadow-sm shrink-0`}>
+                      {box.id}
+                    </div>
+                    <div>
+                      <h3 className="md:text-xl text-[.8rem] font-bold text-slate-900 tracking-tight leading-tight">
+                        {box.boxNo}
+                      </h3>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        <span 
+                          className="w-2.5 h-2.5 rounded-full border border-black/10 shrink-0" 
+                          style={{ backgroundColor: box.colorHex }}
+                        />
+                        <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">
+                          {box.colorName}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Highlight Pill */}
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-teal-50 text-teal-800 border border-teal-200 text-right">
+                    {box.dimensions}
+                  </span>
+                </div>
+
+                {/* PRODUCT VISUAL STAGE */}
+                <div className="relative mx-4 my-2 h-[200px] sm:h-[220px] rounded-2xl bg-gradient-to-b from-[#F9FBFC] to-[#F1F5F9] border border-gray-100 flex items-center justify-center p-4 overflow-hidden">
+                  
+                  {/* Radial Color Aura */}
+                  <div 
+                    className="absolute w-36 h-36 rounded-full blur-2xl opacity-20 pointer-events-none group-hover:opacity-40 transition-opacity"
+                    style={{ backgroundColor: box.colorHex }}
+                  />
+
+                  {/* Metric Sub-badge */}
+                  <div className="absolute top-3 left-3 z-10">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-white/90 backdrop-blur-sm border border-gray-200 text-gray-600 shadow-sm">
+                      <Maximize2 size={10} className="text-teal-600" />
+                      {box.dimensionsCm}
+                    </span>
+                  </div>
+
+                  {/* Clean Product Image */}
+                  <div className="relative w-full h-full flex items-center justify-center">
+                    <Image
+                      src={box.image}
+                      alt={`${box.boxNo} - Divyamrit Industries Medical Box`}
+                      width={260}
+                      height={190}
+                      className="max-h-[160px] sm:max-h-[175px] w-auto object-contain drop-shadow-xl transition-transform duration-500 group-hover:scale-108 rounded"
+                    />
+                  </div>
+
+                  {/* Cap Availability Overlay Bar */}
+                  <div className="absolute bottom-2.5 inset-x-3 flex items-center justify-center">
+                    <span className={`inline-block px-3 py-1 rounded-lg text-[10px] uppercase tracking-wider shadow-sm border ${box.capBadgeStyle}`}>
+                      {box.capBadge}
+                    </span>
+                  </div>
+                </div>
+
+                {/* PRICING TABLE (MATCHING FLYER LAYOUT) */}
+                <div className="px-5 pt-3">
+                  {box.isDualGauge ? (
+                    /* Box 3 Multi-Tier Gauge Table */
+                    <div className="rounded border border-rose-300 overflow-hidden shadow-sm">
+                      <div className="grid grid-cols-12 bg-slate-900 text-white text-[11px] font-bold uppercase tracking-wider py-1.5 px-3">
+                        <span className="col-span-3 text-rose-300">MRP</span>
+                        <span className="col-span-5 text-gray-200">Gauge / Grade</span>
+                        <span className="col-span-4 text-right text-emerald-400">Distributor</span>
+                      </div>
+                      <div className="divide-y divide-gray-100 bg-white">
+                        <div className="grid grid-cols-12 text-xs py-2 px-3 items-center">
+                          <span className="col-span-3 text-gray-400 font-bold">—</span>
+                          <span className="col-span-5 font-bold text-slate-800">Medium Gauge</span>
+                          <span className="col-span-4 text-right font-bold text-slate-900 text-sm">₹39/-</span>
+                        </div>
+                        <div className="grid grid-cols-12 text-xs py-2 px-3 items-center bg-rose-50/40">
+                          <span className="col-span-3 text-gray-400 font-bold">—</span>
+                          <span className="col-span-5 font-bold text-slate-800">Heavy Gauge</span>
+                          <span className="col-span-4 text-right font-bold text-rose-700 text-sm">₹46/-</span>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    /* Standard Two-Tone Pricing Header (MRP vs Distributor Price) */
+                    <div className="rounded border border-gray-200 overflow-hidden shadow-sm flex flex-col">
+                      <div className="grid grid-cols-2 text-center">
+                        <div className="bg-[#8b1e1e] text-white py-1 px-2 text-[10px] font-bold uppercase tracking-wider">
+                          MRP
+                        </div>
+                        <div className="bg-[#0f2744] text-white py-1 px-2 text-[10px] font-bold uppercase tracking-wider">
+                          Distributor Price
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 text-center py-2.5 px-3 bg-white divide-x divide-gray-100 items-center">
+                        <div>
+                          <span className="text-base sm:text-lg font-bold text-gray-400 line-through">
+                            ₹{box.mrp}/-
+                          </span>
+                        </div>
+                        <div className="flex flex-col items-center justify-center">
+                          <span className="text-xl sm:text-2xl font-bold text-slate-900 leading-none">
+                            ₹{box.distributorPrice}/-
+                          </span>
+                          {hasSavings && (
+                            <span className="mt-1 text-[9px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                              Save {box.savingsPercent}% (₹{box.savingsAmount})
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* SPECIFICATIONS & FEATURES LIST */}
+                <div className="p-5 pt-3 space-y-2.5 text-xs flex-1">
+                  
+                  {/* Dividers */}
+                  <div className="flex items-start gap-2 text-gray-600 bg-gray-50/80 p-2.5 rounded border border-gray-100">
+                    <Layers size={15} className="text-teal-600 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-bold text-slate-900 block leading-tight">Compartment Setup:</span>
+                      <span className="text-[11px] text-gray-500">{box.dividers}</span>
+                    </div>
+                  </div>
+
+                  {/* Best Used For */}
+                  <div className="flex items-start gap-2 text-gray-600 bg-gray-50/80 p-2.5 rounded border border-gray-100">
+                    <CheckCircle2 size={15} className="text-emerald-600 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-bold text-slate-900 block leading-tight">Recommended Use:</span>
+                      <span className="text-[11px] text-gray-500 leading-snug">{box.recommendedFor}</span>
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* CARD FOOTER ACTIONS */}
+                <div className="p-5 pt-0 mt-auto space-y-2">
+                  <a
+                    href={generateWhatsAppUrl(box)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full group flex items-center justify-center gap-2 py-3 px-4 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md active:scale-98"
+                  >
+                    <FaWhatsapp size={16} />
+                    <span>Order  on WhatsApp</span>
+                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  </a>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <a
+                      href="tel:+918886060442"
+                      className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold text-[11px] transition-colors"
+                    >
+                      <FaPhoneAlt size={11} className="text-teal-600" />
+                      <span>Call Factory</span>
+                    </a>
+
+                    <button
+                      onClick={() => setActiveBoxForCalc(box)}
+                      className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-teal-50 hover:bg-teal-100 text-teal-800 font-bold text-[11px] transition-colors border border-teal-200"
+                    >
+                      <Calculator size={12} className="text-teal-700" />
+                      <span>Calculate Bulk</span>
+                    </button>
+                  </div>
+                </div>
+
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* BOTTOM FACTORY BULK BANNER */}
+        <div id="logistics" className="mt-16 p-6 sm:p-10 rounded-[2.5rem] bg-gradient-to-r from-slate-900 via-slate-800 to-teal-950 text-white shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div className="space-y-3 text-center lg:text-left max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-[10px] font-bold uppercase tracking-wider">
+                <Truck size={12} />
+                Pan-India Wholesale Logistics
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-bold tracking-tight leading-tight">
+                Setting Up a Pharmacy Chain, Hospital, or Wholesale Distribution?
+              </h3>
+              <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
+                Divyamrit Industries provides master bundle cartons with container-load rates, custom color branding, and door delivery across all Indian states. Contact our supply team directly.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center gap-3.5 w-full lg:w-auto shrink-0">
+              <a
+                href={getBulkContainerWhatsAppUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-widest shadow-xl transition-all active:scale-95"
+              >
+                <FaWhatsapp size={18} />
+                <span>Bulk Container Inquiry</span>
+              </a>
+
+              <button
+                onClick={openModal}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded bg-white hover:bg-gray-100 text-slate-900 font-bold text-xs uppercase tracking-widest shadow-md transition-all active:scale-95"
+              >
+                <span>Request Call Back</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {/* QUICK BATCH / BULK CALCULATOR MODAL */}
+      {activeBoxForCalc && (
+        <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
+          <div className="relative w-full max-w-md bg-white rounded-3xl p-6 sm:p-7 shadow-2xl border border-gray-200">
+            <button
+              onClick={() => setActiveBoxForCalc(null)}
+              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600"
+            >
+              ✕
+            </button>
+
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-2 h-2 rounded-full bg-teal-600" />
+              <span className="text-[10px] font-bold uppercase tracking-widest text-teal-700">
+                Bulk Margin Calculator
+              </span>
+            </div>
+
+            <h4 className="text-xl font-bold text-slate-900">
+              {activeBoxForCalc.boxNo} Investment Estimate
+            </h4>
+            <p className="text-xs text-gray-500 mb-5">
+              Dimensions: {activeBoxForCalc.dimensions} • Factory Direct
+            </p>
+
+            {/* Quantity Slider / Selector */}
+            <div className="space-y-3 mb-6 bg-gray-50 p-4 rounded-2xl border border-gray-200/80">
+              <label className="text-xs font-bold text-gray-700 flex justify-between">
+                <span>Select Order Quantity:</span>
+                <span className="text-teal-700 font-bold text-sm">{calcQuantity} Units</span>
+              </label>
+              
+              <input
+                type="range"
+                min="50"
+                max="2000"
+                step="50"
+                value={calcQuantity}
+                onChange={(e) => setCalcQuantity(Number(e.target.value))}
+                className="w-full accent-teal-600 cursor-pointer"
+              />
+
+              <div className="flex justify-between text-[10px] font-bold text-gray-400">
+                <span>50 pcs</span>
+                <span>500 pcs</span>
+                <span>1000 pcs</span>
+                <span>2000 pcs</span>
+              </div>
+            </div>
+
+            {/* Calculations Breakdown */}
+            <div className="space-y-2.5 p-4 rounded-2xl bg-teal-50/60 border border-teal-100 mb-6 text-xs">
+              <div className="flex justify-between">
+                <span className="text-gray-600">Unit Wholesale Rate:</span>
+                <span className="font-bold text-slate-900">₹{activeBoxForCalc.distributorPrice}/-</span>
+              </div>
+
+              {activeBoxForCalc.mrp && (
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Total MRP Value:</span>
+                  <span className="font-bold text-gray-500 line-through">
+                    ₹{(activeBoxForCalc.mrp * calcQuantity).toLocaleString('en-IN')}/-
+                  </span>
+                </div>
+              )}
+
+              <div className="pt-2 border-t border-teal-200 flex justify-between items-baseline">
+                <span className="text-xs font-bold text-slate-900">Total Factory Investment:</span>
+                <span className="text-xl font-bold text-slate-900">
+                  ₹{(activeBoxForCalc.distributorPrice * calcQuantity).toLocaleString('en-IN')}/-
+                </span>
+              </div>
+
+              {activeBoxForCalc.mrp && (
+                <div className="flex justify-between text-emerald-700 font-bold pt-1">
+                  <span>Your Distributor Profit:</span>
+                  <span>+₹{((activeBoxForCalc.mrp - activeBoxForCalc.distributorPrice) * calcQuantity).toLocaleString('en-IN')} ({activeBoxForCalc.savingsPercent}% Margin)</span>
+                </div>
+              )}
+            </div>
+
+            {/* WhatsApp CTA with pre-filled quantity */}
+            <a
+              href={generateWhatsAppUrl(activeBoxForCalc, calcQuantity)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-colors"
+            >
+              <FaWhatsapp size={16} />
+              <span>Inquire for {calcQuantity} Units on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      )}
+
+    </section>
+  );
+}

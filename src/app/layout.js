@@ -3,10 +3,7 @@ import './globals.css';
 import { Montserrat } from 'next/font/google';
 import { headers } from 'next/headers';
 import Script from 'next/script';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import UtilityProvider from '@/components/UtilityProvider';
-import ZohoSalesIQLoader from '@/components/ZohoSalesIQLoader';
+import MainLayout from '@/components/MainLayout';
 import ThirdPartyScripts from '@/components/ThirdPartyScripts';
 
 const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://trayakshconstruction.com');
@@ -172,11 +169,9 @@ export default function RootLayout({ children }) {
             alt=""
           />
         </noscript>
-        <Navbar/>
-        {children}
-        <Footer/>
-        <UtilityProvider/>
-        <ZohoSalesIQLoader />
+        <MainLayout>
+          {children}
+        </MainLayout>
         
       </body>
     </html>
