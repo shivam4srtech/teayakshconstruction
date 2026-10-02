@@ -128,7 +128,7 @@ export default function MedicalBoxFooter() {
               </li>
               <li className="flex items-center justify-between border-b border-slate-800/80 pb-2">
                 <span>Box No. 3 (9.5&quot; × 4&quot; × 3.5&quot;)</span>
-                <span className="text-teal-300 font-bold">₹39 / ₹46</span>
+                <span className="text-white font-bold">₹39/- </span>
               </li>
               <li className="flex items-center justify-between border-b border-slate-800/80 pb-2">
                 <span>Box No. 4 (11&quot; × 5&quot; × 4&quot;)</span>

@@ -139,20 +139,15 @@ const BOXES = [
         alt: 'Medical Box No. 3 - Clinical Red View'
       }
     ],
-    mrp: null,
+    mrp: 86,
     distributorPrice: 39,
-    isDualGauge: true,
-    tierPricing: [
-      { grade: "Medium Gauge", price: 39 },
-      { grade: "Heavy Gauge", price: 46 }
-    ],
     savingsPercent: null,
     capBadge: "CAP ₹7 EXTRA",
     capBadgeStyle: "bg-amber-400 text-slate-900 border-amber-500 font-bold",
     dividers: "1 Black Center Divider Included",
-    gauge: "Medium (₹39) / Heavy (₹46)",
+    gauge: "Standard Medical Grade",
     recommendedFor: "Emergency medicines, antibiotics, vials & compartmentalized ampoules",
-    highlightBadge: "Dual Gauge Options",
+    highlightBadge: "Optional Cap (₹7 Extra)",
     popular: false,
   },
   {
@@ -350,7 +345,7 @@ function MedicalBoxCard({ box, index, generateWhatsAppUrl, onCalculateBulk, onOp
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.45, delay: index * 0.08 }}
-      className={`group relative flex flex-col bg-white rounded-[2.25rem] border ${box.cardAccent} shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden`}
+      className={`group relative flex flex-col bg-white rounded-lg border ${box.cardAccent} shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden`}
     >
       {/* Popular / Best Seller Flag */}
       {box.popular && (
@@ -371,7 +366,7 @@ function MedicalBoxCard({ box, index, generateWhatsAppUrl, onCalculateBulk, onOp
             <h3 className="md:text-xl text-[.8rem] font-bold text-slate-900 tracking-tight leading-tight">
               {box.boxNo}
             </h3>
-            <div className="flex items-center gap-1.5 mt-0.5">
+            {/* <div className="flex items-center gap-1.5 mt-0.5">
               <span 
                 className="w-2.5 h-2.5 rounded-full border border-black/10 shrink-0" 
                 style={{ backgroundColor: box.colorHex }}
@@ -379,7 +374,7 @@ function MedicalBoxCard({ box, index, generateWhatsAppUrl, onCalculateBulk, onOp
               <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">
                 {box.colorName}
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -547,57 +542,34 @@ function MedicalBoxCard({ box, index, generateWhatsAppUrl, onCalculateBulk, onOp
 
       {/* PRICING TABLE (MATCHING FLYER LAYOUT) */}
       <div className="px-5 pt-3">
-        {box.isDualGauge ? (
-          /* Box 3 Multi-Tier Gauge Table */
-          <div className="rounded border border-rose-300 overflow-hidden shadow-sm">
-            <div className="grid grid-cols-12 bg-slate-900 text-white text-[11px] font-bold uppercase tracking-wider py-1.5 px-3">
-              <span className="col-span-3 text-rose-300">MRP</span>
-              <span className="col-span-5 text-gray-200">Gauge / Grade</span>
-              <span className="col-span-4 text-right text-emerald-400">Distributor</span>
+        {/* Standard Two-Tone Pricing Header (MRP vs Distributor Price) */}
+        <div className="rounded border border-gray-200 overflow-hidden shadow-sm flex flex-col">
+          <div className="grid grid-cols-2 text-center">
+            <div className="bg-[#8b1e1e] text-white py-1 px-2 text-[10px] font-bold uppercase tracking-wider">
+              MRP
             </div>
-            <div className="divide-y divide-gray-100 bg-white">
-              <div className="grid grid-cols-12 text-xs py-2 px-3 items-center">
-                <span className="col-span-3 text-gray-400 font-bold">—</span>
-                <span className="col-span-5 font-bold text-slate-800">Medium Gauge</span>
-                <span className="col-span-4 text-right font-bold text-slate-900 text-sm">₹39/-</span>
-              </div>
-              <div className="grid grid-cols-12 text-xs py-2 px-3 items-center bg-rose-50/40">
-                <span className="col-span-3 text-gray-400 font-bold">—</span>
-                <span className="col-span-5 font-bold text-slate-800">Heavy Gauge</span>
-                <span className="col-span-4 text-right font-bold text-rose-700 text-sm">₹46/-</span>
-              </div>
+            <div className="bg-[#0f2744] text-white py-1 px-2 text-[10px] font-bold uppercase tracking-wider">
+              Distributor Price
             </div>
           </div>
-        ) : (
-          /* Standard Two-Tone Pricing Header (MRP vs Distributor Price) */
-          <div className="rounded border border-gray-200 overflow-hidden shadow-sm flex flex-col">
-            <div className="grid grid-cols-2 text-center">
-              <div className="bg-[#8b1e1e] text-white py-1 px-2 text-[10px] font-bold uppercase tracking-wider">
-                MRP
-              </div>
-              <div className="bg-[#0f2744] text-white py-1 px-2 text-[10px] font-bold uppercase tracking-wider">
-                Distributor Price
-              </div>
+          <div className="grid grid-cols-2 text-center py-2.5 px-3 bg-white divide-x divide-gray-100 items-center">
+            <div>
+              <span className="text-base sm:text-lg font-bold text-gray-400 line-through">
+                {box.mrp ? `₹${box.mrp}/-` : '—'}
+              </span>
             </div>
-            <div className="grid grid-cols-2 text-center py-2.5 px-3 bg-white divide-x divide-gray-100 items-center">
-              <div>
-                <span className="text-base sm:text-lg font-bold text-gray-400 line-through">
-                  ₹{box.mrp}/-
+            <div className="flex flex-col items-center justify-center">
+              <span className="text-xl sm:text-2xl font-bold text-slate-900 leading-none">
+                ₹{box.distributorPrice}/-
+              </span>
+              {hasSavings && (
+                <span className="mt-1 text-[9px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                  Save {box.savingsPercent}% (₹{box.savingsAmount})
                 </span>
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <span className="text-xl sm:text-2xl font-bold text-slate-900 leading-none">
-                  ₹{box.distributorPrice}/-
-                </span>
-                {hasSavings && (
-                  <span className="mt-1 text-[9px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                    Save {box.savingsPercent}% (₹{box.savingsAmount})
-                  </span>
-                )}
-              </div>
+              )}
             </div>
           </div>
-        )}
+        </div>
       </div>
 
       {/* SPECIFICATIONS & FEATURES LIST */}
