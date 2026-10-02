@@ -44,7 +44,7 @@ const BOX_CATALOG = [
     capPrice: null,
     dividers: "Open Channel (No Dividers)",
     gauge: "Standard Medical Grade",
-    image: "/images/medical-boxes/white-box-1.png",
+    image: "/images/medical-boxes/medical-box-1.webp",
     recommendedFor: "Tablet blister strips, eye drops, ampoules & suture packs",
     highlight: "High Volume Fast-Mover"
   },
@@ -66,7 +66,7 @@ const BOX_CATALOG = [
     capPrice: null,
     dividers: "Open Channel (No Dividers)",
     gauge: "Standard Medical Grade",
-    image: "/images/medical-boxes/light-blue-box-2.png",
+    image: "/images/medical-boxes/medical-box-2.webp",
     recommendedFor: "Syringes, elongated strips, vials & medical catheters",
     highlight: "Space Maximizer"
   },
@@ -78,10 +78,7 @@ const BOX_CATALOG = [
     dimensionsCm: "24.1 × 10.2 × 8.9 cm",
     mrp: null,
     distributorPrice: 39,
-    tierPricing: [
-      { grade: "Medium Gauge", price: 39 },
-      { grade: "Heavy Gauge", price: 46 }
-    ],
+   
     savingsPercent: null,
     colorName: " Red",
     colorHex: "#ef4444",
@@ -573,19 +570,7 @@ export default function MedicalBoxHero() {
                       </div>
                     </div>
 
-                    {/* Multi-tier pricing notice for Box 3 */}
-                    {activeBox.tierPricing && (
-                      <div className="p-2.5 rounded-xl bg-white border border-rose-200 text-xs flex items-center justify-between">
-                        <span className="font-bold text-slate-800">Available Grades:</span>
-                        <div className="flex items-center gap-3">
-                          {activeBox.tierPricing.map((tier, i) => (
-                            <span key={i} className="text-rose-700 font-bold bg-rose-50 px-2 py-1 rounded-md border border-rose-100">
-                              {tier.grade}: ₹{tier.price}/-
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                   
 
                     {/* Detailed Attribute Matrix */}
                     <div className="grid grid-cols-2  gap-2 text-center">
