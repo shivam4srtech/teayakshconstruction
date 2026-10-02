@@ -22,7 +22,6 @@ import { FaWhatsapp, FaPhoneAlt } from 'react-icons/fa';
 export default function MedicalBoxNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showBrochureModal, setShowBrochureModal] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,9 +31,9 @@ export default function MedicalBoxNavbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Prevent background scroll when mobile menu or brochure modal is open
+  // Prevent background scroll when mobile menu is open
   useEffect(() => {
-    if (mobileMenuOpen || showBrochureModal) {
+    if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -42,14 +41,13 @@ export default function MedicalBoxNavbar() {
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [mobileMenuOpen, showBrochureModal]);
+  }, [mobileMenuOpen]);
 
-  // Close modals on Escape key
+  // Close mobile drawer on Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         setMobileMenuOpen(false);
-        setShowBrochureModal(false);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -151,13 +149,15 @@ export default function MedicalBoxNavbar() {
 
           {/* DESKTOP CTAs */}
           <div className="hidden sm:flex items-center gap-3 shrink-0">
-            <button
-              onClick={() => setShowBrochureModal(true)}
+            <a
+              href="/company_profile.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded text-xs font-bold uppercase tracking-wider text-slate-800 bg-gray-100 hover:bg-gray-200 transition-colors border border-gray-200/60"
             >
               <FileText size={13} className="text-teal-700" />
               <span>Brochure</span>
-            </button>
+            </a>
 
             <a
               href={getWhatsAppUrl()}
@@ -303,16 +303,16 @@ export default function MedicalBoxNavbar() {
                   <p className="text-xs text-gray-200 leading-snug">
                     Inspect the authentic distributor pricing sheet, specs &amp; multi-tier cap options.
                   </p>
-                  <button
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      setShowBrochureModal(true);
-                    }}
+                  <a
+                    href="/company_profile.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMobileMenuOpen(false)}
                     className="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded bg-teal-500 hover:bg-teal-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-colors shadow-sm"
                   >
                     <FileText size={14} />
-                    <span>View Official Flyer</span>
-                  </button>
+                    <span>View Company Profile &amp; Brochure</span>
+                  </a>
                 </div>
 
                 {/* Direct Factory Contacts */}
@@ -372,72 +372,6 @@ export default function MedicalBoxNavbar() {
         )}
       </AnimatePresence>
 
-      {/* FLYER PREVIEW MODAL */}
-      <AnimatePresence>
-        {showBrochureModal && (
-          <div className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-6">
-            <motion.div
-              key="brochure-modal-backdrop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              onClick={() => setShowBrochureModal(false)}
-              className="absolute inset-0 bg-slate-950/80 backdrop-blur-md"
-            />
-
-            <motion.div
-              key="brochure-modal-card"
-              initial={{ scale: 0.94, opacity: 0, y: 16 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.94, opacity: 0, y: 16 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh] z-10"
-            >
-              <div className="p-4 sm:p-5 bg-slate-900 text-white flex items-center justify-between shrink-0">
-                <div>
-                  <h3 className="text-base sm:text-lg font-bold">Divyamrit Industries Official Flyer</h3>
-                  <p className="text-[11px] sm:text-xs text-gray-400">Direct factory distributor pricing sheet &amp; specifications</p>
-                </div>
-                <button
-                  onClick={() => setShowBrochureModal(false)}
-                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
-                >
-                  <X size={18} />
-                </button>
-              </div>
-
-              <div className="overflow-y-auto p-4 flex justify-center bg-gray-100">
-                <div className="relative max-w-full rounded overflow-hidden shadow-lg border border-gray-300">
-                  <Image
-                    src="/images/medical-boxes-flyer.jpg"
-                    alt="Divyamrit Industries Medical Boxes Official Flyer"
-                    width={682}
-                    height={1024}
-                    className="w-full h-auto object-contain"
-                  />
-                </div>
-              </div>
-
-              <div className="p-4 bg-white border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
-                <div className="text-center sm:text-left">
-                  <p className="text-xs font-bold text-slate-900">Direct Inquiries &amp; Bulk Orders</p>
-                  <p className="text-[11px] text-gray-500">Call: 8886060442 / 9985199903 • Email: divyamritindustries@gmail.com</p>
-                </div>
-                <a
-                  href={getWhatsAppUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-md"
-                >
-                  <FaWhatsapp size={16} />
-                  <span>Inquire on WhatsApp</span>
-                </a>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </>
   );
 }
