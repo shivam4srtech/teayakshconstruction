@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -20,7 +20,14 @@ import {
   Tag, 
   SlidersHorizontal,
   Flame,
-  FileText
+  FileText,
+  Play,
+  Pause,
+  Volume2,
+  VolumeX,
+  Video,
+  Image as ImageIcon,
+  Loader2
 } from 'lucide-react';
 import { FaWhatsapp, FaPhoneAlt } from 'react-icons/fa';
 import { useModalStore } from '@/store/useModalStore';
@@ -44,7 +51,35 @@ const BOX_CATALOG = [
     capPrice: null,
     dividers: "Open Channel (No Dividers)",
     gauge: "Standard Medical Grade",
-    image: "/images/medical-boxes/medical-box-1.webp",
+    image: "/images/medical-boxes/box-1/img-1.jpeg",
+    media: [
+      {
+        id: 'b1-img-1',
+        type: 'image',
+        src: '/images/medical-boxes/box-1/img-1.jpeg',
+        label: 'Photo 1',
+        title: 'Box No. 1 - Clinical Angle 1',
+        alt: 'Divyamrit Medical Box No. 1 - Angle View 1'
+      },
+      {
+        id: 'b1-img-2',
+        type: 'image',
+        src: '/images/medical-boxes/box-1/img-2.jpeg',
+        label: 'Photo 2',
+        title: 'Box No. 1 - Clinical Angle 2',
+        alt: 'Divyamrit Medical Box No. 1 - Angle View 2'
+      },
+      {
+        id: 'b1-video',
+        type: 'video',
+        src: '/images/medical-boxes/box-1/box-1.mp4',
+        poster: '/images/medical-boxes/box-1/img-1.jpeg',
+        label: 'Video Demo',
+        title: 'Box No. 1 - Factory Demonstration Video',
+        alt: 'Divyamrit Medical Box No. 1 Video'
+      }
+    
+    ],
     recommendedFor: "Tablet blister strips, eye drops, ampoules & suture packs",
     highlight: "High Volume Fast-Mover"
   },
@@ -66,7 +101,35 @@ const BOX_CATALOG = [
     capPrice: null,
     dividers: "Open Channel (No Dividers)",
     gauge: "Standard Medical Grade",
-    image: "/images/medical-boxes/medical-box-2.webp",
+    image: "/images/medical-boxes/box-2/img-1.jpeg",
+    media: [
+      {
+        id: 'b2-img-1',
+        type: 'image',
+        src: '/images/medical-boxes/box-2/img-1.jpeg',
+        label: 'Photo 1',
+        title: 'Box No. 2 - Shelf Profile Angle 1',
+        alt: 'Divyamrit Medical Box No. 2 - Angle View 1'
+      },
+      {
+        id: 'b2-img-2',
+        type: 'image',
+        src: '/images/medical-boxes/box-2/img-2.jpeg',
+        label: 'Photo 2',
+        title: 'Box No. 2 - Shelf Profile Angle 2',
+        alt: 'Divyamrit Medical Box No. 2 - Angle View 2'
+      },
+      {
+        id: 'b2-video',
+        type: 'video',
+        src: '/images/medical-boxes/box-2/box-2.mp4',
+        poster: '/images/medical-boxes/box-2/img-1.jpeg',
+        label: 'Video Demo',
+        title: 'Box No. 2 - Factory Demonstration Video',
+        alt: 'Divyamrit Medical Box No. 2 Video'
+      }
+     
+    ],
     recommendedFor: "Syringes, elongated strips, vials & medical catheters",
     highlight: "Space Maximizer"
   },
@@ -78,7 +141,6 @@ const BOX_CATALOG = [
     dimensionsCm: "24.1 × 10.2 × 8.9 cm",
     mrp: null,
     distributorPrice: 39,
-   
     savingsPercent: null,
     colorName: " Red",
     colorHex: "#ef4444",
@@ -88,7 +150,18 @@ const BOX_CATALOG = [
     capPrice: "₹7 Extra",
     dividers: "1 Partition Divider Included",
     gauge: "Medium Gauge (₹39) / Heavy Gauge (₹46)",
-    image: "/images/medical-boxes/red-box-3.png",
+    image: "/images/medical-boxes/box-3/img-1.jpeg",
+    media: [
+      {
+        id: 'b3-img-1',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-1.jpeg',
+        label: 'Photo 1',
+        title: 'Box No. 3 - Real Clinical Red Photo',
+        alt: 'Divyamrit Medical Box No. 3 - Angle View'
+      }
+     
+    ],
     recommendedFor: "Antibiotics, urgent medicines & batch segregated bottles",
     highlight: "Optional Cap (₹7 Extra)"
   },
@@ -110,7 +183,27 @@ const BOX_CATALOG = [
     capPrice: "₹10 Extra",
     dividers: "1 Sturdy Center Divider Included",
     gauge: "Heavy Reinforced Polymer",
-    image: "/images/medical-boxes/blue-box-4.png",
+    image: "/images/medical-boxes/box-4/img-1.jpeg",
+    media: [
+      {
+        id: 'b4-img-1',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-1.jpeg',
+        label: 'Photo 1',
+        title: 'Box No. 4 - Deep Organizer Photo',
+        alt: 'Divyamrit Medical Box No. 4 - Angle View'
+      },
+      {
+        id: 'b4-video',
+        type: 'video',
+        src: '/images/medical-boxes/box-4/box-4.mp4',
+        poster: '/images/medical-boxes/box-4/img-1.jpeg',
+        label: 'Video Demo',
+        title: 'Box No. 4 - Factory Demonstration Video',
+        alt: 'Divyamrit Medical Box No. 4 Video'
+      }
+     
+    ],
     recommendedFor: "Syrup bottles, ointments, roll bandages & medical fluids",
     highlight: "Top Distributor Pick • 62% Margin"
   },
@@ -132,7 +225,43 @@ const BOX_CATALOG = [
     capPrice: null,
     dividers: "2 Partition Dividers Included (3 Compartments)",
     gauge: "Heavy Reinforced Polymer",
-    image: "/images/medical-boxes/cyan-box-5.png",
+    image: "/images/medical-boxes/box-5/img-1.jpeg",
+    media: [
+      {
+        id: 'b5-img-1',
+        type: 'image',
+        src: '/images/medical-boxes/box-5/img-1.jpeg',
+        label: 'Photo 1',
+        title: 'Box No. 5 - Bulk Tray Angle 1',
+        alt: 'Divyamrit Medical Box No. 5 - Angle View 1'
+      },
+      {
+        id: 'b5-img-2',
+        type: 'image',
+        src: '/images/medical-boxes/box-5/img-2.jpeg',
+        label: 'Photo 2',
+        title: 'Box No. 5 - Bulk Tray Angle 2',
+        alt: 'Divyamrit Medical Box No. 5 - Angle View 2'
+      },
+      {
+        id: 'b5-img-3',
+        type: 'image',
+        src: '/images/medical-boxes/box-5/img-3.jpeg',
+        label: 'Photo 3',
+        title: 'Box No. 5 - Multi-Partition Angle',
+        alt: 'Divyamrit Medical Box No. 5 - Angle View 3'
+      },
+      {
+        id: 'b5-video',
+        type: 'video',
+        src: '/images/medical-boxes/box-5/box-5.mp4',
+        poster: '/images/medical-boxes/box-5/img-1.jpeg',
+        label: 'Video Demo',
+        title: 'Box No. 5 - Factory Demonstration Video',
+        alt: 'Divyamrit Medical Box No. 5 Video'
+      },
+    
+    ],
     recommendedFor: "Infusion bottles, bulk surgical dressings, OT consumables",
     highlight: "Dual Dividers (3 Slots)"
   },
@@ -154,7 +283,35 @@ const BOX_CATALOG = [
     capPrice: "Cap Available on Order",
     dividers: "3 Removable Dividers (4 Large Compartments)",
     gauge: "Industrial Heavy Duty",
-    image: "/images/medical-boxes/yellow-box-6.png",
+    image: "/images/medical-boxes/box-6/img-1.jpeg",
+    media: [
+      {
+        id: 'b6-img-1',
+        type: 'image',
+        src: '/images/medical-boxes/box-6/img-1.jpeg',
+        label: 'Photo 1',
+        title: 'Box No. 6 - Master Hospital Tray Angle 1',
+        alt: 'Divyamrit Medical Box No. 6 - Angle View 1'
+      },
+      {
+        id: 'b6-img-2',
+        type: 'image',
+        src: '/images/medical-boxes/box-6/img-2.jpeg',
+        label: 'Photo 2',
+        title: 'Box No. 6 - Master Hospital Tray Angle 2',
+        alt: 'Divyamrit Medical Box No. 6 - Angle View 2'
+      },
+      {
+        id: 'b6-video',
+        type: 'video',
+        src: '/images/medical-boxes/box-6/box-6.mp4',
+        poster: '/images/medical-boxes/box-6/img-1.jpeg',
+        label: 'Video Demo',
+        title: 'Box No. 6 - Factory Demonstration Video',
+        alt: 'Divyamrit Medical Box No. 6 Video'
+      },
+    
+    ],
     recommendedFor: "Complete category master racks, hospital stockrooms & surgical kits",
     highlight: "Maximum Capacity • 63% Margin"
   }
@@ -185,14 +342,25 @@ const TRUST_PILLARS = [
 
 export default function MedicalBoxHero() {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [activeMediaIndex, setActiveMediaIndex] = useState(0);
+  const [mediaLoading, setMediaLoading] = useState(true);
+  const [isAutoSlide, setIsAutoSlide] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
   const [showBrochureModal, setShowBrochureModal] = useState(false);
+  const [showLightbox, setShowLightbox] = useState(false);
+
+  const videoRef = useRef(null);
   const openConsultModal = useModalStore((state) => state.openModal);
 
   const activeBox = BOX_CATALOG[selectedIndex];
+  const currentMediaList = activeBox.media || [];
+  const currentMedia = currentMediaList[activeMediaIndex] || currentMediaList[0];
 
-  // Prevent background scrolling when brochure modal is open
+  // Prevent background scrolling when modals are open
   useEffect(() => {
-    if (showBrochureModal) {
+    if (showBrochureModal || showLightbox) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -200,14 +368,86 @@ export default function MedicalBoxHero() {
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [showBrochureModal]);
+  }, [showBrochureModal, showLightbox]);
 
-  const handleNext = () => {
-    setSelectedIndex((prev) => (prev + 1) % BOX_CATALOG.length);
+  // Handle Box switching
+  const handleSelectBox = (idx) => {
+    if (idx !== selectedIndex) {
+      setSelectedIndex(idx);
+      setActiveMediaIndex(0);
+      setMediaLoading(true);
+      setIsPlaying(true);
+    }
   };
 
-  const handlePrev = () => {
+  const handleNextBox = () => {
+    setSelectedIndex((prev) => (prev + 1) % BOX_CATALOG.length);
+    setActiveMediaIndex(0);
+    setMediaLoading(true);
+    setIsPlaying(true);
+  };
+
+  const handlePrevBox = () => {
     setSelectedIndex((prev) => (prev - 1 + BOX_CATALOG.length) % BOX_CATALOG.length);
+    setActiveMediaIndex(0);
+    setMediaLoading(true);
+    setIsPlaying(true);
+  };
+
+  // Media navigation within current box
+  const handleNextMedia = useCallback(() => {
+    setMediaLoading(true);
+    setActiveMediaIndex((prev) => (prev + 1) % currentMediaList.length);
+  }, [currentMediaList.length]);
+
+  const handlePrevMedia = useCallback(() => {
+    setMediaLoading(true);
+    setActiveMediaIndex((prev) => (prev - 1 + currentMediaList.length) % currentMediaList.length);
+  }, [currentMediaList.length]);
+
+  const handleSelectMedia = (mIdx) => {
+    if (mIdx !== activeMediaIndex) {
+      setMediaLoading(true);
+      setActiveMediaIndex(mIdx);
+      setIsPlaying(true);
+    }
+  };
+
+  // Smooth Auto-Loop slideshow through media
+  useEffect(() => {
+    if (!isAutoSlide || isHovered || showLightbox) return;
+
+    // Longer duration for video, crisp duration for images
+    const duration = currentMedia?.type === 'video' ? 8000 : 4500;
+
+    const timer = setTimeout(() => {
+      handleNextMedia();
+    }, duration);
+
+    return () => clearTimeout(timer);
+  }, [isAutoSlide, isHovered, showLightbox, currentMedia, handleNextMedia]);
+
+  // Video play/pause toggle
+  const togglePlayPause = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        videoRef.current.play().catch(() => {});
+        setIsPlaying(true);
+      }
+    } else {
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  // Video mute/unmute toggle
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+    }
+    setIsMuted(!isMuted);
   };
 
   const generateWhatsAppUrl = (box) => {
@@ -239,58 +479,6 @@ export default function MedicalBoxHero() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 z-10">
         
-        {/* TOP BRAND PARTNERSHIP / MANUFACTURER BAR */}
-        {/* <div className="mb-8 p-3 sm:p-4 rounded-2xl bg-white/90 backdrop-blur-md border border-gray-200/80 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3.5">
-            <div className="relative w-11 h-11 shrink-0 rounded-xl bg-slate-900 flex items-center justify-center p-1.5 shadow-md">
-              <Image 
-                src="/images/medical-boxes/divyamrit-symbol.png" 
-                alt="Divyamrit Industries Symbol" 
-                width={36} 
-                height={36} 
-                className="object-contain"
-              />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-base sm:text-lg font-bold tracking-tight text-slate-900 uppercase">
-                  Divyamrit Industries
-                </span>
-                <span className="hidden sm:inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-teal-50 text-teal-700 border border-teal-200">
-                  OEM Manufacturer
-                </span>
-              </div>
-              <p className="text-[11px] text-gray-500 font-medium italic">
-                A quality product for a better choice • Promoted by Trayaksh Healthcare Solutions
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center md:justify-end gap-2.5 sm:gap-4 w-full md:w-auto">
-            <a 
-              href="tel:+918886060442"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-gray-700 bg-gray-50 hover:bg-gray-100 transition-colors border border-gray-200"
-            >
-              <Phone size={13} className="text-teal-600" />
-              <span>8886060442</span>
-            </a>
-            <a 
-              href="tel:+919985199903"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-gray-700 bg-gray-50 hover:bg-gray-100 transition-colors border border-gray-200"
-            >
-              <Phone size={13} className="text-teal-600" />
-              <span>9985199903</span>
-            </a>
-            <button
-              onClick={() => setShowBrochureModal(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 hover:bg-teal-100 transition-colors border border-teal-200"
-            >
-              <FileText size={13} />
-              <span>View Brochure</span>
-            </button>
-          </div>
-        </div> */}
-
         {/* MAIN HERO SPLIT CONTENT */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           
@@ -331,7 +519,7 @@ export default function MedicalBoxHero() {
                     <span className="text-xs font-bold uppercase tracking-widest text-teal-300">
                       Dust-Repellent Certified
                     </span>
-                    <span className="text-[10px]  md:font-bold bg-white/10 px-2 py-0.5 rounded-full text-white/80">
+                    <span className="text-[10px] md:font-bold bg-white/10 px-2 py-0.5 rounded-full text-white/80">
                       Never Absorbs Dust
                     </span>
                   </div>
@@ -370,7 +558,7 @@ export default function MedicalBoxHero() {
                 href={generateWhatsAppUrl(activeBox)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-widest transition-all shadow-lg shadow-emerald-600/25 active:scale-95"
+                className="group inline-flex items-center justify-center gap-2.5 px-2 py-2 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[.6rem] uppercase tracking-widest transition-all shadow-lg shadow-emerald-600/25 active:scale-95"
               >
                 <FaWhatsapp size={18} />
                 <span>Bulk Order on WhatsApp</span>
@@ -379,9 +567,9 @@ export default function MedicalBoxHero() {
 
               <button
                 onClick={openConsultModal}
-                className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-[#2D2926] hover:bg-[#A67153] text-white font-bold text-xs uppercase tracking-widest transition-all shadow-md active:scale-95"
+                className="inline-flex items-center justify-center gap-2 px-2 py-2 rounded bg-[#2D2926] hover:bg-[#A67153] text-white font-bold text-[.6rem] uppercase tracking-widest transition-all shadow-md active:scale-95"
               >
-                <SlidersHorizontal size={14} />
+                <SlidersHorizontal size={18} />
                 <span>Request Custom Quote</span>
               </button>
             </div>
@@ -406,7 +594,7 @@ export default function MedicalBoxHero() {
 
           </div>
 
-          {/* RIGHT COLUMN: Interactive 3D Showcase & Size Navigator */}
+          {/* RIGHT COLUMN: Interactive High-Performance Media Showcase & Size Navigator */}
           <div className="lg:col-span-6 w-full">
             <div className="bg-white rounded-[2.5rem] border border-gray-200/90 shadow-2xl p-5 sm:p-7 relative overflow-hidden">
               
@@ -424,12 +612,12 @@ export default function MedicalBoxHero() {
                   </h2>
                 </div>
 
-                {/* Quick Prev / Next Arrows */}
+                {/* Quick Prev / Next Box Arrows */}
                 <div className="flex items-center gap-1.5 self-end sm:self-auto">
                   <button
-                    onClick={handlePrev}
+                    onClick={handlePrevBox}
                     aria-label="Previous Box"
-                    className="md:w-8 md:h-8 w-5 h-5 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-700 transition-colors"
+                    className="md:w-8 md:h-8 w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-700 transition-colors"
                   >
                     <ChevronLeft size={16} />
                   </button>
@@ -437,9 +625,9 @@ export default function MedicalBoxHero() {
                     {selectedIndex + 1} / {BOX_CATALOG.length}
                   </span>
                   <button
-                    onClick={handleNext}
+                    onClick={handleNextBox}
                     aria-label="Next Box"
-                    className="md:w-8 md:h-8 w-5 h-5 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-700 transition-colors"
+                    className="md:w-8 md:h-8 w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-700 transition-colors"
                   >
                     <ChevronRight size={16} />
                   </button>
@@ -447,13 +635,13 @@ export default function MedicalBoxHero() {
               </div>
 
               {/* Horizontal Tabs: Box 1 through 6 */}
-              <div className="grid grid-cols-6 gap-1.5 sm:gap-2 mb-6 p-1.5 bg-gray-100/80 rounded-2xl">
+              <div className="grid grid-cols-6 gap-1.5 sm:gap-2 mb-4 p-1.5 bg-gray-100/80 rounded-2xl">
                 {BOX_CATALOG.map((box, idx) => {
                   const isActive = idx === selectedIndex;
                   return (
                     <button
                       key={box.id}
-                      onClick={() => setSelectedIndex(idx)}
+                      onClick={() => handleSelectBox(idx)}
                       className={`relative py-2.5 px-1 rounded-xl text-center transition-all ${
                         isActive
                           ? 'bg-white shadow-md text-slate-900 font-bold'
@@ -471,60 +659,179 @@ export default function MedicalBoxHero() {
                 })}
               </div>
 
-              {/* Active Product Showcase Display */}
+              {/* Active Product Showcase Display with Framer Motion */}
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeBox.id}
-                  initial={{ opacity: 0, y: 15 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.3 }}
-                  className="space-y-5"
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.25 }}
+                  className="space-y-4"
                 >
-                  {/* Visual Stage Container */}
-                  <div className="relative w-full h-[240px] sm:h-[280px] rounded-3xl bg-gradient-to-b from-[#F9FBFC] to-[#F1F5F9] border border-gray-200/70 p-4 flex items-center justify-center overflow-hidden group">
-                    {/* Radial Ambient Ring */}
+                  {/* Visual Stage Container (Non-render-blocking, lazy loaded, interactive) */}
+                  <div 
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    className="relative w-full h-[260px] sm:h-[310px] rounded-3xl bg-gradient-to-b from-[#F9FBFC] to-[#F1F5F9] border border-gray-200/80 p-3 sm:p-4 flex items-center justify-center overflow-hidden group shadow-inner"
+                  >
+                    {/* Radial Ambient Ring matching product color */}
                     <div 
-                      className="absolute w-44 h-44 rounded-full blur-2xl opacity-20 pointer-events-none"
+                      className="absolute w-48 h-48 rounded-full blur-3xl opacity-25 pointer-events-none transition-all duration-500"
                       style={{ backgroundColor: activeBox.colorHex }}
                     />
 
-                    {/* Floating Badges */}
-                    <div className="absolute top-3 left-3 z-10">
+                    {/* Top Floating Badges */}
+                    <div className="absolute top-1 left-3 z-10">
                       <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border shadow-sm ${activeBox.badgeTheme}`}>
                         {activeBox.boxNo}
                       </span>
                     </div>
 
-                    <div className="absolute top-3 right-3 z-10">
+                    <div className="absolute top-1 right-3 z-10 flex items-center gap-2">
                       <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/90 backdrop-blur-sm border border-gray-200 text-gray-700 shadow-sm">
-                        <Maximize2 size={11} className="text-teal-600" />
                         {activeBox.dimensions}
                       </span>
+
+                      {/* Expand Lightbox Button */}
+                      <button
+                        type="button"
+                        onClick={() => setShowLightbox(true)}
+                        title="View Full Resolution"
+                        className="w-7 h-7 rounded-full bg-white/90 hover:bg-white text-gray-700 border border-gray-200 shadow-sm flex items-center justify-center transition-transform hover:scale-105"
+                      >
+                        <Maximize2 size={12} className="text-teal-700" />
+                      </button>
                     </div>
 
-                    {/* Product Image */}
-                    <div className="relative w-full h-full flex items-center justify-center p-2">
-                      <Image
-                        src={activeBox.image}
-                        alt={`${activeBox.boxNo} - Medical Storage Box`}
-                        width={300}
-                        height={240}
-                        className="max-h-[200px] sm:max-h-[180px] w-auto object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 rounded-xl"
-                        priority
-                      />
+                    {/* Prev / Next Slide Arrows (Hover or Touch) */}
+                    {currentMediaList.length > 1 && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handlePrevMedia();
+                          }}
+                          aria-label="Previous view"
+                          className="absolute left-2.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-slate-800 shadow-md backdrop-blur-sm flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 hover:scale-108"
+                        >
+                          <ChevronLeft size={16} />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleNextMedia();
+                          }}
+                          aria-label="Next view"
+                          className="absolute right-2.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-slate-800 shadow-md backdrop-blur-sm flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 hover:scale-108"
+                        >
+                          <ChevronRight size={16} />
+                        </button>
+                      </>
+                    )}
+
+                    {/* LOADING SPINNER OVERLAY: Active during media buffering/loading */}
+                    {mediaLoading && (
+                      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/60 backdrop-blur-sm transition-opacity duration-300 pointer-events-none">
+                        <div className="relative w-11 h-11 flex items-center justify-center">
+                          <div className="absolute inset-0 rounded-full border-2 border-teal-200 animate-ping opacity-35" />
+                          <div className="w-8 h-8 rounded-full border-2 border-teal-600 border-t-transparent animate-spin" />
+                        </div>
+                        <span className="mt-2 text-[10px] font-bold tracking-widest text-slate-700 uppercase">
+                          {currentMedia?.type === 'video' ? 'Loading Clinical Video...' : 'Loading Box View...'}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* MEDIA DISPLAY (Dynamic Video vs Image with Lazy Loading) */}
+                    <div className="relative w-full h-full flex items-center justify-center">
+                      {currentMedia?.type === 'video' ? (
+                        <div className="relative w-full h-full flex items-center justify-center">
+                          <video
+                            ref={videoRef}
+                            key={currentMedia.src}
+                            src={currentMedia.src}
+                            poster={currentMedia.poster}
+                            muted={isMuted}
+                            playsInline
+                            autoPlay={isPlaying}
+                            loop
+                            preload="metadata"
+                            onLoadedData={() => setMediaLoading(false)}
+                            onCanPlay={() => setMediaLoading(false)}
+                            onWaiting={() => setMediaLoading(true)}
+                            onPlaying={() => setMediaLoading(false)}
+                            onError={() => setMediaLoading(false)}
+                            onEnded={() => {
+                              if (isAutoSlide) handleNextMedia();
+                            }}
+                            className={`max-h-[220px] sm:max-h-[260px] max-w-full w-auto object-contain rounded-2xl drop-shadow-xl transition-all duration-300 ${
+                              mediaLoading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+                            }`}
+                          />
+
+                          {/* Video Tag Badge */}
+                          {/* <div className="absolute top-2 left-2 z-10">
+                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-slate-900/80 text-white backdrop-blur-sm border border-white/10 shadow-sm">
+                              <Video size={10} className="text-teal-400 animate-pulse" />
+                              <span>Clinical Video</span>
+                            </span>
+                          </div> */}
+
+                          {/* Floating Video Controls */}
+                          <div className="absolute bottom-2.5 right-2.5 z-10 flex items-center gap-1.5 bg-slate-900/85 backdrop-blur-md px-2 py-1 rounded-xl border border-white/10 shadow-lg">
+                            <button
+                              type="button"
+                              onClick={togglePlayPause}
+                              className="w-6 h-6 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+                              aria-label={isPlaying ? "Pause video" : "Play video"}
+                            >
+                              {isPlaying ? <Pause size={12} /> : <Play size={12} className="ml-0.5" />}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={toggleMute}
+                              className="w-6 h-6 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+                              aria-label={isMuted ? "Unmute audio" : "Mute audio"}
+                            >
+                              {isMuted ? <VolumeX size={12} /> : <Volume2 size={12} />}
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="relative w-full h-full flex items-center justify-center p-2">
+                          <Image
+                            key={currentMedia?.src}
+                            src={currentMedia?.src || activeBox.image}
+                            alt={currentMedia?.alt || `${activeBox.boxNo} - Medical Storage Box`}
+                            width={380}
+                            height={280}
+                            loading="lazy"
+                            onLoad={() => setMediaLoading(false)}
+                            onError={() => setMediaLoading(false)}
+                            className={`max-h-[210px] sm:max-h-[250px] w-auto object-contain drop-shadow-2xl transition-all duration-500 rounded-xl group-hover:scale-104 ${
+                              mediaLoading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+                            }`}
+                          />
+                        </div>
+                      )}
                     </div>
 
                     {/* Feature Pill at Bottom of Image Stage */}
-                    <div className="absolute bottom-3 inset-x-4 flex items-center justify-between pointer-events-none">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-white/80 backdrop-blur-md px-2.5 py-1 rounded-lg border border-gray-100">
+                    <div className="absolute bottom-2 inset-x-3 flex items-center justify-between pointer-events-none">
+                      {/* <span className="text-[10px] font-bold uppercase tracking-wider text-gray-600 bg-white/90 backdrop-blur-md px-2.5 py-0.5 rounded-lg border border-gray-100 shadow-sm">
                         {activeBox.colorName}
-                      </span>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-teal-700 bg-teal-50/90 backdrop-blur-md px-2.5 py-1 rounded-lg border border-teal-100">
+                      </span> */}
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-teal-800 bg-teal-50/90 backdrop-blur-md px-2.5 py-0.5 rounded-lg border border-teal-200/70 shadow-sm">
                         {activeBox.highlight}
                       </span>
                     </div>
                   </div>
+
+                
 
                   {/* Specifications & Price Comparison Grid */}
                   <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200/80 space-y-3.5">
@@ -570,10 +877,8 @@ export default function MedicalBoxHero() {
                       </div>
                     </div>
 
-                   
-
                     {/* Detailed Attribute Matrix */}
-                    <div className="grid grid-cols-2  gap-2 text-center">
+                    <div className="grid grid-cols-2 gap-2 text-center">
                       <div className="p-2 rounded-xl bg-white border border-gray-100">
                         <span className="text-[9px] uppercase font-bold tracking-wider text-gray-400 block">
                           Dimensions
@@ -625,7 +930,7 @@ export default function MedicalBoxHero() {
                       href={generateWhatsAppUrl(activeBox)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-md"
+                      className="w-full flex items-center justify-center gap-2 py-2 px-2 rounded bg-emerald-600 hover:bg-emerald-700 text-white text-[.6rem] font-bold uppercase tracking-wider transition-colors shadow-md"
                     >
                       <FaWhatsapp size={16} />
                       <span>Order {activeBox.boxNo} on WhatsApp</span>
@@ -633,7 +938,7 @@ export default function MedicalBoxHero() {
 
                     <a
                       href="tel:+918886060442"
-                      className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded  bg-slate-900 hover:bg-[#A67153] text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-md"
+                      className="w-full flex items-center justify-center gap-2 py-2 px-2 rounded bg-slate-900 hover:bg-[#A67153] text-white text-[.6rem] font-bold uppercase tracking-wider transition-colors shadow-md"
                     >
                       <FaPhoneAlt size={13} />
                       <span>Call Factory: 8886060442</span>
@@ -684,6 +989,113 @@ export default function MedicalBoxHero() {
         </div>
 
       </div>
+
+      {/* FULL-SCREEN LIGHTBOX MODAL FOR ULTRA-HIGH-RES MEDIA INSPECTION */}
+      <AnimatePresence>
+        {showLightbox && (
+          <div className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowLightbox(false)}
+              className="absolute inset-0 bg-slate-950/85 backdrop-blur-md"
+            />
+
+            <motion.div
+              initial={{ scale: 0.94, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.94, opacity: 0 }}
+              className="relative w-full max-w-4xl bg-slate-900 rounded-3xl shadow-2xl border border-white/10 overflow-hidden flex flex-col max-h-[92vh] z-10"
+            >
+              {/* Lightbox Header */}
+              <div className="p-4 px-5 bg-slate-950/90 text-white flex items-center justify-between border-b border-white/10">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-teal-500/20 text-teal-300 border border-teal-500/30">
+                      {activeBox.boxNo}
+                    </span>
+                    <span className="text-xs text-gray-400">{activeBox.dimensions}</span>
+                  </div>
+                  <h3 className="text-sm sm:text-base font-bold text-white mt-0.5">
+                    {currentMedia?.title || activeBox.tagline}
+                  </h3>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setShowLightbox(false)}
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Lightbox Main Stage */}
+              <div className="relative flex-1 p-4 flex items-center justify-center bg-black/40 min-h-[350px] sm:min-h-[450px]">
+                {/* Lightbox Prev/Next */}
+                {currentMediaList.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={handlePrevMedia}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 text-white flex items-center justify-center backdrop-blur-md transition-transform hover:scale-108"
+                    >
+                      <ChevronLeft size={20} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleNextMedia}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 text-white flex items-center justify-center backdrop-blur-md transition-transform hover:scale-108"
+                    >
+                      <ChevronRight size={20} />
+                    </button>
+                  </>
+                )}
+
+                {currentMedia?.type === 'video' ? (
+                  <video
+                    src={currentMedia.src}
+                    poster={currentMedia.poster}
+                    controls
+                    autoPlay
+                    playsInline
+                    className="max-h-[60vh] max-w-full rounded-xl object-contain shadow-2xl"
+                  />
+                ) : (
+                  <div className="relative w-full h-[60vh] flex items-center justify-center">
+                    <Image
+                      src={currentMedia?.src || activeBox.image}
+                      alt={currentMedia?.alt || activeBox.boxNo}
+                      fill
+                      className="object-contain"
+                      sizes="(max-width: 1024px) 100vw, 896px"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Lightbox Thumbnail Bar */}
+              {/* <div className="p-3 bg-slate-950/80 border-t border-white/10 flex items-center justify-center gap-2 overflow-x-auto">
+                {currentMediaList.map((med, mIdx) => (
+                  <button
+                    key={med.id || mIdx}
+                    onClick={() => handleSelectMedia(mIdx)}
+                    className={`relative px-3 py-1.5 rounded-lg text-xs font-bold transition-all border flex items-center gap-1.5 ${
+                      mIdx === activeMediaIndex
+                        ? 'bg-teal-600 text-white border-teal-400'
+                        : 'bg-white/5 text-gray-300 border-white/10 hover:bg-white/10'
+                    }`}
+                  >
+                    {med.type === 'video' ? <Video size={12} /> : <ImageIcon size={12} />}
+                    <span>{med.label}</span>
+                  </button>
+                ))}
+              </div> */}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* BROCHURE / FLYER PREVIEW MODAL */}
       <AnimatePresence>
