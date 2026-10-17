@@ -3,21 +3,21 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  ShieldCheck, 
-  Sparkles, 
-  Phone, 
-  Mail, 
-  Layers, 
-  Box, 
-  Maximize2, 
-  ArrowRight, 
-  ChevronRight, 
-  ChevronLeft, 
-  CheckCircle2, 
-  Eye, 
-  X, 
-  Tag, 
+import {
+  ShieldCheck,
+  Sparkles,
+  Phone,
+  Mail,
+  Layers,
+  Box,
+  Maximize2,
+  ArrowRight,
+  ChevronRight,
+  ChevronLeft,
+  CheckCircle2,
+  Eye,
+  X,
+  Tag,
   SlidersHorizontal,
   Flame,
   FileText,
@@ -40,7 +40,7 @@ const BOX_CATALOG = [
     dimensions: '8.5" × 3" × 2.5"',
     dimensionsCm: "21.6 × 7.6 × 6.3 cm",
     mrp: 49,
-    distributorPrice: 25,
+    distributorPrice: 29,
     savingsPercent: 49,
     savingsAmount: 24,
     colorName: " White",
@@ -70,6 +70,22 @@ const BOX_CATALOG = [
         alt: 'Divyamrit Medical Box No. 1 - Angle View 2'
       },
       {
+        id: 'b1-img-3',
+        type: 'image',
+        src: '/images/medical-boxes/box-1/img-3.jpeg',
+        label: 'Photo 3',
+        title: 'Box No. 1 - Front & Top View',
+        alt: 'Divyamrit Medical Box No. 1 - Front & Top View'
+      },
+      {
+        id: 'b1-img-4',
+        type: 'image',
+        src: '/images/medical-boxes/box-1/img-4.jpeg',
+        label: 'Photo 4',
+        title: 'Box No. 1 - Shelf Organization View',
+        alt: 'Divyamrit Medical Box No. 1 - Shelf Organization View'
+      },
+      {
         id: 'b1-video',
         type: 'video',
         src: '/images/medical-boxes/box-1/box-1.mp4',
@@ -78,7 +94,6 @@ const BOX_CATALOG = [
         title: 'Box No. 1 - Factory Demonstration Video',
         alt: 'Divyamrit Medical Box No. 1 Video'
       }
-    
     ],
     recommendedFor: "Tablet blister strips, eye drops, ampoules & suture packs",
     highlight: "High Volume Fast-Mover"
@@ -120,6 +135,22 @@ const BOX_CATALOG = [
         alt: 'Divyamrit Medical Box No. 2 - Angle View 2'
       },
       {
+        id: 'b2-img-3',
+        type: 'image',
+        src: '/images/medical-boxes/box-2/img-3.jpeg',
+        label: 'Photo 3',
+        title: 'Box No. 2 - Top Compartment View',
+        alt: 'Divyamrit Medical Box No. 2 - Top Compartment View'
+      },
+      {
+        id: 'b2-img-4',
+        type: 'image',
+        src: '/images/medical-boxes/box-2/img-4.jpeg',
+        label: 'Photo 4',
+        title: 'Box No. 2 - Clinical Storage View',
+        alt: 'Divyamrit Medical Box No. 2 - Clinical Storage View'
+      },
+      {
         id: 'b2-video',
         type: 'video',
         src: '/images/medical-boxes/box-2/box-2.mp4',
@@ -128,7 +159,6 @@ const BOX_CATALOG = [
         title: 'Box No. 2 - Factory Demonstration Video',
         alt: 'Divyamrit Medical Box No. 2 Video'
       }
-     
     ],
     recommendedFor: "Syringes, elongated strips, vials & medical catheters",
     highlight: "Space Maximizer"
@@ -139,7 +169,7 @@ const BOX_CATALOG = [
     tagline: "Dual-compartment with heavy-duty gauge options",
     dimensions: '9.5" × 4" × 3.5"',
     dimensionsCm: "24.1 × 10.2 × 8.9 cm",
-    mrp: null,
+    mrp: 86,
     distributorPrice: 39,
     savingsPercent: null,
     colorName: " Red",
@@ -157,10 +187,81 @@ const BOX_CATALOG = [
         type: 'image',
         src: '/images/medical-boxes/box-3/img-1.jpeg',
         label: 'Photo 1',
-        title: 'Box No. 3 - Real Clinical Red Photo',
-        alt: 'Divyamrit Medical Box No. 3 - Angle View'
+        title: 'Box No. 3 - Real Clinical Red View 1',
+        alt: 'Divyamrit Medical Box No. 3 - View 1'
+      },
+      {
+        id: 'b3-img-2',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-2.jpeg',
+        label: 'Photo 2',
+        title: 'Box No. 3 - Real Clinical Red View 2',
+        alt: 'Divyamrit Medical Box No. 3 - View 2'
+      },
+      {
+        id: 'b3-img-3',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-3.jpeg',
+        label: 'Photo 3',
+        title: 'Box No. 3 - Real Clinical Red View 3',
+        alt: 'Divyamrit Medical Box No. 3 - View 3'
+      },
+      {
+        id: 'b3-img-4',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-4.jpeg',
+        label: 'Photo 4',
+        title: 'Box No. 3 - Real Clinical Red View 4',
+        alt: 'Divyamrit Medical Box No. 3 - View 4'
+      },
+      {
+        id: 'b3-img-5',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-5.jpeg',
+        label: 'Photo 5',
+        title: 'Box No. 3 - Real Clinical Red View 5',
+        alt: 'Divyamrit Medical Box No. 3 - View 5'
+      },
+      {
+        id: 'b3-img-6',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-6.jpeg',
+        label: 'Photo 6',
+        title: 'Box No. 3 - Real Clinical Red View 6',
+        alt: 'Divyamrit Medical Box No. 3 - View 6'
+      },
+      {
+        id: 'b3-img-7',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-7.jpeg',
+        label: 'Photo 7',
+        title: 'Box No. 3 - Real Clinical Red View 7',
+        alt: 'Divyamrit Medical Box No. 3 - View 7'
+      },
+      {
+        id: 'b3-img-8',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-8.jpeg',
+        label: 'Photo 8',
+        title: 'Box No. 3 - Real Clinical Red View 8',
+        alt: 'Divyamrit Medical Box No. 3 - View 8'
+      },
+      {
+        id: 'b3-img-9',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-9.jpeg',
+        label: 'Photo 9',
+        title: 'Box No. 3 - Real Clinical Red View 9',
+        alt: 'Divyamrit Medical Box No. 3 - View 9'
+      },
+      {
+        id: 'b3-img-10',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-10.jpeg',
+        label: 'Photo 10',
+        title: 'Box No. 3 - Real Clinical Red View 10',
+        alt: 'Divyamrit Medical Box No. 3 - View 10'
       }
-     
     ],
     recommendedFor: "Antibiotics, urgent medicines & batch segregated bottles",
     highlight: "Optional Cap (₹7 Extra)"
@@ -190,8 +291,80 @@ const BOX_CATALOG = [
         type: 'image',
         src: '/images/medical-boxes/box-4/img-1.jpeg',
         label: 'Photo 1',
-        title: 'Box No. 4 - Deep Organizer Photo',
-        alt: 'Divyamrit Medical Box No. 4 - Angle View'
+        title: 'Box No. 4 - Deep Organizer View 1',
+        alt: 'Divyamrit Medical Box No. 4 - View 1'
+      },
+      {
+        id: 'b4-img-2',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-2.jpeg',
+        label: 'Photo 2',
+        title: 'Box No. 4 - Deep Organizer View 2',
+        alt: 'Divyamrit Medical Box No. 4 - View 2'
+      },
+      {
+        id: 'b4-img-3',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-3.jpeg',
+        label: 'Photo 3',
+        title: 'Box No. 4 - Deep Organizer View 3',
+        alt: 'Divyamrit Medical Box No. 4 - View 3'
+      },
+      {
+        id: 'b4-img-4',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-4.jpeg',
+        label: 'Photo 4',
+        title: 'Box No. 4 - Deep Organizer View 4',
+        alt: 'Divyamrit Medical Box No. 4 - View 4'
+      },
+      {
+        id: 'b4-img-5',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-5.jpeg',
+        label: 'Photo 5',
+        title: 'Box No. 4 - Deep Organizer View 5',
+        alt: 'Divyamrit Medical Box No. 4 - View 5'
+      },
+      {
+        id: 'b4-img-6',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-6.jpeg',
+        label: 'Photo 6',
+        title: 'Box No. 4 - Deep Organizer View 6',
+        alt: 'Divyamrit Medical Box No. 4 - View 6'
+      },
+      {
+        id: 'b4-img-7',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-7.jpeg',
+        label: 'Photo 7',
+        title: 'Box No. 4 - Deep Organizer View 7',
+        alt: 'Divyamrit Medical Box No. 4 - View 7'
+      },
+      {
+        id: 'b4-img-8',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-8.jpeg',
+        label: 'Photo 8',
+        title: 'Box No. 4 - Deep Organizer View 8',
+        alt: 'Divyamrit Medical Box No. 4 - View 8'
+      },
+      {
+        id: 'b4-img-9',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-9.jpeg',
+        label: 'Photo 9',
+        title: 'Box No. 4 - Deep Organizer View 9',
+        alt: 'Divyamrit Medical Box No. 4 - View 9'
+      },
+      {
+        id: 'b4-img-10',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-10.jpeg',
+        label: 'Photo 10',
+        title: 'Box No. 4 - Deep Organizer View 10',
+        alt: 'Divyamrit Medical Box No. 4 - View 10'
       },
       {
         id: 'b4-video',
@@ -202,7 +375,6 @@ const BOX_CATALOG = [
         title: 'Box No. 4 - Factory Demonstration Video',
         alt: 'Divyamrit Medical Box No. 4 Video'
       }
-     
     ],
     recommendedFor: "Syrup bottles, ointments, roll bandages & medical fluids",
     highlight: "Top Distributor Pick • 62% Margin"
@@ -232,24 +404,56 @@ const BOX_CATALOG = [
         type: 'image',
         src: '/images/medical-boxes/box-5/img-1.jpeg',
         label: 'Photo 1',
-        title: 'Box No. 5 - Bulk Tray Angle 1',
-        alt: 'Divyamrit Medical Box No. 5 - Angle View 1'
+        title: 'Box No. 5 - Bulk Tray View 1',
+        alt: 'Divyamrit Medical Box No. 5 - View 1'
       },
       {
         id: 'b5-img-2',
         type: 'image',
         src: '/images/medical-boxes/box-5/img-2.jpeg',
         label: 'Photo 2',
-        title: 'Box No. 5 - Bulk Tray Angle 2',
-        alt: 'Divyamrit Medical Box No. 5 - Angle View 2'
+        title: 'Box No. 5 - Bulk Tray View 2',
+        alt: 'Divyamrit Medical Box No. 5 - View 2'
       },
       {
         id: 'b5-img-3',
         type: 'image',
         src: '/images/medical-boxes/box-5/img-3.jpeg',
         label: 'Photo 3',
-        title: 'Box No. 5 - Multi-Partition Angle',
-        alt: 'Divyamrit Medical Box No. 5 - Angle View 3'
+        title: 'Box No. 5 - Multi-Partition View 3',
+        alt: 'Divyamrit Medical Box No. 5 - View 3'
+      },
+      {
+        id: 'b5-img-4',
+        type: 'image',
+        src: '/images/medical-boxes/box-5/img-4.jpeg',
+        label: 'Photo 4',
+        title: 'Box No. 5 - Multi-Partition View 4',
+        alt: 'Divyamrit Medical Box No. 5 - View 4'
+      },
+      {
+        id: 'b5-img-5',
+        type: 'image',
+        src: '/images/medical-boxes/box-5/img-5.jpeg',
+        label: 'Photo 5',
+        title: 'Box No. 5 - Multi-Partition View 5',
+        alt: 'Divyamrit Medical Box No. 5 - View 5'
+      },
+      {
+        id: 'b5-img-6',
+        type: 'image',
+        src: '/images/medical-boxes/box-5/img-6.jpeg',
+        label: 'Photo 6',
+        title: 'Box No. 5 - Multi-Partition View 6',
+        alt: 'Divyamrit Medical Box No. 5 - View 6'
+      },
+      {
+        id: 'b5-img-7',
+        type: 'image',
+        src: '/images/medical-boxes/box-5/img-7.jpeg',
+        label: 'Photo 7',
+        title: 'Box No. 5 - Multi-Partition View 7',
+        alt: 'Divyamrit Medical Box No. 5 - View 7'
       },
       {
         id: 'b5-video',
@@ -259,8 +463,7 @@ const BOX_CATALOG = [
         label: 'Video Demo',
         title: 'Box No. 5 - Factory Demonstration Video',
         alt: 'Divyamrit Medical Box No. 5 Video'
-      },
-    
+      }
     ],
     recommendedFor: "Infusion bottles, bulk surgical dressings, OT consumables",
     highlight: "Dual Dividers (3 Slots)"
@@ -290,16 +493,40 @@ const BOX_CATALOG = [
         type: 'image',
         src: '/images/medical-boxes/box-6/img-1.jpeg',
         label: 'Photo 1',
-        title: 'Box No. 6 - Master Hospital Tray Angle 1',
-        alt: 'Divyamrit Medical Box No. 6 - Angle View 1'
+        title: 'Box No. 6 - Master Hospital Tray View 1',
+        alt: 'Divyamrit Medical Box No. 6 - View 1'
       },
       {
         id: 'b6-img-2',
         type: 'image',
         src: '/images/medical-boxes/box-6/img-2.jpeg',
         label: 'Photo 2',
-        title: 'Box No. 6 - Master Hospital Tray Angle 2',
-        alt: 'Divyamrit Medical Box No. 6 - Angle View 2'
+        title: 'Box No. 6 - Master Hospital Tray View 2',
+        alt: 'Divyamrit Medical Box No. 6 - View 2'
+      },
+      {
+        id: 'b6-img-3',
+        type: 'image',
+        src: '/images/medical-boxes/box-6/img-3.jpeg',
+        label: 'Photo 3',
+        title: 'Box No. 6 - Master Hospital Tray View 3',
+        alt: 'Divyamrit Medical Box No. 6 - View 3'
+      },
+      {
+        id: 'b6-img-4',
+        type: 'image',
+        src: '/images/medical-boxes/box-6/img-4.jpeg',
+        label: 'Photo 4',
+        title: 'Box No. 6 - Master Hospital Tray View 4',
+        alt: 'Divyamrit Medical Box No. 6 - View 4'
+      },
+      {
+        id: 'b6-img-5',
+        type: 'image',
+        src: '/images/medical-boxes/box-6/img-5.jpeg',
+        label: 'Photo 5',
+        title: 'Box No. 6 - Master Hospital Tray View 5',
+        alt: 'Divyamrit Medical Box No. 6 - View 5'
       },
       {
         id: 'b6-video',
@@ -309,8 +536,7 @@ const BOX_CATALOG = [
         label: 'Video Demo',
         title: 'Box No. 6 - Factory Demonstration Video',
         alt: 'Divyamrit Medical Box No. 6 Video'
-      },
-    
+      }
     ],
     recommendedFor: "Complete category master racks, hospital stockrooms & surgical kits",
     highlight: "Maximum Capacity • 63% Margin"
@@ -434,7 +660,7 @@ export default function MedicalBoxHero() {
         videoRef.current.pause();
         setIsPlaying(false);
       } else {
-        videoRef.current.play().catch(() => {});
+        videoRef.current.play().catch(() => { });
         setIsPlaying(true);
       }
     } else {
@@ -466,7 +692,7 @@ export default function MedicalBoxHero() {
     <section id="overview" className="relative pt-6 md:pt-12 pb-10 bg-gradient-to-b from-[#F7F9FB] via-white to-[#F8F5F2] overflow-hidden text-[#2D2926]">
       {/* Background Decorative Grid & Glows */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
-        <div 
+        <div
           className="absolute inset-0"
           style={{
             backgroundImage: `radial-gradient(rgba(13, 148, 136, 0.08) 1.5px, transparent 1.5px)`,
@@ -478,13 +704,13 @@ export default function MedicalBoxHero() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 z-10">
-        
+
         {/* MAIN HERO SPLIT CONTENT */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          
+
           {/* LEFT COLUMN: Narrative & Value Offerings */}
           <div className="lg:col-span-6 space-y-6">
-            
+
             {/* Pill Notification Badge */}
             <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-teal-50 border border-teal-200/80 text-teal-800 shadow-sm">
               <span className="flex h-2 w-2 relative">
@@ -533,7 +759,7 @@ export default function MedicalBoxHero() {
             {/* 4 Feature Badges */}
             <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-1">
               {TRUST_PILLARS.map((item, idx) => (
-                <div 
+                <div
                   key={idx}
                   className="p-3.5 rounded-xl bg-white border border-gray-200/90 shadow-sm hover:border-teal-300 transition-colors flex items-start gap-3"
                 >
@@ -596,8 +822,8 @@ export default function MedicalBoxHero() {
 
           {/* RIGHT COLUMN: Interactive High-Performance Media Showcase & Size Navigator */}
           <div className="lg:col-span-6 w-full">
-            <div className="bg-white rounded-[2.5rem] border border-gray-200/90 shadow-2xl p-5 sm:p-7 relative overflow-hidden">
-              
+            <div className="bg-white rounded-xl border border-gray-200/90 shadow-2xl p-5 sm:p-7 relative overflow-hidden">
+
               {/* Card Header & Size Switcher */}
               <div className="flex flex-row items-start sm:items-center justify-between gap-3 mb-3 pb-2 border-b border-gray-100">
                 <div>
@@ -642,11 +868,10 @@ export default function MedicalBoxHero() {
                     <button
                       key={box.id}
                       onClick={() => handleSelectBox(idx)}
-                      className={`relative py-2.5 px-1 rounded-xl text-center transition-all ${
-                        isActive
-                          ? 'bg-white shadow-md text-slate-900 font-bold'
-                          : 'text-gray-500 hover:text-slate-900 hover:bg-white/50 font-bold'
-                      }`}
+                      className={`relative py-2.5 px-1 rounded-xl text-center transition-all ${isActive
+                        ? 'bg-white shadow-md text-slate-900 font-bold'
+                        : 'text-gray-500 hover:text-slate-900 hover:bg-white/50 font-bold'
+                        }`}
                     >
                       <div className="flex flex-col items-center gap-1">
                         <span className={`w-2.5 h-2.5 rounded-full ${box.colorDot} shadow-sm`} />
@@ -670,13 +895,13 @@ export default function MedicalBoxHero() {
                   className="space-y-4"
                 >
                   {/* Visual Stage Container (Non-render-blocking, lazy loaded, interactive) */}
-                  <div 
+                  <div
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                     className="relative w-full h-[260px] sm:h-[310px] rounded-3xl bg-gradient-to-b from-[#F9FBFC] to-[#F1F5F9] border border-gray-200/80 p-3 sm:p-4 flex items-center justify-center overflow-hidden group shadow-inner"
                   >
                     {/* Radial Ambient Ring matching product color */}
-                    <div 
+                    <div
                       className="absolute w-48 h-48 rounded-full blur-3xl opacity-25 pointer-events-none transition-all duration-500"
                       style={{ backgroundColor: activeBox.colorHex }}
                     />
@@ -689,6 +914,11 @@ export default function MedicalBoxHero() {
                     </div>
 
                     <div className="absolute top-1 right-3 z-10 flex items-center gap-2">
+                      {currentMediaList.length > 1 && (
+                        <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/90 backdrop-blur-sm border border-gray-200 text-gray-700 shadow-sm">
+                          {currentMedia?.type === 'video' ? 'Video' : `${activeMediaIndex + 1} / ${currentMediaList.length}`}
+                        </span>
+                      )}
                       <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/90 backdrop-blur-sm border border-gray-200 text-gray-700 shadow-sm">
                         {activeBox.dimensions}
                       </span>
@@ -768,9 +998,8 @@ export default function MedicalBoxHero() {
                             onEnded={() => {
                               if (isAutoSlide) handleNextMedia();
                             }}
-                            className={`max-h-[220px] sm:max-h-[260px] max-w-full w-auto object-contain rounded-2xl drop-shadow-xl transition-all duration-300 ${
-                              mediaLoading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
-                            }`}
+                            className={`max-h-[220px] sm:max-h-[260px] max-w-full w-auto object-contain rounded-2xl drop-shadow-xl transition-all duration-300 ${mediaLoading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+                              }`}
                           />
 
                           {/* Video Tag Badge */}
@@ -812,9 +1041,8 @@ export default function MedicalBoxHero() {
                             loading="lazy"
                             onLoad={() => setMediaLoading(false)}
                             onError={() => setMediaLoading(false)}
-                            className={`max-h-[210px] sm:max-h-[250px] w-auto object-contain drop-shadow-2xl transition-all duration-500 rounded-xl group-hover:scale-104 ${
-                              mediaLoading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
-                            }`}
+                            className={`max-h-[210px] sm:max-h-[250px] w-auto object-contain drop-shadow-2xl transition-all duration-500 rounded-xl group-hover:scale-104 ${mediaLoading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+                              }`}
                           />
                         </div>
                       )}
@@ -831,11 +1059,69 @@ export default function MedicalBoxHero() {
                     </div>
                   </div>
 
-                
+                  {/* Media Thumbnails Gallery Strip for Active Box */}
+                  {currentMediaList.length > 1 && (
+                    <div className="p-2.5 rounded-2xl bg-gray-50/90 border border-gray-200/80">
+                      <div className="flex items-center justify-between px-1 mb-2">
+                        <span className="text-[11px] font-bold text-slate-700 flex items-center gap-1.5">
+                          <ImageIcon size={13} className="text-teal-600" />
+                          <span>{currentMediaList.length} Angles & Views</span>
+                        </span>
+                        <span className="text-[10px] font-semibold text-teal-800 bg-teal-50 px-2 py-0.5 rounded-full border border-teal-200/70">
+                          {currentMedia?.type === 'video' ? 'Clinical Video' : `View ${activeMediaIndex + 1} of ${currentMediaList.length}`}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 overflow-x-auto pb-1 px-0.5 scrollbar-thin">
+                        {currentMediaList.map((mediaItem, mIdx) => {
+                          const isCurrent = mIdx === activeMediaIndex;
+                          return (
+                            <button
+                              key={mediaItem.id || mIdx}
+                              type="button"
+                              onClick={() => handleSelectMedia(mIdx)}
+                              className={`relative shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden border-2 transition-all duration-200 ${isCurrent
+                                ? 'border-teal-600 ring-2 ring-teal-500/30 scale-105 shadow-md bg-white'
+                                : 'border-gray-200 hover:border-gray-400 bg-white opacity-70 hover:opacity-100'
+                                }`}
+                              title={mediaItem.title || mediaItem.label}
+                              aria-label={mediaItem.title || mediaItem.label}
+                            >
+                              {mediaItem.type === 'video' ? (
+                                <div className="relative w-full h-full bg-slate-900 flex items-center justify-center">
+                                  <Image
+                                    src={mediaItem.poster || activeBox.image}
+                                    alt={mediaItem.alt || 'Video poster'}
+                                    fill
+                                    sizes="56px"
+                                    loading="lazy"
+                                    className="object-cover opacity-60"
+                                  />
+                                  <div className="absolute inset-0 flex items-center justify-center">
+                                    <div className="w-5 h-5 rounded-full bg-teal-600/90 text-white flex items-center justify-center shadow">
+                                      <Play size={10} className="ml-0.5 text-white" />
+                                    </div>
+                                  </div>
+                                </div>
+                              ) : (
+                                <Image
+                                  src={mediaItem.src}
+                                  alt={mediaItem.alt || mediaItem.label}
+                                  fill
+                                  sizes="56px"
+                                  loading="lazy"
+                                  className="object-contain p-0.5"
+                                />
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
 
                   {/* Specifications & Price Comparison Grid */}
                   <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200/80 space-y-3.5">
-                    
+
                     {/* Header info */}
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <div>
@@ -1075,23 +1361,8 @@ export default function MedicalBoxHero() {
                 )}
               </div>
 
-              {/* Lightbox Thumbnail Bar */}
-              {/* <div className="p-3 bg-slate-950/80 border-t border-white/10 flex items-center justify-center gap-2 overflow-x-auto">
-                {currentMediaList.map((med, mIdx) => (
-                  <button
-                    key={med.id || mIdx}
-                    onClick={() => handleSelectMedia(mIdx)}
-                    className={`relative px-3 py-1.5 rounded-lg text-xs font-bold transition-all border flex items-center gap-1.5 ${
-                      mIdx === activeMediaIndex
-                        ? 'bg-teal-600 text-white border-teal-400'
-                        : 'bg-white/5 text-gray-300 border-white/10 hover:bg-white/10'
-                    }`}
-                  >
-                    {med.type === 'video' ? <Video size={12} /> : <ImageIcon size={12} />}
-                    <span>{med.label}</span>
-                  </button>
-                ))}
-              </div> */}
+              {/* Lightbox Visual Thumbnail Bar */}
+
             </motion.div>
           </div>
         )}

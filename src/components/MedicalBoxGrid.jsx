@@ -3,16 +3,16 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Maximize2, 
-  Layers, 
-  ShieldCheck, 
-  Sparkles, 
-  ArrowRight, 
-  CheckCircle2, 
-  Calculator, 
-  FileText, 
-  Truck, 
+import {
+  Maximize2,
+  Layers,
+  ShieldCheck,
+  Sparkles,
+  ArrowRight,
+  CheckCircle2,
+  Calculator,
+  FileText,
+  Truck,
   Phone,
   Info,
   ChevronLeft,
@@ -33,7 +33,7 @@ const BOXES = [
     boxNo: "Box No. 1",
     dimensions: '8.5" × 3" × 2.5"',
     dimensionsCm: "21.6 × 7.6 × 6.3 cm",
-    colorName: "Translucent",
+    colorName: "Translucent White",
     colorHex: "#e2e8f0",
     numberColor: "bg-emerald-700 text-white",
     cardAccent: "border-slate-200 hover:border-slate-400",
@@ -44,14 +44,28 @@ const BOXES = [
         type: 'image',
         src: '/images/medical-boxes/box-1/img-1.jpeg',
         label: 'Photo 1',
-        alt: 'Medical Box No. 1 - Front View'
+        alt: 'Medical Box No. 1 - Front Angle View 1'
       },
       {
         id: 'b1-img-2',
         type: 'image',
         src: '/images/medical-boxes/box-1/img-2.jpeg',
         label: 'Photo 2',
-        alt: 'Medical Box No. 1 - Angle View'
+        alt: 'Medical Box No. 1 - Front Angle View 2'
+      },
+      {
+        id: 'b1-img-3',
+        type: 'image',
+        src: '/images/medical-boxes/box-1/img-3.jpeg',
+        label: 'Photo 3',
+        alt: 'Medical Box No. 1 - Front & Top View'
+      },
+      {
+        id: 'b1-img-4',
+        type: 'image',
+        src: '/images/medical-boxes/box-1/img-4.jpeg',
+        label: 'Photo 4',
+        alt: 'Medical Box No. 1 - Shelf Organization View'
       },
       {
         id: 'b1-video',
@@ -90,14 +104,28 @@ const BOXES = [
         type: 'image',
         src: '/images/medical-boxes/box-2/img-1.jpeg',
         label: 'Photo 1',
-        alt: 'Medical Box No. 2 - Shelf View'
+        alt: 'Medical Box No. 2 - Shelf View 1'
       },
       {
         id: 'b2-img-2',
         type: 'image',
         src: '/images/medical-boxes/box-2/img-2.jpeg',
         label: 'Photo 2',
-        alt: 'Medical Box No. 2 - Angle View'
+        alt: 'Medical Box No. 2 - Angle View 2'
+      },
+      {
+        id: 'b2-img-3',
+        type: 'image',
+        src: '/images/medical-boxes/box-2/img-3.jpeg',
+        label: 'Photo 3',
+        alt: 'Medical Box No. 2 - Top Compartment View'
+      },
+      {
+        id: 'b2-img-4',
+        type: 'image',
+        src: '/images/medical-boxes/box-2/img-4.jpeg',
+        label: 'Photo 4',
+        alt: 'Medical Box No. 2 - Clinical Storage View'
       },
       {
         id: 'b2-video',
@@ -136,7 +164,70 @@ const BOXES = [
         type: 'image',
         src: '/images/medical-boxes/box-3/img-1.jpeg',
         label: 'Photo 1',
-        alt: 'Medical Box No. 3 - Clinical Red View'
+        alt: 'Medical Box No. 3 - View 1'
+      },
+      {
+        id: 'b3-img-2',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-2.jpeg',
+        label: 'Photo 2',
+        alt: 'Medical Box No. 3 - View 2'
+      },
+      {
+        id: 'b3-img-3',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-3.jpeg',
+        label: 'Photo 3',
+        alt: 'Medical Box No. 3 - View 3'
+      },
+      {
+        id: 'b3-img-4',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-4.jpeg',
+        label: 'Photo 4',
+        alt: 'Medical Box No. 3 - View 4'
+      },
+      {
+        id: 'b3-img-5',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-5.jpeg',
+        label: 'Photo 5',
+        alt: 'Medical Box No. 3 - View 5'
+      },
+      {
+        id: 'b3-img-6',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-6.jpeg',
+        label: 'Photo 6',
+        alt: 'Medical Box No. 3 - View 6'
+      },
+      {
+        id: 'b3-img-7',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-7.jpeg',
+        label: 'Photo 7',
+        alt: 'Medical Box No. 3 - View 7'
+      },
+      {
+        id: 'b3-img-8',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-8.jpeg',
+        label: 'Photo 8',
+        alt: 'Medical Box No. 3 - View 8'
+      },
+      {
+        id: 'b3-img-9',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-9.jpeg',
+        label: 'Photo 9',
+        alt: 'Medical Box No. 3 - View 9'
+      },
+      {
+        id: 'b3-img-10',
+        type: 'image',
+        src: '/images/medical-boxes/box-3/img-10.jpeg',
+        label: 'Photo 10',
+        alt: 'Medical Box No. 3 - View 10'
       }
     ],
     mrp: 86,
@@ -166,7 +257,70 @@ const BOXES = [
         type: 'image',
         src: '/images/medical-boxes/box-4/img-1.jpeg',
         label: 'Photo 1',
-        alt: 'Medical Box No. 4 - Deep Organizer View'
+        alt: 'Medical Box No. 4 - View 1'
+      },
+      {
+        id: 'b4-img-2',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-2.jpeg',
+        label: 'Photo 2',
+        alt: 'Medical Box No. 4 - View 2'
+      },
+      {
+        id: 'b4-img-3',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-3.jpeg',
+        label: 'Photo 3',
+        alt: 'Medical Box No. 4 - View 3'
+      },
+      {
+        id: 'b4-img-4',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-4.jpeg',
+        label: 'Photo 4',
+        alt: 'Medical Box No. 4 - View 4'
+      },
+      {
+        id: 'b4-img-5',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-5.jpeg',
+        label: 'Photo 5',
+        alt: 'Medical Box No. 4 - View 5'
+      },
+      {
+        id: 'b4-img-6',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-6.jpeg',
+        label: 'Photo 6',
+        alt: 'Medical Box No. 4 - View 6'
+      },
+      {
+        id: 'b4-img-7',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-7.jpeg',
+        label: 'Photo 7',
+        alt: 'Medical Box No. 4 - View 7'
+      },
+      {
+        id: 'b4-img-8',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-8.jpeg',
+        label: 'Photo 8',
+        alt: 'Medical Box No. 4 - View 8'
+      },
+      {
+        id: 'b4-img-9',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-9.jpeg',
+        label: 'Photo 9',
+        alt: 'Medical Box No. 4 - View 9'
+      },
+      {
+        id: 'b4-img-10',
+        type: 'image',
+        src: '/images/medical-boxes/box-4/img-10.jpeg',
+        label: 'Photo 10',
+        alt: 'Medical Box No. 4 - View 10'
       },
       {
         id: 'b4-video',
@@ -222,6 +376,34 @@ const BOXES = [
         alt: 'Medical Box No. 5 - View 3'
       },
       {
+        id: 'b5-img-4',
+        type: 'image',
+        src: '/images/medical-boxes/box-5/img-4.jpeg',
+        label: 'Photo 4',
+        alt: 'Medical Box No. 5 - View 4'
+      },
+      {
+        id: 'b5-img-5',
+        type: 'image',
+        src: '/images/medical-boxes/box-5/img-5.jpeg',
+        label: 'Photo 5',
+        alt: 'Medical Box No. 5 - View 5'
+      },
+      {
+        id: 'b5-img-6',
+        type: 'image',
+        src: '/images/medical-boxes/box-5/img-6.jpeg',
+        label: 'Photo 6',
+        alt: 'Medical Box No. 5 - View 6'
+      },
+      {
+        id: 'b5-img-7',
+        type: 'image',
+        src: '/images/medical-boxes/box-5/img-7.jpeg',
+        label: 'Photo 7',
+        alt: 'Medical Box No. 5 - View 7'
+      },
+      {
         id: 'b5-video',
         type: 'video',
         src: '/images/medical-boxes/box-5/box-5.mp4',
@@ -266,6 +448,27 @@ const BOXES = [
         src: '/images/medical-boxes/box-6/img-2.jpeg',
         label: 'Photo 2',
         alt: 'Medical Box No. 6 - View 2'
+      },
+      {
+        id: 'b6-img-3',
+        type: 'image',
+        src: '/images/medical-boxes/box-6/img-3.jpeg',
+        label: 'Photo 3',
+        alt: 'Medical Box No. 6 - View 3'
+      },
+      {
+        id: 'b6-img-4',
+        type: 'image',
+        src: '/images/medical-boxes/box-6/img-4.jpeg',
+        label: 'Photo 4',
+        alt: 'Medical Box No. 6 - View 4'
+      },
+      {
+        id: 'b6-img-5',
+        type: 'image',
+        src: '/images/medical-boxes/box-6/img-5.jpeg',
+        label: 'Photo 5',
+        alt: 'Medical Box No. 6 - View 5'
       },
       {
         id: 'b6-video',
@@ -323,7 +526,7 @@ function MedicalBoxCard({ box, index, generateWhatsAppUrl, onCalculateBulk, onOp
         videoRef.current.pause();
         setIsPlaying(false);
       } else {
-        videoRef.current.play().catch(() => {});
+        videoRef.current.play().catch(() => { });
         setIsPlaying(true);
       }
     } else {
@@ -386,9 +589,9 @@ function MedicalBoxCard({ box, index, generateWhatsAppUrl, onCalculateBulk, onOp
 
       {/* PRODUCT VISUAL STAGE (Interactive, Lazy Loaded, Non-Render-Blocking) */}
       <div className="relative mx-4 my-2 h-[210px] sm:h-[230px] rounded-2xl bg-gradient-to-b from-[#F9FBFC] to-[#F1F5F9] border border-gray-100 flex items-center justify-center p-3 overflow-hidden group/stage">
-        
+
         {/* Radial Color Aura */}
-        <div 
+        <div
           className="absolute w-36 h-36 rounded-full blur-2xl opacity-20 pointer-events-none group-hover/stage:opacity-40 transition-opacity"
           style={{ backgroundColor: box.colorHex }}
         />
@@ -402,6 +605,11 @@ function MedicalBoxCard({ box, index, generateWhatsAppUrl, onCalculateBulk, onOp
         </div>
 
         <div className="absolute top-2.5 right-3 z-10 flex items-center gap-1.5">
+          {mediaList.length > 1 && (
+            <span className="text-[9px] font-bold bg-white/90 backdrop-blur-sm border border-gray-200 text-gray-700 px-2 py-0.5 rounded-full shadow-sm">
+              {currentMedia.type === 'video' ? 'Video' : `${activeMediaIndex + 1}/${mediaList.length}`}
+            </span>
+          )}
           <button
             type="button"
             onClick={(e) => {
@@ -466,9 +674,8 @@ function MedicalBoxCard({ box, index, generateWhatsAppUrl, onCalculateBulk, onOp
                 onWaiting={() => setMediaLoading(true)}
                 onPlaying={() => setMediaLoading(false)}
                 onError={() => setMediaLoading(false)}
-                className={`max-h-[160px] sm:max-h-[175px] max-w-full w-auto object-contain rounded-xl drop-shadow-xl transition-all duration-300 ${
-                  mediaLoading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
-                }`}
+                className={`max-h-[160px] sm:max-h-[175px] max-w-full w-auto object-contain rounded-xl drop-shadow-xl transition-all duration-300 ${mediaLoading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+                  }`}
               />
 
               {/* Mini Video Controls */}
@@ -502,9 +709,8 @@ function MedicalBoxCard({ box, index, generateWhatsAppUrl, onCalculateBulk, onOp
                 loading="lazy"
                 onLoad={() => setMediaLoading(false)}
                 onError={() => setMediaLoading(false)}
-                className={`max-h-[160px] sm:max-h-[175px] w-auto object-contain drop-shadow-xl transition-transform duration-500 group-hover:scale-106 rounded-xl ${
-                  mediaLoading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
-                }`}
+                className={`max-h-[160px] sm:max-h-[175px] w-auto object-contain drop-shadow-xl transition-transform duration-500 group-hover:scale-106 rounded-xl ${mediaLoading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+                  }`}
               />
             </div>
           )}
@@ -512,15 +718,24 @@ function MedicalBoxCard({ box, index, generateWhatsAppUrl, onCalculateBulk, onOp
 
         {/* Media Indicators Dots (Photos / Video) */}
         {mediaList.length > 1 && (
-          <div className="absolute top-2.5 inset-x-0 flex items-center justify-center gap-1 z-10 pointer-events-none">
+          <div className="absolute top-2.5 inset-x-0 flex items-center justify-center gap-1 z-10">
             {mediaList.map((m, idx) => (
-              <span
+              <button
                 key={idx}
-                className={`w-1.5 h-1.5 rounded-full transition-all ${
-                  idx === activeMediaIndex
-                    ? 'w-3.5 bg-teal-600 shadow-sm'
-                    : 'bg-gray-300 opacity-70'
-                }`}
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (idx !== activeMediaIndex) {
+                    setMediaLoading(true);
+                    setActiveMediaIndex(idx);
+                    setIsPlaying(true);
+                  }
+                }}
+                aria-label={`View ${m.label || `Photo ${idx + 1}`}`}
+                className={`h-1.5 rounded-full transition-all cursor-pointer ${idx === activeMediaIndex
+                  ? 'w-4 bg-teal-600 shadow-sm'
+                  : 'w-1.5 bg-gray-300 hover:bg-gray-400 opacity-80'
+                  }`}
               />
             ))}
           </div>
@@ -539,6 +754,58 @@ function MedicalBoxCard({ box, index, generateWhatsAppUrl, onCalculateBulk, onOp
           )}
         </div>
       </div>
+
+      {/* Mini Media Preview Strip */}
+      {/* {mediaList.length > 1 && (
+        <div className="px-4 pt-1.5 flex items-center gap-1.5 overflow-x-auto scrollbar-none">
+          {mediaList.map((m, mIdx) => {
+            const isSelected = mIdx === activeMediaIndex;
+            return (
+              <button
+                key={m.id || mIdx}
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (mIdx !== activeMediaIndex) {
+                    setMediaLoading(true);
+                    setActiveMediaIndex(mIdx);
+                    setIsPlaying(true);
+                  }
+                }}
+                className={`relative shrink-0 w-8 h-8 rounded-lg overflow-hidden border transition-all ${isSelected
+                    ? 'border-teal-600 ring-2 ring-teal-500/30 scale-105 shadow-sm bg-white'
+                    : 'border-gray-200 opacity-60 hover:opacity-100 hover:border-gray-400 bg-gray-50'
+                  }`}
+                title={m.label || `Photo ${mIdx + 1}`}
+                aria-label={`View ${m.label || `Photo ${mIdx + 1}`}`}
+              >
+                {m.type === 'video' ? (
+                  <div className="w-full h-full bg-slate-900 flex items-center justify-center relative">
+                    <Image
+                      src={m.poster || box.image}
+                      alt="Video"
+                      fill
+                      sizes="32px"
+                      loading="lazy"
+                      className="object-cover opacity-60"
+                    />
+                    <Play size={8} className="text-white relative z-10 ml-0.5" />
+                  </div>
+                ) : (
+                  <Image
+                    src={m.src}
+                    alt={m.alt || m.label}
+                    fill
+                    sizes="32px"
+                    loading="lazy"
+                    className="object-contain p-0.5"
+                  />
+                )}
+              </button>
+            );
+          })}
+        </div>
+      )} */}
 
       {/* PRICING TABLE (MATCHING FLYER LAYOUT) */}
       <div className="px-5 pt-3">
@@ -574,7 +841,7 @@ function MedicalBoxCard({ box, index, generateWhatsAppUrl, onCalculateBulk, onOp
 
       {/* SPECIFICATIONS & FEATURES LIST */}
       <div className="p-5 pt-3 space-y-2.5 text-xs flex-1">
-        
+
         {/* Dividers */}
         <div className="flex items-start gap-2 text-gray-600 bg-gray-50/80 p-2.5 rounded border border-gray-100">
           <Layers size={15} className="text-teal-600 shrink-0 mt-0.5" />
@@ -691,10 +958,10 @@ Please share official wholesale rate, freight to my city, and dispatch lead time
 
   return (
     <section id="box-sizes" className="py-10 bg-[#FCFBF9] relative overflow-hidden border-t border-gray-200/80">
-      
+
       {/* Background Ambience */}
       <div className="absolute inset-0 pointer-events-none opacity-30">
-        <div 
+        <div
           className="absolute inset-0"
           style={{
             backgroundImage: `radial-gradient(rgba(45, 41, 38, 0.07) 1px, transparent 1px)`,
@@ -762,7 +1029,7 @@ Please share official wholesale rate, freight to my city, and dispatch lead time
         {/* BOTTOM FACTORY BULK BANNER */}
         <div id="logistics" className="mt-16 p-6 sm:p-10 rounded-[2.5rem] bg-gradient-to-r from-slate-900 via-slate-800 to-teal-950 text-white shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
-          
+
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="space-y-3 text-center lg:text-left max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-[10px] font-bold uppercase tracking-wider">
@@ -831,7 +1098,7 @@ Please share official wholesale rate, freight to my city, and dispatch lead time
                 <span>Select Order Quantity:</span>
                 <span className="text-teal-700 font-bold text-sm">{calcQuantity} Units</span>
               </label>
-              
+
               <input
                 type="range"
                 min="50"
@@ -979,25 +1246,7 @@ Please share official wholesale rate, freight to my city, and dispatch lead time
                 )}
               </div>
 
-              {/* Lightbox Thumbnails */}
-              {lightboxData.box.media.length > 1 && (
-                <div className="p-3 bg-slate-950/80 border-t border-white/10 flex items-center justify-center gap-2 overflow-x-auto">
-                  {lightboxData.box.media.map((med, mIdx) => (
-                    <button
-                      key={med.id || mIdx}
-                      onClick={() => setLightboxData({ ...lightboxData, mediaIndex: mIdx })}
-                      className={`relative px-3 py-1.5 rounded-lg text-xs font-bold transition-all border flex items-center gap-1.5 ${
-                        mIdx === lightboxData.mediaIndex
-                          ? 'bg-teal-600 text-white border-teal-400'
-                          : 'bg-white/5 text-gray-300 border-white/10 hover:bg-white/10'
-                      }`}
-                    >
-                      {med.type === 'video' ? <Video size={12} /> : null}
-                      <span>{med.label}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
+
             </motion.div>
           </div>
         )}
