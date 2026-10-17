@@ -120,27 +120,27 @@ export default function MedicalBoxFooter() {
             <ul className="space-y-2.5 text-xs text-gray-400">
               <li className="flex items-center justify-between border-b border-slate-800/80 pb-2">
                 <span>Box No. 1 (8.5&quot; × 3&quot; × 2.5&quot;)</span>
-                <span className="text-white font-bold">₹25/-</span>
+                <span className="text-white font-bold">₹29/-</span>
               </li>
               <li className="flex items-center justify-between border-b border-slate-800/80 pb-2">
                 <span>Box No. 2 (10&quot; × 3&quot; × 2.5&quot;)</span>
-                <span className="text-white font-bold">₹33/-</span>
+                <span className="text-white font-bold">₹37/-</span>
               </li>
               <li className="flex items-center justify-between border-b border-slate-800/80 pb-2">
                 <span>Box No. 3 (9.5&quot; × 4&quot; × 3.5&quot;)</span>
-                <span className="text-white font-bold">₹39/- </span>
+                <span className="text-white font-bold">₹46/- <span className="text-[10px] text-gray-400 font-normal">(₹55 cap)</span></span>
               </li>
               <li className="flex items-center justify-between border-b border-slate-800/80 pb-2">
                 <span>Box No. 4 (11&quot; × 5&quot; × 4&quot;)</span>
-                <span className="text-white font-bold">₹69/-</span>
+                <span className="text-white font-bold">₹79/- <span className="text-[10px] text-gray-400 font-normal">(₹88 cap)</span></span>
               </li>
               <li className="flex items-center justify-between border-b border-slate-800/80 pb-2">
                 <span>Box No. 5 (13&quot; × 6&quot; × 4.5&quot;)</span>
-                <span className="text-white font-bold">₹95/-</span>
+                <span className="text-white font-bold">₹98/-</span>
               </li>
               <li className="flex items-center justify-between pb-1">
                 <span>Box No. 6 (15&quot; × 7&quot; × 5&quot;)</span>
-                <span className="text-white font-bold">₹149/-</span>
+                <span className="text-white font-bold">₹169/- <span className="text-[10px] text-gray-400 font-normal">(₹189 cap)</span></span>
               </li>
             </ul>
           </div>

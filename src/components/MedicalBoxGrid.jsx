@@ -77,10 +77,10 @@ const BOXES = [
       }
     ],
     mrp: 49,
-    distributorPrice: 25,
-    savingsPercent: 49,
-    savingsAmount: 24,
-    capBadge: "Standard Open Top",
+    distributorPrice: 29,
+    savingsPercent: 41,
+    savingsAmount: 20,
+    capBadge: "NO CAP (STANDARD)",
     capBadgeStyle: "bg-gray-100 text-gray-700 border-gray-200",
     dividers: "No Divider (Open Trough)",
     gauge: "Standard Medical Grade",
@@ -137,10 +137,10 @@ const BOXES = [
       }
     ],
     mrp: 58,
-    distributorPrice: 33,
-    savingsPercent: 43,
-    savingsAmount: 25,
-    capBadge: "Standard Open Top",
+    distributorPrice: 37,
+    savingsPercent: 36,
+    savingsAmount: 21,
+    capBadge: "NO CAP (STANDARD)",
     capBadgeStyle: "bg-gray-100 text-gray-700 border-gray-200",
     dividers: "No Divider (Elongated Open Trough)",
     gauge: "Standard Medical Grade",
@@ -231,14 +231,16 @@ const BOXES = [
       }
     ],
     mrp: 86,
-    distributorPrice: 39,
-    savingsPercent: null,
-    capBadge: "CAP ₹7 EXTRA",
+    distributorPrice: 46,
+    priceWithCap: 55,
+    savingsPercent: 47,
+    savingsAmount: 40,
+    capBadge: "CAP ₹9 EXTRA (₹55)",
     capBadgeStyle: "bg-amber-400 text-slate-900 border-amber-500 font-bold",
-    dividers: "1 Black Center Divider Included",
+    dividers: "1 Partition Provided Along With Box",
     gauge: "Standard Medical Grade",
     recommendedFor: "Emergency medicines, antibiotics, vials & compartmentalized ampoules",
-    highlightBadge: "Optional Cap (₹7 Extra)",
+    highlightBadge: "Optional Cap (₹9 Extra • ₹55)",
     popular: false,
   },
   {
@@ -332,15 +334,16 @@ const BOXES = [
       }
     ],
     mrp: 180,
-    distributorPrice: 69,
-    savingsPercent: 62,
-    savingsAmount: 111,
-    capBadge: "CAP ₹10 EXTRA",
+    distributorPrice: 79,
+    priceWithCap: 88,
+    savingsPercent: 56,
+    savingsAmount: 101,
+    capBadge: "CAP ₹9 EXTRA (₹88)",
     capBadgeStyle: "bg-amber-400 text-slate-900 border-amber-500 font-bold",
-    dividers: "1 Partition Divider Included (2 Deep Compartments)",
+    dividers: "2 Partitions Provided Along With Box",
     gauge: "Heavy Reinforced Polymer",
     recommendedFor: "Syrup bottles, ointments, roll bandages, alcohol swabs & IV fluids",
-    highlightBadge: "Distributor Best Seller • 62% OFF",
+    highlightBadge: "Distributor Best Seller • 2 Partitions",
     popular: true,
   },
   {
@@ -413,15 +416,15 @@ const BOXES = [
       }
     ],
     mrp: 230,
-    distributorPrice: 95,
-    savingsPercent: 59,
-    savingsAmount: 135,
+    distributorPrice: 98,
+    savingsPercent: 57,
+    savingsAmount: 132,
     capBadge: "NO CAP AVAILABLE",
     capBadgeStyle: "bg-amber-100 text-amber-900 border-amber-300 font-bold",
-    dividers: "2 Partition Dividers Included (3 Compartments)",
+    dividers: "2 Partitions Provided Along With Box",
     gauge: "Heavy Reinforced Polymer",
     recommendedFor: "Infusion bottles, bulk sterile dressings, multi-category medicine lots",
-    highlightBadge: "Dual Dividers (3 Slots)",
+    highlightBadge: "Dual Partitions (3 Slots)",
     popular: false,
   },
   {
@@ -480,15 +483,16 @@ const BOXES = [
       }
     ],
     mrp: 400,
-    distributorPrice: 149,
-    savingsPercent: 63,
-    savingsAmount: 251,
-    capBadge: "CAP AVAILABLE",
+    distributorPrice: 169,
+    priceWithCap: 189,
+    savingsPercent: 58,
+    savingsAmount: 231,
+    capBadge: "CAP ₹20 EXTRA (₹189)",
     capBadgeStyle: "bg-amber-400 text-slate-900 border-amber-500 font-bold",
-    dividers: "3 Removable Dividers (4 Large Compartments)",
+    dividers: "3 Partitions Provided Along With Box",
     gauge: "Industrial Heavy Duty",
     recommendedFor: "Hospital master inventory, surgical OT trays, high-density stock racks",
-    highlightBadge: "Max Capacity • Save 63%",
+    highlightBadge: "Max Capacity • Save 58%",
     popular: true,
   }
 ];
@@ -829,6 +833,9 @@ function MedicalBoxCard({ box, index, generateWhatsAppUrl, onCalculateBulk, onOp
               <span className="text-xl sm:text-2xl font-bold text-slate-900 leading-none">
                 ₹{box.distributorPrice}/-
               </span>
+              <span className="text-[10px] text-gray-500 font-semibold mt-1">
+                {box.priceWithCap ? `(₹${box.priceWithCap}/- with cap)` : '(no cap)'}
+              </span>
               {hasSavings && (
                 <span className="mt-1 text-[9px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
                   Save {box.savingsPercent}% (₹{box.savingsAmount})
@@ -988,7 +995,7 @@ Please share official wholesale rate, freight to my city, and dispatch lead time
           </h2>
 
           <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-            Manufactured by <strong className="text-slate-900 font-bold">Divyamrit Industries</strong> using 100% medical-grade, dust-repellent virgin polymer. Transparent manufacturer prices with up to <strong className="text-emerald-700 font-bold">63% distributor margin</strong>.
+            Manufactured by <strong className="text-slate-900 font-bold">Divyamrit Industries</strong> using 100% medical-grade, dust-repellent virgin polymer. Transparent manufacturer prices with up to <strong className="text-emerald-700 font-bold">58% distributor margin</strong>.
           </p>
 
           {/* Quick Specifications Strip */}

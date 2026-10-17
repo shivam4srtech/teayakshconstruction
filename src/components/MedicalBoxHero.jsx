@@ -41,13 +41,13 @@ const BOX_CATALOG = [
     dimensionsCm: "21.6 × 7.6 × 6.3 cm",
     mrp: 49,
     distributorPrice: 29,
-    savingsPercent: 49,
-    savingsAmount: 24,
+    savingsPercent: 41,
+    savingsAmount: 20,
     colorName: " White",
     colorHex: "#e2e8f0",
     colorDot: "bg-slate-200 border-slate-400",
     badgeTheme: "bg-slate-100 text-slate-800 border-slate-200",
-    capStatus: "Standard Open Top",
+    capStatus: "Standard Open Top (No Cap)",
     capPrice: null,
     dividers: "Open Channel (No Dividers)",
     gauge: "Standard Medical Grade",
@@ -105,14 +105,14 @@ const BOX_CATALOG = [
     dimensions: '10" × 3" × 2.5"',
     dimensionsCm: "25.4 × 7.6 × 6.3 cm",
     mrp: 58,
-    distributorPrice: 33,
-    savingsPercent: 43,
-    savingsAmount: 25,
+    distributorPrice: 37,
+    savingsPercent: 36,
+    savingsAmount: 21,
     colorName: " Cyan Teal",
     colorHex: "#06b6d4",
     colorDot: "bg-cyan-400 border-cyan-600",
     badgeTheme: "bg-cyan-50 text-cyan-800 border-cyan-200",
-    capStatus: "Standard Open Top",
+    capStatus: "Standard Open Top (No Cap)",
     capPrice: null,
     dividers: "Open Channel (No Dividers)",
     gauge: "Standard Medical Grade",
@@ -170,16 +170,18 @@ const BOX_CATALOG = [
     dimensions: '9.5" × 4" × 3.5"',
     dimensionsCm: "24.1 × 10.2 × 8.9 cm",
     mrp: 86,
-    distributorPrice: 39,
-    savingsPercent: null,
+    distributorPrice: 46,
+    priceWithCap: 55,
+    savingsPercent: 47,
+    savingsAmount: 40,
     colorName: " Red",
     colorHex: "#ef4444",
     colorDot: "bg-red-500 border-red-700",
     badgeTheme: "bg-rose-50 text-rose-800 border-rose-200",
     capStatus: "Cap Available",
-    capPrice: "₹7 Extra",
+    capPrice: "₹9 Extra (₹55 with Cap)",
     dividers: "1 Partition Divider Included",
-    gauge: "Medium Gauge (₹39) / Heavy Gauge (₹46)",
+    gauge: "Standard Medical Grade",
     image: "/images/medical-boxes/box-3/img-1.jpeg",
     media: [
       {
@@ -264,7 +266,7 @@ const BOX_CATALOG = [
       }
     ],
     recommendedFor: "Antibiotics, urgent medicines & batch segregated bottles",
-    highlight: "Optional Cap (₹7 Extra)"
+    highlight: "Optional Cap (₹9 Extra • ₹55)"
   },
   {
     id: 4,
@@ -273,16 +275,17 @@ const BOX_CATALOG = [
     dimensions: '11" × 5" × 4"',
     dimensionsCm: "27.9 × 12.7 × 10.2 cm",
     mrp: 180,
-    distributorPrice: 69,
-    savingsPercent: 62,
-    savingsAmount: 111,
+    distributorPrice: 79,
+    priceWithCap: 88,
+    savingsPercent: 56,
+    savingsAmount: 101,
     colorName: "Deep Blue",
     colorHex: "#2563eb",
     colorDot: "bg-blue-600 border-blue-800",
     badgeTheme: "bg-blue-50 text-blue-800 border-blue-200",
     capStatus: "Cap Available",
-    capPrice: "₹10 Extra",
-    dividers: "1 Sturdy Center Divider Included",
+    capPrice: "₹9 Extra (₹88 with Cap)",
+    dividers: "2 Partition Dividers Included (3 Compartments)",
     gauge: "Heavy Reinforced Polymer",
     image: "/images/medical-boxes/box-4/img-1.jpeg",
     media: [
@@ -377,7 +380,7 @@ const BOX_CATALOG = [
       }
     ],
     recommendedFor: "Syrup bottles, ointments, roll bandages & medical fluids",
-    highlight: "Top Distributor Pick • 62% Margin"
+    highlight: "Top Distributor Pick • 2 Partitions"
   },
   {
     id: 5,
@@ -386,9 +389,9 @@ const BOX_CATALOG = [
     dimensions: '13" × 6" × 4.5"',
     dimensionsCm: "33.0 × 15.2 × 11.4 cm",
     mrp: 230,
-    distributorPrice: 95,
-    savingsPercent: 59,
-    savingsAmount: 135,
+    distributorPrice: 98,
+    savingsPercent: 57,
+    savingsAmount: 132,
     colorName: "Aqua Cyan",
     colorHex: "#0d9488",
     colorDot: "bg-teal-500 border-teal-700",
@@ -475,15 +478,16 @@ const BOX_CATALOG = [
     dimensions: '15" × 7" × 5"',
     dimensionsCm: "38.1 × 17.8 × 12.7 cm",
     mrp: 400,
-    distributorPrice: 149,
-    savingsPercent: 63,
-    savingsAmount: 251,
+    distributorPrice: 169,
+    priceWithCap: 189,
+    savingsPercent: 58,
+    savingsAmount: 231,
     colorName: "Safety Yellow",
     colorHex: "#eab308",
     colorDot: "bg-yellow-400 border-yellow-600",
     badgeTheme: "bg-amber-50 text-amber-800 border-amber-200",
     capStatus: "Cap Available",
-    capPrice: "Cap Available on Order",
+    capPrice: "₹20 Extra (₹189 with Cap)",
     dividers: "3 Removable Dividers (4 Large Compartments)",
     gauge: "Industrial Heavy Duty",
     image: "/images/medical-boxes/box-6/img-1.jpeg",
@@ -539,7 +543,7 @@ const BOX_CATALOG = [
       }
     ],
     recommendedFor: "Complete category master racks, hospital stockrooms & surgical kits",
-    highlight: "Maximum Capacity • 63% Margin"
+    highlight: "Maximum Capacity • 58% Margin"
   }
 ];
 
@@ -556,7 +560,7 @@ const TRUST_PILLARS = [
   },
   {
     title: "Direct Factory Pricing",
-    desc: "Distributor margins up to 63% off MRP with bulk dispatch across India.",
+    desc: "Distributor margins up to 58% off MRP with bulk dispatch across India.",
     icon: <Tag className="w-5 h-5 text-teal-600" />
   },
   {
@@ -808,12 +812,12 @@ export default function MedicalBoxHero() {
               </div>
               <div className="h-8 w-[1px] bg-gray-200" />
               <div>
-                <p className="md:text-2xl text-[1rem] font-bold text-teal-700">₹25/-</p>
+                <p className="md:text-2xl text-[1rem] font-bold text-teal-700">₹29/-</p>
                 <p className="text-[10px] uppercase font-bold tracking-wider text-gray-400">Starting Wholesale</p>
               </div>
               <div className="h-8 w-[1px] bg-gray-200" />
               <div>
-                <p className="md:text-2xl text-[1rem] font-bold text-emerald-600">Up to 63%</p>
+                <p className="md:text-2xl text-[1rem] font-bold text-emerald-600">Up to 58%</p>
                 <p className="text-[10px] uppercase font-bold tracking-wider text-gray-400">Distributor Margin</p>
               </div>
             </div>
@@ -1060,7 +1064,7 @@ export default function MedicalBoxHero() {
                   </div>
 
                   {/* Media Thumbnails Gallery Strip for Active Box */}
-                  {currentMediaList.length > 1 && (
+                  {/* {currentMediaList.length > 1 && (
                     <div className="p-2.5 rounded-2xl bg-gray-50/90 border border-gray-200/80">
                       <div className="flex items-center justify-between px-1 mb-2">
                         <span className="text-[11px] font-bold text-slate-700 flex items-center gap-1.5">
@@ -1117,7 +1121,7 @@ export default function MedicalBoxHero() {
                         })}
                       </div>
                     </div>
-                  )}
+                  )} */}
 
                   {/* Specifications & Price Comparison Grid */}
                   <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200/80 space-y-3.5">
@@ -1146,12 +1150,15 @@ export default function MedicalBoxHero() {
                           </div>
                         ) : null}
 
-                        <div className="text-right pl-1 border-l border-gray-200">
-                          <span className="text-[9px] font-bold uppercase tracking-wider text-emerald-600 block">
+                        <div className="text-right pl-1 border-l border-gray-200 text-center">
+                          <span className="text-[7px] font-bold uppercase tracking-wider text-emerald-600 block">
                             Distributor Price
                           </span>
                           <span className="text-lg sm:text-xl font-bold text-slate-900">
                             ₹{activeBox.distributorPrice}/-
+                          </span>
+                          <span className="text-[9px] text-gray-400 block font-normal">
+                            {activeBox.priceWithCap ? `(₹${activeBox.priceWithCap}/- with cap)` : '(no cap)'}
                           </span>
                         </div>
 
